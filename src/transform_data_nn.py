@@ -21,11 +21,18 @@ import torch.nn.init as init
 import random
 import torch.optim as optim
 import logging
-
+from preprocess_data_nn import(
+    PreprocessData, 
+    continuous_vars, 
+    binary_vars, 
+    embed_vars, 
+    header
+)
 
 ### Initial setup
 # Working directory
-os.chdir('/zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml')
+project_dir = '/zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml'
+os.chdir(project_dir)
 
 # Logging
 logging.basicConfig(level=logging.WARNING)
@@ -119,5 +126,33 @@ class TransformData():
         return self.prediction_data
         
         
-        
+def main():
+    # Create a preprocess data instance
+    infile_path = 'Info Processing and Mutual Funds/masterv14.csv'
+    period = 'month'
+    preprocess_data = PreprocessData(infile_path, period, continuous_vars, binary_vars, embed_vars, header)
+    
+    # Load and preprocess the data
+    df = preprocess_data.load_and_preprocess_data()
+    logger.debug(df.shape)
+    
+    # Apply secondary preprocessing
+    df = preprocess_data.apply_secondary_preprocessing()
+    logger.debug(df.shape)
+    logger.info(preprocess_data.df.head())
+    
+    # Build a pipeline
+    preprocess_data.build_pipeline(lower_percentile=5, upper_percentile=95)
+    logger.debug(preprocess_data.pipeline)
+    
+    # Transform the data
+    logger.info(f'\n\nTransform data\n')
+    transform_data = TransformData(train_year_start=1980, prediction_year=1988, df=df, year_col='pyear')
+    train_data = transform_data.get_train_data()
+    test_data = transform_data.get_test_data()
+    retrain_data = transform_data.get_retrain_data()
+    prediction_data = transform_data.get_prediction_data()
+
+if __name__ == '__main__':
+    main()
         
