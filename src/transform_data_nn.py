@@ -21,13 +21,7 @@ import torch.nn.init as init
 import random
 import torch.optim as optim
 import logging
-from preprocess_data_nn import(
-    PreprocessData, 
-    continuous_vars, 
-    binary_vars, 
-    embed_vars, 
-    header
-)
+from preprocess_data_nn import PreprocessData
 
 ### Initial setup
 # Working directory
@@ -106,6 +100,7 @@ class TransformData():
         # Examine the actual data
         actual_years = sorted(self.train_data[self.year_col].unique())
         logger.info(f'Train data years: {actual_years}')
+        logger.info(f'Train_data: {self.train_data.shape}\n')
         
         return self.train_data
     
@@ -115,6 +110,7 @@ class TransformData():
         # Examine the actual data
         actual_years = sorted(self.test_data[self.year_col].unique())
         logger.info(f'Test data years: {actual_years}')
+        logger.info(f'Test_data: {self.test_data.shape}\n')
 
         return self.test_data
     
@@ -124,6 +120,7 @@ class TransformData():
         # Examine the actual data
         actual_years = sorted(self.retrain_data[self.year_col].unique())
         logger.info(f'Retrain data years: {actual_years}')
+        logger.info(f'Retrain_data: {self.retrain_data.shape}\n')
         
         return self.retrain_data
     
@@ -133,6 +130,7 @@ class TransformData():
         # Examine the actual data
         actual_years = sorted(self.prediction_data[self.year_col].unique())
         logger.info(f'Retrain data years: {actual_years}')
+        logger.info(f'Prediction_data: {self.prediction_data.shape}\n')
         
         return self.prediction_data
     
@@ -253,16 +251,16 @@ def main():
     # Create a preprocess data instance
     infile_path = 'Info Processing and Mutual Funds/masterv14.csv'
     period = 'month'
-    preprocessor = PreprocessData(infile_path, period, continuous_vars, binary_vars, embed_vars, header)
+    preprocessor = PreprocessData(infile_path, period)
     
     # Load and preprocess the data
     df = preprocessor.load_and_preprocess_data()
-    logger.debug(df.shape)
+    logger.info(f'preprocessed df: {df.shape}')
     
     # Apply secondary preprocessing
     df = preprocessor.apply_secondary_preprocessing()
-    logger.debug(df.shape)
-    logger.info(df.head())
+    logger.info(f'secondary preprocessed df: {df.shape}')
+    logger.info(f'df sample: {df.head()}')
     
     
     ### Transform the data ###
@@ -280,6 +278,7 @@ def main():
         header=header,
         year_col='pyear'
     )
+    
     train_data = transformer.get_train_data()
     test_data = transformer.get_test_data()
     retrain_data = transformer.get_retrain_data()
