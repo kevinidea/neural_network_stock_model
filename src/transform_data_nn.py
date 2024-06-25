@@ -76,7 +76,8 @@ header = ['permno','pyear']
 
 class TransformData():
     
-    def __init__(self, train_year_start, prediction_year, df, year_col='pyear'):
+    def __init__(self, train_year_start, prediction_year, df, period, continuous_vars, binary_vars, embed_vars, header, year_col='pyear'):
+        # Train, test, retrain and prediction data
         self.train_year_start = train_year_start # example: 1980
         self.prediction_year = prediction_year # example: 1988
         self.test_year = self.prediction_year - 1 # example: 1987
@@ -88,6 +89,16 @@ class TransformData():
         self.test_data = None # example: 1987
         self.retrain_data = None # example: 1980-1987
         self.prediction_data = None # example: 1988
+        
+        # Variables
+        self.period = period
+        self.continuous_vars = continuous_vars
+        self.binary_vars = binary_vars
+        self.embed_vars = embed_vars
+        self.header = header
+        self.independent_vars = self.continuous_vars + self.binary_vars + self.embed_vars + ['date']
+        # To store some outputs
+        self.pipeline = None
         
     def get_train_data(self):
         train_data = self.df.loc[(self.df[self.year_col].isin(self.train_years))]
@@ -124,34 +135,159 @@ class TransformData():
         logger.info(f'Retrain data years: {actual_years}')
         
         return self.prediction_data
+    
+    class _CustomWinsorizer(BaseEstimator, TransformerMixin):
+
+        """
+        A custom transformer for Winsorizing numeric data.
+
+        Attributes:
+        lower_percentile (int): The lower percentile for clipping data.
+        upper_percentile (int): The upper percentile for clipping data.
+        """
+
+        def __init__(self, lower_percentile, upper_percentile):
+            self.lower_percentile = lower_percentile
+            self.upper_percentile = upper_percentile
+
+        def fit(self, X, y=None):
+            self.lower_bound_ = np.percentile(X, self.lower_percentile)
+            self.upper_bound_ = np.percentile(X, self.upper_percentile)
+            return self
+
+        def transform(self, X):
+            X_clipped = np.clip(X, self.lower_bound_, self.upper_bound_)
+
+            return X_clipped
+
+    class _TimePeriodMeanTransformer(BaseEstimator, TransformerMixin):
+
+        """
+        A custom transformer for imputing missing data based on time period means.
+
+        Attributes:
+        date_column (str): The column name representing dates.
+        numeric_columns (list): List of numeric column names for which means are calculated.
+        period (str): The time period for grouping data, either 'quarter' or 'month'.
+        """
+
+        def __init__(self, date_column, numeric_columns, period='quarter'):
+            self.date_column = date_column
+            self.numeric_columns = numeric_columns
+            self.period = period
+
+        def fit(self, X, y=None):
+            X[self.date_column] = pd.to_datetime(X[self.date_column])
+            if self.period == 'quarter':
+                X['Period'] = X[self.date_column].dt.quarter
+            elif self.period == 'month':
+                X['Period'] = X[self.date_column].dt.month
+            else:
+                raise ValueError("period must be 'quarter' or 'month'")
+
+           # Calculate and store the means of each numeric column for each time period
+            self.period_means_ = X.groupby('Period')[self.numeric_columns].mean()
+            return self
+
+        def transform(self, X):
+            X[self.date_column] = pd.to_datetime(X[self.date_column])
+            if self.period == 'quarter':
+                X['Period'] = X[self.date_column].dt.quarter
+            elif self.period == 'month':
+                X['Period'] = X[self.date_column].dt.month
+
+            for col in self.numeric_columns:
+                X[col] = X.apply(lambda row: row[col] if not pd.isna(row[col]) 
+                                 else self.period_means_.loc[row['Period'], col], axis=1)
+            # return X.drop(['Period'], axis=1)
+            return X
+
+    def build_pipeline(self, lower_percentile, upper_percentile):
+
+        """
+        Builds a preprocessing pipeline for both numeric and categorical data.
+
+        Args:
+        lower_percentile (float): Lower percentile for winsorization.
+        upper_percentile (float): Upper percentile for winsorization.
+
+        Returns:
+        Pipeline: A composed preprocessing pipeline.
+        """
+
+        numeric_pipeline = Pipeline([
+            # ('fill_na', SimpleImputer(missing_values=np.nan, strategy='constant', fill_value=0)),
+            ('winsorizer', self._CustomWinsorizer(lower_percentile=lower_percentile, upper_percentile=upper_percentile)),
+            ('scaler', StandardScaler()),
+            ('impute_con', SimpleImputer(missing_values=np.nan, strategy='constant', fill_value=0))
+        ])
+
+        categorical_pipeline = Pipeline([
+            ('impute_cat', SimpleImputer(missing_values=np.nan, strategy='constant', fill_value=0)),
+        ])
+
+        embed_pipeline = Pipeline([
+            ('impute_embed', SimpleImputer(missing_values=np.nan, strategy='constant', fill_value=0)),
+        ])
+
+        preprocessing = ColumnTransformer(
+            transformers=[
+                ('num', numeric_pipeline, self.continuous_vars),
+                ('cat', categorical_pipeline, self.binary_vars),
+                ('embed', embed_pipeline, self.embed_vars),
+            ], remainder='passthrough')
+
+        pipeline = Pipeline([
+            ('Time_period_mean_imputation', self._TimePeriodMeanTransformer('date', self.continuous_vars, self.period)),
+            ('Preprocessing', preprocessing),
+        ])
+        
+        self.pipeline = pipeline
+        
+        return self.pipeline
         
         
 def main():
+    ### Load and preprocess the data ###
+    
     # Create a preprocess data instance
     infile_path = 'Info Processing and Mutual Funds/masterv14.csv'
     period = 'month'
-    preprocess_data = PreprocessData(infile_path, period, continuous_vars, binary_vars, embed_vars, header)
+    preprocessor = PreprocessData(infile_path, period, continuous_vars, binary_vars, embed_vars, header)
     
     # Load and preprocess the data
-    df = preprocess_data.load_and_preprocess_data()
+    df = preprocessor.load_and_preprocess_data()
     logger.debug(df.shape)
     
     # Apply secondary preprocessing
-    df = preprocess_data.apply_secondary_preprocessing()
+    df = preprocessor.apply_secondary_preprocessing()
     logger.debug(df.shape)
-    logger.info(preprocess_data.df.head())
+    logger.info(df.head())
+    
+    
+    ### Transform the data ###
+    
+    # Get all the train, test, retrain, and prediction data
+    logger.info(f'\n\nTransform data\n')
+    transformer = TransformData(
+        train_year_start=1980, 
+        prediction_year=1988, 
+        df=df,
+        period=period,
+        continuous_vars=continuous_vars, 
+        binary_vars=binary_vars, 
+        embed_vars=embed_vars, 
+        header=header,
+        year_col='pyear'
+    )
+    train_data = transformer.get_train_data()
+    test_data = transformer.get_test_data()
+    retrain_data = transformer.get_retrain_data()
+    prediction_data = transformer.get_prediction_data()
     
     # Build a pipeline
-    preprocess_data.build_pipeline(lower_percentile=5, upper_percentile=95)
-    logger.debug(preprocess_data.pipeline)
-    
-    # Transform the data
-    logger.info(f'\n\nTransform data\n')
-    transform_data = TransformData(train_year_start=1980, prediction_year=1988, df=df, year_col='pyear')
-    train_data = transform_data.get_train_data()
-    test_data = transform_data.get_test_data()
-    retrain_data = transform_data.get_retrain_data()
-    prediction_data = transform_data.get_prediction_data()
+    transformer.build_pipeline(lower_percentile=5, upper_percentile=95)
+    logger.debug(transformer.pipeline)
 
 if __name__ == '__main__':
     main()
