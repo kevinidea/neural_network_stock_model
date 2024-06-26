@@ -85,14 +85,17 @@ class TransformData():
         self.prediction_data = None # example: 1988
         
         # Variables
-        self.period = period
+        self.period = self._validate_period(period)
         self.continuous_vars = continuous_vars
         self.binary_vars = binary_vars
         self.embed_vars = embed_vars
         self.header = header
-        self.independent_vars = self.continuous_vars + self.binary_vars + self.embed_vars + ['date']
+        
         # To store some outputs
         self.pipeline = None
+        # Make sure 'date' variable is at the end because the downstream transformation requires it
+        self.independent_vars = self.continuous_vars + self.binary_vars + self.embed_vars + ['date']
+        self.target = self._set_target(period)
         
     def get_train_data(self):
         train_data = self.df.loc[(self.df[self.year_col].isin(self.train_years))]
@@ -133,6 +136,17 @@ class TransformData():
         logger.info(f'Prediction_data: {self.prediction_data.shape}\n')
         
         return self.prediction_data
+    
+    def _validate_period(self, period):
+        if period not in ['quarter', 'month']:
+            raise ValueError("period must be 'quarter' or 'month'")
+        return period
+    
+    def _set_target(self, period):
+        if period == 'quarter':
+            return 'retq'
+        elif period == 'month':
+            return 'ret'
     
     class _CustomWinsorizer(BaseEstimator, TransformerMixin):
 
@@ -243,6 +257,38 @@ class TransformData():
         self.pipeline = pipeline
         
         return self.pipeline
+    
+    def transform_data(self, train_data, test_data, features, target, pipeline):
+        # Train data
+        x_train = train_data.loc[:, features]
+        y_train = train_data.loc[:, target]
+
+        # Fit the pipeline to the train data
+        pipeline.fit(x_train)
+        x_train_tf = pipeline.transform(x_train)
+        x_train_tf = x_train_tf[:, :-2]
+
+        # Test data
+        x_test = test_data.loc[:, features]
+        y_test = test_data.loc[:, target]
+
+        # Fit the pipeline to the test data
+        x_test_tf = pipeline.transform(x_test)
+        x_test_tf = x_test_tf[:, :-2]
+
+        # Transform data into numpy array as type float32
+        x_train_tf = x_train_tf.astype(np.float32)
+        y_train_tf = y_train.to_numpy(np.float32)
+        x_test_tf = x_test_tf.astype(np.float32)
+        y_test_tf = y_test.to_numpy(np.float32)
+
+        # # Transform them to tensor floats
+        x_train_tf = torch.tensor(x_train_tf).float()
+        y_train_tf = torch.tensor(y_train_tf).float()
+        x_test_tf = torch.tensor(x_test_tf).float()
+        y_test_tf = torch.tensor(y_test_tf).float()
+
+        return x_train_tf, y_train_tf, x_test_tf, y_test_tf
         
         
 def main():
@@ -265,7 +311,7 @@ def main():
     
     ### Transform the data ###
     
-    # Get all the train, test, retrain, and prediction data
+    # Get train_data, test_data, retrain_data, and prediction_data
     logger.info(f'\n\nTransform data\n')
     transformer = TransformData(
         train_year_start=1980, 
@@ -286,7 +332,47 @@ def main():
     
     # Build a pipeline
     transformer.build_pipeline(lower_percentile=5, upper_percentile=95)
-    logger.debug(transformer.pipeline)
+    logger.debug(f'Pipeline built: {transformer.pipeline}')
+    
+    # Generate X and y with train_data and test_data
+    logger.info(f'\n\nGenerate X and y with train_data and test_data\n')
+    features = transformer.independent_vars
+    target = transformer.target
+    pipeline = transformer.pipeline
+    
+    x_train_tf, y_train_tf, x_test_tf, y_test_tf = transformer.transform_data(
+        train_data=train_data, 
+        test_data=test_data,
+        features=features,
+        target=target,
+        pipeline=pipeline,
+    )
+    
+    logger.info(f'''
+        x_train_tf: {x_train_tf.shape}
+        y_train_tf: {y_train_tf.shape}\n
+        x_test_tf: {x_test_tf.shape}
+        y_test_tf: {y_test_tf.shape}\n
+    '''
+    )
+    
+    # Generate X and y with retrain_data and prediction_data
+    logger.info(f'\n\nGenerate X and y with retrain_data and prediction_data\n')
+    x_retrain_tf, y_retrain_tf, x_prediction_tf, y_prediction_tf = transformer.transform_data(
+        train_data=retrain_data, 
+        test_data=prediction_data,
+        features=features,
+        target=target,
+        pipeline=pipeline,
+    )
+    
+    logger.info(f'''
+        x_retrain_tf: {x_retrain_tf.shape}
+        y_retrain_tf: {y_retrain_tf.shape}\n
+        x_prediction_tf: {x_prediction_tf.shape}
+        y_prediction_tf: {y_prediction_tf.shape}\n
+    '''
+    )
 
 if __name__ == '__main__':
     main()
