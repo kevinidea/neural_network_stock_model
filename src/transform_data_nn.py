@@ -96,6 +96,8 @@ class TransformData():
         # Make sure 'date' variable is at the end because the downstream transformation requires it
         self.independent_vars = self.continuous_vars + self.binary_vars + self.embed_vars + ['date']
         self.target = self._set_target(period)
+        # length of continuous variables and binary variables
+        self.continuous_len = len(self.continuous_vars) + len(self.binary_vars)
         
     def get_train_data(self):
         train_data = self.df.loc[(self.df[self.year_col].isin(self.train_years))]
