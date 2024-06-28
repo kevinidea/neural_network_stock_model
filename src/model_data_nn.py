@@ -139,7 +139,7 @@ class ModelData():
         return np.concatenate(predictions)
 
     @staticmethod
-    def _train_fnn(config, train_loader, test_loader, ray_tuning=True):
+    def train_fnn(config, train_loader, test_loader, ray_tuning=True):
         device = torch.device("cuda" if config["gpu"] > 0 else "cpu")
         input_dim = config["input_dim"]
         hidden_dim = config["hidden_dim"]
@@ -197,11 +197,11 @@ class ModelData():
 
         return model
 
-    def get_best_trial(self, train_loader, test_loader, num_samples=10, max_num_epochs=10, gpus_per_trial=0):
+    def get_best_trial(self, train_loader, test_loader, num_samples=10, max_num_epochs=20, gpus_per_trial=0):
         config = {
             "input_dim": continuous_len,
-            "hidden_dim": tune.choice([i for i in range(10, 201, 10)]),
-            "num_layers": tune.choice([1, 2, 3]),
+            "hidden_dim": tune.choice([i for i in range(5, 200, 10)]),
+            "num_layers": tune.choice([1, 2, 3, 4, 5]),
             "num_embeddings": sample['permno'].nunique(),
             "embedding_dim": tune.choice([i for i in range(1, 50, 5)]),
             "dropout_rate": tune.uniform(0.01, 0.7),
@@ -222,7 +222,7 @@ class ModelData():
             metric_columns=["average_train_loss", "avg_test_loss", "training_iteration"])
 
         result = tune.run(
-            tune.with_parameters(_train_fnn, train_loader=train_loader, test_loader=test_loader),
+            tune.with_parameters(train_fnn, train_loader=train_loader, test_loader=test_loader),
             resources_per_trial={"cpu": 1, "gpu": gpus_per_trial},
             config=config,
             num_samples=num_samples,
