@@ -32,14 +32,14 @@ class ModelData():
         self.best_trial = None
         
     class FlexibleNeuralNetwork(nn.Module):
-        def __init__(self, input_dim, hidden_dim, output_dim, num_layers, num_embeddings, embedding_dim, dropout_rate=0.5):
+        def __init__(self, continuous_dim, hidden_dim, output_dim, num_layers, num_embeddings, embedding_dim, dropout_rate=0.5):
             super(FlexibleNeuralNetwork, self).__init__()
             self.embedding = nn.Embedding(num_embeddings, embedding_dim)
 
             self.layers = nn.ModuleList()
 
             # Input layer (adjust input_dim to account for embedding_dim)
-            self.layers.append(nn.Linear(input_dim + embedding_dim, hidden_dim))
+            self.layers.append(nn.Linear(continuous_dim + embedding_dim, hidden_dim))
 
             # Hidden layers
             for _ in range(num_layers - 1):
@@ -141,7 +141,7 @@ class ModelData():
     @staticmethod
     def train_fnn(config, train_loader, test_loader, ray_tuning=True):
         device = torch.device("cuda" if config["gpu"] > 0 else "cpu")
-        input_dim = config["input_dim"]
+        continuous_dim = config["continuous_dim"]
         hidden_dim = config["hidden_dim"]
         output_dim = 1
         num_layers = config["num_layers"]
@@ -152,7 +152,7 @@ class ModelData():
         weight_decay = config["weight_decay"]
         num_epochs = config["num_epochs"]
 
-        model = FlexibleNeuralNetwork(input_dim, hidden_dim, output_dim, num_layers, num_embeddings, embedding_dim, dropout_rate)
+        model = FlexibleNeuralNetwork(continuous_dim, hidden_dim, output_dim, num_layers, num_embeddings, embedding_dim, dropout_rate)
         model.to(device)
 
         loss_function = nn.L1Loss()
@@ -199,7 +199,7 @@ class ModelData():
 
     def get_best_trial(self, train_loader, test_loader, num_samples=10, max_num_epochs=20, gpus_per_trial=0):
         config = {
-            "input_dim": continuous_len,
+            "continuous_dim": continuous_len,
             "hidden_dim": tune.choice([i for i in range(5, 200, 10)]),
             "num_layers": tune.choice([1, 2, 3, 4, 5]),
             "num_embeddings": sample['permno'].nunique(),
