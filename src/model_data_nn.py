@@ -33,7 +33,8 @@ class ModelData():
         
     class FlexibleNeuralNetwork(nn.Module):
         def __init__(self, continuous_dim, hidden_dim, output_dim, num_layers, num_embeddings, embedding_dim, dropout_rate=0.5):
-            super(FlexibleNeuralNetwork, self).__init__()
+            # FlexibleNeuralNetwork is nested class
+            super(ModelData.FlexibleNeuralNetwork, self).__init__()
             self.embedding = nn.Embedding(num_embeddings, embedding_dim)
 
             self.layers = nn.ModuleList()
@@ -152,7 +153,8 @@ class ModelData():
         weight_decay = config["weight_decay"]
         num_epochs = config["num_epochs"]
 
-        model = FlexibleNeuralNetwork(continuous_dim, hidden_dim, output_dim, num_layers, num_embeddings, embedding_dim, dropout_rate)
+        # Use ModelData.FlexibleNeuralNetwork to reference the nested class
+        model = ModelData.FlexibleNeuralNetwork(continuous_dim, hidden_dim, output_dim, num_layers, num_embeddings, embedding_dim, dropout_rate)
         model.to(device)
 
         loss_function = nn.L1Loss()
@@ -174,7 +176,7 @@ class ModelData():
                     running_loss += loss.item()
 
                 avg_train_loss = running_loss / len(train_loader)
-                avg_test_loss = evaluate(model, test_loader, loss_function, device)
+                avg_test_loss = ModelData.evaluate(model, test_loader, loss_function, device)
                 metrics = {
                     'avg_train_loss': avg_train_loss,
                     'avg_test_loss': avg_test_loss,
