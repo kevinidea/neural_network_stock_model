@@ -22,6 +22,9 @@ import random
 import torch.optim as optim
 import logging
 from preprocess_data_nn import PreprocessData
+# Speed up sklearn
+from sklearnex import patch_sklearn
+patch_sklearn()
 
 ### Initial setup
 # Working directory
