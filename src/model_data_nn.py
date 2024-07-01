@@ -196,8 +196,13 @@ class ModelData():
                 ray.train.report(metrics=metrics)
             else:
                 logger.error(f"Training failed with exception: {e}")
-
-        return model
+        
+        if ray_tuning:
+            # If ray tuning is enabled, return the metrics dictionary 
+            return metrics
+        else:
+            # Otherwise, return a trained model
+            return model
     
     def get_best_trial(
         self, train_loader, test_loader, continuous_dim, num_embeddings, 
