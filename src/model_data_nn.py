@@ -140,7 +140,7 @@ class ModelData():
 
     @staticmethod
     def train_fnn(config, train_loader, test_loader, ray_tuning=True):
-        device = torch.device("cuda" if config["gpu"] > 0 else "cpu")
+        device = torch.device("cuda" if config["num_gpus"] > 0 else "cpu")
         continuous_dim = config["continuous_dim"]
         hidden_dim = config["hidden_dim"]
         output_dim = 1
@@ -196,19 +196,22 @@ class ModelData():
                 logger.error(f"Training failed with exception: {e}")
 
         return model
-
-    def get_best_trial(self, train_loader, test_loader, num_samples=10, max_num_epochs=20, gpus_per_trial=0):
+    
+    def get_best_trial(
+        self, train_loader, test_loader, continuous_dim, num_embeddings, 
+        num_samples=10, max_num_epochs=20, num_cpus=2, num_gpus=0, cpus_per_trial=1, gpus_per_trial=0
+    ):
         config = {
-            "continuous_dim": continuous_len,
+            "continuous_dim": continuous_dim,
             "hidden_dim": tune.choice([i for i in range(5, 200, 10)]),
             "num_layers": tune.choice([1, 2, 3, 4, 5]),
-            "num_embeddings": sample['permno'].nunique(),
+            "num_embeddings": num_embeddings,
             "embedding_dim": tune.choice([i for i in range(1, 50, 5)]),
             "dropout_rate": tune.uniform(0.01, 0.7),
             "lr": tune.loguniform(1e-6, 1e-2),
             "weight_decay": tune.loguniform(1e-6, 1e-3),
             "num_epochs": max_num_epochs,
-            "gpu": gpus_per_trial,
+            "num_gpus": num_gpus,
         }
 
         scheduler = ASHAScheduler(
@@ -222,8 +225,8 @@ class ModelData():
             metric_columns=["average_train_loss", "avg_test_loss", "training_iteration"])
 
         result = tune.run(
-            tune.with_parameters(train_fnn, train_loader=train_loader, test_loader=test_loader),
-            resources_per_trial={"cpu": 1, "gpu": gpus_per_trial},
+            tune.with_parameters(ModelData.train_fnn, train_loader=train_loader, test_loader=test_loader),
+            resources_per_trial={"cpu": cpus_per_trial, "gpu": gpus_per_trial},
             config=config,
             num_samples=num_samples,
             scheduler=scheduler,

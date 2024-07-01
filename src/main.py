@@ -27,17 +27,29 @@ from ray import tune
 from ray.tune import CLIReporter
 from ray.tune.schedulers import ASHAScheduler
 import ray
-# from our own modules
+import sys
+
+
+### Initial setup
+
+# Working directory
+project_dir = '/zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml'
+os.chdir(project_dir)
+
+# Append the right path to sys.path to import our own modules
+src_dir = os.path.join(project_dir, 'kevin/src')
+sys.path.append(src_dir)
+
+# Import our own modules
 from preprocess_data_nn import PreprocessData
 from transform_data_nn import TransformData
 from create_dataset_nn import XandYDataset
 from model_data_nn import ModelData
 
+# Speed up sklearn
+from sklearnex import patch_sklearn
+patch_sklearn()
 
-### Initial setup
-# Working directory
-project_dir = '/zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml'
-os.chdir(project_dir)
 
 # Logging
 logging.basicConfig(level=logging.WARNING)
@@ -103,7 +115,7 @@ def main():
     logger.info(f'\n\nTransform data\n')
     transformer = TransformData(
         train_year_start=1980, 
-        prediction_year=1988, 
+        prediction_year=1982, 
         df=df,
         period=period,
         continuous_vars=continuous_vars, 
@@ -228,30 +240,51 @@ def main():
     logger.info(f'Training data years: {transformer.train_years}')
     logger.info(f'Testing data year: {transformer.test_year}')
     ray_results_path = "/zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/ray_results"
-    num_samples=40
-    max_num_epochs=30
-    num_cpus = 10
-    num_gpus=0
+    num_samples=10
+    max_num_epochs=20
+    num_cpus = 20
+    cpus_per_trial = 2
+    num_gpus = 0
+    gpus_per_trial = 0
+    continuous_dim = transformer.continuous_len
+    num_embeddings = train_data['permno'].nunique()
+    
     # Initialize Ray
-    ray.init(num_cpus=num_cpus, num_gpus=num_gpus)
+    ray.init(
+        num_cpus=num_cpus, 
+        num_gpus=num_gpus,
+        runtime_env={"working_dir": src_dir},
+    )
     
     # Hyperparameter tuning with Ray Tune
     data_modeler = ModelData(ray_results_path=ray_results_path, verbose=3)
+    
     best_trial = data_modeler.get_best_trial(
-        train_loader=train_loader, 
-        test_loader=test_loader, 
-        num_samples=num_samples, 
-        max_num_epochs=max_num_epochs, 
-        gpus_per_trial=num_gpus,
+        train_loader=train_loader,
+        test_loader=test_loader,
+        continuous_dim=continuous_dim,
+        num_embeddings=num_embeddings,
+        num_samples=num_samples,
+        max_num_epochs=max_num_epochs,
+        num_cpus=num_cpus,
+        num_gpus=num_gpus,
+        cpus_per_trial=cpus_per_trial,
+        gpus_per_trial=gpus_per_trial,
     )
     logger.info(f'Ray Tune results have been saved to: {ray_results_path}')
     
+    ray.shutdown()
+    
     ### Retrain the model with optimized hyperparameter using retrain_data ###
     
+    best_config = best_trial.config
+    # Overide the num_embeddings with retrain_data
+    best_config['num_embeddings'] = retrain_data['permno'].nunique()
+    
     logger.info(f'''/n/nRetrain a new model with data in years: {transformer.retrain_years}\n
-        Using the optimized hyperparameters: {best_trial.config}/n''')
+        Using the optimized hyperparameters: {best_config}/n''')
     trained_model = data_modeler.train_fnn(
-        config=best_trial.config, 
+        config=best_config, 
         train_loader=retrain_loader, 
         test_loader=prediction_loader, 
         ray_tuning=False,
