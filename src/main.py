@@ -50,7 +50,6 @@ from model_data_nn import ModelData
 from sklearnex import patch_sklearn
 patch_sklearn()
 
-
 # Logging
 logging.basicConfig(level=logging.WARNING)
 file_name = os.path.basename(__file__)
@@ -111,11 +110,14 @@ def main():
 
     ### Transform the data ###
     
+    train_year_start = 1980
+    prediction_year = 1988
+    
     # Get train_data, test_data, retrain_data, and prediction_data
     logger.info(f'\n\nTransform data\n')
     transformer = TransformData(
-        train_year_start=1980, 
-        prediction_year=1982, 
+        train_year_start=train_year_start,
+        prediction_year=prediction_year,
         df=df,
         period=period,
         continuous_vars=continuous_vars, 
@@ -174,6 +176,66 @@ def main():
     '''
     )
     
+    ## Save and reload the tensors for much faster debugging
+    logger.debug(f'Save the reload the tensors for much faster debugging')
+    
+    # Create the tensor paths
+    tensors_dir = os.path.join(project_dir, 'kevin/tensors')
+    if not os.path.exists(tensors_dir):
+        os.makedirs(tensors_dir, exist_ok=True)
+        logger.info(f"Tensors directory created at: {tensors_dir}")
+    else:
+        logger.info(f"Tensors directory already exists at: {tensors_dir}")
+    
+    x_train_path = f'{tensors_dir}/x_train_tf_{prediction_year}.pt'
+    y_train_path = f'{tensors_dir}/y_train_tf_{prediction_year}.pt'
+    x_test_path = f'{tensors_dir}/x_test_tf_{prediction_year}.pt'
+    y_test_path = f'{tensors_dir}/y_test_tf_{prediction_year}.pt'
+    
+    x_retrain_path = f'{tensors_dir}/x_retrain_tf_{prediction_year}.pt'
+    y_retrain_path = f'{tensors_dir}/y_retrain_tf_{prediction_year}.pt'
+    x_prediction_path = f'{tensors_dir}/x_prediction_tf_{prediction_year}.pt'
+    y_prediction_path = f'{tensors_dir}/y_prediction_tf_{prediction_year}.pt'
+    
+    # Save the tensors
+    logger.debug(f'Save the tensors')
+    torch.save(x_train_tf, x_train_path)
+    torch.save(y_train_tf, y_train_path)
+    torch.save(x_test_tf, x_test_path)
+    torch.save(y_test_tf, y_test_path)
+    
+    torch.save(x_retrain_tf, x_retrain_path)
+    torch.save(y_retrain_tf, y_retrain_path)
+    torch.save(x_prediction_tf, x_prediction_path)
+    torch.save(y_prediction_tf, y_prediction_path)
+    
+    # Load the tensors
+    logger.debug(f'Load the tensors')
+    x_train_tf = torch.load(x_train_tf, x_train_path)
+    y_train_tf = torch.load(y_train_tf, y_train_path)
+    x_test_tf = torch.load(x_test_tf, x_test_path)
+    y_test_tf = torch.load(y_test_tf, y_test_path)
+    
+    x_retrain_tf = torch.load(x_retrain_tf, x_retrain_path)
+    y_retrain_tf = torch.load(y_retrain_tf, y_retrain_path)
+    x_prediction_tf = torch.load(x_prediction_tf, x_prediction_path)
+    y_prediction_tf = torch.load(y_prediction_tf, y_prediction_path)
+    
+    logger.info(f'''
+        x_train_tf: {x_train_tf.shape}
+        y_train_tf: {y_train_tf.shape}\n
+        x_test_tf: {x_test_tf.shape}
+        y_test_tf: {y_test_tf.shape}\n
+    '''
+    )
+    
+    logger.info(f'''
+        x_retrain_tf: {x_retrain_tf.shape}
+        y_retrain_tf: {y_retrain_tf.shape}\n
+        x_prediction_tf: {x_prediction_tf.shape}
+        y_prediction_tf: {y_prediction_tf.shape}\n
+    '''
+    )
     
     ### Create dataset ###
     
@@ -241,13 +303,15 @@ def main():
     logger.info(f'Testing data year: {transformer.test_year}')
     ray_results_path = "/zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/ray_results"
     num_samples=10
-    max_num_epochs=20
+    max_num_epochs=11
     num_cpus = 20
     cpus_per_trial = 2
     num_gpus = 0
     gpus_per_trial = 0
     continuous_dim = transformer.continuous_len
     num_embeddings = train_data['permno'].nunique()
+    # Important to set the device because it will be frequently used
+    device = torch.device("cuda" if num_gpus > 0 else "cpu")
     
     # Initialize Ray
     ray.init(
@@ -264,6 +328,7 @@ def main():
         test_loader=test_loader,
         continuous_dim=continuous_dim,
         num_embeddings=num_embeddings,
+        device=device,
         num_samples=num_samples,
         max_num_epochs=max_num_epochs,
         num_cpus=num_cpus,
@@ -272,8 +337,6 @@ def main():
         gpus_per_trial=gpus_per_trial,
     )
     logger.info(f'Ray Tune results have been saved to: {ray_results_path}')
-    
-    ray.shutdown()
     
     ### Retrain the model with optimized hyperparameter using retrain_data ###
     
@@ -286,15 +349,18 @@ def main():
     trained_model = data_modeler.train_fnn(
         config=best_config, 
         train_loader=retrain_loader, 
-        test_loader=prediction_loader, 
+        test_loader=prediction_loader,
+        device=device,
         ray_tuning=False,
     )
+    
+    ray.shutdown()
     
     ### Prediction ###
     
     # Make predictions
     logger.info(f'Making prediction for data in year: {transformer.test_year}')
-    predictions = data_modeler.predict(trained_model, prediction_loader)
+    predictions = data_modeler.predict(trained_model, prediction_loader, device)
     logger.info(f'Prediction data shape: {predictions.shape}')
     prediction_data['pred'] = predictions
     
