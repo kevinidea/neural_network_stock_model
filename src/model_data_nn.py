@@ -156,7 +156,7 @@ class ModelData():
         model = ModelData.FlexibleNeuralNetwork(continuous_dim, hidden_dim, output_dim, num_layers, num_embeddings, embedding_dim, dropout_rate)
         model.to(device)
 
-        loss_function = nn.L1Loss()
+        loss_function = nn.MSE
         optimizer = optim.Adam(model.parameters(), lr=lr, weight_decay=weight_decay)
 
         try:
@@ -212,9 +212,9 @@ class ModelData():
             "hidden_dim": tune.choice([i for i in range(5, 200, 10)]),
             "num_layers": tune.choice([1, 2, 3, 4, 5]),
             "num_embeddings": num_embeddings,
-            "embedding_dim": tune.choice([i for i in range(1, 50, 5)]),
-            "dropout_rate": tune.uniform(0.01, 0.7),
-            "lr": tune.loguniform(1e-6, 1e-2),
+            "embedding_dim": tune.choice([i for i in range(5, 31, 5)]),
+            "dropout_rate": tune.uniform(0.01, 0.55),
+            "lr": tune.loguniform(1e-6, 1e-3),
             "weight_decay": tune.loguniform(1e-6, 1e-3),
             "num_epochs": max_num_epochs,
             "num_gpus": num_gpus,
