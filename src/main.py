@@ -256,7 +256,7 @@ def main():
     
     ### Create dataloader ###
     
-    torch.manual_seed(42)
+    ModelData.set_seed(42)
     batch_size = 32
     
     # Train and test dataloader
@@ -283,7 +283,7 @@ def main():
     max_num_epochs = 5
     num_cpus = 40
     cpus_per_trial = 2
-    num_gpus = 0
+    num_gpus = 2
     gpus_per_trial = 0
     continuous_dim = transformer.continuous_len
     num_embeddings = train_data['permno'].nunique()
@@ -305,7 +305,7 @@ def main():
         test_loader=test_loader,
         continuous_dim=continuous_dim,
         num_embeddings=num_embeddings,
-        device=device,
+        device='cpu', # faster than GPUs because of more parellel processing
         num_samples=num_samples,
         max_num_epochs=max_num_epochs,
         num_cpus=num_cpus,
