@@ -137,7 +137,7 @@ class TransformData():
         self.prediction_data = prediction_data
         # Examine the actual data
         actual_years = sorted(self.prediction_data[self.year_col].unique())
-        logger.info(f'Retrain data years: {actual_years}')
+        logger.info(f'Prediction data years: {actual_years}')
         logger.info(f'Prediction_data: {self.prediction_data.shape}\n')
         
         return self.prediction_data
