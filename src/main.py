@@ -1,31 +1,8 @@
 import os
-import time
-import numpy as np
-import pandas as pd
-from tqdm import tqdm
-from sklearn.base import BaseEstimator, TransformerMixin
-from sklearn.compose import ColumnTransformer
-from sklearn.pipeline import Pipeline
-from sklearn.impute import SimpleImputer
-from sklearn.preprocessing import StandardScaler
-from sklearn.ensemble import RandomForestRegressor
-from sklearn.model_selection import RandomizedSearchCV, TimeSeriesSplit
-from sklearn.inspection import permutation_importance
-from sklearn.metrics import mean_squared_error, mean_absolute_error
-import math
-import csv
+from sklearn.metrics import root_mean_squared_error
 import torch
-from torch.utils.data import Dataset, DataLoader
-from torch import nn
-import matplotlib.pyplot as plt
-import seaborn as sns
-import torch.nn.init as init
-import random
-import torch.optim as optim
+from torch.utils.data import DataLoader
 import logging
-from ray import tune
-from ray.tune import CLIReporter
-from ray.tune.schedulers import ASHAScheduler
 import ray
 import sys
 
@@ -142,39 +119,39 @@ def main():
     target = transformer.target
     pipeline = transformer.pipeline
     
-    x_train_tf, y_train_tf, x_test_tf, y_test_tf = transformer.transform_data(
-        train_data=train_data, 
-        test_data=test_data,
-        features=features,
-        target=target,
-        pipeline=pipeline,
-    )
+#     x_train_tf, y_train_tf, x_test_tf, y_test_tf = transformer.transform_data(
+#         train_data=train_data, 
+#         test_data=test_data,
+#         features=features,
+#         target=target,
+#         pipeline=pipeline,
+#     )
     
-    logger.info(f'''
-        x_train_tf: {x_train_tf.shape}
-        y_train_tf: {y_train_tf.shape}\n
-        x_test_tf: {x_test_tf.shape}
-        y_test_tf: {y_test_tf.shape}\n
-    '''
-    )
+#     logger.info(f'''
+#         x_train_tf: {x_train_tf.shape}
+#         y_train_tf: {y_train_tf.shape}\n
+#         x_test_tf: {x_test_tf.shape}
+#         y_test_tf: {y_test_tf.shape}\n
+#     '''
+#     )
     
-    # Generate X and y with retrain_data and prediction_data
-    logger.info(f'\n\nGenerate X and y with retrain_data and prediction_data\n')
-    x_retrain_tf, y_retrain_tf, x_prediction_tf, y_prediction_tf = transformer.transform_data(
-        train_data=retrain_data, 
-        test_data=prediction_data,
-        features=features,
-        target=target,
-        pipeline=pipeline,
-    )
+#     # Generate X and y with retrain_data and prediction_data
+#     logger.info(f'\n\nGenerate X and y with retrain_data and prediction_data\n')
+#     x_retrain_tf, y_retrain_tf, x_prediction_tf, y_prediction_tf = transformer.transform_data(
+#         train_data=retrain_data, 
+#         test_data=prediction_data,
+#         features=features,
+#         target=target,
+#         pipeline=pipeline,
+#     )
     
-    logger.info(f'''
-        x_retrain_tf: {x_retrain_tf.shape}
-        y_retrain_tf: {y_retrain_tf.shape}\n
-        x_prediction_tf: {x_prediction_tf.shape}
-        y_prediction_tf: {y_prediction_tf.shape}\n
-    '''
-    )
+#     logger.info(f'''
+#         x_retrain_tf: {x_retrain_tf.shape}
+#         y_retrain_tf: {y_retrain_tf.shape}\n
+#         x_prediction_tf: {x_prediction_tf.shape}
+#         y_prediction_tf: {y_prediction_tf.shape}\n
+#     '''
+#     )
     
     ## Save and reload the tensors for much faster debugging
     logger.debug(f'Save the reload the tensors for much faster debugging')
@@ -197,29 +174,29 @@ def main():
     x_prediction_path = f'{tensors_dir}/x_prediction_tf_{prediction_year}.pt'
     y_prediction_path = f'{tensors_dir}/y_prediction_tf_{prediction_year}.pt'
     
-    # Save the tensors
-    logger.debug(f'Save the tensors')
-    torch.save(x_train_tf, x_train_path)
-    torch.save(y_train_tf, y_train_path)
-    torch.save(x_test_tf, x_test_path)
-    torch.save(y_test_tf, y_test_path)
+#     # Save the tensors
+#     logger.debug(f'Save the tensors')
+#     torch.save(x_train_tf, x_train_path)
+#     torch.save(y_train_tf, y_train_path)
+#     torch.save(x_test_tf, x_test_path)
+#     torch.save(y_test_tf, y_test_path)
     
-    torch.save(x_retrain_tf, x_retrain_path)
-    torch.save(y_retrain_tf, y_retrain_path)
-    torch.save(x_prediction_tf, x_prediction_path)
-    torch.save(y_prediction_tf, y_prediction_path)
+#     torch.save(x_retrain_tf, x_retrain_path)
+#     torch.save(y_retrain_tf, y_retrain_path)
+#     torch.save(x_prediction_tf, x_prediction_path)
+#     torch.save(y_prediction_tf, y_prediction_path)
     
     # Load the tensors
     logger.debug(f'Load the tensors')
-    x_train_tf = torch.load(x_train_tf, x_train_path)
-    y_train_tf = torch.load(y_train_tf, y_train_path)
-    x_test_tf = torch.load(x_test_tf, x_test_path)
-    y_test_tf = torch.load(y_test_tf, y_test_path)
+    x_train_tf = torch.load(x_train_path)
+    y_train_tf = torch.load(y_train_path)
+    x_test_tf = torch.load(x_test_path)
+    y_test_tf = torch.load(y_test_path)
     
-    x_retrain_tf = torch.load(x_retrain_tf, x_retrain_path)
-    y_retrain_tf = torch.load(y_retrain_tf, y_retrain_path)
-    x_prediction_tf = torch.load(x_prediction_tf, x_prediction_path)
-    y_prediction_tf = torch.load(y_prediction_tf, y_prediction_path)
+    x_retrain_tf = torch.load(x_retrain_path)
+    y_retrain_tf = torch.load(y_retrain_path)
+    x_prediction_tf = torch.load(x_prediction_path)
+    y_prediction_tf = torch.load(y_prediction_path)
     
     logger.info(f'''
         x_train_tf: {x_train_tf.shape}
@@ -302,9 +279,9 @@ def main():
     logger.info(f'Training data years: {transformer.train_years}')
     logger.info(f'Testing data year: {transformer.test_year}')
     ray_results_path = "/zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/ray_results"
-    num_samples=10
-    max_num_epochs=11
-    num_cpus = 20
+    num_samples = 20
+    max_num_epochs = 5
+    num_cpus = 40
     cpus_per_trial = 2
     num_gpus = 0
     gpus_per_trial = 0
@@ -365,8 +342,8 @@ def main():
     prediction_data['pred'] = predictions
     
     # Calculate final prediction performance
-    mae = mean_absolute_error(prediction_data[transformer.target], prediction['pred'])
-    logger.info(f'Mean Absolute Error: {mae}')
+    rmse = root_mean_squared_error(prediction_data[transformer.target], prediction_data['pred'])
+    logger.info(f'Root Mean Squared Error for Prediction in {prediction_year}: {rmse}')
     logger.info(f"Prediction Stats: {prediction_data[[transformer.target, 'pred']].describe()}")
 
 if __name__ == '__main__':
