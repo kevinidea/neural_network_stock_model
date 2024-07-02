@@ -88,7 +88,7 @@ class ModelData():
             torch.backends.cudnn.benchmark = False
     
     @staticmethod
-    def train(model, train_loader, loss_function, optimizer, num_epochs=10):
+    def train(model, train_loader, loss_function, optimizer, device, num_epochs=10):
         for epoch in range(num_epochs):
             running_loss = 0.0
             for x_continuous, x_embedding_vars, targets in train_loader:
@@ -121,7 +121,7 @@ class ModelData():
         return average_loss
 
     @staticmethod
-    def predict(model, data_loader):
+    def predict(model, data_loader, device):
         model.eval()
         predictions = []
         with torch.no_grad():
@@ -140,8 +140,7 @@ class ModelData():
         return np.concatenate(predictions)
 
     @staticmethod
-    def train_fnn(config, train_loader, test_loader, ray_tuning=True):
-        device = torch.device("cuda" if config["num_gpus"] > 0 else "cpu")
+    def train_fnn(config, train_loader, test_loader, device, ray_tuning=True):
         continuous_dim = config["continuous_dim"]
         hidden_dim = config["hidden_dim"]
         output_dim = 1
@@ -205,7 +204,7 @@ class ModelData():
             return model
     
     def get_best_trial(
-        self, train_loader, test_loader, continuous_dim, num_embeddings, 
+        self, train_loader, test_loader, continuous_dim, num_embeddings, device, 
         num_samples=10, max_num_epochs=20, num_cpus=2, num_gpus=0, cpus_per_trial=1, gpus_per_trial=0
     ):
         config = {
@@ -232,7 +231,7 @@ class ModelData():
             metric_columns=["average_train_loss", "avg_test_loss", "training_iteration"])
 
         result = tune.run(
-            tune.with_parameters(ModelData.train_fnn, train_loader=train_loader, test_loader=test_loader),
+            tune.with_parameters(ModelData.train_fnn, train_loader=train_loader, test_loader=test_loader, device=device),
             resources_per_trial={"cpu": cpus_per_trial, "gpu": gpus_per_trial},
             config=config,
             num_samples=num_samples,
