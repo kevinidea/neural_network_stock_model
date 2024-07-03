@@ -6,7 +6,6 @@ import logging
 import ray
 import sys
 
-
 ### Initial setup
 
 # Working directory
@@ -290,12 +289,12 @@ def main():
     logger.info(f'Training data years: {transformer.train_years}')
     logger.info(f'Testing data year: {transformer.test_year}')
     ray_results_path = "/zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/ray_results"
-    num_samples = 100
+    num_samples = 60
     max_num_epochs = 20
-    num_cpus = 40
-    cpus_per_trial = 2
+    num_cpus = 60
+    cpus_per_trial = 1
     num_gpus = 2
-    gpus_per_trial = 1
+    gpus_per_trial = 0
     continuous_dim = transformer.continuous_len
     num_embeddings = train_data['permno'].nunique()
     # Important to set the device because it will be frequently used
@@ -324,14 +323,14 @@ def main():
     )
     
     # Hyperparameter tuning with Ray Tune
-    data_modeler = ModelData(ray_results_path=ray_results_path, verbose=1)
+    data_modeler = ModelData(ray_results_path=ray_results_path, verbose=0)
     
     best_trial = data_modeler.get_best_trial(
         train_loader=train_loader,
         test_loader=test_loader,
         continuous_dim=continuous_dim,
         num_embeddings=num_embeddings,
-        device=device, # CPUs seem to be faster than GPUs because of more parellel processing
+        device='cpu', # CPUs seem to be faster than GPUs because of more parellel processing
         num_samples=num_samples,
         max_num_epochs=max_num_epochs,
         num_cpus=num_cpus,
@@ -340,6 +339,7 @@ def main():
         gpus_per_trial=gpus_per_trial,
     )
     logger.info(f'Ray Tune results have been saved to: {ray_results_path}')
+    logger.info(f'Best trial directory: {best_trial.local_path}')
     
     ### Retrain the model with optimized hyperparameter using retrain_data ###
     

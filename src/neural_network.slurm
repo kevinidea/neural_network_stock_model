@@ -2,7 +2,7 @@
 
 #SBATCH -J neural_network                   # Job name
 #SBATCH -p gpu                         # Partition (queue) to submit to
-#SBATCH -c 40                          # Number of CPU cores
+#SBATCH -c 60                          # Number of CPU cores
 #SBATCH -G 2                           # Max GPUs per user: 2
 #SBATCH --mem=40G                    # memory
 #SBATCH -N 1                           # Request one node
@@ -25,5 +25,5 @@ echo 'which python3'
 which python3
 
 # run the script
-ray start --num-gpus=2
+# ray start --num-gpus=2
 python3 src/main.py
