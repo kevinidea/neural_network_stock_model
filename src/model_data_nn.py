@@ -64,15 +64,20 @@ class ModelData():
             self._initialize_weights()
 
         def _initialize_weights(self):
+            # Embedding layer
+            nn.init.xavier_uniform_(self.embedding.weight)
+            # First linear layer
             nn.init.xavier_uniform_(self.first_layer.weight)
             if self.first_layer.bias is not None:
                 nn.init.constant_(self.first_layer.bias, 0)
-
+            
+            # Middle layers
             for layer in self.middle_layers:
                 nn.init.xavier_uniform_(layer.weight)
                 if layer.bias is not None:
                     nn.init.constant_(layer.bias, 0)
-
+            
+            # Output layer
             nn.init.xavier_uniform_(self.output_layer.weight)
             if self.output_layer.bias is not None:
                 nn.init.constant_(self.output_layer.bias, 0)
