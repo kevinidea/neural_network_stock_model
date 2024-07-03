@@ -31,7 +31,7 @@ patch_sklearn()
 logging.basicConfig(level=logging.WARNING)
 file_name = os.path.basename(__file__)
 logger = logging.getLogger(file_name)
-logger.setLevel(level=logging.DEBUG)
+logger.setLevel(level=logging.INFO)
 
 # Declare global variables
 global continuous_vars
@@ -87,6 +87,12 @@ def main():
 
     ### Transform the data ###
     
+    # Get all predictio data years
+    train_year_start = df['pyear'].drop_duplicates().min()
+    prediction_data_years = list(df['pyear'].drop_duplicates().sort_values())[5:-1]
+    logger.info(f'Train year start: {train_year_start}')
+    logger.info(f'Prediction data years: {prediction_data_years}')
+    
     train_year_start = 1980
     prediction_year = 1988
     
@@ -114,7 +120,7 @@ def main():
     logger.debug(f'Pipeline built: {transformer.pipeline}')
     
     # Generate X and y with train_data and test_data
-    logger.info(f'\n\nGenerate X and y with train_data and test_data\n')
+    logger.info(f'\n\nGenerate X and y with train_data, test_data, retrain_data, and prediction_data\n')
     features = transformer.independent_vars
     target = transformer.target
     pipeline = transformer.pipeline
@@ -216,6 +222,8 @@ def main():
     
     ### Create dataset ###
     
+    logger.info(f'\n\nCreate dataset\n')
+    
     continuous_len = transformer.continuous_len
     
     # Train dataset
@@ -256,39 +264,57 @@ def main():
     
     ### Create dataloader ###
     
+    logger.info(f'\n\nCreate dataloader\n')
+    
     ModelData.set_seed(42)
-    batch_size = 32
+    # Batch size has a big impact to performance, smaller seems to yield lower loss
+    batch_size = 128
     
     # Train and test dataloader
-    logger.info(f'train and test dataloader')
+    logger.info(f'Create train and test dataloader')
     train_loader = DataLoader(train_dataset, batch_size=batch_size, shuffle=True)
     test_loader = DataLoader(test_dataset, batch_size=batch_size, shuffle=False)
-    logger.info(f'train_loader first example: {next(iter(train_loader))}\n')
-    logger.info(f'test_loader first example: {next(iter(test_loader))}\n')
+    logger.debug(f'train_loader first example: {next(iter(train_loader))}\n')
+    logger.debug(f'test_loader first example: {next(iter(test_loader))}\n')
     
     # Retrain and prediction dataloader
-    logger.info(f'retrain and prediction dataloader')
+    logger.info(f'Create retrain and prediction dataloader')
     retrain_loader = DataLoader(retrain_dataset, batch_size=batch_size, shuffle=True)
     prediction_loader = DataLoader(prediction_dataset, batch_size=batch_size, shuffle=False)
-    logger.info(f'retrain_loader first example: {next(iter(retrain_loader))}\n')
-    logger.info(f'prediction_loader first example: {next(iter(prediction_loader))}\n')
+    logger.debug(f'retrain_loader first example: {next(iter(retrain_loader))}\n')
+    logger.debug(f'prediction_loader first example: {next(iter(prediction_loader))}\n')
     
     ### Model the data and tune hyperparameters ###
     
-    logger.info(f'Hyperparameters tuning with Ray Tune')
+    logger.info(f'\n\nHyperparameters tuning with Ray Tune\n')
     logger.info(f'Training data years: {transformer.train_years}')
     logger.info(f'Testing data year: {transformer.test_year}')
     ray_results_path = "/zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/ray_results"
-    num_samples = 20
-    max_num_epochs = 5
+    num_samples = 100
+    max_num_epochs = 20
     num_cpus = 40
     cpus_per_trial = 2
     num_gpus = 2
-    gpus_per_trial = 0
+    gpus_per_trial = 1
     continuous_dim = transformer.continuous_len
     num_embeddings = train_data['permno'].nunique()
     # Important to set the device because it will be frequently used
     device = torch.device("cuda" if num_gpus > 0 else "cpu")
+    
+    logger.info(
+        f'''\n
+        ray_results_path: {ray_results_path}
+        num_samples: {num_samples}
+        max_num_epochs: {max_num_epochs}
+        num_cpus: {num_cpus}
+        cpus_per_trial: {cpus_per_trial}
+        num_gpus: {num_gpus}
+        gpus_per_trial: {gpus_per_trial}
+        continuous_dim: {continuous_dim}
+        num_embeddings: {num_embeddings}
+        device: {device}
+        '''
+    )
     
     # Initialize Ray
     ray.init(
@@ -298,14 +324,14 @@ def main():
     )
     
     # Hyperparameter tuning with Ray Tune
-    data_modeler = ModelData(ray_results_path=ray_results_path, verbose=3)
+    data_modeler = ModelData(ray_results_path=ray_results_path, verbose=1)
     
     best_trial = data_modeler.get_best_trial(
         train_loader=train_loader,
         test_loader=test_loader,
         continuous_dim=continuous_dim,
         num_embeddings=num_embeddings,
-        device='cpu', # faster than GPUs because of more parellel processing
+        device=device, # CPUs seem to be faster than GPUs because of more parellel processing
         num_samples=num_samples,
         max_num_epochs=max_num_epochs,
         num_cpus=num_cpus,
@@ -321,8 +347,8 @@ def main():
     # Overide the num_embeddings with retrain_data
     best_config['num_embeddings'] = retrain_data['permno'].nunique()
     
-    logger.info(f'''/n/nRetrain a new model with data in years: {transformer.retrain_years}\n
-        Using the optimized hyperparameters: {best_config}/n''')
+    logger.info(f'''\n\nRetrain a new model with data in years: {transformer.retrain_years}\n
+        Using the optimized hyperparameters: {best_config}\n''')
     trained_model = data_modeler.train_fnn(
         config=best_config, 
         train_loader=retrain_loader, 

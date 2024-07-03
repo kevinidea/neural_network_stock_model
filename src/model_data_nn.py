@@ -154,9 +154,12 @@ class ModelData():
 
         # Use ModelData.FlexibleNeuralNetwork to reference the nested class
         model = ModelData.FlexibleNeuralNetwork(continuous_dim, hidden_dim, output_dim, num_layers, num_embeddings, embedding_dim, dropout_rate)
+        # Wrap the model with DataParallel
+        if torch.cuda.device_count() > 1:
+            model = nn.DataParallel(model)
         model.to(device)
 
-        loss_function = nn.MSE
+        loss_function = nn.MSELoss()
         optimizer = optim.Adam(model.parameters(), lr=lr, weight_decay=weight_decay)
 
         try:
