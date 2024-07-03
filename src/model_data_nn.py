@@ -32,54 +32,79 @@ class ModelData():
         self.best_trial = None
         
     class FlexibleNeuralNetwork(nn.Module):
-        def __init__(self, continuous_dim, hidden_dim, output_dim, num_layers, num_embeddings, embedding_dim, dropout_rate=0.5):
-            # FlexibleNeuralNetwork is nested class
+        def __init__(self, continuous_dim, hidden_dim, output_dim, num_layers, num_embeddings, embedding_dim, dropout_rate=0.5, negative_slope=4):
             super(ModelData.FlexibleNeuralNetwork, self).__init__()
+
+            # Embedding layer for one categorical variable
             self.embedding = nn.Embedding(num_embeddings, embedding_dim)
 
-            self.layers = nn.ModuleList()
-            self.batch_norms = nn.ModuleList()
+            # First layer
+            input_dim = continuous_dim + embedding_dim
+            self.first_layer = nn.Linear(input_dim, hidden_dim)
+            self.first_batch_norm = nn.BatchNorm1d(hidden_dim)
+            self.first_activation = nn.LeakyReLU(negative_slope=negative_slope)
+            self.first_dropout = nn.Dropout(dropout_rate)
 
-            # Input layer (adjust input_dim to account for embedding_dim)
-            self.layers.append(nn.Linear(continuous_dim + embedding_dim, hidden_dim))
-            # Add batch normalization for the input layer
-            self.batch_norms.append(nn.BatchNorm1d(hidden_dim))
-
-            # Hidden layers
-            for _ in range(num_layers - 1):
-                self.layers.append(nn.Linear(hidden_dim, hidden_dim))
-                # Add batch normalization for the hidden layers
-                self.batch_norms.append(nn.BatchNorm1d(hidden_dim))
-                self.layers.append(nn.Dropout(dropout_rate))
+            # Dynamic middle layers
+            self.middle_layers = nn.ModuleList()
+            self.middle_batch_norms = nn.ModuleList()
+            self.middle_activations = nn.ModuleList()
+            self.middle_dropouts = nn.ModuleList()
+            for i in range(num_layers - 1):
+                self.middle_layers.append(nn.Linear(hidden_dim, hidden_dim))
+                self.middle_batch_norms.append(nn.BatchNorm1d(hidden_dim))
+                self.middle_activations.append(nn.LeakyReLU(negative_slope=negative_slope))
+                self.middle_dropouts.append(nn.Dropout(dropout_rate))
 
             # Output layer
-            self.layers.append(nn.Linear(hidden_dim, output_dim))
+            self.output_layer = nn.Linear(hidden_dim, output_dim)
+            self.output_activation = nn.LeakyReLU(negative_slope=negative_slope)
 
-            # Activation function, note that nn.ReLU() is not appropriate because of outputing non-negative number only
-            self.activation = nn.LeakyReLU(negative_slope=4) # nn.Tanh()
-
-            # Apply Xavier initialization to the layers
+            # Xavier initialization
             self._initialize_weights()
 
         def _initialize_weights(self):
-            for layer in self.layers:
-                if isinstance(layer, nn.Linear):
-                    nn.init.xavier_uniform_(layer.weight)
-                    if layer.bias is not None:
-                        nn.init.zeros_(layer.bias)
+            nn.init.xavier_uniform_(self.first_layer.weight)
+            if self.first_layer.bias is not None:
+                nn.init.constant_(self.first_layer.bias, 0)
+
+            for layer in self.middle_layers:
+                nn.init.xavier_uniform_(layer.weight)
+                if layer.bias is not None:
+                    nn.init.constant_(layer.bias, 0)
+
+            nn.init.xavier_uniform_(self.output_layer.weight)
+            if self.output_layer.bias is not None:
+                nn.init.constant_(self.output_layer.bias, 0)
 
         def forward(self, x_continuous, x_categorical):
+            # Embedding lookup
             embedded = self.embedding(x_categorical)
-            embedded = embedded.view(embedded.size(0), -1)  # Flatten the embedding
+            # Flatten the embedding
+            embedded = embedded.view(embedded.size(0), -1)
+
+            # Concatenate continuous features and embeddings
             x = torch.cat((x_continuous, embedded), dim=1)
 
-            for i, layer in enumerate(self.layers):
-                if isinstance(layer, nn.Linear):
-                    x = layer(x)
-                    x = self.batch_norms[i // 2](x) if i // 2 < len(self.batch_norms) else x
-                    x = self.activation(x)
+            # Forward pass through the first layer
+            x = self.first_layer(x)
+            x = self.first_batch_norm(x)
+            x = self.first_activation(x)
+            x = self.first_dropout(x)
+
+            # Forward pass through dynamic middle layers
+            for i in range(len(self.middle_layers)):
+                x = self.middle_layers[i](x)
+                x = self.middle_batch_norms[i](x)
+                x = self.middle_activations[i](x)
+                x = self.middle_dropouts[i](x)
+
+            # Output layer
+            x = self.output_layer(x)
+            x = self.output_activation(x)
+            
             return x
-    
+
     @staticmethod
     def set_seed(seed):
         """ Set the seed for reproducibility """
