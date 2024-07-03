@@ -118,7 +118,7 @@ def main():
     transformer.build_pipeline(lower_percentile=5, upper_percentile=95)
     logger.debug(f'Pipeline built: {transformer.pipeline}')
     
-    # Generate X and y with train_data and test_data
+    # Generate X and y with train_data, test_data, retrain and prediction data
     logger.info(f'\n\nGenerate X and y with train_data, test_data, retrain_data, and prediction_data\n')
     features = transformer.independent_vars
     target = transformer.target
