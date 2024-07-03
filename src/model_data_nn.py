@@ -73,12 +73,11 @@ class ModelData():
             embedded = embedded.view(embedded.size(0), -1)  # Flatten the embedding
             x = torch.cat((x_continuous, embedded), dim=1)
 
-            for i, layer in enumerate(self.layers):  # Changed to enumerate layers
+            for i, layer in enumerate(self.layers):
                 if isinstance(layer, nn.Linear):
-                    x = self.activation(layer(x))
+                    x = layer(x)
                     x = self.batch_norms[i // 2](x) if i // 2 < len(self.batch_norms) else x
-                else:
-                    x = layer(x)  # This applies dropout
+                    x = self.activation(x)
             return x
     
     @staticmethod
