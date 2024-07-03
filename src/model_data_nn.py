@@ -38,13 +38,18 @@ class ModelData():
             self.embedding = nn.Embedding(num_embeddings, embedding_dim)
 
             self.layers = nn.ModuleList()
+            self.batch_norms = nn.ModuleList()
 
             # Input layer (adjust input_dim to account for embedding_dim)
             self.layers.append(nn.Linear(continuous_dim + embedding_dim, hidden_dim))
+            # Add batch normalization for the input layer
+            self.batch_norms.append(nn.BatchNorm1d(hidden_dim))
 
             # Hidden layers
             for _ in range(num_layers - 1):
                 self.layers.append(nn.Linear(hidden_dim, hidden_dim))
+                # Add batch normalization for the hidden layers
+                self.batch_norms.append(nn.BatchNorm1d(hidden_dim))
                 self.layers.append(nn.Dropout(dropout_rate))
 
             # Output layer
@@ -68,9 +73,10 @@ class ModelData():
             embedded = embedded.view(embedded.size(0), -1)  # Flatten the embedding
             x = torch.cat((x_continuous, embedded), dim=1)
 
-            for layer in self.layers:
+            for i, layer in enumerate(self.layers):  # Changed to enumerate layers
                 if isinstance(layer, nn.Linear):
                     x = self.activation(layer(x))
+                    x = self.batch_norms[i // 2](x) if i // 2 < len(self.batch_norms) else x
                 else:
                     x = layer(x)  # This applies dropout
             return x
