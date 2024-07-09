@@ -50,10 +50,12 @@ class PreprocessData():
         try:
             # Load data
             df = pd.read_csv(self.infile_path)
+            
+            df['date'] = df['pdate'].copy()
             df.columns = [e.lower() for e in df.columns]
 
             # Convert 'date' to datetime
-            df['date'] = pd.to_datetime(df['date'], format='%m/%d/%Y')
+            df['date'] = pd.to_datetime(df['date'])
 
             # Extract year
             df['pyear'] = df['date'].dt.year
