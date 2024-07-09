@@ -162,67 +162,6 @@ def main():
         '''
         )
 
-        # ## Save and reload the tensors for much faster debugging
-        # logger.debug(f'Save the reload the tensors for much faster debugging')
-
-    #     # Create the tensor paths
-    #     tensors_dir = os.path.join(project_dir, 'kevin/tensors')
-    #     if not os.path.exists(tensors_dir):
-    #         os.makedirs(tensors_dir, exist_ok=True)
-    #         logger.info(f"Tensors directory created at: {tensors_dir}")
-    #     else:
-    #         logger.info(f"Tensors directory already exists at: {tensors_dir}")
-
-    #     x_train_path = f'{tensors_dir}/x_train_tf_{prediction_year}.pt'
-    #     y_train_path = f'{tensors_dir}/y_train_tf_{prediction_year}.pt'
-    #     x_test_path = f'{tensors_dir}/x_test_tf_{prediction_year}.pt'
-    #     y_test_path = f'{tensors_dir}/y_test_tf_{prediction_year}.pt'
-
-    #     x_retrain_path = f'{tensors_dir}/x_retrain_tf_{prediction_year}.pt'
-    #     y_retrain_path = f'{tensors_dir}/y_retrain_tf_{prediction_year}.pt'
-    #     x_prediction_path = f'{tensors_dir}/x_prediction_tf_{prediction_year}.pt'
-    #     y_prediction_path = f'{tensors_dir}/y_prediction_tf_{prediction_year}.pt'
-
-    #     # Save the tensors
-    #     logger.debug(f'Save the tensors')
-    #     torch.save(x_train_tf, x_train_path)
-    #     torch.save(y_train_tf, y_train_path)
-    #     torch.save(x_test_tf, x_test_path)
-    #     torch.save(y_test_tf, y_test_path)
-
-    #     torch.save(x_retrain_tf, x_retrain_path)
-    #     torch.save(y_retrain_tf, y_retrain_path)
-    #     torch.save(x_prediction_tf, x_prediction_path)
-    #     torch.save(y_prediction_tf, y_prediction_path)
-
-    # #     Load the tensors
-    #     logger.debug(f'Load the tensors')
-    #     x_train_tf = torch.load(x_train_path)
-    #     y_train_tf = torch.load(y_train_path)
-    #     x_test_tf = torch.load(x_test_path)
-    #     y_test_tf = torch.load(y_test_path)
-
-    #     x_retrain_tf = torch.load(x_retrain_path)
-    #     y_retrain_tf = torch.load(y_retrain_path)
-    #     x_prediction_tf = torch.load(x_prediction_path)
-    #     y_prediction_tf = torch.load(y_prediction_path)
-
-    #     logger.info(f'''
-    #         x_train_tf: {x_train_tf.shape}
-    #         y_train_tf: {y_train_tf.shape}\n
-    #         x_test_tf: {x_test_tf.shape}
-    #         y_test_tf: {y_test_tf.shape}\n
-    #     '''
-    #     )
-
-    #     logger.info(f'''
-    #         x_retrain_tf: {x_retrain_tf.shape}
-    #         y_retrain_tf: {y_retrain_tf.shape}\n
-    #         x_prediction_tf: {x_prediction_tf.shape}
-    #         y_prediction_tf: {y_prediction_tf.shape}\n
-    #     '''
-    #     )
-
         ### Create dataset ###
 
         logger.info(f'\n\nCreate dataset\n')
