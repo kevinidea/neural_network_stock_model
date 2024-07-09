@@ -40,26 +40,38 @@ global embed_vars
 global header
 
 # List of continuous variables
-continuous_vars = ['absacc', 'acc', 'aeavol', 'age', 'agr', 'baspread', 'beta', 
-            'betasq', 'bm', 'bm_ia', 'cash', 'cashdebt', 'cashpr','cfp', 
-            'cfp_ia', 'chatoia', 'chcsho', 'chempia', 'chfeps', 'chinv', 
-            'chmom', 'chnanalyst', 'chpmia', 'chtx', 'cinvest', 'currat', 
-            'depr', 'disp', 'dolvol', 'dy', 'ear', 'egr', 'ep', 'fgr5yr', 
-            'gma', 'grcapx', 'grltnoa', 'herf', 'hire', 'idiovol', 'ill', 
-            'indmom', 'invest', 'lev', 'lgr', 'maxret', 'mom12m', 'mom1m', 
-            'mom36m', 'mom6m', 'ms', 'mve', 'mve_ia', 'nanalyst', 'nincr', 
-            'operprof', 'orgcap', 'pchcapx_ia', 'pchcurrat', 'pchdepr', 
-            'pchgm_pchsale', 'pchquick', 'pchsale_pchinvt', 'pchsale_pchrect', 
-            'pchsale_pchxsga', 'pchsaleinv', 'pctacc', 'pricedelay', 'ps', 
-            'quick', 'rd_mve', 'rd_sale', 'realestate', 'retvol', 'roaq', 
-            'roavol', 'roeq', 'roic', 'rsup', 'salecash', 'saleinv', 
-            'salerec', 'secured', 'sfe', 'sgr', 'sp', 'std_dolvol', 
-            'std_turn', 'stdacc', 'stdcf', 'sue', 'tang', 'tb', 'turn', 
-            'zerotrade']
+continuous_vars = [
+    'absacc','acc','aeavol','age','agr','baspread','beta','betasq',
+    'bm','bm_ia','cash','cashdebt','cashpr','cfp','cfp_ia','chatoia',
+    'chcsho','chempia','chfeps','chinv','chmom','chnanalyst','chpmia',
+    'chtx','cinvest','currat','depr','disp','dolvol','dy','ear','egr',
+    'ep','fgr5yr','gma','grcapx','grltnoa','herf','hire','idiovol','ill',
+    'indmom','invest','lev','lgr','maxret','mom12m','mom1m','mom36m',
+    'mom6m','ms','mve','mve_ia','nanalyst','nincr','operprof','orgcap',
+    'pchcapx_ia','pchcurrat','pchdepr','pchgm_pchsale','pchquick',
+    'pchsale_pchinvt','pchsale_pchrect','pchsale_pchxsga','pchsaleinv',
+    'pctacc','pricedelay','ps','quick','rd_mve','rd_sale','realestate',
+    'retvol','roic','rsup','salecash','saleinv','salerec','secured',
+    'sfe','sgr','sp','std_dolvol','std_turn','stdacc','stdcf','sue',
+    'tang','tb','turn','zerotrade','credrat','dp_macro','ep_macro',
+    'bm_macro','ntis_macro','tbl_macro','tms_macro','dfy_macro',
+    'svar_macro','accruals','sentiment_8k','sentiment_10kq',
+    'complexity_8k','complexity_10kq','pead','cf_ret',
+    'manager_sentiment_index','bw','hjtz','mcs','pm','ato','ptg_surp',
+    'meanrec','cowc_gr1a','fnl_gr1a','kz_index','o_score','ocf_at_chg1',
+    'opex_at','z_score','roaa','roea','roavola'
+]
 
 
 # List of binary variables
-binary_vars = ['convind', 'divi', 'divo', 'ipo', 'rd', 'securedind', 'sin']
+binary_vars = [
+    'convind','divi','divo','ipo','rd','securedind','sin',
+    'credrat_dwn','sue_top','sue_bottom','exp_ea','accruals_top',
+    'accruals_bottom','sentiment_8k_top','sentiment_8k_bottom',
+    'sentiment_10kq_top','sentiment_10kq_bottom','complexity_8k_top',
+    'complexity_8k_bottom','complexity_10kq_top','complexity_10kq_bottom',
+    'pead_top','pead_bottom','cf_ret_top','cf_ret_bottom'
+]
 
 # List of embedding variables
 embed_vars = ['permno']
