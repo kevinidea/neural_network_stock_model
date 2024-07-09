@@ -5,6 +5,7 @@ from torch.utils.data import DataLoader
 import logging
 import ray
 import sys
+import argparse
 
 ### Initial setup
 
@@ -68,12 +69,35 @@ header = ['permno','pyear']
 
 def main():
     
+    ### Parsing arguments ###
+    
+    parser = argparse.ArgumentParser(description='Building Neural Network Model')
+    
+    parser.add_argument('--infile_path', type=str, default='Info Processing and Mutual Funds/masterv14.csv',
+                        help='The input file path')
+    parser.add_argument('--period', type=str, default='month',
+                        help='Period: either month or quarter')
+    parser.add_argument('--prediction_parent_path', type=str, required=True,
+                        help='The parent path for prediction files.')
+    parser.add_argument('--num_samples', type=int, default=32,
+                        help='Number of trials to run with Ray Tune')
+    parser.add_argument('--max_num_epochs', type=int, default=20,
+                        help='Maximum number of epochs')
+    parser.add_argument('--num_cpus', type=int, default=32,
+                        help='Number of CPUs to use for Ray Tune')
+    parser.add_argument('--cpus_per_trial', type=int, default=1,
+                        help='Number of CPUs per trial for Ray Tune')
+    parser.add_argument('--num_gpus', type=int, default=0,
+                        help='Number of GPUs to use for Ray Tune and model training')
+    parser.add_argument('--gpus_per_trial', type=int, default=0,
+                        help='Number of GPUs per trial for Ray Tune')
+
+    args = parser.parse_args()
+    
     ### Load and preprocess the data ###
     
     # Create a preprocess data instance
-    infile_path = 'Info Processing and Mutual Funds/masterv14.csv'
-    period = 'month'
-    preprocessor = PreprocessData(infile_path, period)
+    preprocessor = PreprocessData(args.infile_path, args.period)
     
     # Load and preprocess the data
     df = preprocessor.load_and_preprocess_data()
@@ -98,14 +122,14 @@ def main():
     # Loop through all the prediction years and build optimized model for each year
     logger.info(f'\n\nLoop through all the prediction years and build optimized model for each year\n')
     
-    for prediction_year in prediction_years[30:]:
+    for prediction_year in prediction_years:
         # Get train_data, test_data, retrain_data, and prediction_data
         logger.info(f'\n\nTransform data\n')
         transformer = TransformData(
             train_year_start=train_year_start,
             prediction_year=prediction_year,
             df=df,
-            period=period,
+            period=args.period,
             continuous_vars=continuous_vars, 
             binary_vars=binary_vars, 
             embed_vars=embed_vars, 
@@ -232,12 +256,12 @@ def main():
         logger.info(f'Training data years: {transformer.train_years}')
         logger.info(f'Testing data year: {transformer.test_year}')
         ray_results_path = "/zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/ray_results"
-        num_samples = 20
-        max_num_epochs = 11
-        num_cpus = 40
-        cpus_per_trial = 2
-        num_gpus = 2
-        gpus_per_trial = 1
+        num_samples = args.num_samples
+        max_num_epochs = args.max_num_epochs
+        num_cpus = args.num_cpus
+        cpus_per_trial = args.cpus_per_trial
+        num_gpus = args.num_gpus
+        gpus_per_trial = args.gpus_per_trial
         continuous_dim = transformer.continuous_len
         num_embeddings = train_data['permno'].nunique()
         # Important to set the device because it will be frequently used
@@ -316,7 +340,7 @@ def main():
         logger.info(f"Prediction Stats: {prediction_data[[transformer.target, 'pred']].describe()}")
 
         # Save predictions
-        prediction_path = f'kevin/output/prediction/{period}ly_prediction_{prediction_year}.csv'
+        prediction_path = f'{args.prediction_parent_path}/{args.period}ly_prediction_{prediction_year}.csv'
         prediction_data.to_csv(prediction_path, index=False)
 
 if __name__ == '__main__':

@@ -1,28 +1,45 @@
 #!/bin/bash
 
-#SBATCH -J neural_network                   # Job name
-#SBATCH -p gpu                         # Partition (queue) to submit to
-#SBATCH -G 2                           # Max GPUs per user: 2
-#SBATCH -c 40                          # Number of CPU cores
-#SBATCH --mem=100G                    # memory
-#SBATCH -t 1-                          # Max job time
-#SBATCH -o '/zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/output/log/neural_network_%j.out'           # Output file
+#SBATCH -J NN                   # Job name
+#SBATCH -p long                         # Partition (queue) to submit to
+#SBATCH -G 0                           # Max GPUs per user: 2
+#SBATCH -c 32                          # Number of CPU cores
+#SBATCH --mem=200G                    # memory
+#SBATCH -t 7-                          # Max job time
+#SBATCH -o '/zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/output/log/NN_%j.out'           # Output file
 #SBATCH --mail-type=ALL                # Email notifications
 #SBATCH --mail-user=kevin128@stanford.edu
 
-# change to the correct directory
-cd '/zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin'
+# change to the correct working directory
+cd '/zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml'
 # show current directory
 echo 'Current working directory'
 pwd
 
 # activate python virtual environment
-echo 'source venv/bin/activate'
-source venv/bin/activate
+echo 'source kevin/venv/bin/activate'
+source kevin/venv/bin/activate
 # show which python
 echo 'which python3'
 which python3
 
-# run the script
-ray start --num-gpus=2
+# starting Ray Tune before running the main script
+ray start
+    --num-cpus=${SLURM_CPUS_PER_TASK}
+    --num-gpus=${SLURM_GPUS}
+
+# start the main script
 python3 src/main.py
+    --infile_path 'Info Processing and Mutual Funds/masterv14.csv'
+    --period 'month'
+    --prediction_parent_path 'kevin/output/prediction/monthly_new_vars'
+    --num_samples ${SLURM_CPUS_PER_TASK}
+    --max_num_epochs 20
+    --num_cpus ${SLURM_CPUS_PER_TASK}
+    --cpus_per_trial 1
+    --num_gpus ${SLURM_GPUS}
+    --gpus_per_trial 0
+
+# post process prediction files
+python3 src/postprocess_predictions.py 
+    --prediction_parent_path 'kevin/output/prediction/monthly_new_vars'
