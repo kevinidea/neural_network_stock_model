@@ -161,6 +161,12 @@ cython_debug/
 #  option (not recommended) you can uncomment the following to ignore the entire idea folder.
 .idea/
 
+# Random
+.gitignore.swp
+src/playground.ipynb
+
 # folders
 data/
 output/
+tensors/
+ray_results/
