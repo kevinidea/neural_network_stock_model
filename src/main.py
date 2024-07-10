@@ -85,7 +85,7 @@ def main():
     
     parser = argparse.ArgumentParser(description='Building Neural Network Model')
     
-    parser.add_argument('--infile_path', type=str, default='Info Processing and Mutual Funds/masterv14.csv',
+    parser.add_argument('--infile_path', type=str, required=True,
                         help='The input file path')
     parser.add_argument('--period', type=str, default='month',
                         help='Period: either month or quarter')
@@ -103,6 +103,8 @@ def main():
                         help='Number of GPUs to use for Ray Tune and model training')
     parser.add_argument('--gpus_per_trial', type=int, default=0,
                         help='Number of GPUs per trial for Ray Tune')
+    parser.add_argument('--patience', type=int, default=2,
+                        help='Number of consecutive epochs not improving the test metrics to early stopping the training') 
 
     args = parser.parse_args()
     
@@ -333,6 +335,7 @@ def main():
             test_loader=prediction_loader,
             device=device,
             ray_tuning=False,
+            patience=args.patience,
         )
 
         ray.shutdown()
