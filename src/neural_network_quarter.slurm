@@ -4,7 +4,7 @@
 #SBATCH -p long                         # Partition (queue) to submit to
 #SBATCH -G 0                           # Max GPUs per user: 2
 #SBATCH -c 32                          # Number of CPU cores
-#SBATCH --mem=120G                    # memory
+#SBATCH --mem=160G                    # memory
 #SBATCH -t 7-                          # Max job time
 #SBATCH -o '/zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/output/log/quarterly_new_vars_%j.out'           # Output file
 #SBATCH --mail-type=ALL                # Email notifications
@@ -39,6 +39,7 @@ python3 kevin/src/main.py \
     --cpus_per_trial 1 \
     --num_gpus ${SLURM_GPUS} \
     --gpus_per_trial 0
+    --patience 2
 
 # post process prediction files
 python3 kevin/src/postprocess_predictions.py \
