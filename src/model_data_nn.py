@@ -175,7 +175,7 @@ class ModelData():
         return np.concatenate(predictions)
 
     @staticmethod
-    def train_fnn(config, train_loader, test_loader, device, ray_tuning=True):
+    def train_fnn(config, train_loader, test_loader, device, ray_tuning=True, patience=2):
         continuous_dim = config["continuous_dim"]
         hidden_dim = config["hidden_dim"]
         output_dim = 1
@@ -188,7 +188,7 @@ class ModelData():
         num_epochs = config["num_epochs"]
         
         # Early stopping patience
-        patience = 3
+        patience = patience
         best_loss = float('inf')
         epochs_without_improvement = 0
 
@@ -269,9 +269,9 @@ class ModelData():
             "num_layers": tune.choice([1, 2, 3, 4, 5]),
             "num_embeddings": num_embeddings,
             "embedding_dim": tune.choice([i for i in range(5, 31, 5)]),
-            "dropout_rate": tune.uniform(0.01, 0.55),
-            "lr": tune.choice([9e-6, 5e-6, 1e-6, 9e-5, 5e-5, 1e-5, 9e-4, 7e-4, 5e-4, 3e-4, 1e-4, 9e-3, 5e-3, 1e-3]),
-            "weight_decay": tune.choice([9e-6, 5e-6, 1e-6, 9e-5, 5e-5, 1e-5, 9e-4, 5e-4, 1e-4, 9e-3, 5e-3, 1e-3]),
+            "dropout_rate": tune.choice([round(i * 0.01, 2) for i in range(1, 56)]), # uniform (0.01, 0.55)
+            "lr": tune.loguniform(1e-5, 1e-3),
+            "weight_decay": tune.loguniform(1e-5, 1e-3),
             "num_epochs": max_num_epochs,
             "num_gpus": num_gpus,
         }
@@ -281,13 +281,17 @@ class ModelData():
             mode="min",
             max_t=max_num_epochs,
             grace_period=1,
-            reduction_factor=2)
+            reduction_factor=2
+        )
 
         reporter = CLIReporter(
             metric_columns=["average_train_loss", "avg_test_loss", "training_iteration"])
 
         result = tune.run(
-            tune.with_parameters(ModelData.train_fnn, train_loader=train_loader, test_loader=test_loader, device=device),
+            # Use a large patience number because Ray Tune has early stopping schedule already
+            tune.with_parameters(
+                ModelData.train_fnn, train_loader=train_loader, test_loader=test_loader, device=device, ray_tuning=True, patience=100
+            ),
             resources_per_trial={"cpu": cpus_per_trial, "gpu": gpus_per_trial},
             config=config,
             num_samples=num_samples,
