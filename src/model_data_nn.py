@@ -237,7 +237,8 @@ class ModelData():
                     epochs_without_improvement += 1
 
                 if epochs_without_improvement >= patience:
-                    logger.info(f"Early stopping at epoch {epoch + 1}")
+                    if not ray_tuning: # only display this message when not using Ray Tune
+                        logger.info(f"Early stopping at epoch {epoch + 1}")
                     break
 
         except Exception as e:
@@ -269,8 +270,8 @@ class ModelData():
             "num_embeddings": num_embeddings,
             "embedding_dim": tune.choice([i for i in range(5, 31, 5)]),
             "dropout_rate": tune.uniform(0.01, 0.55),
-            "lr": tune.loguniform(1e-6, 1e-3),
-            "weight_decay": tune.loguniform(1e-6, 1e-3),
+            "lr": tune.choice([9e-6, 5e-6, 1e-6, 9e-5, 5e-5, 1e-5, 9e-4, 7e-4, 5e-4, 3e-4, 1e-4, 9e-3, 5e-3, 1e-3]),
+            "weight_decay": tune.choice([9e-6, 5e-6, 1e-6, 9e-5, 5e-5, 1e-5, 9e-4, 5e-4, 1e-4, 9e-3, 5e-3, 1e-3]),
             "num_epochs": max_num_epochs,
             "num_gpus": num_gpus,
         }
