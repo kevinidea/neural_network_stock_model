@@ -270,7 +270,7 @@ class ModelData():
             "num_embeddings": num_embeddings,
             "embedding_dim": tune.choice([i for i in range(5, 31, 5)]),
             "dropout_rate": tune.choice([round(i * 0.01, 2) for i in range(1, 56)]), # uniform (0.01, 0.55)
-            "lr": tune.loguniform(1e-5, 1e-3),
+            "lr": tune.loguniform(1e-5, 1e-2),
             "weight_decay": tune.loguniform(1e-5, 1e-3),
             "num_epochs": max_num_epochs,
             "num_gpus": num_gpus,
