@@ -1,6 +1,6 @@
 #!/bin/bash
 
-#SBATCH -J NN                   # Job name
+#SBATCH -J NN_month                   # Job name
 #SBATCH -p long                         # Partition (queue) to submit to
 #SBATCH -G 0                           # Max GPUs per user: 2
 #SBATCH -c 32                          # Number of CPU cores
@@ -34,7 +34,7 @@ python3 kevin/src/main.py \
     --period 'month' \
     --prediction_parent_path 'kevin/output/prediction/monthly_new_vars' \
     --num_samples ${SLURM_CPUS_PER_TASK} \
-    --max_num_epochs 20 \
+    --max_num_epochs 40 \
     --num_cpus ${SLURM_CPUS_PER_TASK} \
     --cpus_per_trial 1 \
     --num_gpus ${SLURM_GPUS} \

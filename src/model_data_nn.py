@@ -186,6 +186,11 @@ class ModelData():
         lr = config["lr"]
         weight_decay = config["weight_decay"]
         num_epochs = config["num_epochs"]
+        
+        # Early stopping patience
+        patience = 3
+        best_loss = float('inf')
+        epochs_without_improvement = 0
 
         # Use ModelData.FlexibleNeuralNetwork to reference the nested class
         model = ModelData.FlexibleNeuralNetwork(continuous_dim, hidden_dim, output_dim, num_layers, num_embeddings, embedding_dim, dropout_rate)
@@ -218,10 +223,22 @@ class ModelData():
                     'avg_train_loss': avg_train_loss,
                     'avg_test_loss': avg_test_loss,
                 }
+                    
                 if ray_tuning:
                     ray.train.report(metrics=metrics)
                 else:
                     logger.info(f'Epoch {epoch + 1}/{num_epochs}, metrics: {metrics}')
+                                
+                # Early stopping mechanism
+                if avg_test_loss < best_loss:
+                    best_loss = avg_test_loss
+                    epochs_without_improvement = 0
+                else:
+                    epochs_without_improvement += 1
+
+                if epochs_without_improvement >= patience:
+                    logger.info(f"Early stopping at epoch {epoch + 1}")
+                    break
 
         except Exception as e:
             metrics = {
