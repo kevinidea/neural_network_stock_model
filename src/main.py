@@ -124,12 +124,11 @@ def main():
     
     # Get all predictio data years
     train_year_start = df['pyear'].drop_duplicates().min()
-    prediction_years = list(df['pyear'].drop_duplicates().sort_values())[5:]
+    # Reserve minimum 8 years of data for training, e.g. prediction year start in 1988 if data starts in 1980
+    # This would prevent the NaN / Inf training loss bug
+    prediction_years = list(df['pyear'].drop_duplicates().sort_values())[8:]
     logger.info(f'Train year start: {train_year_start}')
     logger.info(f'Prediction data years: {prediction_years}')
-    
-    # train_year_start = 1980
-    # prediction_year = 1988
     
     # Loop through all the prediction years and build optimized model for each year
     logger.info(f'\n\nLoop through all the prediction years and build optimized model for each year\n')
