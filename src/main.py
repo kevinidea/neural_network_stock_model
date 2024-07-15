@@ -104,7 +104,9 @@ def main():
     parser.add_argument('--gpus_per_trial', type=int, default=0,
                         help='Number of GPUs per trial for Ray Tune')
     parser.add_argument('--patience', type=int, default=2,
-                        help='Number of consecutive epochs not improving the test metrics to early stopping the training') 
+                        help='Number of consecutive epochs not improving the test metrics to early stopping the training')
+    parser.add_argument('--prediction_years', nargs='*', type=int, required=False, default=[],
+                        help='A list of prediction years in integer')
 
     args = parser.parse_args()
     
@@ -129,6 +131,11 @@ def main():
     # Reserve minimum 8 years of data for training, e.g. prediction year start in 1988 if data starts in 1980
     # This would prevent the NaN / Inf training loss bug
     prediction_years = list(df['pyear'].drop_duplicates().sort_values())[8:]
+    
+    # If specific list of prediction years are provided, they will override the default list above
+    if args.prediction_years:
+        prediction_years = args.prediction_years
+    
     logger.info(f'Train year start: {train_year_start}')
     logger.info(f'Prediction data years: {prediction_years}')
     
