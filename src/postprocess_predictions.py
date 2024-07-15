@@ -52,15 +52,18 @@ def create_result(prediction_parent_path, result_file_name=None):
     # Postprocess the prediction and append all the results together
     results = pd.DataFrame()
     for df_path in prediction_data_paths:
+        logger.info(f'Postprocessing data from path: {df_path}')
         df = pd.read_csv(df_path)
         year_vret = postprocess_predictions(df)
         results = pd.concat([results, year_vret]).reset_index(drop=True)
     
     # Sort the results
+    logger.info(f'Sort the result by date and rank both ascendingly')
     sorted_results = results.sort_values(by=['date', 'rank'],  ascending=[True, True]).reset_index(drop=True)
     
     # Save the sorted results to the same parent directory if file name is given
     if result_file_name:
+        logger.info(f'Saved the result file: {result_file_name}\nto the directory: {prediction_parent_path}')
         sorted_results.to_csv(f'{prediction_parent_path}/{result_file_name}', index=False)
         
     return sorted_results
@@ -76,7 +79,6 @@ def main():
     
     args = parser.parse_args()
     create_result(args.prediction_parent_path, args.result_file_name)
-    logger.info(f'Saved the result file: {args.result_file_name}\nto the directory: {args.prediction_parent_path}')
     
 if __name__ == '__main__':
     main()
