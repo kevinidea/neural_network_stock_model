@@ -3,8 +3,8 @@
 #SBATCH -J NN_quarter                   # Job name
 #SBATCH -p long                         # Partition (queue) to submit to
 #SBATCH -G 0                           # Max GPUs per user: 2
-#SBATCH -c 32                          # Number of CPU cores
-#SBATCH --mem=160G                    # memory
+#SBATCH -c 50                          # Number of CPU cores
+#SBATCH --mem=100G                    # memory
 #SBATCH -t 7-                          # Max job time
 #SBATCH -o '/zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/output/log/quarterly_new_vars_%j.out'           # Output file
 #SBATCH --mail-type=ALL                # Email notifications
@@ -38,7 +38,7 @@ python3 kevin/src/main.py \
     --num_cpus ${SLURM_CPUS_PER_TASK} \
     --cpus_per_trial 1 \
     --num_gpus ${SLURM_GPUS} \
-    --gpus_per_trial 0
+    --gpus_per_trial 0 \
     --patience 2
 
 # post process prediction files
