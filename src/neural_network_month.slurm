@@ -38,7 +38,7 @@ python3 kevin/src/main.py \
     --num_cpus ${SLURM_CPUS_PER_TASK} \
     --cpus_per_trial 1 \
     --num_gpus ${SLURM_GPUS} \
-    --gpus_per_trial 0
+    --gpus_per_trial 0 \
     --patience 2
 
 # post process prediction files
