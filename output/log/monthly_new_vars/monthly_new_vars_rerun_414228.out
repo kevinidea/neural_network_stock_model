@@ -1,0 +1,308 @@
+Current working directory
+/zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml
+source kevin/venv/bin/activate
+which python3
+/zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/venv/bin/python3
+2024-07-15 17:55:01,686	PANIC scripts.py:900 -- `--address` is a required flag unless starting a head node with `--head`.
+Error: `{}` is a required flag unless starting a head node with `{}`.
+Intel(R) Extension for Scikit-learn* enabled (https://github.com/intel/scikit-learn-intelex)
+Intel(R) Extension for Scikit-learn* enabled (https://github.com/intel/scikit-learn-intelex)
+INFO:preprocess_data_nn.py:
+
+Loading and preprocessing data...
+
+DEBUG:preprocess_data_nn.py:          date   permno
+626    1980-01  10006.0
+5399   1980-01  10057.0
+11398  1980-01  10137.0
+12828  1980-01  10145.0
+13984  1980-01  10153.0
+DEBUG:preprocess_data_nn.py:--------------------------------------------------
+INFO:main.py:preprocessed df: (2005900, 161)
+INFO:preprocess_data_nn.py:
+
+Applying secondary data preprocessing..
+
+INFO:main.py:secondary preprocessed df: (1942951, 161)
+INFO:main.py:df sample:     permno       pdate        ym  gvkey  sic2    absacc       acc    aeavol  ...      roaa      roea   roavola       ret        mve_m      retq  pyear     date
+0  10006.0  1980-01-01  198001.0   1010    37  0.083420  0.083420  1.001090  ...  0.048684  0.141715  0.004512  0.211679   303420.750 -0.055806   1980  1980-01
+1  10057.0  1980-01-01  198001.0   1098    36  0.088951  0.088951 -0.613146  ...  0.092434  0.174252  0.035698  0.282297   111423.125 -0.069431   1980  1980-01
+2  10137.0  1980-01-01  198001.0   1279    49  0.041008  0.041008 -0.491307  ...  0.034895  0.097554  0.006254 -0.032258   617349.500 -0.108065   1980  1980-01
+3  10145.0  1980-01-01  198001.0   1300    99  0.050486  0.050486 -0.256932  ...  0.049028  0.122729  0.004320  0.150127  1415193.000 -0.085950   1980  1980-01
+4  10153.0  1980-01-01  198001.0   1308    13       NaN       NaN  1.631801  ...  0.049860  0.109950  0.009149 -0.122744   429488.500 -0.285199   1980  1980-01
+
+[5 rows x 161 columns]
+INFO:main.py:Train year start: 1980
+INFO:main.py:Prediction data years: [1985]
+INFO:main.py:
+
+Loop through all the prediction years and build optimized model for each year
+
+INFO:main.py:
+
+Transform data
+
+INFO:transform_data_nn.py:Train data years: [1980, 1981, 1982, 1983]
+INFO:transform_data_nn.py:Train_data: (110027, 161)
+
+INFO:transform_data_nn.py:Test data years: [1984]
+INFO:transform_data_nn.py:Test_data: (39843, 161)
+
+INFO:transform_data_nn.py:Retrain data years: [1980, 1981, 1982, 1983, 1984]
+INFO:transform_data_nn.py:Retrain_data: (149870, 161)
+
+INFO:transform_data_nn.py:Prediction data years: [1985]
+INFO:transform_data_nn.py:Prediction_data: (43492, 161)
+
+INFO:main.py:
+
+Generate X and y with train_data and test_data
+
+/zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/venv/lib/python3.10/site-packages/sklearn/utils/extmath.py:1140: RuntimeWarning: invalid value encountered in divide
+  updated_mean = (last_sum + new_sum) / updated_sample_count
+/zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/venv/lib/python3.10/site-packages/sklearn/utils/extmath.py:1145: RuntimeWarning: invalid value encountered in divide
+  T = new_sum / new_sample_count
+/zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/venv/lib/python3.10/site-packages/sklearn/utils/extmath.py:1165: RuntimeWarning: invalid value encountered in divide
+  new_unnormalized_variance -= correction**2 / new_sample_count
+INFO:main.py:
+            x_train_tf: torch.Size([110027, 152])
+            y_train_tf: torch.Size([110027])
+
+            x_test_tf: torch.Size([39843, 152])
+            y_test_tf: torch.Size([39843])
+
+        
+INFO:main.py:
+
+Generate X and y with retrain_data and prediction_data
+
+/zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/venv/lib/python3.10/site-packages/sklearn/utils/extmath.py:1140: RuntimeWarning: invalid value encountered in divide
+  updated_mean = (last_sum + new_sum) / updated_sample_count
+/zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/venv/lib/python3.10/site-packages/sklearn/utils/extmath.py:1145: RuntimeWarning: invalid value encountered in divide
+  T = new_sum / new_sample_count
+/zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/venv/lib/python3.10/site-packages/sklearn/utils/extmath.py:1165: RuntimeWarning: invalid value encountered in divide
+  new_unnormalized_variance -= correction**2 / new_sample_count
+INFO:main.py:
+            x_retrain_tf: torch.Size([149870, 152])
+            y_retrain_tf: torch.Size([149870])
+
+            x_prediction_tf: torch.Size([43492, 152])
+            y_prediction_tf: torch.Size([43492])
+
+        
+INFO:main.py:
+
+Create dataset
+
+INFO:main.py:Create train_dataset
+INFO:main.py:train_dataset first example: (tensor([ 0.0628,  0.3756,  0.2271, -1.1796, -0.0801, -0.6621, -0.0779, -0.2665,
+         0.0872, -0.1557, -0.7166, -0.3870, -0.4114, -0.2179,  0.1431,  0.6196,
+        -0.1564,  0.0919,  0.0000,  0.5263, -0.3749, -0.5826, -0.0361,  0.0749,
+        -0.1400, -0.1766, -0.5626,  0.0000,  0.3901,  0.6091,  0.4538, -0.1213,
+         0.3428,  0.0000, -0.4463, -0.1995,  0.0663,  0.3348,  0.2344, -1.1620,
+        -0.2472, -0.2213,  0.2027, -0.1609, -0.0746, -0.7185, -0.2011, -0.1790,
+        -0.6005, -0.3965, -0.6070,  0.5939, -0.1769, -0.8679,  0.0552,  0.4190,
+        -0.7801, -0.1754, -0.3186,  0.2440,  0.1076, -0.3897,  0.1369,  0.2796,
+         0.2697, -0.1072,  0.1506, -0.0271,  0.6502, -0.4151,  0.0000,  0.0000,
+         0.0000, -0.8997, -0.1836,  0.4912,  0.0369, -0.3268, -0.1899, -0.1155,
+         0.0000,  0.5725, -0.1552,  0.0479, -0.5498, -0.0582, -0.0435, -0.3944,
+        -0.1330,  0.1532, -0.4489, -1.2827,  0.0000,  0.4750,  1.2088,  0.7934,
+        -0.4210,  0.3631, -1.4202, -1.1935, -1.2001,  0.3642,  0.0000,  0.0000,
+         0.0000,  0.0000,  0.0779, -0.1948,  0.0000, -1.2914, -0.7160, -1.0946,
+         0.0732, -0.0522,  0.0000,  0.0000, -0.0294, -0.1338, -0.0955,  0.1611,
+         0.1694, -0.4865, -0.4257,  0.0122,  0.1789, -0.5304,  0.0000,  0.0000,
+         0.0000,  1.0000,  1.0000,  0.0000,  0.0000,  0.0000,  0.0000,  0.0000,
+         0.0000,  0.0000,  0.0000,  0.0000,  0.0000,  0.0000,  0.0000,  0.0000,
+         0.0000,  0.0000,  0.0000,  0.0000,  0.0000,  0.0000,  0.0000]), tensor([2563]), tensor(0.2117))
+INFO:main.py:Create test_dataset
+INFO:main.py:test_dataset first example: (tensor([-1.2639, -0.7337, -0.4556,  2.3911, -0.7026, -0.9487, -0.1519, -0.3279,
+        -0.2011,  0.2632, -0.7962, -0.7360, -1.6013,  0.1165,  0.1497, -1.5574,
+        -0.1792, -1.2191,  0.0000, -0.6685,  0.8178, -0.5826, -0.0605, -0.6848,
+        -0.1282, -0.0483, -0.6542,  0.0000,  1.0781,  0.5716, -1.0207, -0.6631,
+        -0.2766,  0.0000, -0.6917, -0.3890, -0.0312, -0.0085, -1.7385, -0.6602,
+        -0.2498,  0.6077, -0.4563, -0.1910, -0.3831, -0.9500,  0.6050, -0.3420,
+        -0.8017,  1.2504,  0.0558,  0.7774, -0.2984, -0.8679,  0.0552, -0.0108,
+        -0.6782, -0.1431, -0.2432,  0.1139,  0.2336, -0.6611, -0.5984, -0.2200,
+        -1.2642, -0.9073,  0.7445, -0.0289, -0.7145, -0.5120,  0.0000,  0.0000,
+         0.0000, -1.2280, -0.5082, -1.1719,  0.2558, -0.3667, -0.2021,  1.3066,
+         0.0000, -2.3050, -0.5736,  0.6968,  0.9230, -0.0507, -0.0412, -0.4332,
+        -0.3151, -0.9136,  0.9210, -0.4534,  0.0000, -1.2138, -1.1335, -1.6347,
+         1.1901, -0.7598,  0.8937, -1.5188, -1.1536, -0.7512,  0.0000,  0.0000,
+         0.0000,  0.0000, -0.1743, -0.1948,  0.0000,  1.7336,  0.4082,  1.9218,
+        -0.0034, -0.0522,  0.0000,  0.0000, -0.2869, -0.1594, -0.0955,  0.7245,
+         0.1741, -0.9857, -0.6281, -0.6547, -0.3378, -0.0523,  0.0000,  0.0000,
+         0.0000,  0.0000,  1.0000,  1.0000,  0.0000,  0.0000,  0.0000,  0.0000,
+         0.0000,  0.0000,  0.0000,  0.0000,  0.0000,  0.0000,  0.0000,  0.0000,
+         0.0000,  0.0000,  0.0000,  0.0000,  1.0000,  0.0000,  0.0000]), tensor([2685]), tensor(-0.0875))
+INFO:main.py:Create retrain_dataset
+INFO:main.py:retrain_dataset first example: (tensor([-0.0054,  0.3203,  0.2194, -1.2084, -0.1250, -0.6240, -0.0916, -0.2813,
+         0.1755, -0.1609, -0.7181, -0.2985, -0.4316, -0.1709,  0.1224,  0.6069,
+        -0.1464,  0.0913,  0.0000,  0.5148, -0.3331,  0.1067, -0.0306, -0.0081,
+        -0.1190, -0.2124, -0.5798,  0.0000,  0.4178,  0.7142,  0.4837, -0.1548,
+         0.3823,  0.0000, -0.4281, -0.1804,  0.0945,  0.3886,  0.1901, -1.1776,
+        -0.2458,  0.0141,  0.1895, -0.1257, -0.0936, -0.6817, -0.0587, -0.1134,
+        -0.6202, -0.2558, -0.6133,  0.6308, -0.1811, -0.2689,  0.0209,  0.4466,
+        -0.7806, -0.1405, -0.3113,  0.2011,  0.0943, -0.3883,  0.1554,  0.3174,
+         0.2508, -0.0946,  0.1179, -0.0439,  0.6406, -0.4199,  0.0000,  0.0000,
+         0.0000, -0.8552, -0.1174,  0.5194,  0.0462, -0.3339, -0.1861, -0.0368,
+         0.0000,  0.5389, -0.0828, -0.0897, -0.5511, -0.0648, -0.0503, -0.3859,
+        -0.1629,  0.1517, -0.4628, -1.2766,  0.0000,  0.7191,  1.4805,  1.0988,
+        -0.1931,  0.5645, -1.7373, -1.0139, -1.1352,  0.3032,  0.0000,  0.0000,
+         0.0000,  0.0000,  0.0558, -0.2886,  0.0000, -1.3168, -0.9630, -1.2887,
+         0.0878, -0.0825,  0.0000,  0.0000, -0.0100, -0.1309, -0.0592,  0.1436,
+         0.2215, -0.4598, -0.4234,  0.0705,  0.2044, -0.4644,  0.0000,  0.0000,
+         0.0000,  1.0000,  1.0000,  0.0000,  0.0000,  0.0000,  0.0000,  0.0000,
+         0.0000,  0.0000,  0.0000,  0.0000,  0.0000,  0.0000,  0.0000,  0.0000,
+         0.0000,  0.0000,  0.0000,  0.0000,  0.0000,  0.0000,  0.0000]), tensor([3010]), tensor(0.2117))
+INFO:main.py:Create prediction_dataset
+INFO:main.py:prediction_dataset first example: (tensor([-4.1209e-02, -3.4561e-02,  6.9167e+00, -4.8258e-01, -4.2263e-02,
+         1.8296e+00,  1.8592e+00,  2.1082e+00, -5.0464e-01, -4.7138e-01,
+         1.1591e+00,  1.8816e-02,  2.0313e-01,  3.1117e-02,  8.6985e-03,
+        -8.5387e-03, -2.2131e-01, -2.1334e+00,  0.0000e+00, -1.2459e-02,
+        -2.5757e-01,  1.0670e-01,  8.9147e-03, -2.0070e-02, -1.0279e-02,
+        -2.9700e-01,  2.4394e-02,  0.0000e+00, -1.3788e+00, -9.4805e-01,
+         1.4267e+00, -4.3503e-02,  1.4899e-01,  0.0000e+00,  3.3403e+00,
+         1.7326e-02,  1.5988e-02, -2.1585e-01, -1.7642e-01,  1.3349e+00,
+        -8.7883e-02, -1.3674e+00, -1.6666e-02, -4.1929e-01, -2.3189e-02,
+         3.1896e-01, -1.3621e+00,  1.6841e-01, -3.7548e-01, -1.5424e+00,
+         2.8157e+00, -1.1174e+00, -9.7091e-02, -2.6889e-01,  7.8921e-01,
+         3.4179e-01, -3.2325e-02,  2.3563e-02, -2.1498e-02,  4.2200e-02,
+        -1.4704e-02, -2.0302e-02,  4.3394e-02,  4.9887e-02, -1.1005e-02,
+         2.2852e-02, -2.4194e-02,  6.0221e-03,  6.4058e-01,  4.5177e-02,
+         0.0000e+00,  0.0000e+00,  0.0000e+00,  3.3045e-01,  3.1348e-01,
+        -1.0899e-02, -2.0691e-01,  1.2023e+00,  6.9023e+00, -3.6842e-02,
+         0.0000e+00,  2.5110e-02, -3.3694e-01, -9.2152e-01, -5.3683e-01,
+        -6.5317e-02, -5.0028e-02, -5.2869e-02,  5.5624e-01, -2.6465e-02,
+        -4.0950e-01,  1.9470e+00,  0.0000e+00, -6.6848e-01, -2.8689e-01,
+        -1.0407e+00, -3.0734e+00, -1.0772e+00,  1.0322e+00, -1.1352e+00,
+        -5.1966e-01, -3.7978e-02,  0.0000e+00,  0.0000e+00,  0.0000e+00,
+         0.0000e+00, -6.1909e-03,  2.3739e-01,  0.0000e+00,  6.3793e-01,
+        -1.0868e+00,  9.2511e-01, -3.1371e-03, -8.2525e-02,  0.0000e+00,
+         0.0000e+00,  3.2516e-02, -1.1784e-02, -5.9187e-02, -1.3858e-02,
+         3.9036e-02,  5.0149e-01,  9.5115e-02,  5.3401e-01,  2.4000e-01,
+        -4.4588e-02,  0.0000e+00,  0.0000e+00,  0.0000e+00,  1.0000e+00,
+         1.0000e+00,  0.0000e+00,  0.0000e+00,  0.0000e+00,  0.0000e+00,
+         0.0000e+00,  0.0000e+00,  0.0000e+00,  0.0000e+00,  0.0000e+00,
+         0.0000e+00,  0.0000e+00,  0.0000e+00,  0.0000e+00,  0.0000e+00,
+         0.0000e+00,  0.0000e+00,  0.0000e+00,  0.0000e+00,  0.0000e+00,
+         0.0000e+00]), tensor([2089]), tensor(0.3115))
+INFO:main.py:
+
+Create dataloader
+
+INFO:main.py:Create train and test dataloader
+INFO:main.py:Create retrain and prediction dataloader
+INFO:main.py:
+
+Hyperparameters tuning with Ray Tune
+
+INFO:main.py:Training data years: [1980, 1981, 1982, 1983]
+INFO:main.py:Testing data year: 1984
+INFO:main.py:
+
+            ray_results_path: /zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/ray_results
+            num_samples: 50
+            max_num_epochs: 30
+            num_cpus: 50
+            cpus_per_trial: 1
+            num_gpus: 0
+            gpus_per_trial: 0
+            continuous_dim: 151
+            num_embeddings: 3605
+            device: cpu
+            
+2024-07-15 18:16:48,000	INFO worker.py:1753 -- Started a local Ray instance.
+2024-07-15 18:16:48,041	INFO packaging.py:530 -- Creating a file package for local directory '/zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/src'.
+2024-07-15 18:16:48,077	INFO packaging.py:358 -- Pushing file package 'gcs://_ray_pkg_893fe5dc3acc6c92.zip' (1.37MiB) to Ray cluster...
+2024-07-15 18:16:48,084	INFO packaging.py:371 -- Successfully pushed file package 'gcs://_ray_pkg_893fe5dc3acc6c92.zip'.
+2024-07-15 18:16:51,545	WARNING tune.py:902 -- AIR_VERBOSITY is set, ignoring passed-in ProgressReporter for now.
+2024-07-15 18:19:41,900	INFO tune.py:1009 -- Wrote the latest version of all result files and experiment state to '/zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/ray_results/train_fnn_2024-07-15_18-16-50' in 0.1303s.
+INFO:model_data_nn.py:Best trial config: {'continuous_dim': 151, 'hidden_dim': 135, 'num_layers': 3, 'num_embeddings': 3605, 'embedding_dim': 5, 'dropout_rate': 0.15, 'lr': 0.003, 'weight_decay': 1.1241862095793053e-05, 'num_epochs': 30, 'num_gpus': 0}
+INFO:model_data_nn.py:Best trial training loss: 0.014351683653631183
+INFO:model_data_nn.py:Best trial testing loss: 0.01564068226621319
+INFO:main.py:Ray Tune results have been saved to: /zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/ray_results
+INFO:main.py:Best trial directory: /tmp/ray/session_2024-07-15_18-16-44_971188_1658309/artifacts/2024-07-15_18-16-50/train_fnn_2024-07-15_18-16-50/driver_artifacts/train_fnn_1478e_00016_16_dropout_rate=0.1500,embedding_dim=5,hidden_dim=135,lr=0.0030,num_layers=3,weight_decay=0.0000_2024-07-15_18-16-51
+INFO:main.py:
+
+Retrain a new model with data in years: [1980, 1981, 1982, 1983, 1984]
+
+            Using the optimized hyperparameters: {'continuous_dim': 151, 'hidden_dim': 135, 'num_layers': 3, 'num_embeddings': 4258, 'embedding_dim': 5, 'dropout_rate': 0.15, 'lr': 0.003, 'weight_decay': 1.1241862095793053e-05, 'num_epochs': 30, 'num_gpus': 0}
+
+/zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/venv/lib/python3.10/site-packages/torch/cuda/__init__.py:619: UserWarning: Can't initialize NVML
+  warnings.warn("Can't initialize NVML")
+INFO:model_data_nn.py:Epoch 1/30, metrics: {'avg_train_loss': 3.8296870636299203, 'avg_test_loss': 0.04538659487357911}
+INFO:model_data_nn.py:Epoch 2/30, metrics: {'avg_train_loss': 0.043596681941669345, 'avg_test_loss': 0.022779034362996324}
+INFO:model_data_nn.py:Epoch 3/30, metrics: {'avg_train_loss': 0.016253151120331915, 'avg_test_loss': 0.01949950330890715}
+INFO:model_data_nn.py:Epoch 4/30, metrics: {'avg_train_loss': 0.015995059699557543, 'avg_test_loss': 0.019874290642602477}
+INFO:model_data_nn.py:Epoch 5/30, metrics: {'avg_train_loss': 0.016558856383894184, 'avg_test_loss': 0.020669860387330548}
+INFO:model_data_nn.py:Epoch 6/30, metrics: {'avg_train_loss': 0.017123736414117515, 'avg_test_loss': 0.021084428819663385}
+INFO:model_data_nn.py:Early stopping at epoch 6
+INFO:main.py:Making prediction for data in year: 1985
+INFO:main.py:Prediction data shape: (43492,)
+/zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/src/main.py:356: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+
+See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
+  prediction_data['pred'] = predictions
+INFO:main.py:Root Mean Squared Error for Prediction in 1985: 0.1451045804107656
+INFO:main.py:Prediction Stats:                 ret          pred
+count  43492.000000  43492.000000
+mean       0.020246      0.005804
+std        0.138818      0.038796
+min       -0.850000     -0.446448
+25%       -0.049128      0.002794
+50%        0.009615      0.013134
+75%        0.077179      0.021282
+max        3.666667      0.297785
+╭──────────────────────────────────────────────────────────────────╮
+│ Configuration for experiment     train_fnn_2024-07-15_18-16-50   │
+├──────────────────────────────────────────────────────────────────┤
+│ Search algorithm                 BasicVariantGenerator           │
+│ Scheduler                        AsyncHyperBandScheduler         │
+│ Number of trials                 50                              │
+╰──────────────────────────────────────────────────────────────────╯
+
+View detailed results here: /zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/ray_results/train_fnn_2024-07-15_18-16-50
+To visualize your results with TensorBoard, run: `tensorboard --logdir /tmp/ray/session_2024-07-15_18-16-44_971188_1658309/artifacts/2024-07-15_18-16-50/train_fnn_2024-07-15_18-16-50/driver_artifacts`
+
+INFO:postprocess_predictions.py:Post processing prediction files
+INFO:postprocess_predictions.py:Postprocessing data from path: kevin/output/prediction/monthly_new_vars/monthly_prediction_1993.csv
+INFO:postprocess_predictions.py:Postprocessing data from path: kevin/output/prediction/monthly_new_vars/monthly_prediction_1994.csv
+INFO:postprocess_predictions.py:Postprocessing data from path: kevin/output/prediction/monthly_new_vars/monthly_prediction_2003.csv
+INFO:postprocess_predictions.py:Postprocessing data from path: kevin/output/prediction/monthly_new_vars/monthly_prediction_2004.csv
+INFO:postprocess_predictions.py:Postprocessing data from path: kevin/output/prediction/monthly_new_vars/monthly_prediction_2015.csv
+INFO:postprocess_predictions.py:Postprocessing data from path: kevin/output/prediction/monthly_new_vars/monthly_prediction_2012.csv
+INFO:postprocess_predictions.py:Postprocessing data from path: kevin/output/prediction/monthly_new_vars/monthly_prediction_1985.csv
+INFO:postprocess_predictions.py:Postprocessing data from path: kevin/output/prediction/monthly_new_vars/monthly_prediction_2020.csv
+INFO:postprocess_predictions.py:Postprocessing data from path: kevin/output/prediction/monthly_new_vars/monthly_prediction_2005.csv
+INFO:postprocess_predictions.py:Postprocessing data from path: kevin/output/prediction/monthly_new_vars/monthly_prediction_2002.csv
+INFO:postprocess_predictions.py:Postprocessing data from path: kevin/output/prediction/monthly_new_vars/monthly_prediction_1995.csv
+INFO:postprocess_predictions.py:Postprocessing data from path: kevin/output/prediction/monthly_new_vars/monthly_prediction_1992.csv
+INFO:postprocess_predictions.py:Postprocessing data from path: kevin/output/prediction/monthly_new_vars/monthly_prediction_2013.csv
+INFO:postprocess_predictions.py:Postprocessing data from path: kevin/output/prediction/monthly_new_vars/monthly_prediction_2014.csv
+INFO:postprocess_predictions.py:Postprocessing data from path: kevin/output/prediction/monthly_new_vars/monthly_prediction_1989.csv
+INFO:postprocess_predictions.py:Postprocessing data from path: kevin/output/prediction/monthly_new_vars/monthly_prediction_1987.csv
+INFO:postprocess_predictions.py:Postprocessing data from path: kevin/output/prediction/monthly_new_vars/monthly_prediction_2019.csv
+INFO:postprocess_predictions.py:Postprocessing data from path: kevin/output/prediction/monthly_new_vars/monthly_prediction_2017.csv
+INFO:postprocess_predictions.py:Postprocessing data from path: kevin/output/prediction/monthly_new_vars/monthly_prediction_2010.csv
+INFO:postprocess_predictions.py:Postprocessing data from path: kevin/output/prediction/monthly_new_vars/monthly_prediction_2001.csv
+INFO:postprocess_predictions.py:Postprocessing data from path: kevin/output/prediction/monthly_new_vars/monthly_prediction_2006.csv
+INFO:postprocess_predictions.py:Postprocessing data from path: kevin/output/prediction/monthly_new_vars/monthly_prediction_2008.csv
+INFO:postprocess_predictions.py:Postprocessing data from path: kevin/output/prediction/monthly_new_vars/monthly_prediction_1991.csv
+INFO:postprocess_predictions.py:Postprocessing data from path: kevin/output/prediction/monthly_new_vars/monthly_prediction_1996.csv
+INFO:postprocess_predictions.py:Postprocessing data from path: kevin/output/prediction/monthly_new_vars/monthly_prediction_1998.csv
+INFO:postprocess_predictions.py:Postprocessing data from path: kevin/output/prediction/monthly_new_vars/monthly_prediction_2011.csv
+INFO:postprocess_predictions.py:Postprocessing data from path: kevin/output/prediction/monthly_new_vars/monthly_prediction_2016.csv
+INFO:postprocess_predictions.py:Postprocessing data from path: kevin/output/prediction/monthly_new_vars/monthly_prediction_2018.csv
+INFO:postprocess_predictions.py:Postprocessing data from path: kevin/output/prediction/monthly_new_vars/monthly_prediction_1986.csv
+INFO:postprocess_predictions.py:Postprocessing data from path: kevin/output/prediction/monthly_new_vars/monthly_prediction_1988.csv
+INFO:postprocess_predictions.py:Postprocessing data from path: kevin/output/prediction/monthly_new_vars/monthly_prediction_1999.csv
+INFO:postprocess_predictions.py:Postprocessing data from path: kevin/output/prediction/monthly_new_vars/monthly_prediction_1997.csv
+INFO:postprocess_predictions.py:Postprocessing data from path: kevin/output/prediction/monthly_new_vars/monthly_prediction_1990.csv
+INFO:postprocess_predictions.py:Postprocessing data from path: kevin/output/prediction/monthly_new_vars/monthly_prediction_2009.csv
+INFO:postprocess_predictions.py:Postprocessing data from path: kevin/output/prediction/monthly_new_vars/monthly_prediction_2007.csv
+INFO:postprocess_predictions.py:Postprocessing data from path: kevin/output/prediction/monthly_new_vars/monthly_prediction_2000.csv
+INFO:postprocess_predictions.py:Sort the result by date and rank both ascendingly
+INFO:postprocess_predictions.py:Saved the result file: result.csv
+to the directory: kevin/output/prediction/monthly_new_vars
