@@ -1,0 +1,2232 @@
+Current working directory
+/zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin
+source venv/bin/activate
+which python3
+/zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/venv/bin/python3
+Intel(R) Extension for Scikit-learn* enabled (https://github.com/intel/scikit-learn-intelex)
+Intel(R) Extension for Scikit-learn* enabled (https://github.com/intel/scikit-learn-intelex)
+INFO:preprocess_data_nn.py:
+
+Loading and preprocessing data...
+
+DEBUG:preprocess_data_nn.py:      date  permno
+0  1980-01   10006
+1  1980-01   10057
+2  1980-01   10103
+3  1980-01   10137
+4  1980-01   10145
+DEBUG:preprocess_data_nn.py:--------------------------------------------------
+INFO:main.py:preprocessed df: (2216189, 158)
+INFO:preprocess_data_nn.py:
+
+Applying secondary data preprocessing..
+
+INFO:main.py:secondary preprocessed df: (2165515, 158)
+INFO:main.py:df sample:    permno  gvkey   adatadate  fyear  sic2     spi       mve_f  ...     zerotrade      beta    betasq      rsq1  pricedelay   idiovol  pyear
+0   10006   1010  12/31/1978   1978    37  0.0000  269.308500  ...  1.115306e-07  1.060420  1.124491  0.343408    0.029859  0.025576   1980
+1   10057   1098  09/30/1978   1978    36  0.0000   97.372000  ...  6.199128e-08  1.526013  2.328716  0.307905    0.092667  0.037473   1980
+2   10103   1012  10/31/1978   1978    33     NaN    1.697500  ...           NaN  1.759493  3.095816  0.096753    0.221851  0.087020   1980
+3   10137   1279  12/31/1978   1978    49     NaN  537.524500  ...  9.726790e-08  0.492885  0.242936  0.189693    0.125777  0.017540   1980
+4   10145   1300  12/31/1978   1978    99 -0.0031  805.633282  ...  6.190654e-08  1.139163  1.297691  0.279437    0.024228  0.031201   1980
+
+[5 rows x 158 columns]
+INFO:main.py:Train year start: 1980
+INFO:main.py:Prediction data years: [1985, 1986, 1987, 1988, 1989, 1990, 1991, 1992, 1993, 1994, 1995, 1996, 1997, 1998, 1999, 2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020]
+INFO:main.py:
+
+Loop through all the prediction years and build optimized model for each year
+
+INFO:main.py:
+
+Transform data
+
+INFO:transform_data_nn.py:Train data years: [1980, 1981, 1982, 1983]
+INFO:transform_data_nn.py:Train_data: (184330, 158)
+
+INFO:transform_data_nn.py:Test data years: [1984]
+INFO:transform_data_nn.py:Test_data: (50784, 158)
+
+INFO:transform_data_nn.py:Retrain data years: [1980, 1981, 1982, 1983, 1984]
+INFO:transform_data_nn.py:Retrain_data: (235114, 158)
+
+INFO:transform_data_nn.py:Prediction data years: [1985]
+INFO:transform_data_nn.py:Prediction_data: (53526, 158)
+
+INFO:main.py:
+
+Generate X and y with train_data, test_data, retrain_data, and prediction_data
+
+/zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/venv/lib/python3.10/site-packages/sklearn/utils/extmath.py:1140: RuntimeWarning: invalid value encountered in divide
+  updated_mean = (last_sum + new_sum) / updated_sample_count
+/zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/venv/lib/python3.10/site-packages/sklearn/utils/extmath.py:1145: RuntimeWarning: invalid value encountered in divide
+  T = new_sum / new_sample_count
+/zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/venv/lib/python3.10/site-packages/sklearn/utils/extmath.py:1165: RuntimeWarning: invalid value encountered in divide
+  new_unnormalized_variance -= correction**2 / new_sample_count
+INFO:main.py:
+            x_train_tf: torch.Size([184330, 103])
+            y_train_tf: torch.Size([184330])
+
+            x_test_tf: torch.Size([50784, 103])
+            y_test_tf: torch.Size([50784])
+
+        
+INFO:main.py:
+
+Generate X and y with retrain_data and prediction_data
+
+/zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/venv/lib/python3.10/site-packages/sklearn/utils/extmath.py:1140: RuntimeWarning: invalid value encountered in divide
+  updated_mean = (last_sum + new_sum) / updated_sample_count
+/zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/venv/lib/python3.10/site-packages/sklearn/utils/extmath.py:1145: RuntimeWarning: invalid value encountered in divide
+  T = new_sum / new_sample_count
+/zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/venv/lib/python3.10/site-packages/sklearn/utils/extmath.py:1165: RuntimeWarning: invalid value encountered in divide
+  new_unnormalized_variance -= correction**2 / new_sample_count
+INFO:main.py:
+            x_retrain_tf: torch.Size([235114, 103])
+            y_retrain_tf: torch.Size([235114])
+
+            x_prediction_tf: torch.Size([53526, 103])
+            y_prediction_tf: torch.Size([53526])
+
+        
+INFO:main.py:
+
+Create dataset
+
+INFO:main.py:Create train_dataset
+INFO:main.py:train_dataset first example: (tensor([ 0.3502,  0.5646,  0.3374, -0.5022,  0.0529, -0.5300, -0.0226, -0.2438,
+         0.1543,  0.1864, -0.9513, -0.0741, -0.4790, -0.1944,  0.0702,  0.0157,
+        -0.4153,  0.1402,  0.0000,  0.6688, -0.3719,  0.0000,  0.0088,  0.1011,
+         0.0262, -0.1816, -0.6910,  0.0000,  0.5859,  0.9703,  0.6153, -0.2049,
+         0.3970,  0.0000, -0.5962, -0.2484,  0.1118,  0.1707,  0.1953, -1.1439,
+        -0.3703, -0.2070,  0.2884, -0.1122,  0.0283, -0.6742, -0.1601, -0.1519,
+        -0.6824, -0.3334, -0.0563,  0.9687, -0.2176,  0.0000,  0.0635, -0.4621,
+        -0.9840, -0.2021, -0.7718, -0.1008,  0.1142, -0.7501, -0.4323, -0.2668,
+        -0.2817, -0.5593,  0.2119, -0.0872, -0.2362, -0.4097, -0.7328, -0.3224,
+         0.0000, -0.8428, -0.0180, -1.1550,  0.2559,  0.1448,  0.5110,  0.1767,
+        -0.4251, -0.2114, -0.0166,  0.0000, -0.0774, -0.2011, -0.0629, -0.7467,
+        -0.5108, -0.5048,  0.2351, -0.2889,  0.1580, -0.1287, -0.4961,  0.0000,
+         0.0000,  0.0000,  0.0000,  0.0000,  0.0000,  0.0000]), tensor([3160]), tensor(0.2117))
+INFO:main.py:Create test_dataset
+INFO:main.py:test_dataset first example: (tensor([-1.2105, -0.8788, -0.6071,  1.4063, -0.7269, -0.6021, -0.1685, -0.3657,
+         0.4370,  0.1955, -1.0573, -0.1401, -0.5863, -0.0187,  0.0756, -0.0212,
+        -0.7687, -0.7665,  0.0000, -1.0892,  0.7340,  0.0000,  0.0494, -0.9127,
+        -0.7283,  0.0031, -0.7252,  0.0000,  1.3503,  1.6194, -1.3623, -0.6092,
+         0.2458,  0.0000, -0.7539, -0.4939,  0.0533, -0.1973, -1.7392, -0.7787,
+        -0.3739,  0.5433, -0.5025,  0.0280, -0.4474, -0.8582,  0.5707, -0.2911,
+        -0.8946,  1.0834, -0.8029,  1.1376, -0.5508,  0.0000,  0.0635, -0.5669,
+        -1.0148,  1.7723,  0.6710,  0.0918,  0.4306,  0.2224,  0.1687,  0.4315,
+        -0.8319, -0.0367, -0.5062, -0.0900, -0.2362, -0.4129, -0.4616, -0.2910,
+         0.0000, -1.1173, -0.8812, -0.5616, -0.7485,  0.0356, -1.6538,  0.0430,
+        -0.4393, -0.1278,  1.3165,  0.0000, -0.8943, -0.2290,  0.6468,  1.2500,
+        -0.3681, -0.4077, -1.0630, -0.4364, -1.2633,  0.2972, -0.4961,  0.0000,
+         0.0000,  0.0000,  0.0000,  0.0000,  1.0000,  0.0000]), tensor([2032]), tensor(-0.0875))
+INFO:main.py:Create retrain_dataset
+INFO:main.py:retrain_dataset first example: (tensor([ 0.3435,  0.5761,  0.3075, -0.5679,  0.0524, -0.5320, -0.0215, -0.2454,
+         0.2494,  0.1997, -0.9201, -0.0417, -0.4810, -0.1938,  0.0277,  0.0288,
+        -0.4244,  0.1202,  0.0000,  0.7124, -0.3267,  0.0000, -0.0420, -0.0115,
+         0.0181, -0.2026, -0.6904,  0.0000,  0.6153,  1.0531,  0.6410, -0.1841,
+         0.4567,  0.0000, -0.5594, -0.2175,  0.1411,  0.1752,  0.1857, -1.1557,
+        -0.3517, -0.0422,  0.3171, -0.0860,  0.0212, -0.6543, -0.0602, -0.1036,
+        -0.6953, -0.2351, -0.1092,  0.9573, -0.2054,  0.0000,  0.0146, -0.4241,
+        -0.9675, -0.2000, -0.7111, -0.1357,  0.0996, -0.7048, -0.4049, -0.2435,
+        -0.2538, -0.5571,  0.1941, -0.0963, -0.2058, -0.4136, -0.7116, -0.3151,
+         0.0000, -0.8244,  0.0178, -1.1900,  0.2651,  0.1931,  0.5434,  0.1858,
+        -0.4328, -0.2078, -0.0359,  0.0000, -0.0501, -0.1408, -0.2109, -0.7138,
+        -0.5070, -0.5073,  0.1884, -0.2900,  0.1628, -0.1251, -0.5137,  0.0000,
+         0.0000,  0.0000,  0.0000,  0.0000,  0.0000,  0.0000]), tensor([3542]), tensor(0.2117))
+INFO:main.py:Create prediction_dataset
+INFO:main.py:prediction_dataset first example: (tensor([ 6.4261e-04,  1.2685e-02,  8.4677e+00, -1.8404e+00, -6.5494e-03,
+         2.4014e-01,  1.8105e+00,  2.0869e+00, -9.5314e-01,  1.9096e-01,
+         1.5033e+00, -8.8759e-02,  1.9129e-01,  2.4179e-01,  4.7970e-02,
+         4.9506e-03, -4.0852e-02,  8.9596e-04,  0.0000e+00,  2.2276e-02,
+        -8.3678e-02,  0.0000e+00, -4.5068e-02, -2.2208e-02, -2.6789e-01,
+        -7.0162e-03, -2.7472e-01,  0.0000e+00, -1.2666e+00, -8.3659e-01,
+         1.8794e+00, -1.3707e-02, -7.4838e-02,  0.0000e+00,  2.1095e-02,
+         1.4292e-02,  1.7685e-02, -4.1131e-01, -1.9655e-03,  5.2790e-01,
+        -1.6188e-01, -1.0328e+00,  1.7721e-02, -4.5017e-01, -3.5624e-03,
+         1.6095e-01,  9.4023e-02,  1.4191e-01,  2.9990e-03, -8.6488e-01,
+        -8.3277e-01, -6.6060e-01, -1.8350e-01,  0.0000e+00,  9.4917e-01,
+         1.6069e-02,  3.3081e-02, -2.6253e-03, -2.9334e-02, -2.4389e-02,
+         9.2416e-03, -3.5489e-02,  1.0408e-02,  7.0715e-03, -1.6132e-02,
+         2.6242e-03, -6.5670e-03, -4.1979e-02,  1.0458e-02,  3.2092e-01,
+        -1.1583e+00, -3.4773e-01,  0.0000e+00,  1.9125e-01,  1.0568e+00,
+        -3.1215e-02,  6.2196e-01,  2.2528e-01,  2.0365e-01, -4.9071e-01,
+         2.0586e+00,  6.6234e+00, -3.5912e-02,  0.0000e+00, -2.5086e-04,
+        -5.6612e-01, -1.0866e+00, -6.9460e-01, -2.5999e-02, -2.6784e-02,
+         2.3621e-02,  8.0345e-01,  4.4660e-01, -2.7241e-01, -5.1370e-01,
+         0.0000e+00,  0.0000e+00,  0.0000e+00,  1.0000e+00,  0.0000e+00,
+         0.0000e+00,  0.0000e+00]), tensor([4039]), tensor(0.3115))
+INFO:main.py:
+
+Create dataloader
+
+INFO:main.py:Create train and test dataloader
+INFO:main.py:Create retrain and prediction dataloader
+INFO:main.py:
+
+Hyperparameters tuning with Ray Tune
+
+INFO:main.py:Training data years: [1980, 1981, 1982, 1983]
+INFO:main.py:Testing data year: 1984
+INFO:main.py:
+
+            ray_results_path: /zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/ray_results
+            num_samples: 60
+            max_num_epochs: 20
+            num_cpus: 60
+            cpus_per_trial: 1
+            num_gpus: 2
+            gpus_per_trial: 0
+            continuous_dim: 102
+            num_embeddings: 5102
+            device: cuda
+            
+2024-07-03 23:43:27,857	INFO worker.py:1753 -- Started a local Ray instance.
+2024-07-03 23:43:27,891	INFO packaging.py:530 -- Creating a file package for local directory '/zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/src'.
+2024-07-03 23:43:27,913	INFO packaging.py:358 -- Pushing file package 'gcs://_ray_pkg_cfb21e315b1af741.zip' (1.20MiB) to Ray cluster...
+2024-07-03 23:43:27,917	INFO packaging.py:371 -- Successfully pushed file package 'gcs://_ray_pkg_cfb21e315b1af741.zip'.
+2024-07-03 23:43:30,451	WARNING tune.py:902 -- AIR_VERBOSITY is set, ignoring passed-in ProgressReporter for now.
+2024-07-03 23:48:41,616	INFO tune.py:1009 -- Wrote the latest version of all result files and experiment state to '/zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/ray_results/train_fnn_2024-07-03_23-43-30' in 0.1686s.
+INFO:model_data_nn.py:Best trial config: {'continuous_dim': 102, 'hidden_dim': 65, 'num_layers': 3, 'num_embeddings': 5102, 'embedding_dim': 5, 'dropout_rate': 0.27180818453385097, 'lr': 0.00011948354480999256, 'weight_decay': 6.430385379260095e-06, 'num_epochs': 20, 'num_gpus': 2}
+INFO:model_data_nn.py:Best trial training loss: 0.024693957997239106
+INFO:model_data_nn.py:Best trial testing loss: 0.020620555682600444
+INFO:main.py:Ray Tune results have been saved to: /zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/ray_results
+INFO:main.py:Best trial directory: /tmp/ray/session_2024-07-03_23-43-25_382658_4067061/artifacts/2024-07-03_23-43-30/train_fnn_2024-07-03_23-43-30/driver_artifacts/train_fnn_0d614_00020_20_dropout_rate=0.2718,embedding_dim=5,hidden_dim=65,lr=0.0001,num_layers=3,weight_decay=0.0000_2024-07-03_23-43-30
+INFO:main.py:
+
+Retrain a new model with data in years: [1980, 1981, 1982, 1983, 1984]
+
+            Using the optimized hyperparameters: {'continuous_dim': 102, 'hidden_dim': 65, 'num_layers': 3, 'num_embeddings': 5727, 'embedding_dim': 5, 'dropout_rate': 0.27180818453385097, 'lr': 0.00011948354480999256, 'weight_decay': 6.430385379260095e-06, 'num_epochs': 20, 'num_gpus': 2}
+
+INFO:model_data_nn.py:Epoch 1/20, metrics: {'avg_train_loss': 25.956807614670673, 'avg_test_loss': 8.359476763763974}
+INFO:model_data_nn.py:Epoch 2/20, metrics: {'avg_train_loss': 7.18918917175214, 'avg_test_loss': 2.304062517417644}
+INFO:model_data_nn.py:Epoch 3/20, metrics: {'avg_train_loss': 2.043437473755786, 'avg_test_loss': 0.5038589642412054}
+INFO:model_data_nn.py:Epoch 4/20, metrics: {'avg_train_loss': 0.38433896046117655, 'avg_test_loss': 0.07288047141864505}
+INFO:model_data_nn.py:Epoch 5/20, metrics: {'avg_train_loss': 0.05439528846777631, 'avg_test_loss': 0.027496658992422367}
+INFO:model_data_nn.py:Epoch 6/20, metrics: {'avg_train_loss': 0.024455493426069043, 'avg_test_loss': 0.025309514384361114}
+INFO:model_data_nn.py:Epoch 7/20, metrics: {'avg_train_loss': 0.023817931858049052, 'avg_test_loss': 0.025417650613026928}
+INFO:model_data_nn.py:Epoch 8/20, metrics: {'avg_train_loss': 0.023851392354672214, 'avg_test_loss': 0.025519521321283392}
+INFO:model_data_nn.py:Epoch 9/20, metrics: {'avg_train_loss': 0.02385033096075788, 'avg_test_loss': 0.025301762679836276}
+INFO:model_data_nn.py:Epoch 10/20, metrics: {'avg_train_loss': 0.02384880181730491, 'avg_test_loss': 0.02530127512802301}
+INFO:model_data_nn.py:Epoch 11/20, metrics: {'avg_train_loss': 0.023850180185868906, 'avg_test_loss': 0.025216029444598283}
+INFO:model_data_nn.py:Epoch 12/20, metrics: {'avg_train_loss': 0.02381418360256279, 'avg_test_loss': 0.025335109088045316}
+INFO:model_data_nn.py:Epoch 13/20, metrics: {'avg_train_loss': 0.02376768610018894, 'avg_test_loss': 0.025250019628981345}
+INFO:model_data_nn.py:Epoch 14/20, metrics: {'avg_train_loss': 0.023721636848389356, 'avg_test_loss': 0.025176989458065683}
+INFO:model_data_nn.py:Epoch 15/20, metrics: {'avg_train_loss': 0.02367630792821255, 'avg_test_loss': 0.025466518408812245}
+INFO:model_data_nn.py:Epoch 16/20, metrics: {'avg_train_loss': 0.023646302132374997, 'avg_test_loss': 0.02578485802456132}
+INFO:model_data_nn.py:Epoch 17/20, metrics: {'avg_train_loss': 0.02361653247421276, 'avg_test_loss': 0.02541704228712437}
+INFO:model_data_nn.py:Epoch 18/20, metrics: {'avg_train_loss': 0.023608935313480798, 'avg_test_loss': 0.025266265936711524}
+INFO:model_data_nn.py:Epoch 19/20, metrics: {'avg_train_loss': 0.02355568633842189, 'avg_test_loss': 0.025303843832376962}
+INFO:model_data_nn.py:Epoch 20/20, metrics: {'avg_train_loss': 0.02356010950669833, 'avg_test_loss': 0.02567827310479804}
+INFO:main.py:Making prediction for data in year: 1984
+INFO:main.py:Prediction data shape: (53526,)
+/zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/src/main.py:372: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+
+See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
+  prediction_data['pred'] = predictions
+INFO:main.py:Root Mean Squared Error for Prediction in 1985: 0.16020993478932408
+INFO:main.py:Prediction Stats:                 ret          pred
+count  53526.000000  53526.000000
+mean       0.018898      0.014966
+std        0.158638      0.030567
+min       -0.850000     -0.280916
+25%       -0.055112      0.007197
+50%        0.002178      0.016560
+75%        0.077120      0.026708
+max        4.666667      0.341990
+INFO:main.py:
+
+Transform data
+
+INFO:transform_data_nn.py:Train data years: [1980, 1981, 1982, 1983, 1984]
+INFO:transform_data_nn.py:Train_data: (235114, 158)
+
+INFO:transform_data_nn.py:Test data years: [1985]
+INFO:transform_data_nn.py:Test_data: (53526, 158)
+
+INFO:transform_data_nn.py:Retrain data years: [1980, 1981, 1982, 1983, 1984, 1985]
+INFO:transform_data_nn.py:Retrain_data: (288640, 158)
+
+INFO:transform_data_nn.py:Prediction data years: [1986]
+INFO:transform_data_nn.py:Prediction_data: (53143, 158)
+
+INFO:main.py:
+
+Generate X and y with train_data, test_data, retrain_data, and prediction_data
+
+/zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/venv/lib/python3.10/site-packages/sklearn/utils/extmath.py:1140: RuntimeWarning: invalid value encountered in divide
+  updated_mean = (last_sum + new_sum) / updated_sample_count
+/zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/venv/lib/python3.10/site-packages/sklearn/utils/extmath.py:1145: RuntimeWarning: invalid value encountered in divide
+  T = new_sum / new_sample_count
+/zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/venv/lib/python3.10/site-packages/sklearn/utils/extmath.py:1165: RuntimeWarning: invalid value encountered in divide
+  new_unnormalized_variance -= correction**2 / new_sample_count
+INFO:main.py:
+            x_train_tf: torch.Size([235114, 103])
+            y_train_tf: torch.Size([235114])
+
+            x_test_tf: torch.Size([53526, 103])
+            y_test_tf: torch.Size([53526])
+
+        
+INFO:main.py:
+
+Generate X and y with retrain_data and prediction_data
+
+/zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/venv/lib/python3.10/site-packages/sklearn/utils/extmath.py:1140: RuntimeWarning: invalid value encountered in divide
+  updated_mean = (last_sum + new_sum) / updated_sample_count
+/zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/venv/lib/python3.10/site-packages/sklearn/utils/extmath.py:1145: RuntimeWarning: invalid value encountered in divide
+  T = new_sum / new_sample_count
+/zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/venv/lib/python3.10/site-packages/sklearn/utils/extmath.py:1165: RuntimeWarning: invalid value encountered in divide
+  new_unnormalized_variance -= correction**2 / new_sample_count
+INFO:main.py:
+            x_retrain_tf: torch.Size([288640, 103])
+            y_retrain_tf: torch.Size([288640])
+
+            x_prediction_tf: torch.Size([53143, 103])
+            y_prediction_tf: torch.Size([53143])
+
+        
+INFO:main.py:
+
+Create dataset
+
+INFO:main.py:Create train_dataset
+INFO:main.py:train_dataset first example: (tensor([ 0.3435,  0.5761,  0.3075, -0.5679,  0.0524, -0.5320, -0.0215, -0.2454,
+         0.2494,  0.1997, -0.9201, -0.0417, -0.4810, -0.1938,  0.0277,  0.0288,
+        -0.4244,  0.1202,  0.0000,  0.7124, -0.3267,  0.0000, -0.0420, -0.0115,
+         0.0181, -0.2026, -0.6904,  0.0000,  0.6153,  1.0531,  0.6410, -0.1841,
+         0.4567,  0.0000, -0.5594, -0.2175,  0.1411,  0.1752,  0.1857, -1.1557,
+        -0.3517, -0.0422,  0.3171, -0.0860,  0.0212, -0.6543, -0.0602, -0.1036,
+        -0.6953, -0.2351, -0.1092,  0.9573, -0.2054,  0.0000,  0.0146, -0.4241,
+        -0.9675, -0.2000, -0.7111, -0.1357,  0.0996, -0.7048, -0.4049, -0.2435,
+        -0.2538, -0.5571,  0.1941, -0.0963, -0.2058, -0.4136, -0.7116, -0.3151,
+         0.0000, -0.8244,  0.0178, -1.1900,  0.2651,  0.1931,  0.5434,  0.1858,
+        -0.4328, -0.2078, -0.0359,  0.0000, -0.0501, -0.1408, -0.2109, -0.7138,
+        -0.5070, -0.5073,  0.1884, -0.2900,  0.1628, -0.1251, -0.5137,  0.0000,
+         0.0000,  0.0000,  0.0000,  0.0000,  0.0000,  0.0000]), tensor([3542]), tensor(0.2117))
+INFO:main.py:Create test_dataset
+INFO:main.py:test_dataset first example: (tensor([ 6.4261e-04,  1.2685e-02,  8.4677e+00, -1.8404e+00, -6.5494e-03,
+         2.4014e-01,  1.8105e+00,  2.0869e+00, -9.5314e-01,  1.9096e-01,
+         1.5033e+00, -8.8759e-02,  1.9129e-01,  2.4179e-01,  4.7970e-02,
+         4.9506e-03, -4.0852e-02,  8.9596e-04,  0.0000e+00,  2.2276e-02,
+        -8.3678e-02,  0.0000e+00, -4.5068e-02, -2.2208e-02, -2.6789e-01,
+        -7.0162e-03, -2.7472e-01,  0.0000e+00, -1.2666e+00, -8.3659e-01,
+         1.8794e+00, -1.3707e-02, -7.4838e-02,  0.0000e+00,  2.1095e-02,
+         1.4292e-02,  1.7685e-02, -4.1131e-01, -1.9655e-03,  5.2790e-01,
+        -1.6188e-01, -1.0328e+00,  1.7721e-02, -4.5017e-01, -3.5624e-03,
+         1.6095e-01,  9.4023e-02,  1.4191e-01,  2.9990e-03, -8.6488e-01,
+        -8.3277e-01, -6.6060e-01, -1.8350e-01,  0.0000e+00,  9.4917e-01,
+         1.6069e-02,  3.3081e-02, -2.6253e-03, -2.9334e-02, -2.4389e-02,
+         9.2416e-03, -3.5489e-02,  1.0408e-02,  7.0715e-03, -1.6132e-02,
+         2.6242e-03, -6.5670e-03, -4.1979e-02,  1.0458e-02,  3.2092e-01,
+        -1.1583e+00, -3.4773e-01,  0.0000e+00,  1.9125e-01,  1.0568e+00,
+        -3.1215e-02,  6.2196e-01,  2.2528e-01,  2.0365e-01, -4.9071e-01,
+         2.0586e+00,  6.6234e+00, -3.5912e-02,  0.0000e+00, -2.5086e-04,
+        -5.6612e-01, -1.0866e+00, -6.9460e-01, -2.5999e-02, -2.6784e-02,
+         2.3621e-02,  8.0345e-01,  4.4660e-01, -2.7241e-01, -5.1370e-01,
+         0.0000e+00,  0.0000e+00,  0.0000e+00,  1.0000e+00,  0.0000e+00,
+         0.0000e+00,  0.0000e+00]), tensor([4039]), tensor(0.3115))
+INFO:main.py:Create retrain_dataset
+INFO:main.py:retrain_dataset first example: (tensor([ 0.2960,  0.5291,  0.2580, -0.5988,  0.0395, -0.5259, -0.0249, -0.2506,
+         0.3278,  0.2032, -0.8957, -0.0173, -0.4977, -0.1929,  0.0055,  0.0193,
+        -0.4292,  0.1097,  0.0000,  0.6755, -0.3619,  0.0000,  0.0051,  0.0066,
+         0.0301, -0.2162, -0.6888,  0.0000,  0.6148,  1.1238,  0.6377, -0.1689,
+         0.4858,  0.0000, -0.5416, -0.2104,  0.1443,  0.1836,  0.1264, -1.1581,
+        -0.3292,  0.0282,  0.3104, -0.0624, -0.0053, -0.6454, -0.0189, -0.1052,
+        -0.7206, -0.2245, -0.1447,  0.9449, -0.1909,  0.0000,  0.0151, -0.4011,
+        -0.9564, -0.0779, -0.6553, -0.1434,  0.0978, -0.6593, -0.3653, -0.2155,
+        -0.2687, -0.5474,  0.1388, -0.1024, -0.2127, -0.4138, -0.7152, -0.3087,
+        -0.2357, -0.8090,  0.0576, -1.1741,  0.2740,  0.2193,  0.5585,  0.1815,
+        -0.4377, -0.2044, -0.0167,  0.0000, -0.0722, -0.0912, -0.2897, -0.6977,
+        -0.5085, -0.5068,  0.1836, -0.2903,  0.1703, -0.1403, -0.5231,  0.0000,
+         0.0000,  0.0000,  0.0000,  0.0000,  0.0000,  0.0000]), tensor([3844]), tensor(0.2117))
+INFO:main.py:Create prediction_dataset
+INFO:main.py:prediction_dataset first example: (tensor([-5.2024e-01, -1.4298e-01, -6.9860e-01, -1.3580e+00, -2.1218e-02,
+        -4.3693e-01,  1.3244e+00,  1.3047e+00, -4.0142e-01,  2.0489e-01,
+         5.7447e-03,  2.9823e-01,  1.2066e-01, -5.8988e-02,  8.1931e-03,
+         4.3817e-03, -4.3869e-01, -2.4638e-01,  0.0000e+00, -1.1026e-01,
+        -2.8431e-01,  0.0000e+00, -7.6915e-02,  4.3407e-01,  5.6338e+00,
+        -6.4075e-01, -3.8804e-01,  0.0000e+00,  2.6990e-01, -8.0007e-01,
+         3.0559e-03, -2.3573e-02,  1.6926e-01,  0.0000e+00,  3.9212e+00,
+        -2.8485e-03,  2.4843e+00, -4.5319e-01,  9.3834e-02,  2.6323e-01,
+        -3.2894e-01, -4.5149e-01,  1.4662e+00, -3.8584e-01, -1.0827e-01,
+        -1.5566e-01,  2.3228e+00,  3.7301e-01,  3.6370e-02,  1.1725e+00,
+         1.9850e+00, -9.7385e-02, -1.7884e-01,  0.0000e+00,  9.2012e-01,
+         2.4478e+00,  2.5280e+00, -1.3598e-02, -1.5963e+00, -3.8572e-01,
+         4.6115e-02, -1.4525e+00, -5.5158e-01,  1.2253e+00,  9.1787e-03,
+        -6.3798e-01, -2.3351e-01, -2.6916e-01, -2.1275e-01, -4.1505e-01,
+        -2.0565e-02, -3.7904e-02,  8.2735e+00, -6.8355e-01,  9.9116e-01,
+        -4.8114e-02,  6.1614e-01,  1.8687e-01,  1.3681e-01, -3.6534e-01,
+         1.5624e+00,  5.6475e+00, -1.6681e-02,  0.0000e+00,  1.4041e-01,
+        -2.3662e-01,  1.0028e+00,  2.1421e+00, -3.3921e-02, -3.3130e-02,
+         1.2762e-01, -1.4161e-01,  1.0862e-01,  5.5329e-01, -5.2307e-01,
+         0.0000e+00,  0.0000e+00,  0.0000e+00,  0.0000e+00,  0.0000e+00,
+         0.0000e+00,  0.0000e+00]), tensor([4033]), tensor(0.))
+INFO:main.py:
+
+Create dataloader
+
+INFO:main.py:Create train and test dataloader
+INFO:main.py:Create retrain and prediction dataloader
+INFO:main.py:
+
+Hyperparameters tuning with Ray Tune
+
+INFO:main.py:Training data years: [1980, 1981, 1982, 1983, 1984]
+INFO:main.py:Testing data year: 1985
+INFO:main.py:
+
+            ray_results_path: /zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/ray_results
+            num_samples: 60
+            max_num_epochs: 20
+            num_cpus: 60
+            cpus_per_trial: 1
+            num_gpus: 2
+            gpus_per_trial: 0
+            continuous_dim: 102
+            num_embeddings: 5727
+            device: cuda
+            
+2024-07-04 00:21:05,276	INFO worker.py:1753 -- Started a local Ray instance.
+2024-07-04 00:21:05,301	INFO packaging.py:530 -- Creating a file package for local directory '/zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/src'.
+2024-07-04 00:21:05,321	INFO packaging.py:358 -- Pushing file package 'gcs://_ray_pkg_cfb21e315b1af741.zip' (1.20MiB) to Ray cluster...
+2024-07-04 00:21:05,325	INFO packaging.py:371 -- Successfully pushed file package 'gcs://_ray_pkg_cfb21e315b1af741.zip'.
+2024-07-04 00:21:08,739	WARNING tune.py:902 -- AIR_VERBOSITY is set, ignoring passed-in ProgressReporter for now.
+2024-07-04 00:29:01,894	INFO tune.py:1009 -- Wrote the latest version of all result files and experiment state to '/zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/ray_results/train_fnn_2024-07-04_00-21-08' in 0.1483s.
+INFO:model_data_nn.py:Best trial config: {'continuous_dim': 102, 'hidden_dim': 45, 'num_layers': 5, 'num_embeddings': 5727, 'embedding_dim': 20, 'dropout_rate': 0.3425596287705535, 'lr': 0.0006786952562305604, 'weight_decay': 0.0006803850954616791, 'num_epochs': 20, 'num_gpus': 2}
+INFO:model_data_nn.py:Best trial training loss: 0.023585725559969115
+INFO:model_data_nn.py:Best trial testing loss: 0.025148285568418395
+INFO:main.py:Ray Tune results have been saved to: /zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/ray_results
+INFO:main.py:Best trial directory: /tmp/ray/session_2024-07-04_00-21-02_714601_4067061/artifacts/2024-07-04_00-21-08/train_fnn_2024-07-04_00-21-08/driver_artifacts/train_fnn_4f722_00054_54_dropout_rate=0.3426,embedding_dim=20,hidden_dim=45,lr=0.0007,num_layers=5,weight_decay=0.0007_2024-07-04_00-21-09
+INFO:main.py:
+
+Retrain a new model with data in years: [1980, 1981, 1982, 1983, 1984, 1985]
+
+            Using the optimized hyperparameters: {'continuous_dim': 102, 'hidden_dim': 45, 'num_layers': 5, 'num_embeddings': 6222, 'embedding_dim': 20, 'dropout_rate': 0.3425596287705535, 'lr': 0.0006786952562305604, 'weight_decay': 0.0006803850954616791, 'num_epochs': 20, 'num_gpus': 2}
+
+INFO:model_data_nn.py:Epoch 1/20, metrics: {'avg_train_loss': 10.21516802146403, 'avg_test_loss': 0.12763556227302894}
+INFO:model_data_nn.py:Epoch 2/20, metrics: {'avg_train_loss': 0.07853845574473858, 'avg_test_loss': 0.034365088578152396}
+INFO:model_data_nn.py:Epoch 3/20, metrics: {'avg_train_loss': 0.02507426445300127, 'avg_test_loss': 0.030278103188790668}
+INFO:model_data_nn.py:Epoch 4/20, metrics: {'avg_train_loss': 0.02437964262618392, 'avg_test_loss': 0.029872827243077785}
+INFO:model_data_nn.py:Epoch 5/20, metrics: {'avg_train_loss': 0.024645088186400824, 'avg_test_loss': 0.029821548787787415}
+INFO:model_data_nn.py:Epoch 6/20, metrics: {'avg_train_loss': 0.024554811964872934, 'avg_test_loss': 0.029748309582758408}
+INFO:model_data_nn.py:Epoch 7/20, metrics: {'avg_train_loss': 0.024206896685889847, 'avg_test_loss': 0.029734574670258623}
+INFO:model_data_nn.py:Epoch 8/20, metrics: {'avg_train_loss': 0.02402838186429041, 'avg_test_loss': 0.029636091102684777}
+INFO:model_data_nn.py:Epoch 9/20, metrics: {'avg_train_loss': 0.023886115808956773, 'avg_test_loss': 0.02961663064958814}
+INFO:model_data_nn.py:Epoch 10/20, metrics: {'avg_train_loss': 0.023886910539756463, 'avg_test_loss': 0.02973505584164881}
+INFO:model_data_nn.py:Epoch 11/20, metrics: {'avg_train_loss': 0.02388897824231246, 'avg_test_loss': 0.02960084591177292}
+INFO:model_data_nn.py:Epoch 12/20, metrics: {'avg_train_loss': 0.023896000671826154, 'avg_test_loss': 0.029582257187799908}
+INFO:model_data_nn.py:Epoch 13/20, metrics: {'avg_train_loss': 0.02389461685864135, 'avg_test_loss': 0.02962004663109278}
+INFO:model_data_nn.py:Epoch 14/20, metrics: {'avg_train_loss': 0.023897745151345323, 'avg_test_loss': 0.029614421389011953}
+INFO:model_data_nn.py:Epoch 15/20, metrics: {'avg_train_loss': 0.023894347220312334, 'avg_test_loss': 0.02961333186025373}
+INFO:model_data_nn.py:Epoch 16/20, metrics: {'avg_train_loss': 0.02389512906995026, 'avg_test_loss': 0.029625485147474907}
+INFO:model_data_nn.py:Epoch 17/20, metrics: {'avg_train_loss': 0.023889358423468544, 'avg_test_loss': 0.02959353868321229}
+INFO:model_data_nn.py:Epoch 18/20, metrics: {'avg_train_loss': 0.023889100795277205, 'avg_test_loss': 0.02963523562021482}
+INFO:model_data_nn.py:Epoch 19/20, metrics: {'avg_train_loss': 0.023889939451049145, 'avg_test_loss': 0.029542792319821622}
+INFO:model_data_nn.py:Epoch 20/20, metrics: {'avg_train_loss': 0.023888532027701317, 'avg_test_loss': 0.029619919445114926}
+INFO:main.py:Making prediction for data in year: 1985
+INFO:main.py:Prediction data shape: (53143,)
+/zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/src/main.py:372: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+
+See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
+  prediction_data['pred'] = predictions
+INFO:main.py:Root Mean Squared Error for Prediction in 1986: 0.17219879596758123
+INFO:main.py:Prediction Stats:                 ret          pred
+count  53143.000000  53143.000000
+mean       0.006707      0.016346
+std        0.172102      0.006345
+min       -0.808824     -0.027580
+25%       -0.074074      0.011021
+50%        0.000000      0.016192
+75%        0.069307      0.021240
+max       10.200000      0.043274
+INFO:main.py:
+
+Transform data
+
+INFO:transform_data_nn.py:Train data years: [1980, 1981, 1982, 1983, 1984, 1985]
+INFO:transform_data_nn.py:Train_data: (288640, 158)
+
+INFO:transform_data_nn.py:Test data years: [1986]
+INFO:transform_data_nn.py:Test_data: (53143, 158)
+
+INFO:transform_data_nn.py:Retrain data years: [1980, 1981, 1982, 1983, 1984, 1985, 1986]
+INFO:transform_data_nn.py:Retrain_data: (341783, 158)
+
+INFO:transform_data_nn.py:Prediction data years: [1987]
+INFO:transform_data_nn.py:Prediction_data: (53899, 158)
+
+INFO:main.py:
+
+Generate X and y with train_data, test_data, retrain_data, and prediction_data
+
+/zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/venv/lib/python3.10/site-packages/sklearn/utils/extmath.py:1140: RuntimeWarning: invalid value encountered in divide
+  updated_mean = (last_sum + new_sum) / updated_sample_count
+/zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/venv/lib/python3.10/site-packages/sklearn/utils/extmath.py:1145: RuntimeWarning: invalid value encountered in divide
+  T = new_sum / new_sample_count
+/zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/venv/lib/python3.10/site-packages/sklearn/utils/extmath.py:1165: RuntimeWarning: invalid value encountered in divide
+  new_unnormalized_variance -= correction**2 / new_sample_count
+INFO:main.py:
+            x_train_tf: torch.Size([288640, 103])
+            y_train_tf: torch.Size([288640])
+
+            x_test_tf: torch.Size([53143, 103])
+            y_test_tf: torch.Size([53143])
+
+        
+INFO:main.py:
+
+Generate X and y with retrain_data and prediction_data
+
+/zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/venv/lib/python3.10/site-packages/sklearn/utils/extmath.py:1140: RuntimeWarning: invalid value encountered in divide
+  updated_mean = (last_sum + new_sum) / updated_sample_count
+/zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/venv/lib/python3.10/site-packages/sklearn/utils/extmath.py:1145: RuntimeWarning: invalid value encountered in divide
+  T = new_sum / new_sample_count
+/zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/venv/lib/python3.10/site-packages/sklearn/utils/extmath.py:1165: RuntimeWarning: invalid value encountered in divide
+  new_unnormalized_variance -= correction**2 / new_sample_count
+INFO:main.py:
+            x_retrain_tf: torch.Size([341783, 103])
+            y_retrain_tf: torch.Size([341783])
+
+            x_prediction_tf: torch.Size([53899, 103])
+            y_prediction_tf: torch.Size([53899])
+
+        
+INFO:main.py:
+
+Create dataset
+
+INFO:main.py:Create train_dataset
+INFO:main.py:train_dataset first example: (tensor([ 0.2960,  0.5291,  0.2580, -0.5988,  0.0395, -0.5259, -0.0249, -0.2506,
+         0.3278,  0.2032, -0.8957, -0.0173, -0.4977, -0.1929,  0.0055,  0.0193,
+        -0.4292,  0.1097,  0.0000,  0.6755, -0.3619,  0.0000,  0.0051,  0.0066,
+         0.0301, -0.2162, -0.6888,  0.0000,  0.6148,  1.1238,  0.6377, -0.1689,
+         0.4858,  0.0000, -0.5416, -0.2104,  0.1443,  0.1836,  0.1264, -1.1581,
+        -0.3292,  0.0282,  0.3104, -0.0624, -0.0053, -0.6454, -0.0189, -0.1052,
+        -0.7206, -0.2245, -0.1447,  0.9449, -0.1909,  0.0000,  0.0151, -0.4011,
+        -0.9564, -0.0779, -0.6553, -0.1434,  0.0978, -0.6593, -0.3653, -0.2155,
+        -0.2687, -0.5474,  0.1388, -0.1024, -0.2127, -0.4138, -0.7152, -0.3087,
+        -0.2357, -0.8090,  0.0576, -1.1741,  0.2740,  0.2193,  0.5585,  0.1815,
+        -0.4377, -0.2044, -0.0167,  0.0000, -0.0722, -0.0912, -0.2897, -0.6977,
+        -0.5085, -0.5068,  0.1836, -0.2903,  0.1703, -0.1403, -0.5231,  0.0000,
+         0.0000,  0.0000,  0.0000,  0.0000,  0.0000,  0.0000]), tensor([3844]), tensor(0.2117))
+INFO:main.py:Create test_dataset
+INFO:main.py:test_dataset first example: (tensor([-5.2024e-01, -1.4298e-01, -6.9860e-01, -1.3580e+00, -2.1218e-02,
+        -4.3693e-01,  1.3244e+00,  1.3047e+00, -4.0142e-01,  2.0489e-01,
+         5.7447e-03,  2.9823e-01,  1.2066e-01, -5.8988e-02,  8.1931e-03,
+         4.3817e-03, -4.3869e-01, -2.4638e-01,  0.0000e+00, -1.1026e-01,
+        -2.8431e-01,  0.0000e+00, -7.6915e-02,  4.3407e-01,  5.6338e+00,
+        -6.4075e-01, -3.8804e-01,  0.0000e+00,  2.6990e-01, -8.0007e-01,
+         3.0559e-03, -2.3573e-02,  1.6926e-01,  0.0000e+00,  3.9212e+00,
+        -2.8485e-03,  2.4843e+00, -4.5319e-01,  9.3834e-02,  2.6323e-01,
+        -3.2894e-01, -4.5149e-01,  1.4662e+00, -3.8584e-01, -1.0827e-01,
+        -1.5566e-01,  2.3228e+00,  3.7301e-01,  3.6370e-02,  1.1725e+00,
+         1.9850e+00, -9.7385e-02, -1.7884e-01,  0.0000e+00,  9.2012e-01,
+         2.4478e+00,  2.5280e+00, -1.3598e-02, -1.5963e+00, -3.8572e-01,
+         4.6115e-02, -1.4525e+00, -5.5158e-01,  1.2253e+00,  9.1787e-03,
+        -6.3798e-01, -2.3351e-01, -2.6916e-01, -2.1275e-01, -4.1505e-01,
+        -2.0565e-02, -3.7904e-02,  8.2735e+00, -6.8355e-01,  9.9116e-01,
+        -4.8114e-02,  6.1614e-01,  1.8687e-01,  1.3681e-01, -3.6534e-01,
+         1.5624e+00,  5.6475e+00, -1.6681e-02,  0.0000e+00,  1.4041e-01,
+        -2.3662e-01,  1.0028e+00,  2.1421e+00, -3.3921e-02, -3.3130e-02,
+         1.2762e-01, -1.4161e-01,  1.0862e-01,  5.5329e-01, -5.2307e-01,
+         0.0000e+00,  0.0000e+00,  0.0000e+00,  0.0000e+00,  0.0000e+00,
+         0.0000e+00,  0.0000e+00]), tensor([4033]), tensor(0.))
+INFO:main.py:Create retrain_dataset
+INFO:main.py:retrain_dataset first example: (tensor([ 0.2614,  0.5034,  0.2386, -0.6303,  0.0469, -0.5241, -0.0284, -0.2584,
+         0.3866,  0.1910, -0.8830,  0.0062, -0.5088, -0.1862, -0.0053,  0.0250,
+        -0.4235,  0.1175,  0.0000,  0.6719, -0.3586,  0.0000,  0.0257,  0.0166,
+         0.0370, -0.2229, -0.6756,  0.0000,  0.5764,  1.1873,  0.6227, -0.1414,
+         0.5064,  0.0000, -0.5226, -0.2165,  0.1496,  0.1907,  0.1020, -1.1512,
+        -0.3211,  0.0239,  0.3191, -0.0440, -0.0208, -0.6509, -0.0216, -0.0993,
+        -0.6609, -0.2278, -0.1547,  0.9190, -0.1748,  0.0000,  0.0265, -0.3809,
+        -0.9466, -0.0875, -0.6362, -0.1616,  0.1008, -0.6415, -0.3684, -0.1993,
+        -0.2698, -0.5237,  0.0996, -0.1018, -0.1900, -0.4132, -0.7240, -0.3249,
+         0.0346, -0.8136,  0.1052, -1.0783,  0.2870,  0.2369,  0.6056,  0.1760,
+        -0.4392, -0.2020, -0.0110,  0.0000, -0.0826, -0.0538, -0.3134, -0.6841,
+        -0.4092, -0.4207,  0.1949, -0.2766,  0.1496, -0.1756, -0.5206,  0.0000,
+         0.0000,  0.0000,  0.0000,  0.0000,  0.0000,  0.0000]), tensor([4108]), tensor(0.2117))
+INFO:main.py:Create prediction_dataset
+INFO:main.py:prediction_dataset first example: (tensor([-6.9920e-03,  8.9557e-03, -3.4033e-01, -1.6683e+00,  4.0069e-03,
+         1.0097e+00, -2.5891e-03, -1.0957e-02, -9.5448e-01,  1.8591e-01,
+         3.8505e-01,  6.2086e-01,  1.9972e-01,  2.1500e-02, -2.2037e-05,
+         6.4081e-03, -7.8682e-03,  1.2509e-02,  0.0000e+00,  2.2175e-02,
+        -7.5173e-02,  0.0000e+00, -1.5533e-02,  1.2460e-02,  3.1036e-02,
+         1.3005e-01, -2.3377e-01,  0.0000e+00, -4.6695e-01, -7.7328e-01,
+        -6.6426e-01,  6.0568e-03, -1.6879e-02,  0.0000e+00,  1.5509e-02,
+        -1.9876e-03,  9.2778e-03, -4.6920e-01,  6.8878e-04, -2.7767e-02,
+        -1.1036e-01, -6.2118e-01,  1.3711e-02, -4.6129e-01, -4.5306e-03,
+         2.2998e+00,  1.6293e-02, -1.3041e+00,  5.4224e-02, -1.1150e-03,
+        -8.5550e-01, -1.1288e+00, -3.1813e-01,  0.0000e+00, -8.7597e-01,
+         1.4499e-02,  3.0605e-02,  1.3658e-02, -8.7689e-03, -1.7061e-02,
+         1.2506e-02, -1.1364e-02, -2.6022e-03,  1.5424e-03, -6.5274e-04,
+        -7.4535e-03, -6.8802e-03, -2.2825e-02,  2.5533e-02,  1.5004e-01,
+        -1.1726e-02, -2.4365e-02,  3.4575e-02,  1.6018e+00, -3.4779e+00,
+        -7.2764e-02, -2.0625e+00,  4.1949e-01, -3.2436e-01, -4.6815e-01,
+        -4.0800e-01, -3.1863e-01,  1.6746e+00,  0.0000e+00, -3.2632e-03,
+        -6.4726e-01,  8.8510e-02,  5.2651e-01, -4.4860e-02, -4.4852e-02,
+        -2.1688e-01,  1.4353e+00,  1.8772e-01,  3.0461e-01, -5.2065e-01,
+         0.0000e+00,  0.0000e+00,  0.0000e+00,  1.0000e+00,  0.0000e+00,
+         1.0000e+00,  0.0000e+00]), tensor([1520]), tensor(-0.5200))
+INFO:main.py:
+
+Create dataloader
+
+INFO:main.py:Create train and test dataloader
+INFO:main.py:Create retrain and prediction dataloader
+INFO:main.py:
+
+Hyperparameters tuning with Ray Tune
+
+INFO:main.py:Training data years: [1980, 1981, 1982, 1983, 1984, 1985]
+INFO:main.py:Testing data year: 1986
+INFO:main.py:
+
+            ray_results_path: /zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/ray_results
+            num_samples: 60
+            max_num_epochs: 20
+            num_cpus: 60
+            cpus_per_trial: 1
+            num_gpus: 2
+            gpus_per_trial: 0
+            continuous_dim: 102
+            num_embeddings: 6222
+            device: cuda
+            
+2024-07-04 01:10:30,388	INFO worker.py:1753 -- Started a local Ray instance.
+2024-07-04 01:10:30,413	INFO packaging.py:530 -- Creating a file package for local directory '/zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/src'.
+2024-07-04 01:10:30,434	INFO packaging.py:358 -- Pushing file package 'gcs://_ray_pkg_cfb21e315b1af741.zip' (1.20MiB) to Ray cluster...
+2024-07-04 01:10:30,441	INFO packaging.py:371 -- Successfully pushed file package 'gcs://_ray_pkg_cfb21e315b1af741.zip'.
+2024-07-04 01:10:32,774	WARNING tune.py:902 -- AIR_VERBOSITY is set, ignoring passed-in ProgressReporter for now.
+2024-07-04 01:27:41,865	INFO tune.py:1009 -- Wrote the latest version of all result files and experiment state to '/zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/ray_results/train_fnn_2024-07-04_01-10-32' in 0.1605s.
+INFO:model_data_nn.py:Best trial config: {'continuous_dim': 102, 'hidden_dim': 65, 'num_layers': 2, 'num_embeddings': 6222, 'embedding_dim': 5, 'dropout_rate': 0.5040782247936416, 'lr': 0.00035490795460959705, 'weight_decay': 2.2302421654007694e-05, 'num_epochs': 20, 'num_gpus': 2}
+INFO:model_data_nn.py:Best trial training loss: 0.02371854123818438
+INFO:model_data_nn.py:Best trial testing loss: 0.02952517174372378
+INFO:main.py:Ray Tune results have been saved to: /zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/ray_results
+INFO:main.py:Best trial directory: /tmp/ray/session_2024-07-04_01-10-27_034357_4067061/artifacts/2024-07-04_01-10-32/train_fnn_2024-07-04_01-10-32/driver_artifacts/train_fnn_36260_00012_12_dropout_rate=0.5041,embedding_dim=5,hidden_dim=65,lr=0.0004,num_layers=2,weight_decay=0.0000_2024-07-04_01-10-32
+INFO:main.py:
+
+Retrain a new model with data in years: [1980, 1981, 1982, 1983, 1984, 1985, 1986]
+
+            Using the optimized hyperparameters: {'continuous_dim': 102, 'hidden_dim': 65, 'num_layers': 2, 'num_embeddings': 6642, 'embedding_dim': 5, 'dropout_rate': 0.5040782247936416, 'lr': 0.00035490795460959705, 'weight_decay': 2.2302421654007694e-05, 'num_epochs': 20, 'num_gpus': 2}
+
+INFO:model_data_nn.py:Epoch 1/20, metrics: {'avg_train_loss': 29.794392169191344, 'avg_test_loss': 1.1089512863995339}
+INFO:model_data_nn.py:Epoch 2/20, metrics: {'avg_train_loss': 0.2660624856984948, 'avg_test_loss': 0.04695992286965887}
+INFO:model_data_nn.py:Epoch 3/20, metrics: {'avg_train_loss': 0.027283890526400036, 'avg_test_loss': 0.04041848474698609}
+INFO:model_data_nn.py:Epoch 4/20, metrics: {'avg_train_loss': 0.02549395347289526, 'avg_test_loss': 0.03822655799485284}
+INFO:model_data_nn.py:Epoch 5/20, metrics: {'avg_train_loss': 0.025721566115956836, 'avg_test_loss': 0.03818285921632678}
+INFO:model_data_nn.py:Epoch 6/20, metrics: {'avg_train_loss': 0.02577560732558855, 'avg_test_loss': 0.04171603587257424}
+INFO:model_data_nn.py:Epoch 7/20, metrics: {'avg_train_loss': 0.025661277625527064, 'avg_test_loss': 0.03786093612770899}
+INFO:model_data_nn.py:Epoch 8/20, metrics: {'avg_train_loss': 0.025340385580569984, 'avg_test_loss': 0.03873391630860725}
+INFO:model_data_nn.py:Epoch 9/20, metrics: {'avg_train_loss': 0.025107984881930386, 'avg_test_loss': 0.03770260988200586}
+INFO:model_data_nn.py:Epoch 10/20, metrics: {'avg_train_loss': 0.024970858317051252, 'avg_test_loss': 0.037724745201644316}
+INFO:model_data_nn.py:Epoch 11/20, metrics: {'avg_train_loss': 0.024915966370572917, 'avg_test_loss': 0.03772915734344502}
+INFO:model_data_nn.py:Epoch 12/20, metrics: {'avg_train_loss': 0.02482157400507621, 'avg_test_loss': 0.03758731034972762}
+INFO:model_data_nn.py:Epoch 13/20, metrics: {'avg_train_loss': 0.024759718542273507, 'avg_test_loss': 0.037606331979926515}
+INFO:model_data_nn.py:Epoch 14/20, metrics: {'avg_train_loss': 0.02472385581867307, 'avg_test_loss': 0.03770333935475745}
+INFO:model_data_nn.py:Epoch 15/20, metrics: {'avg_train_loss': 0.02469366610584378, 'avg_test_loss': 0.037475232533686814}
+INFO:model_data_nn.py:Epoch 16/20, metrics: {'avg_train_loss': 0.024671899182676645, 'avg_test_loss': 0.037444589499569546}
+INFO:model_data_nn.py:Epoch 17/20, metrics: {'avg_train_loss': 0.024650577000383804, 'avg_test_loss': 0.03799282951871931}
+INFO:model_data_nn.py:Epoch 18/20, metrics: {'avg_train_loss': 0.024624664582261896, 'avg_test_loss': 0.03798173728478428}
+INFO:model_data_nn.py:Epoch 19/20, metrics: {'avg_train_loss': 0.02461278840525683, 'avg_test_loss': 0.037557784410555496}
+INFO:model_data_nn.py:Epoch 20/20, metrics: {'avg_train_loss': 0.024606102256739645, 'avg_test_loss': 0.037615367930859185}
+INFO:main.py:Making prediction for data in year: 1986
+INFO:main.py:Prediction data shape: (53899,)
+/zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/src/main.py:372: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+
+See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
+  prediction_data['pred'] = predictions
+INFO:main.py:Root Mean Squared Error for Prediction in 1987: 0.19398082689238663
+INFO:main.py:Prediction Stats:                 ret          pred
+count  53899.000000  53899.000000
+mean      -0.002990      0.008060
+std        0.193088      0.019845
+min       -0.875000     -0.320157
+25%       -0.085472      0.003184
+50%        0.000000      0.010216
+75%        0.076923      0.017745
+max        8.071428      0.077458
+INFO:main.py:
+
+Transform data
+
+INFO:transform_data_nn.py:Train data years: [1980, 1981, 1982, 1983, 1984, 1985, 1986]
+INFO:transform_data_nn.py:Train_data: (341783, 158)
+
+INFO:transform_data_nn.py:Test data years: [1987]
+INFO:transform_data_nn.py:Test_data: (53899, 158)
+
+INFO:transform_data_nn.py:Retrain data years: [1980, 1981, 1982, 1983, 1984, 1985, 1986, 1987]
+INFO:transform_data_nn.py:Retrain_data: (395682, 158)
+
+INFO:transform_data_nn.py:Prediction data years: [1988]
+INFO:transform_data_nn.py:Prediction_data: (56005, 158)
+
+INFO:main.py:
+
+Generate X and y with train_data, test_data, retrain_data, and prediction_data
+
+/zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/venv/lib/python3.10/site-packages/sklearn/utils/extmath.py:1140: RuntimeWarning: invalid value encountered in divide
+  updated_mean = (last_sum + new_sum) / updated_sample_count
+/zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/venv/lib/python3.10/site-packages/sklearn/utils/extmath.py:1145: RuntimeWarning: invalid value encountered in divide
+  T = new_sum / new_sample_count
+/zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/venv/lib/python3.10/site-packages/sklearn/utils/extmath.py:1165: RuntimeWarning: invalid value encountered in divide
+  new_unnormalized_variance -= correction**2 / new_sample_count
+INFO:main.py:
+            x_train_tf: torch.Size([341783, 103])
+            y_train_tf: torch.Size([341783])
+
+            x_test_tf: torch.Size([53899, 103])
+            y_test_tf: torch.Size([53899])
+
+        
+INFO:main.py:
+
+Generate X and y with retrain_data and prediction_data
+
+/zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/venv/lib/python3.10/site-packages/sklearn/utils/extmath.py:1140: RuntimeWarning: invalid value encountered in divide
+  updated_mean = (last_sum + new_sum) / updated_sample_count
+/zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/venv/lib/python3.10/site-packages/sklearn/utils/extmath.py:1145: RuntimeWarning: invalid value encountered in divide
+  T = new_sum / new_sample_count
+/zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/venv/lib/python3.10/site-packages/sklearn/utils/extmath.py:1165: RuntimeWarning: invalid value encountered in divide
+  new_unnormalized_variance -= correction**2 / new_sample_count
+INFO:main.py:
+            x_retrain_tf: torch.Size([395682, 103])
+            y_retrain_tf: torch.Size([395682])
+
+            x_prediction_tf: torch.Size([56005, 103])
+            y_prediction_tf: torch.Size([56005])
+
+        
+INFO:main.py:
+
+Create dataset
+
+INFO:main.py:Create train_dataset
+INFO:main.py:train_dataset first example: (tensor([ 0.2614,  0.5034,  0.2386, -0.6303,  0.0469, -0.5241, -0.0284, -0.2584,
+         0.3866,  0.1910, -0.8830,  0.0062, -0.5088, -0.1862, -0.0053,  0.0250,
+        -0.4235,  0.1175,  0.0000,  0.6719, -0.3586,  0.0000,  0.0257,  0.0166,
+         0.0370, -0.2229, -0.6756,  0.0000,  0.5764,  1.1873,  0.6227, -0.1414,
+         0.5064,  0.0000, -0.5226, -0.2165,  0.1496,  0.1907,  0.1020, -1.1512,
+        -0.3211,  0.0239,  0.3191, -0.0440, -0.0208, -0.6509, -0.0216, -0.0993,
+        -0.6609, -0.2278, -0.1547,  0.9190, -0.1748,  0.0000,  0.0265, -0.3809,
+        -0.9466, -0.0875, -0.6362, -0.1616,  0.1008, -0.6415, -0.3684, -0.1993,
+        -0.2698, -0.5237,  0.0996, -0.1018, -0.1900, -0.4132, -0.7240, -0.3249,
+         0.0346, -0.8136,  0.1052, -1.0783,  0.2870,  0.2369,  0.6056,  0.1760,
+        -0.4392, -0.2020, -0.0110,  0.0000, -0.0826, -0.0538, -0.3134, -0.6841,
+        -0.4092, -0.4207,  0.1949, -0.2766,  0.1496, -0.1756, -0.5206,  0.0000,
+         0.0000,  0.0000,  0.0000,  0.0000,  0.0000,  0.0000]), tensor([4108]), tensor(0.2117))
+INFO:main.py:Create test_dataset
+INFO:main.py:test_dataset first example: (tensor([-6.9920e-03,  8.9557e-03, -3.4033e-01, -1.6683e+00,  4.0069e-03,
+         1.0097e+00, -2.5891e-03, -1.0957e-02, -9.5448e-01,  1.8591e-01,
+         3.8505e-01,  6.2086e-01,  1.9972e-01,  2.1500e-02, -2.2037e-05,
+         6.4081e-03, -7.8682e-03,  1.2509e-02,  0.0000e+00,  2.2175e-02,
+        -7.5173e-02,  0.0000e+00, -1.5533e-02,  1.2460e-02,  3.1036e-02,
+         1.3005e-01, -2.3377e-01,  0.0000e+00, -4.6695e-01, -7.7328e-01,
+        -6.6426e-01,  6.0568e-03, -1.6879e-02,  0.0000e+00,  1.5509e-02,
+        -1.9876e-03,  9.2778e-03, -4.6920e-01,  6.8878e-04, -2.7767e-02,
+        -1.1036e-01, -6.2118e-01,  1.3711e-02, -4.6129e-01, -4.5306e-03,
+         2.2998e+00,  1.6293e-02, -1.3041e+00,  5.4224e-02, -1.1150e-03,
+        -8.5550e-01, -1.1288e+00, -3.1813e-01,  0.0000e+00, -8.7597e-01,
+         1.4499e-02,  3.0605e-02,  1.3658e-02, -8.7689e-03, -1.7061e-02,
+         1.2506e-02, -1.1364e-02, -2.6022e-03,  1.5424e-03, -6.5274e-04,
+        -7.4535e-03, -6.8802e-03, -2.2825e-02,  2.5533e-02,  1.5004e-01,
+        -1.1726e-02, -2.4365e-02,  3.4575e-02,  1.6018e+00, -3.4779e+00,
+        -7.2764e-02, -2.0625e+00,  4.1949e-01, -3.2436e-01, -4.6815e-01,
+        -4.0800e-01, -3.1863e-01,  1.6746e+00,  0.0000e+00, -3.2632e-03,
+        -6.4726e-01,  8.8510e-02,  5.2651e-01, -4.4860e-02, -4.4852e-02,
+        -2.1688e-01,  1.4353e+00,  1.8772e-01,  3.0461e-01, -5.2065e-01,
+         0.0000e+00,  0.0000e+00,  0.0000e+00,  1.0000e+00,  0.0000e+00,
+         1.0000e+00,  0.0000e+00]), tensor([1520]), tensor(-0.5200))
+INFO:main.py:Create retrain_dataset
+INFO:main.py:retrain_dataset first example: (tensor([ 2.4375e-01,  4.9617e-01,  2.3474e-01, -6.5108e-01,  3.9445e-02,
+        -5.2971e-01, -3.2399e-02, -2.6454e-01,  4.4939e-01,  1.9404e-01,
+        -8.7559e-01,  2.9982e-02, -5.1678e-01, -1.7870e-01,  2.8057e-02,
+         2.6105e-02, -4.2786e-01,  1.3802e-01,  0.0000e+00,  6.8093e-01,
+        -3.5624e-01,  0.0000e+00,  3.2302e-02, -4.2100e-03,  2.3124e-02,
+        -2.2767e-01, -6.6230e-01,  0.0000e+00,  5.4395e-01,  1.2575e+00,
+         6.0546e-01, -1.2386e-01,  5.1282e-01,  0.0000e+00, -5.0374e-01,
+        -2.0934e-01,  1.6390e-01,  1.9552e-01,  8.7618e-02, -1.1469e+00,
+        -3.1720e-01,  6.2132e-02,  3.3133e-01, -2.5122e-02, -3.4593e-02,
+        -6.5851e-01,  4.2816e-04, -7.2423e-02, -6.5629e-01, -2.1883e-01,
+        -1.4935e-01,  8.9773e-01, -1.5623e-01,  0.0000e+00,  2.4546e-02,
+        -3.5709e-01, -9.4222e-01, -1.1718e-01, -6.1813e-01, -1.7652e-01,
+         1.0460e-01, -6.2822e-01, -3.6749e-01, -1.8878e-01, -2.6630e-01,
+        -5.2445e-01,  7.6502e-02, -1.0615e-01, -1.6425e-01, -4.0413e-01,
+        -7.2657e-01, -3.3089e-01,  3.7161e-02, -8.1525e-01,  1.3346e-01,
+        -9.9192e-01,  2.9311e-01,  2.4566e-01,  6.3414e-01,  1.7033e-01,
+        -4.4184e-01, -2.0106e-01, -3.8979e-03,  0.0000e+00, -7.9384e-02,
+        -1.3757e-02, -3.2263e-01, -6.8126e-01, -1.6517e-01, -1.5155e-01,
+         1.8087e-01, -2.6300e-01,  1.4201e-01, -2.0741e-01, -5.1845e-01,
+         0.0000e+00,  0.0000e+00,  0.0000e+00,  0.0000e+00,  0.0000e+00,
+         0.0000e+00,  0.0000e+00]), tensor([4485]), tensor(0.2117))
+INFO:main.py:Create prediction_dataset
+INFO:main.py:prediction_dataset first example: (tensor([-9.6036e-01, -4.9283e-01, -4.7202e-01, -1.2875e+00, -5.9088e-01,
+        -3.4143e-01, -1.7353e+00, -1.0156e+00,  6.0711e-02,  1.9547e-01,
+        -4.0377e-01, -9.2351e-03, -4.1386e-03, -3.5552e-02,  1.6291e-02,
+         4.4557e-03, -4.1867e-01,  1.1388e-02,  0.0000e+00, -2.8223e-01,
+        -1.5983e-01,  0.0000e+00,  8.3143e-02,  4.9025e-02, -1.0656e-02,
+        -6.2313e-01, -8.2264e-01,  0.0000e+00, -5.7750e-01,  1.3797e+00,
+        -1.6007e+00, -3.2115e-01,  1.1211e-01,  0.0000e+00, -1.0634e+00,
+         3.8040e-03, -5.2228e-01, -8.2825e-01, -2.7243e-01, -8.6950e-01,
+         5.3128e-01, -8.5044e-01, -3.8617e-01, -2.6063e-01, -4.5432e-01,
+        -1.9406e-01,  1.0492e-02, -3.0692e-01,  5.1011e-03, -9.7349e-03,
+        -8.4332e-01, -1.1018e+00, -1.1294e+00,  0.0000e+00, -8.6923e-01,
+        -9.1403e-01,  2.6640e-02, -1.2260e-01, -3.3319e-01, -3.9018e-02,
+        -1.9560e-01, -3.4380e-01, -1.7398e-01,  3.2079e-01, -1.7674e-03,
+        -4.6619e-01, -2.1413e-01,  1.4636e+00, -8.8986e-01, -3.8259e-01,
+        -9.5638e-03, -3.3089e-02,  3.7161e-02,  3.0098e-02, -4.4583e-01,
+        -7.1099e-02, -3.4420e-01,  8.4362e-02, -6.3088e-01, -2.8029e-01,
+         4.2441e+00,  3.3876e-01, -3.8979e-03,  0.0000e+00, -7.6692e-01,
+        -6.3231e-02,  2.3258e+00,  5.0224e+00, -3.6348e-02, -4.6659e-02,
+         2.0041e-01, -8.0320e-01, -4.0666e-01,  3.0623e-01,  1.1257e+00,
+         0.0000e+00,  0.0000e+00,  0.0000e+00,  0.0000e+00,  0.0000e+00,
+         0.0000e+00,  0.0000e+00]), tensor([544]), tensor(0.0638))
+INFO:main.py:
+
+Create dataloader
+
+INFO:main.py:Create train and test dataloader
+INFO:main.py:Create retrain and prediction dataloader
+INFO:main.py:
+
+Hyperparameters tuning with Ray Tune
+
+INFO:main.py:Training data years: [1980, 1981, 1982, 1983, 1984, 1985, 1986]
+INFO:main.py:Testing data year: 1987
+INFO:main.py:
+
+            ray_results_path: /zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/ray_results
+            num_samples: 60
+            max_num_epochs: 20
+            num_cpus: 60
+            cpus_per_trial: 1
+            num_gpus: 2
+            gpus_per_trial: 0
+            continuous_dim: 102
+            num_embeddings: 6642
+            device: cuda
+            
+2024-07-04 02:10:21,811	INFO worker.py:1753 -- Started a local Ray instance.
+2024-07-04 02:10:21,839	INFO packaging.py:530 -- Creating a file package for local directory '/zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/src'.
+2024-07-04 02:10:21,862	INFO packaging.py:358 -- Pushing file package 'gcs://_ray_pkg_cfb21e315b1af741.zip' (1.20MiB) to Ray cluster...
+2024-07-04 02:10:21,868	INFO packaging.py:371 -- Successfully pushed file package 'gcs://_ray_pkg_cfb21e315b1af741.zip'.
+2024-07-04 02:10:24,211	WARNING tune.py:902 -- AIR_VERBOSITY is set, ignoring passed-in ProgressReporter for now.
+2024-07-04 02:22:15,845	INFO tune.py:1009 -- Wrote the latest version of all result files and experiment state to '/zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/ray_results/train_fnn_2024-07-04_02-10-24' in 0.1521s.
+INFO:model_data_nn.py:Best trial config: {'continuous_dim': 102, 'hidden_dim': 5, 'num_layers': 3, 'num_embeddings': 6642, 'embedding_dim': 10, 'dropout_rate': 0.3106726817275091, 'lr': 0.000643375209213068, 'weight_decay': 0.0001224868285680487, 'num_epochs': 20, 'num_gpus': 2}
+INFO:model_data_nn.py:Best trial training loss: 0.024707201832381696
+INFO:model_data_nn.py:Best trial testing loss: 0.03746961254043884
+INFO:main.py:Ray Tune results have been saved to: /zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/ray_results
+INFO:main.py:Best trial directory: /tmp/ray/session_2024-07-04_02-10-19_279927_4067061/artifacts/2024-07-04_02-10-24/train_fnn_2024-07-04_02-10-24/driver_artifacts/train_fnn_92cfc_00039_39_dropout_rate=0.3107,embedding_dim=10,hidden_dim=5,lr=0.0006,num_layers=3,weight_decay=0.0001_2024-07-04_02-10-24
+INFO:main.py:
+
+Retrain a new model with data in years: [1980, 1981, 1982, 1983, 1984, 1985, 1986, 1987]
+
+            Using the optimized hyperparameters: {'continuous_dim': 102, 'hidden_dim': 5, 'num_layers': 3, 'num_embeddings': 7281, 'embedding_dim': 10, 'dropout_rate': 0.3106726817275091, 'lr': 0.000643375209213068, 'weight_decay': 0.0001224868285680487, 'num_epochs': 20, 'num_gpus': 2}
+
+INFO:model_data_nn.py:Epoch 1/20, metrics: {'avg_train_loss': 14.220922346623256, 'avg_test_loss': 0.20995127552584425}
+INFO:model_data_nn.py:Epoch 2/20, metrics: {'avg_train_loss': 0.17801131240970527, 'avg_test_loss': 0.041972573638200485}
+INFO:model_data_nn.py:Epoch 3/20, metrics: {'avg_train_loss': 0.033126559034399546, 'avg_test_loss': 0.02738351960343279}
+INFO:model_data_nn.py:Epoch 4/20, metrics: {'avg_train_loss': 0.026600063926953566, 'avg_test_loss': 0.02735363802081612}
+INFO:model_data_nn.py:Epoch 5/20, metrics: {'avg_train_loss': 0.02661953367477218, 'avg_test_loss': 0.027356307806880916}
+INFO:model_data_nn.py:Epoch 6/20, metrics: {'avg_train_loss': 0.026625828330439996, 'avg_test_loss': 0.027359631443056}
+INFO:model_data_nn.py:Epoch 7/20, metrics: {'avg_train_loss': 0.026603845633653127, 'avg_test_loss': 0.02739344290500192}
+INFO:model_data_nn.py:Epoch 8/20, metrics: {'avg_train_loss': 0.026533515293170416, 'avg_test_loss': 0.0273699427840032}
+INFO:model_data_nn.py:Epoch 9/20, metrics: {'avg_train_loss': 0.02648149298161827, 'avg_test_loss': 0.02736832702438853}
+INFO:model_data_nn.py:Epoch 10/20, metrics: {'avg_train_loss': 0.02644987344888809, 'avg_test_loss': 0.027439141599248807}
+INFO:model_data_nn.py:Epoch 11/20, metrics: {'avg_train_loss': 0.026458456015929985, 'avg_test_loss': 0.02744769729401695}
+INFO:model_data_nn.py:Epoch 12/20, metrics: {'avg_train_loss': 0.026432186564825773, 'avg_test_loss': 0.027411172039951432}
+INFO:model_data_nn.py:Epoch 13/20, metrics: {'avg_train_loss': 0.026444231813597608, 'avg_test_loss': 0.027464049621634016}
+INFO:model_data_nn.py:Epoch 14/20, metrics: {'avg_train_loss': 0.026451071983632207, 'avg_test_loss': 0.027440851595737552}
+INFO:model_data_nn.py:Epoch 15/20, metrics: {'avg_train_loss': 0.026438642305262956, 'avg_test_loss': 0.027506800690563778}
+INFO:model_data_nn.py:Epoch 16/20, metrics: {'avg_train_loss': 0.02643648250977886, 'avg_test_loss': 0.027398572012050648}
+INFO:model_data_nn.py:Epoch 17/20, metrics: {'avg_train_loss': 0.02644281664213833, 'avg_test_loss': 0.02743196186235336}
+INFO:model_data_nn.py:Epoch 18/20, metrics: {'avg_train_loss': 0.02644224949952162, 'avg_test_loss': 0.027631940016072228}
+INFO:model_data_nn.py:Epoch 19/20, metrics: {'avg_train_loss': 0.026442222794780524, 'avg_test_loss': 0.02742105310561654}
+INFO:model_data_nn.py:Epoch 20/20, metrics: {'avg_train_loss': 0.026436760184869536, 'avg_test_loss': 0.02745964011968407}
+INFO:main.py:Making prediction for data in year: 1987
+INFO:main.py:Prediction data shape: (56005,)
+/zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/src/main.py:372: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+
+See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
+  prediction_data['pred'] = predictions
+INFO:main.py:Root Mean Squared Error for Prediction in 1988: 0.1657081982049353
+INFO:main.py:Prediction Stats:                 ret          pred
+count  56005.000000  56005.000000
+mean       0.016656      0.010148
+std        0.165388      0.012401
+min       -0.909836     -0.170318
+25%       -0.056338      0.003933
+50%        0.000000      0.011861
+75%        0.069444      0.016408
+max        6.166667      0.081038
+INFO:main.py:
+
+Transform data
+
+INFO:transform_data_nn.py:Train data years: [1980, 1981, 1982, 1983, 1984, 1985, 1986, 1987]
+INFO:transform_data_nn.py:Train_data: (395682, 158)
+
+INFO:transform_data_nn.py:Test data years: [1988]
+INFO:transform_data_nn.py:Test_data: (56005, 158)
+
+INFO:transform_data_nn.py:Retrain data years: [1980, 1981, 1982, 1983, 1984, 1985, 1986, 1987, 1988]
+INFO:transform_data_nn.py:Retrain_data: (451687, 158)
+
+INFO:transform_data_nn.py:Prediction data years: [1989]
+INFO:transform_data_nn.py:Prediction_data: (55951, 158)
+
+INFO:main.py:
+
+Generate X and y with train_data, test_data, retrain_data, and prediction_data
+
+/zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/venv/lib/python3.10/site-packages/sklearn/utils/extmath.py:1140: RuntimeWarning: invalid value encountered in divide
+  updated_mean = (last_sum + new_sum) / updated_sample_count
+/zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/venv/lib/python3.10/site-packages/sklearn/utils/extmath.py:1145: RuntimeWarning: invalid value encountered in divide
+  T = new_sum / new_sample_count
+/zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/venv/lib/python3.10/site-packages/sklearn/utils/extmath.py:1165: RuntimeWarning: invalid value encountered in divide
+  new_unnormalized_variance -= correction**2 / new_sample_count
+INFO:main.py:
+            x_train_tf: torch.Size([395682, 103])
+            y_train_tf: torch.Size([395682])
+
+            x_test_tf: torch.Size([56005, 103])
+            y_test_tf: torch.Size([56005])
+
+        
+INFO:main.py:
+
+Generate X and y with retrain_data and prediction_data
+
+/zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/venv/lib/python3.10/site-packages/sklearn/utils/extmath.py:1140: RuntimeWarning: invalid value encountered in divide
+  updated_mean = (last_sum + new_sum) / updated_sample_count
+/zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/venv/lib/python3.10/site-packages/sklearn/utils/extmath.py:1145: RuntimeWarning: invalid value encountered in divide
+  T = new_sum / new_sample_count
+/zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/venv/lib/python3.10/site-packages/sklearn/utils/extmath.py:1165: RuntimeWarning: invalid value encountered in divide
+  new_unnormalized_variance -= correction**2 / new_sample_count
+INFO:main.py:
+            x_retrain_tf: torch.Size([451687, 103])
+            y_retrain_tf: torch.Size([451687])
+
+            x_prediction_tf: torch.Size([55951, 103])
+            y_prediction_tf: torch.Size([55951])
+
+        
+INFO:main.py:
+
+Create dataset
+
+INFO:main.py:Create train_dataset
+INFO:main.py:train_dataset first example: (tensor([ 2.4375e-01,  4.9617e-01,  2.3474e-01, -6.5108e-01,  3.9445e-02,
+        -5.2971e-01, -3.2399e-02, -2.6454e-01,  4.4939e-01,  1.9404e-01,
+        -8.7559e-01,  2.9982e-02, -5.1678e-01, -1.7870e-01,  2.8057e-02,
+         2.6105e-02, -4.2786e-01,  1.3802e-01,  0.0000e+00,  6.8093e-01,
+        -3.5624e-01,  0.0000e+00,  3.2302e-02, -4.2100e-03,  2.3124e-02,
+        -2.2767e-01, -6.6230e-01,  0.0000e+00,  5.4395e-01,  1.2575e+00,
+         6.0546e-01, -1.2386e-01,  5.1282e-01,  0.0000e+00, -5.0374e-01,
+        -2.0934e-01,  1.6390e-01,  1.9552e-01,  8.7618e-02, -1.1469e+00,
+        -3.1720e-01,  6.2132e-02,  3.3133e-01, -2.5122e-02, -3.4593e-02,
+        -6.5851e-01,  4.2816e-04, -7.2423e-02, -6.5629e-01, -2.1883e-01,
+        -1.4935e-01,  8.9773e-01, -1.5623e-01,  0.0000e+00,  2.4546e-02,
+        -3.5709e-01, -9.4222e-01, -1.1718e-01, -6.1813e-01, -1.7652e-01,
+         1.0460e-01, -6.2822e-01, -3.6749e-01, -1.8878e-01, -2.6630e-01,
+        -5.2445e-01,  7.6502e-02, -1.0615e-01, -1.6425e-01, -4.0413e-01,
+        -7.2657e-01, -3.3089e-01,  3.7161e-02, -8.1525e-01,  1.3346e-01,
+        -9.9192e-01,  2.9311e-01,  2.4566e-01,  6.3414e-01,  1.7033e-01,
+        -4.4184e-01, -2.0106e-01, -3.8979e-03,  0.0000e+00, -7.9384e-02,
+        -1.3757e-02, -3.2263e-01, -6.8126e-01, -1.6517e-01, -1.5155e-01,
+         1.8087e-01, -2.6300e-01,  1.4201e-01, -2.0741e-01, -5.1845e-01,
+         0.0000e+00,  0.0000e+00,  0.0000e+00,  0.0000e+00,  0.0000e+00,
+         0.0000e+00,  0.0000e+00]), tensor([4485]), tensor(0.2117))
+INFO:main.py:Create test_dataset
+INFO:main.py:test_dataset first example: (tensor([-9.6036e-01, -4.9283e-01, -4.7202e-01, -1.2875e+00, -5.9088e-01,
+        -3.4143e-01, -1.7353e+00, -1.0156e+00,  6.0711e-02,  1.9547e-01,
+        -4.0377e-01, -9.2351e-03, -4.1386e-03, -3.5552e-02,  1.6291e-02,
+         4.4557e-03, -4.1867e-01,  1.1388e-02,  0.0000e+00, -2.8223e-01,
+        -1.5983e-01,  0.0000e+00,  8.3143e-02,  4.9025e-02, -1.0656e-02,
+        -6.2313e-01, -8.2264e-01,  0.0000e+00, -5.7750e-01,  1.3797e+00,
+        -1.6007e+00, -3.2115e-01,  1.1211e-01,  0.0000e+00, -1.0634e+00,
+         3.8040e-03, -5.2228e-01, -8.2825e-01, -2.7243e-01, -8.6950e-01,
+         5.3128e-01, -8.5044e-01, -3.8617e-01, -2.6063e-01, -4.5432e-01,
+        -1.9406e-01,  1.0492e-02, -3.0692e-01,  5.1011e-03, -9.7349e-03,
+        -8.4332e-01, -1.1018e+00, -1.1294e+00,  0.0000e+00, -8.6923e-01,
+        -9.1403e-01,  2.6640e-02, -1.2260e-01, -3.3319e-01, -3.9018e-02,
+        -1.9560e-01, -3.4380e-01, -1.7398e-01,  3.2079e-01, -1.7674e-03,
+        -4.6619e-01, -2.1413e-01,  1.4636e+00, -8.8986e-01, -3.8259e-01,
+        -9.5638e-03, -3.3089e-02,  3.7161e-02,  3.0098e-02, -4.4583e-01,
+        -7.1099e-02, -3.4420e-01,  8.4362e-02, -6.3088e-01, -2.8029e-01,
+         4.2441e+00,  3.3876e-01, -3.8979e-03,  0.0000e+00, -7.6692e-01,
+        -6.3231e-02,  2.3258e+00,  5.0224e+00, -3.6348e-02, -4.6659e-02,
+         2.0041e-01, -8.0320e-01, -4.0666e-01,  3.0623e-01,  1.1257e+00,
+         0.0000e+00,  0.0000e+00,  0.0000e+00,  0.0000e+00,  0.0000e+00,
+         0.0000e+00,  0.0000e+00]), tensor([544]), tensor(0.0638))
+INFO:main.py:Create retrain_dataset
+INFO:main.py:retrain_dataset first example: (tensor([ 2.2408e-01,  4.8719e-01,  2.1961e-01, -6.6054e-01,  2.7030e-02,
+        -5.3084e-01, -3.4901e-02, -2.6365e-01,  4.9317e-01,  1.9596e-01,
+        -8.6582e-01,  4.6152e-02, -5.2107e-01, -1.7554e-01,  4.5325e-02,
+         2.5500e-02, -4.3026e-01,  1.3935e-01,  0.0000e+00,  6.7476e-01,
+        -3.6397e-01,  0.0000e+00,  3.3567e-02,  2.3744e-03,  2.4959e-02,
+        -2.3344e-01, -6.5180e-01,  0.0000e+00,  5.5072e-01,  1.3150e+00,
+         5.7760e-01, -1.1368e-01,  5.2339e-01,  0.0000e+00, -4.9075e-01,
+        -2.0132e-01,  1.6635e-01,  2.0227e-01,  5.4428e-02, -1.1528e+00,
+        -2.9761e-01,  1.7640e-01,  3.3305e-01, -1.3537e-02, -5.1189e-02,
+        -6.6108e-01,  6.7114e-02, -7.6510e-02, -6.4570e-01, -1.8054e-01,
+        -1.4892e-01,  8.9226e-01, -1.3977e-01,  0.0000e+00,  1.7901e-02,
+        -3.3974e-01, -9.3902e-01, -1.2946e-01, -5.7367e-01, -1.8168e-01,
+         1.0471e-01, -5.7712e-01, -3.4477e-01, -1.6466e-01, -2.6531e-01,
+        -5.1972e-01,  6.3931e-02, -1.1402e-01, -1.6268e-01, -4.0502e-01,
+        -7.2370e-01, -3.3306e-01,  1.8247e-02, -8.1511e-01,  1.4803e-01,
+        -9.5461e-01,  2.9203e-01,  2.5329e-01,  6.2268e-01,  1.6234e-01,
+        -4.4128e-01, -2.0040e-01,  1.1821e-04,  0.0000e+00, -8.6464e-02,
+         1.7234e-02, -3.5448e-01, -6.6289e-01, -1.4539e-01, -1.4660e-01,
+         1.7069e-01, -2.4926e-01,  1.5269e-01, -2.1637e-01, -5.3314e-01,
+         0.0000e+00,  0.0000e+00,  0.0000e+00,  0.0000e+00,  0.0000e+00,
+         0.0000e+00,  0.0000e+00]), tensor([4853]), tensor(0.2117))
+INFO:main.py:Create prediction_dataset
+INFO:main.py:prediction_dataset first example: (tensor([-3.6750e-01,  1.4912e-03, -7.5179e-01, -9.5506e-01, -4.6437e-01,
+        -3.0111e-01, -1.8067e+00, -1.0375e+00,  4.8043e-02, -5.1507e-01,
+        -1.0061e-01,  5.1626e-02, -5.1846e-03, -5.8702e-02, -2.1880e-01,
+         3.2441e-01, -4.3653e-01, -5.4697e-01,  0.0000e+00, -2.7669e-01,
+        -8.4387e-02,  0.0000e+00,  1.3827e-02,  3.6907e-01,  1.7486e+00,
+        -5.7677e-01, -8.0454e-01,  0.0000e+00, -1.2188e+00,  1.3612e+00,
+         5.1960e-01, -2.2100e-01,  2.7079e-01,  0.0000e+00, -9.4341e-01,
+        -5.6323e-01, -6.3269e-01, -8.3449e-01, -8.1087e-01, -8.5990e-01,
+         6.0663e-01,  1.0282e-01, -4.7114e-01, -2.7433e-01, -3.8657e-01,
+         2.6151e-01,  6.5801e-02, -2.2403e-01,  6.3122e-03,  5.0147e-02,
+         5.4016e-01, -1.0449e+00, -1.1863e+00,  0.0000e+00, -8.6324e-01,
+        -8.0521e-01,  2.6917e-02, -1.4277e-01,  1.2736e-01, -2.8671e-01,
+         4.4192e-01,  6.2629e-02,  2.5971e-01, -4.0896e-01, -1.1406e-02,
+         4.7710e-02, -1.0092e-01,  1.4454e+00,  1.9953e+00, -3.4521e-01,
+        -2.1990e-02, -2.5900e-02,  1.8247e-02,  5.5017e-01, -1.8545e-01,
+        -5.5923e-02, -1.0537e-01,  1.8812e-01, -4.9075e-01, -2.7083e-01,
+         4.7358e+00,  1.6495e-01,  1.1821e-04,  0.0000e+00, -3.0842e-01,
+        -6.2716e-02, -5.4684e-01, -6.8798e-01, -2.5603e-02, -3.3801e-02,
+         2.7814e-01, -7.0423e-01,  2.1014e-01, -4.0433e-01,  1.0904e+00,
+         0.0000e+00,  0.0000e+00,  0.0000e+00,  0.0000e+00,  0.0000e+00,
+         0.0000e+00,  0.0000e+00]), tensor([510]), tensor(0.0196))
+INFO:main.py:
+
+Create dataloader
+
+INFO:main.py:Create train and test dataloader
+INFO:main.py:Create retrain and prediction dataloader
+INFO:main.py:
+
+Hyperparameters tuning with Ray Tune
+
+INFO:main.py:Training data years: [1980, 1981, 1982, 1983, 1984, 1985, 1986, 1987]
+INFO:main.py:Testing data year: 1988
+INFO:main.py:
+
+            ray_results_path: /zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/ray_results
+            num_samples: 60
+            max_num_epochs: 20
+            num_cpus: 60
+            cpus_per_trial: 1
+            num_gpus: 2
+            gpus_per_trial: 0
+            continuous_dim: 102
+            num_embeddings: 7281
+            device: cuda
+            
+2024-07-04 03:13:22,344	INFO worker.py:1753 -- Started a local Ray instance.
+2024-07-04 03:13:22,379	INFO packaging.py:530 -- Creating a file package for local directory '/zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/src'.
+2024-07-04 03:13:22,408	INFO packaging.py:358 -- Pushing file package 'gcs://_ray_pkg_cfb21e315b1af741.zip' (1.20MiB) to Ray cluster...
+2024-07-04 03:13:22,414	INFO packaging.py:371 -- Successfully pushed file package 'gcs://_ray_pkg_cfb21e315b1af741.zip'.
+2024-07-04 03:13:24,850	WARNING tune.py:902 -- AIR_VERBOSITY is set, ignoring passed-in ProgressReporter for now.
+2024-07-04 03:23:05,056	INFO tune.py:1009 -- Wrote the latest version of all result files and experiment state to '/zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/ray_results/train_fnn_2024-07-04_03-13-24' in 0.1462s.
+INFO:model_data_nn.py:Best trial config: {'continuous_dim': 102, 'hidden_dim': 45, 'num_layers': 5, 'num_embeddings': 7281, 'embedding_dim': 20, 'dropout_rate': 0.3425596287705535, 'lr': 0.0006786952562305604, 'weight_decay': 0.0006803850954616791, 'num_epochs': 20, 'num_gpus': 2}
+INFO:model_data_nn.py:Best trial training loss: 0.026493942713543273
+INFO:model_data_nn.py:Best trial testing loss: 0.027437937592653786
+INFO:main.py:Ray Tune results have been saved to: /zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/ray_results
+INFO:main.py:Best trial directory: /tmp/ray/session_2024-07-04_03-13-19_665970_4067061/artifacts/2024-07-04_03-13-24/train_fnn_2024-07-04_03-13-24/driver_artifacts/train_fnn_603f9_00054_54_dropout_rate=0.3426,embedding_dim=20,hidden_dim=45,lr=0.0007,num_layers=5,weight_decay=0.0007_2024-07-04_03-13-25
+INFO:main.py:
+
+Retrain a new model with data in years: [1980, 1981, 1982, 1983, 1984, 1985, 1986, 1987, 1988]
+
+            Using the optimized hyperparameters: {'continuous_dim': 102, 'hidden_dim': 45, 'num_layers': 5, 'num_embeddings': 7877, 'embedding_dim': 20, 'dropout_rate': 0.3425596287705535, 'lr': 0.0006786952562305604, 'weight_decay': 0.0006803850954616791, 'num_epochs': 20, 'num_gpus': 2}
+
+INFO:model_data_nn.py:Epoch 1/20, metrics: {'avg_train_loss': 7.609967917622985, 'avg_test_loss': 0.03465688110171864}
+INFO:model_data_nn.py:Epoch 2/20, metrics: {'avg_train_loss': 0.029118863110171648, 'avg_test_loss': 0.027149796347690908}
+INFO:model_data_nn.py:Epoch 3/20, metrics: {'avg_train_loss': 0.027252594665374812, 'avg_test_loss': 0.02705801076672495}
+INFO:model_data_nn.py:Epoch 4/20, metrics: {'avg_train_loss': 0.02750312031100782, 'avg_test_loss': 0.027021030430813834}
+INFO:model_data_nn.py:Epoch 5/20, metrics: {'avg_train_loss': 0.026960449925837335, 'avg_test_loss': 0.02681702059655361}
+INFO:model_data_nn.py:Epoch 6/20, metrics: {'avg_train_loss': 0.026635560920669443, 'avg_test_loss': 0.02684159796965653}
+INFO:model_data_nn.py:Epoch 7/20, metrics: {'avg_train_loss': 0.026633279737202278, 'avg_test_loss': 0.026800850757129797}
+INFO:model_data_nn.py:Epoch 8/20, metrics: {'avg_train_loss': 0.026636546802807037, 'avg_test_loss': 0.026799396053594472}
+INFO:model_data_nn.py:Epoch 9/20, metrics: {'avg_train_loss': 0.026652232862821076, 'avg_test_loss': 0.026813674175933208}
+INFO:model_data_nn.py:Epoch 10/20, metrics: {'avg_train_loss': 0.026646319636375718, 'avg_test_loss': 0.02680358957163309}
+INFO:model_data_nn.py:Epoch 11/20, metrics: {'avg_train_loss': 0.026637334384754633, 'avg_test_loss': 0.026904929970437873}
+INFO:model_data_nn.py:Epoch 12/20, metrics: {'avg_train_loss': 0.026626191382235948, 'avg_test_loss': 0.026827524628779388}
+INFO:model_data_nn.py:Epoch 13/20, metrics: {'avg_train_loss': 0.026631582484280516, 'avg_test_loss': 0.026863936162617518}
+INFO:model_data_nn.py:Epoch 14/20, metrics: {'avg_train_loss': 0.026630795692729945, 'avg_test_loss': 0.026802355997672635}
+INFO:model_data_nn.py:Epoch 15/20, metrics: {'avg_train_loss': 0.026629548465749147, 'avg_test_loss': 0.026801181394717398}
+INFO:model_data_nn.py:Epoch 16/20, metrics: {'avg_train_loss': 0.026629620112666633, 'avg_test_loss': 0.026827523545425846}
+INFO:model_data_nn.py:Epoch 17/20, metrics: {'avg_train_loss': 0.026618849319852117, 'avg_test_loss': 0.026786820418690436}
+INFO:model_data_nn.py:Epoch 18/20, metrics: {'avg_train_loss': 0.026627581199215707, 'avg_test_loss': 0.026785141090994283}
+INFO:model_data_nn.py:Epoch 19/20, metrics: {'avg_train_loss': 0.02662821726482409, 'avg_test_loss': 0.02686189541372058}
+INFO:model_data_nn.py:Epoch 20/20, metrics: {'avg_train_loss': 0.026630188677841036, 'avg_test_loss': 0.0268075850507304}
+INFO:main.py:Making prediction for data in year: 1988
+INFO:main.py:Prediction data shape: (55951,)
+/zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/src/main.py:372: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+
+See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
+  prediction_data['pred'] = predictions
+INFO:main.py:Root Mean Squared Error for Prediction in 1989: 0.1637112752936011
+INFO:main.py:Prediction Stats:                 ret          pred
+count  55951.000000  55951.000000
+mean       0.010450      0.010742
+std        0.163724      0.004950
+min       -0.900000     -0.022979
+25%       -0.058824      0.007240
+50%        0.000000      0.008640
+75%        0.064516      0.014657
+max        6.384615      0.030279
+INFO:main.py:
+
+Transform data
+
+INFO:transform_data_nn.py:Train data years: [1980, 1981, 1982, 1983, 1984, 1985, 1986, 1987, 1988]
+INFO:transform_data_nn.py:Train_data: (451687, 158)
+
+INFO:transform_data_nn.py:Test data years: [1989]
+INFO:transform_data_nn.py:Test_data: (55951, 158)
+
+INFO:transform_data_nn.py:Retrain data years: [1980, 1981, 1982, 1983, 1984, 1985, 1986, 1987, 1988, 1989]
+INFO:transform_data_nn.py:Retrain_data: (507638, 158)
+
+INFO:transform_data_nn.py:Prediction data years: [1990]
+INFO:transform_data_nn.py:Prediction_data: (55000, 158)
+
+INFO:main.py:
+
+Generate X and y with train_data, test_data, retrain_data, and prediction_data
+
+/zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/venv/lib/python3.10/site-packages/sklearn/utils/extmath.py:1140: RuntimeWarning: invalid value encountered in divide
+  updated_mean = (last_sum + new_sum) / updated_sample_count
+/zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/venv/lib/python3.10/site-packages/sklearn/utils/extmath.py:1145: RuntimeWarning: invalid value encountered in divide
+  T = new_sum / new_sample_count
+/zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/venv/lib/python3.10/site-packages/sklearn/utils/extmath.py:1165: RuntimeWarning: invalid value encountered in divide
+  new_unnormalized_variance -= correction**2 / new_sample_count
+INFO:main.py:
+            x_train_tf: torch.Size([451687, 103])
+            y_train_tf: torch.Size([451687])
+
+            x_test_tf: torch.Size([55951, 103])
+            y_test_tf: torch.Size([55951])
+
+        
+INFO:main.py:
+
+Generate X and y with retrain_data and prediction_data
+
+INFO:main.py:
+            x_retrain_tf: torch.Size([507638, 103])
+            y_retrain_tf: torch.Size([507638])
+
+            x_prediction_tf: torch.Size([55000, 103])
+            y_prediction_tf: torch.Size([55000])
+
+        
+INFO:main.py:
+
+Create dataset
+
+INFO:main.py:Create train_dataset
+INFO:main.py:train_dataset first example: (tensor([ 2.2408e-01,  4.8719e-01,  2.1961e-01, -6.6054e-01,  2.7030e-02,
+        -5.3084e-01, -3.4901e-02, -2.6365e-01,  4.9317e-01,  1.9596e-01,
+        -8.6582e-01,  4.6152e-02, -5.2107e-01, -1.7554e-01,  4.5325e-02,
+         2.5500e-02, -4.3026e-01,  1.3935e-01,  0.0000e+00,  6.7476e-01,
+        -3.6397e-01,  0.0000e+00,  3.3567e-02,  2.3744e-03,  2.4959e-02,
+        -2.3344e-01, -6.5180e-01,  0.0000e+00,  5.5072e-01,  1.3150e+00,
+         5.7760e-01, -1.1368e-01,  5.2339e-01,  0.0000e+00, -4.9075e-01,
+        -2.0132e-01,  1.6635e-01,  2.0227e-01,  5.4428e-02, -1.1528e+00,
+        -2.9761e-01,  1.7640e-01,  3.3305e-01, -1.3537e-02, -5.1189e-02,
+        -6.6108e-01,  6.7114e-02, -7.6510e-02, -6.4570e-01, -1.8054e-01,
+        -1.4892e-01,  8.9226e-01, -1.3977e-01,  0.0000e+00,  1.7901e-02,
+        -3.3974e-01, -9.3902e-01, -1.2946e-01, -5.7367e-01, -1.8168e-01,
+         1.0471e-01, -5.7712e-01, -3.4477e-01, -1.6466e-01, -2.6531e-01,
+        -5.1972e-01,  6.3931e-02, -1.1402e-01, -1.6268e-01, -4.0502e-01,
+        -7.2370e-01, -3.3306e-01,  1.8247e-02, -8.1511e-01,  1.4803e-01,
+        -9.5461e-01,  2.9203e-01,  2.5329e-01,  6.2268e-01,  1.6234e-01,
+        -4.4128e-01, -2.0040e-01,  1.1821e-04,  0.0000e+00, -8.6464e-02,
+         1.7234e-02, -3.5448e-01, -6.6289e-01, -1.4539e-01, -1.4660e-01,
+         1.7069e-01, -2.4926e-01,  1.5269e-01, -2.1637e-01, -5.3314e-01,
+         0.0000e+00,  0.0000e+00,  0.0000e+00,  0.0000e+00,  0.0000e+00,
+         0.0000e+00,  0.0000e+00]), tensor([4853]), tensor(0.2117))
+INFO:main.py:Create test_dataset
+INFO:main.py:test_dataset first example: (tensor([-3.6750e-01,  1.4912e-03, -7.5179e-01, -9.5506e-01, -4.6437e-01,
+        -3.0111e-01, -1.8067e+00, -1.0375e+00,  4.8043e-02, -5.1507e-01,
+        -1.0061e-01,  5.1626e-02, -5.1846e-03, -5.8702e-02, -2.1880e-01,
+         3.2441e-01, -4.3653e-01, -5.4697e-01,  0.0000e+00, -2.7669e-01,
+        -8.4387e-02,  0.0000e+00,  1.3827e-02,  3.6907e-01,  1.7486e+00,
+        -5.7677e-01, -8.0454e-01,  0.0000e+00, -1.2188e+00,  1.3612e+00,
+         5.1960e-01, -2.2100e-01,  2.7079e-01,  0.0000e+00, -9.4341e-01,
+        -5.6323e-01, -6.3269e-01, -8.3449e-01, -8.1087e-01, -8.5990e-01,
+         6.0663e-01,  1.0282e-01, -4.7114e-01, -2.7433e-01, -3.8657e-01,
+         2.6151e-01,  6.5801e-02, -2.2403e-01,  6.3122e-03,  5.0147e-02,
+         5.4016e-01, -1.0449e+00, -1.1863e+00,  0.0000e+00, -8.6324e-01,
+        -8.0521e-01,  2.6917e-02, -1.4277e-01,  1.2736e-01, -2.8671e-01,
+         4.4192e-01,  6.2629e-02,  2.5971e-01, -4.0896e-01, -1.1406e-02,
+         4.7710e-02, -1.0092e-01,  1.4454e+00,  1.9953e+00, -3.4521e-01,
+        -2.1990e-02, -2.5900e-02,  1.8247e-02,  5.5017e-01, -1.8545e-01,
+        -5.5923e-02, -1.0537e-01,  1.8812e-01, -4.9075e-01, -2.7083e-01,
+         4.7358e+00,  1.6495e-01,  1.1821e-04,  0.0000e+00, -3.0842e-01,
+        -6.2716e-02, -5.4684e-01, -6.8798e-01, -2.5603e-02, -3.3801e-02,
+         2.7814e-01, -7.0423e-01,  2.1014e-01, -4.0433e-01,  1.0904e+00,
+         0.0000e+00,  0.0000e+00,  0.0000e+00,  0.0000e+00,  0.0000e+00,
+         0.0000e+00,  0.0000e+00]), tensor([510]), tensor(0.0196))
+INFO:main.py:Create retrain_dataset
+INFO:main.py:retrain_dataset first example: (tensor([ 2.1451e-01,  5.3315e-01,  2.0093e-01, -6.7039e-01,  2.8289e-02,
+        -5.3022e-01, -3.7585e-02, -2.6443e-01,  5.1313e-01, -1.4951e-01,
+        -8.5665e-01, -1.0133e-01, -6.3634e-01, -3.3264e-01, -2.7258e-01,
+        -2.0725e-02, -4.2225e-01,  5.7360e-02,  7.2175e-03,  6.6717e-01,
+        -5.8200e-01, -1.1846e+00, -1.0214e-01,  5.6539e-03, -5.0515e-02,
+        -2.6820e-01, -6.4442e-01, -1.0341e-01,  5.8401e-01,  1.3401e+00,
+         5.7459e-01, -1.6062e-01,  7.7230e-01,  7.6006e-02, -4.8074e-01,
+        -2.5478e-01,  1.7246e-01,  2.0684e-01,  2.8211e-02, -1.1527e+00,
+        -2.9746e-01,  1.9284e-01,  3.4072e-01,  2.0266e-01, -6.3204e-02,
+        -6.5759e-01,  5.2048e-02, -7.7782e-02, -6.2689e-01, -1.9659e-01,
+        -1.7884e-01,  4.7953e-01, -4.9769e-01, -1.3616e-01,  1.6706e-02,
+        -3.5059e-01, -9.3292e-01, -5.4779e-01, -5.9677e-01, -2.0115e-01,
+        -1.9283e-02, -5.9300e-01, -7.0252e-01, -4.5093e-01, -3.2262e-01,
+        -5.3968e-01,  3.4680e-01, -2.6656e-01, -2.1380e-01, -5.5677e-01,
+        -7.1843e-01, -3.3174e-01,  1.9161e-02, -8.1028e-01,  1.5570e-01,
+        -9.2971e-01,  2.9550e-01,  3.2056e-01,  7.0290e-01,  6.6760e-01,
+        -1.0892e+00,  2.3655e-01, -2.8682e-04, -1.6957e-01, -1.0394e-01,
+         1.8443e-01, -3.7892e-01, -7.8213e-01, -5.8373e-01, -6.2545e-01,
+         1.6229e-01, -2.3120e-01, -3.7074e-03, -3.6485e-01, -6.1447e-01,
+         0.0000e+00,  0.0000e+00,  0.0000e+00,  0.0000e+00,  0.0000e+00,
+         0.0000e+00,  0.0000e+00]), tensor([5084]), tensor(0.2117))
+INFO:main.py:Create prediction_dataset
+INFO:main.py:prediction_dataset first example: (tensor([-7.3838e-01, -9.7403e-01,  5.0680e+00, -6.7039e-01,  1.1518e+00,
+        -5.6061e-01, -1.8618e+00, -1.0537e+00,  8.4791e-02, -7.9026e-01,
+        -4.0568e-01,  6.3891e-02, -6.3634e-01,  2.3988e-01, -4.0106e-01,
+         5.0868e-01, -4.0410e-01,  8.6061e-01,  8.6028e-01, -1.4091e-01,
+         7.6955e-01, -4.4535e-01, -2.6118e-01,  8.6720e-01, -1.0653e+00,
+        -6.6659e-01, -8.4564e-01, -1.0341e-01, -3.1147e-01,  1.2842e+00,
+         2.3614e+00, -2.0132e-02,  8.9933e-01,  7.6006e-02, -4.9143e-01,
+        -5.4618e-01,  3.3268e+00, -8.2911e-01,  6.2835e-01, -7.6676e-01,
+        -1.8364e-01,  6.5099e-02,  3.7425e+00, -5.8630e-03,  8.7345e-01,
+        -4.5154e-01,  9.2465e-01,  1.8891e-01, -1.7022e-02,  1.1418e+00,
+         1.1847e+00, -5.8833e-02, -4.9769e-01, -2.3970e+00, -8.5594e-01,
+        -5.5535e-01,  2.4902e-02, -3.8013e-01,  3.9210e-01, -5.9258e-01,
+         2.0102e+00,  2.2327e-01, -1.3817e+00, -1.2482e+00, -3.6475e-02,
+        -1.0439e+00, -9.4494e-01, -1.0493e+00,  1.8576e+00, -3.2951e-01,
+        -2.5090e-02, -1.7792e-02,  1.9161e-02, -5.6287e-01,  1.3060e-01,
+        -4.7274e-02,  3.3601e-01,  4.7928e-01,  1.7288e+00,  6.6760e-01,
+         8.9981e-01,  1.1935e+00, -2.8682e-04, -4.4777e-01,  2.0259e-01,
+         2.6374e-01, -7.4582e-02, -6.3358e-01,  5.8334e-02,  2.9458e-02,
+         5.2990e-01, -1.1124e-01,  6.8237e-01,  8.2561e-01, -6.1447e-01,
+         0.0000e+00,  0.0000e+00,  0.0000e+00,  0.0000e+00,  0.0000e+00,
+         0.0000e+00,  0.0000e+00]), tensor([483]), tensor(-0.0185))
+INFO:main.py:
+
+Create dataloader
+
+INFO:main.py:Create train and test dataloader
+INFO:main.py:Create retrain and prediction dataloader
+INFO:main.py:
+
+Hyperparameters tuning with Ray Tune
+
+INFO:main.py:Training data years: [1980, 1981, 1982, 1983, 1984, 1985, 1986, 1987, 1988]
+INFO:main.py:Testing data year: 1989
+INFO:main.py:
+
+            ray_results_path: /zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/ray_results
+            num_samples: 60
+            max_num_epochs: 20
+            num_cpus: 60
+            cpus_per_trial: 1
+            num_gpus: 2
+            gpus_per_trial: 0
+            continuous_dim: 102
+            num_embeddings: 7877
+            device: cuda
+            
+2024-07-04 04:25:01,927	INFO worker.py:1753 -- Started a local Ray instance.
+2024-07-04 04:25:01,948	INFO packaging.py:530 -- Creating a file package for local directory '/zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/src'.
+2024-07-04 04:25:01,966	INFO packaging.py:358 -- Pushing file package 'gcs://_ray_pkg_cfb21e315b1af741.zip' (1.20MiB) to Ray cluster...
+2024-07-04 04:25:01,972	INFO packaging.py:371 -- Successfully pushed file package 'gcs://_ray_pkg_cfb21e315b1af741.zip'.
+2024-07-04 04:25:04,527	WARNING tune.py:902 -- AIR_VERBOSITY is set, ignoring passed-in ProgressReporter for now.
+2024-07-04 04:37:22,153	INFO tune.py:1009 -- Wrote the latest version of all result files and experiment state to '/zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/ray_results/train_fnn_2024-07-04_04-25-04' in 0.1464s.
+INFO:model_data_nn.py:Best trial config: {'continuous_dim': 102, 'hidden_dim': 25, 'num_layers': 4, 'num_embeddings': 7877, 'embedding_dim': 10, 'dropout_rate': 0.20222524647168127, 'lr': 0.00018773201057654924, 'weight_decay': 1.1045375019318383e-06, 'num_epochs': 20, 'num_gpus': 2}
+INFO:model_data_nn.py:Best trial training loss: 0.02640740743968356
+INFO:model_data_nn.py:Best trial testing loss: 0.026748123143897413
+INFO:main.py:Ray Tune results have been saved to: /zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/ray_results
+INFO:main.py:Best trial directory: /tmp/ray/session_2024-07-04_04-24-59_350238_4067061/artifacts/2024-07-04_04-25-04/train_fnn_2024-07-04_04-25-04/driver_artifacts/train_fnn_630e4_00050_50_dropout_rate=0.2022,embedding_dim=10,hidden_dim=25,lr=0.0002,num_layers=4,weight_decay=0.0000_2024-07-04_04-25-04
+INFO:main.py:
+
+Retrain a new model with data in years: [1980, 1981, 1982, 1983, 1984, 1985, 1986, 1987, 1988, 1989]
+
+            Using the optimized hyperparameters: {'continuous_dim': 102, 'hidden_dim': 25, 'num_layers': 4, 'num_embeddings': 8246, 'embedding_dim': 10, 'dropout_rate': 0.20222524647168127, 'lr': 0.00018773201057654924, 'weight_decay': 1.1045375019318383e-06, 'num_epochs': 20, 'num_gpus': 2}
+
+INFO:model_data_nn.py:Epoch 1/20, metrics: {'avg_train_loss': 5.2412038430443815, 'avg_test_loss': 0.38743948111700455}
+INFO:model_data_nn.py:Epoch 2/20, metrics: {'avg_train_loss': 0.1909946330474991, 'avg_test_loss': 0.0517585466431757}
+INFO:model_data_nn.py:Epoch 3/20, metrics: {'avg_train_loss': 0.028012252491168524, 'avg_test_loss': 0.04124181061268373}
+INFO:model_data_nn.py:Epoch 4/20, metrics: {'avg_train_loss': 0.026829963638736062, 'avg_test_loss': 0.04060577243068364}
+INFO:model_data_nn.py:Epoch 5/20, metrics: {'avg_train_loss': 0.02681445206768634, 'avg_test_loss': 0.04007750901090371}
+INFO:model_data_nn.py:Epoch 6/20, metrics: {'avg_train_loss': 0.026760179147197555, 'avg_test_loss': 0.040563814474139794}
+INFO:model_data_nn.py:Epoch 7/20, metrics: {'avg_train_loss': 0.026682658008038172, 'avg_test_loss': 0.04005707299531719}
+INFO:model_data_nn.py:Epoch 8/20, metrics: {'avg_train_loss': 0.026603971484229456, 'avg_test_loss': 0.04053956331836796}
+INFO:model_data_nn.py:Epoch 9/20, metrics: {'avg_train_loss': 0.026560755061202663, 'avg_test_loss': 0.040423870473277085}
+INFO:model_data_nn.py:Epoch 10/20, metrics: {'avg_train_loss': 0.026495875309085717, 'avg_test_loss': 0.0410983549712529}
+INFO:model_data_nn.py:Epoch 11/20, metrics: {'avg_train_loss': 0.0264353909596906, 'avg_test_loss': 0.0407691698142349}
+INFO:model_data_nn.py:Epoch 12/20, metrics: {'avg_train_loss': 0.026386750177012974, 'avg_test_loss': 0.04042088689260878}
+INFO:model_data_nn.py:Epoch 13/20, metrics: {'avg_train_loss': 0.026364645105845328, 'avg_test_loss': 0.03996364832747468}
+INFO:model_data_nn.py:Epoch 14/20, metrics: {'avg_train_loss': 0.026338649801186657, 'avg_test_loss': 0.040955919472414046}
+INFO:model_data_nn.py:Epoch 15/20, metrics: {'avg_train_loss': 0.026300200634080385, 'avg_test_loss': 0.03995778896131141}
+INFO:model_data_nn.py:Epoch 16/20, metrics: {'avg_train_loss': 0.026280030365601236, 'avg_test_loss': 0.0432065871370913}
+INFO:model_data_nn.py:Epoch 17/20, metrics: {'avg_train_loss': 0.026261076610817176, 'avg_test_loss': 0.04150694097760459}
+INFO:model_data_nn.py:Epoch 18/20, metrics: {'avg_train_loss': 0.026259046289562594, 'avg_test_loss': 0.041021956042061714}
+INFO:model_data_nn.py:Epoch 19/20, metrics: {'avg_train_loss': 0.02622429130338715, 'avg_test_loss': 0.04076623766098258}
+INFO:model_data_nn.py:Epoch 20/20, metrics: {'avg_train_loss': 0.026204205372202173, 'avg_test_loss': 0.04119802977846459}
+INFO:main.py:Making prediction for data in year: 1989
+INFO:main.py:Prediction data shape: (55000,)
+/zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/src/main.py:372: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+
+See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
+  prediction_data['pred'] = predictions
+INFO:main.py:Root Mean Squared Error for Prediction in 1990: 0.20298733371507127
+INFO:main.py:Prediction Stats:                 ret          pred
+count  55000.000000  55000.000000
+mean      -0.016692      0.020443
+std        0.198086      0.038647
+min       -0.916667     -0.144809
+25%       -0.105263      0.005231
+50%       -0.016529      0.014342
+75%        0.051724      0.028718
+max       11.000000      0.757974
+INFO:main.py:
+
+Transform data
+
+INFO:transform_data_nn.py:Train data years: [1980, 1981, 1982, 1983, 1984, 1985, 1986, 1987, 1988, 1989]
+INFO:transform_data_nn.py:Train_data: (507638, 158)
+
+INFO:transform_data_nn.py:Test data years: [1990]
+INFO:transform_data_nn.py:Test_data: (55000, 158)
+
+INFO:transform_data_nn.py:Retrain data years: [1980, 1981, 1982, 1983, 1984, 1985, 1986, 1987, 1988, 1989, 1990]
+INFO:transform_data_nn.py:Retrain_data: (562638, 158)
+
+INFO:transform_data_nn.py:Prediction data years: [1991]
+INFO:transform_data_nn.py:Prediction_data: (54645, 158)
+
+INFO:main.py:
+
+Generate X and y with train_data, test_data, retrain_data, and prediction_data
+
+INFO:main.py:
+            x_train_tf: torch.Size([507638, 103])
+            y_train_tf: torch.Size([507638])
+
+            x_test_tf: torch.Size([55000, 103])
+            y_test_tf: torch.Size([55000])
+
+        
+INFO:main.py:
+
+Generate X and y with retrain_data and prediction_data
+
+INFO:main.py:
+            x_retrain_tf: torch.Size([562638, 103])
+            y_retrain_tf: torch.Size([562638])
+
+            x_prediction_tf: torch.Size([54645, 103])
+            y_prediction_tf: torch.Size([54645])
+
+        
+INFO:main.py:
+
+Create dataset
+
+INFO:main.py:Create train_dataset
+INFO:main.py:train_dataset first example: (tensor([ 2.1451e-01,  5.3315e-01,  2.0093e-01, -6.7039e-01,  2.8289e-02,
+        -5.3022e-01, -3.7585e-02, -2.6443e-01,  5.1313e-01, -1.4951e-01,
+        -8.5665e-01, -1.0133e-01, -6.3634e-01, -3.3264e-01, -2.7258e-01,
+        -2.0725e-02, -4.2225e-01,  5.7360e-02,  7.2175e-03,  6.6717e-01,
+        -5.8200e-01, -1.1846e+00, -1.0214e-01,  5.6539e-03, -5.0515e-02,
+        -2.6820e-01, -6.4442e-01, -1.0341e-01,  5.8401e-01,  1.3401e+00,
+         5.7459e-01, -1.6062e-01,  7.7230e-01,  7.6006e-02, -4.8074e-01,
+        -2.5478e-01,  1.7246e-01,  2.0684e-01,  2.8211e-02, -1.1527e+00,
+        -2.9746e-01,  1.9284e-01,  3.4072e-01,  2.0266e-01, -6.3204e-02,
+        -6.5759e-01,  5.2048e-02, -7.7782e-02, -6.2689e-01, -1.9659e-01,
+        -1.7884e-01,  4.7953e-01, -4.9769e-01, -1.3616e-01,  1.6706e-02,
+        -3.5059e-01, -9.3292e-01, -5.4779e-01, -5.9677e-01, -2.0115e-01,
+        -1.9283e-02, -5.9300e-01, -7.0252e-01, -4.5093e-01, -3.2262e-01,
+        -5.3968e-01,  3.4680e-01, -2.6656e-01, -2.1380e-01, -5.5677e-01,
+        -7.1843e-01, -3.3174e-01,  1.9161e-02, -8.1028e-01,  1.5570e-01,
+        -9.2971e-01,  2.9550e-01,  3.2056e-01,  7.0290e-01,  6.6760e-01,
+        -1.0892e+00,  2.3655e-01, -2.8682e-04, -1.6957e-01, -1.0394e-01,
+         1.8443e-01, -3.7892e-01, -7.8213e-01, -5.8373e-01, -6.2545e-01,
+         1.6229e-01, -2.3120e-01, -3.7074e-03, -3.6485e-01, -6.1447e-01,
+         0.0000e+00,  0.0000e+00,  0.0000e+00,  0.0000e+00,  0.0000e+00,
+         0.0000e+00,  0.0000e+00]), tensor([5084]), tensor(0.2117))
+INFO:main.py:Create test_dataset
+INFO:main.py:test_dataset first example: (tensor([-7.3838e-01, -9.7403e-01,  5.0680e+00, -6.7039e-01,  1.1518e+00,
+        -5.6061e-01, -1.8618e+00, -1.0537e+00,  8.4791e-02, -7.9026e-01,
+        -4.0568e-01,  6.3891e-02, -6.3634e-01,  2.3988e-01, -4.0106e-01,
+         5.0868e-01, -4.0410e-01,  8.6061e-01,  8.6028e-01, -1.4091e-01,
+         7.6955e-01, -4.4535e-01, -2.6118e-01,  8.6720e-01, -1.0653e+00,
+        -6.6659e-01, -8.4564e-01, -1.0341e-01, -3.1147e-01,  1.2842e+00,
+         2.3614e+00, -2.0132e-02,  8.9933e-01,  7.6006e-02, -4.9143e-01,
+        -5.4618e-01,  3.3268e+00, -8.2911e-01,  6.2835e-01, -7.6676e-01,
+        -1.8364e-01,  6.5099e-02,  3.7425e+00, -5.8630e-03,  8.7345e-01,
+        -4.5154e-01,  9.2465e-01,  1.8891e-01, -1.7022e-02,  1.1418e+00,
+         1.1847e+00, -5.8833e-02, -4.9769e-01, -2.3970e+00, -8.5594e-01,
+        -5.5535e-01,  2.4902e-02, -3.8013e-01,  3.9210e-01, -5.9258e-01,
+         2.0102e+00,  2.2327e-01, -1.3817e+00, -1.2482e+00, -3.6475e-02,
+        -1.0439e+00, -9.4494e-01, -1.0493e+00,  1.8576e+00, -3.2951e-01,
+        -2.5090e-02, -1.7792e-02,  1.9161e-02, -5.6287e-01,  1.3060e-01,
+        -4.7274e-02,  3.3601e-01,  4.7928e-01,  1.7288e+00,  6.6760e-01,
+         8.9981e-01,  1.1935e+00, -2.8682e-04, -4.4777e-01,  2.0259e-01,
+         2.6374e-01, -7.4582e-02, -6.3358e-01,  5.8334e-02,  2.9458e-02,
+         5.2990e-01, -1.1124e-01,  6.8237e-01,  8.2561e-01, -6.1447e-01,
+         0.0000e+00,  0.0000e+00,  0.0000e+00,  0.0000e+00,  0.0000e+00,
+         0.0000e+00,  0.0000e+00]), tensor([483]), tensor(-0.0185))
+INFO:main.py:Create retrain_dataset
+INFO:main.py:retrain_dataset first example: (tensor([ 0.2156,  0.6074,  0.1917, -0.6893,  0.0339, -0.5333, -0.0377, -0.2659,
+         0.5341, -0.1561, -0.8466, -0.0900, -0.6401, -0.3482, -0.2635, -0.0243,
+        -0.4135,  0.0617, -0.0738,  0.6688, -0.5527, -0.2000, -0.1243,  0.0102,
+        -0.0493, -0.2699, -0.6338, -0.0099,  0.6017,  1.3648,  0.5677, -0.1492,
+         0.7831,  0.1060, -0.4730, -0.2477,  0.1784,  0.2116,  0.0243, -1.1452,
+        -0.2655,  0.2619,  0.3513,  0.1975, -0.0631, -0.6514,  0.0930, -0.0550,
+        -0.5881, -0.1569, -0.2194,  0.4930, -0.4931,  0.0675,  0.0203, -0.3439,
+        -0.9258, -0.5545, -0.5835, -0.2016, -0.0178, -0.5794, -0.6976, -0.4478,
+        -0.3318, -0.5369,  0.4264, -0.2669, -0.2820, -0.5568, -0.7126, -0.3369,
+         0.0161, -0.8006,  0.1675, -0.9064,  0.2963,  0.3292,  0.7110,  0.6735,
+        -1.0984,  0.2399, -0.0017, -0.0229, -0.1058,  0.1974, -0.3982, -0.7736,
+        -0.6279, -0.6872,  0.1646, -0.2118,  0.0051, -0.3603, -0.6278,  0.0000,
+         0.0000,  0.0000,  0.0000,  0.0000,  0.0000,  0.0000]), tensor([5282]), tensor(0.2117))
+INFO:main.py:Create prediction_dataset
+INFO:main.py:prediction_dataset first example: (tensor([-6.7522e-01, -8.5899e-01, -7.7352e-01, -3.5454e-01, -3.9480e-01,
+        -3.9595e-01, -1.9843e+00, -1.0579e+00, -1.8637e-01, -3.1790e-01,
+        -3.3396e-01, -3.9201e-02, -6.4014e-01,  1.6626e-01, -1.3880e-01,
+        -1.3640e+00, -3.3033e-01,  1.3899e-02,  2.5754e-01, -2.6909e-01,
+        -4.9807e-02, -1.4361e+00,  1.5625e-02, -5.0074e-01, -1.1942e-01,
+        -5.2631e-01, -7.3131e-01, -9.8945e-03, -7.7194e-01,  8.9756e-01,
+        -1.1274e-01, -3.3306e-02,  5.2344e-01,  1.0603e-01, -7.3826e-01,
+         1.6767e+00, -2.6485e-01, -8.1878e-01, -1.0266e-01, -9.7809e-01,
+        -1.7447e-02, -7.0648e-01, -3.2933e-01, -2.4509e-01, -4.0857e-01,
+         2.1178e-02, -3.0764e-01, -4.5999e-02,  7.8728e-01, -1.5961e-01,
+        -2.1936e-01, -1.4328e-01, -4.9308e-01, -1.7873e+00, -8.4909e-01,
+        -5.9278e-01,  2.3711e-02, -1.4146e-01,  2.6521e-01,  3.2746e-01,
+         1.2523e-01,  1.5584e-01,  5.1855e-02,  5.8330e-01, -3.3397e-02,
+        -1.1656e-01, -8.7893e-01, -1.0490e+00,  1.7038e+00, -1.9758e-01,
+        -2.5418e-02, -1.4501e-02,  1.6058e-02, -1.6175e-02, -2.3477e-01,
+         3.6422e-01, -1.6578e-01,  5.0159e-01, -5.4632e-01,  6.7351e-01,
+         8.9478e-01,  1.2073e+00, -1.7279e-03, -3.4889e-01, -3.3369e-01,
+        -9.3302e-02,  5.0885e-01, -6.7573e-01, -5.0538e-01, -5.4557e-01,
+        -2.7308e-01, -1.9048e-01, -7.1294e-01, -7.4782e-01,  1.8113e+00,
+         0.0000e+00,  0.0000e+00,  0.0000e+00,  0.0000e+00,  0.0000e+00,
+         0.0000e+00,  0.0000e+00]), tensor([464]), tensor(0.0132))
+INFO:main.py:
+
+Create dataloader
+
+INFO:main.py:Create train and test dataloader
+INFO:main.py:Create retrain and prediction dataloader
+INFO:main.py:
+
+Hyperparameters tuning with Ray Tune
+
+INFO:main.py:Training data years: [1980, 1981, 1982, 1983, 1984, 1985, 1986, 1987, 1988, 1989]
+INFO:main.py:Testing data year: 1990
+INFO:main.py:
+
+            ray_results_path: /zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/ray_results
+            num_samples: 60
+            max_num_epochs: 20
+            num_cpus: 60
+            cpus_per_trial: 1
+            num_gpus: 2
+            gpus_per_trial: 0
+            continuous_dim: 102
+            num_embeddings: 8246
+            device: cuda
+            
+2024-07-04 05:43:16,339	INFO worker.py:1753 -- Started a local Ray instance.
+2024-07-04 05:43:16,382	INFO packaging.py:530 -- Creating a file package for local directory '/zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/src'.
+2024-07-04 05:43:16,400	INFO packaging.py:358 -- Pushing file package 'gcs://_ray_pkg_cfb21e315b1af741.zip' (1.20MiB) to Ray cluster...
+2024-07-04 05:43:16,408	INFO packaging.py:371 -- Successfully pushed file package 'gcs://_ray_pkg_cfb21e315b1af741.zip'.
+2024-07-04 05:43:18,852	WARNING tune.py:902 -- AIR_VERBOSITY is set, ignoring passed-in ProgressReporter for now.
+2024-07-04 05:52:38,809	INFO tune.py:1009 -- Wrote the latest version of all result files and experiment state to '/zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/ray_results/train_fnn_2024-07-04_05-43-18' in 0.1552s.
+INFO:model_data_nn.py:Best trial config: {'continuous_dim': 102, 'hidden_dim': 45, 'num_layers': 5, 'num_embeddings': 8246, 'embedding_dim': 20, 'dropout_rate': 0.3425596287705535, 'lr': 0.0006786952562305604, 'weight_decay': 0.0006803850954616791, 'num_epochs': 20, 'num_gpus': 2}
+INFO:model_data_nn.py:Best trial training loss: 0.026603216759764705
+INFO:model_data_nn.py:Best trial testing loss: 0.040007009900846456
+INFO:main.py:Ray Tune results have been saved to: /zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/ray_results
+INFO:main.py:Best trial directory: /tmp/ray/session_2024-07-04_05-43-13_803682_4067061/artifacts/2024-07-04_05-43-18/train_fnn_2024-07-04_05-43-18/driver_artifacts/train_fnn_51174_00054_54_dropout_rate=0.3426,embedding_dim=20,hidden_dim=45,lr=0.0007,num_layers=5,weight_decay=0.0007_2024-07-04_05-43-19
+INFO:main.py:
+
+Retrain a new model with data in years: [1980, 1981, 1982, 1983, 1984, 1985, 1986, 1987, 1988, 1989, 1990]
+
+            Using the optimized hyperparameters: {'continuous_dim': 102, 'hidden_dim': 45, 'num_layers': 5, 'num_embeddings': 8562, 'embedding_dim': 20, 'dropout_rate': 0.3425596287705535, 'lr': 0.0006786952562305604, 'weight_decay': 0.0006803850954616791, 'num_epochs': 20, 'num_gpus': 2}
+
+INFO:model_data_nn.py:Epoch 1/20, metrics: {'avg_train_loss': 4.522397192119849, 'avg_test_loss': 0.057102749353183095}
+INFO:model_data_nn.py:Epoch 2/20, metrics: {'avg_train_loss': 0.02874141814249879, 'avg_test_loss': 0.0574459418658804}
+INFO:model_data_nn.py:Epoch 3/20, metrics: {'avg_train_loss': 0.028830144475565866, 'avg_test_loss': 0.05737687332939522}
+INFO:model_data_nn.py:Epoch 4/20, metrics: {'avg_train_loss': 0.02825224328531059, 'avg_test_loss': 0.05783973287232656}
+INFO:model_data_nn.py:Epoch 5/20, metrics: {'avg_train_loss': 0.02793629548353083, 'avg_test_loss': 0.057833049950174624}
+INFO:model_data_nn.py:Epoch 6/20, metrics: {'avg_train_loss': 0.027930089470432958, 'avg_test_loss': 0.05791864768804795}
+INFO:model_data_nn.py:Epoch 7/20, metrics: {'avg_train_loss': 0.027923363178512513, 'avg_test_loss': 0.05828145510392739}
+INFO:model_data_nn.py:Epoch 8/20, metrics: {'avg_train_loss': 0.027933308452594893, 'avg_test_loss': 0.05848337700525059}
+INFO:model_data_nn.py:Epoch 9/20, metrics: {'avg_train_loss': 0.027928921760774276, 'avg_test_loss': 0.05820854643220191}
+INFO:model_data_nn.py:Epoch 10/20, metrics: {'avg_train_loss': 0.027930318810099955, 'avg_test_loss': 0.05822403446402601}
+INFO:model_data_nn.py:Epoch 11/20, metrics: {'avg_train_loss': 0.027921015226593186, 'avg_test_loss': 0.057729939188572645}
+INFO:model_data_nn.py:Epoch 12/20, metrics: {'avg_train_loss': 0.027922828961629845, 'avg_test_loss': 0.05844112540937663}
+INFO:model_data_nn.py:Epoch 13/20, metrics: {'avg_train_loss': 0.02792074294990476, 'avg_test_loss': 0.057977474322956954}
+INFO:model_data_nn.py:Epoch 14/20, metrics: {'avg_train_loss': 0.027931412449742146, 'avg_test_loss': 0.057806811731666394}
+INFO:model_data_nn.py:Epoch 15/20, metrics: {'avg_train_loss': 0.027926897573529712, 'avg_test_loss': 0.05897592273878863}
+INFO:model_data_nn.py:Epoch 16/20, metrics: {'avg_train_loss': 0.027931540791967288, 'avg_test_loss': 0.057660474952319046}
+INFO:model_data_nn.py:Epoch 17/20, metrics: {'avg_train_loss': 0.02791725040995622, 'avg_test_loss': 0.05781049584529299}
+INFO:model_data_nn.py:Epoch 18/20, metrics: {'avg_train_loss': 0.027927131055421224, 'avg_test_loss': 0.05822356197703848}
+INFO:model_data_nn.py:Epoch 19/20, metrics: {'avg_train_loss': 0.027915385278879077, 'avg_test_loss': 0.058075541543143976}
+INFO:model_data_nn.py:Epoch 20/20, metrics: {'avg_train_loss': 0.02793043911066398, 'avg_test_loss': 0.058384092281456926}
+INFO:main.py:Making prediction for data in year: 1990
+INFO:main.py:Prediction data shape: (54645,)
+/zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/src/main.py:372: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+
+See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
+  prediction_data['pred'] = predictions
+INFO:main.py:Root Mean Squared Error for Prediction in 1991: 0.24163507192712463
+INFO:main.py:Prediction Stats:                 ret          pred
+count  54645.000000  54645.000000
+mean       0.039278      0.003653
+std        0.238664      0.010428
+min       -0.950000     -0.092549
+25%       -0.058824      0.001814
+50%        0.007005      0.005921
+75%        0.100000      0.010596
+max       14.000000      0.013362
+INFO:main.py:
+
+Transform data
+
+INFO:transform_data_nn.py:Train data years: [1980, 1981, 1982, 1983, 1984, 1985, 1986, 1987, 1988, 1989, 1990]
+INFO:transform_data_nn.py:Train_data: (562638, 158)
+
+INFO:transform_data_nn.py:Test data years: [1991]
+INFO:transform_data_nn.py:Test_data: (54645, 158)
+
+INFO:transform_data_nn.py:Retrain data years: [1980, 1981, 1982, 1983, 1984, 1985, 1986, 1987, 1988, 1989, 1990, 1991]
+INFO:transform_data_nn.py:Retrain_data: (617283, 158)
+
+INFO:transform_data_nn.py:Prediction data years: [1992]
+INFO:transform_data_nn.py:Prediction_data: (54174, 158)
+
+INFO:main.py:
+
+Generate X and y with train_data, test_data, retrain_data, and prediction_data
+
+INFO:main.py:
+            x_train_tf: torch.Size([562638, 103])
+            y_train_tf: torch.Size([562638])
+
+            x_test_tf: torch.Size([54645, 103])
+            y_test_tf: torch.Size([54645])
+
+        
+INFO:main.py:
+
+Generate X and y with retrain_data and prediction_data
+
+INFO:main.py:
+            x_retrain_tf: torch.Size([617283, 103])
+            y_retrain_tf: torch.Size([617283])
+
+            x_prediction_tf: torch.Size([54174, 103])
+            y_prediction_tf: torch.Size([54174])
+
+        
+INFO:main.py:
+
+Create dataset
+
+INFO:main.py:Create train_dataset
+INFO:main.py:train_dataset first example: (tensor([ 0.2156,  0.6074,  0.1917, -0.6893,  0.0339, -0.5333, -0.0377, -0.2659,
+         0.5341, -0.1561, -0.8466, -0.0900, -0.6401, -0.3482, -0.2635, -0.0243,
+        -0.4135,  0.0617, -0.0738,  0.6688, -0.5527, -0.2000, -0.1243,  0.0102,
+        -0.0493, -0.2699, -0.6338, -0.0099,  0.6017,  1.3648,  0.5677, -0.1492,
+         0.7831,  0.1060, -0.4730, -0.2477,  0.1784,  0.2116,  0.0243, -1.1452,
+        -0.2655,  0.2619,  0.3513,  0.1975, -0.0631, -0.6514,  0.0930, -0.0550,
+        -0.5881, -0.1569, -0.2194,  0.4930, -0.4931,  0.0675,  0.0203, -0.3439,
+        -0.9258, -0.5545, -0.5835, -0.2016, -0.0178, -0.5794, -0.6976, -0.4478,
+        -0.3318, -0.5369,  0.4264, -0.2669, -0.2820, -0.5568, -0.7126, -0.3369,
+         0.0161, -0.8006,  0.1675, -0.9064,  0.2963,  0.3292,  0.7110,  0.6735,
+        -1.0984,  0.2399, -0.0017, -0.0229, -0.1058,  0.1974, -0.3982, -0.7736,
+        -0.6279, -0.6872,  0.1646, -0.2118,  0.0051, -0.3603, -0.6278,  0.0000,
+         0.0000,  0.0000,  0.0000,  0.0000,  0.0000,  0.0000]), tensor([5282]), tensor(0.2117))
+INFO:main.py:Create test_dataset
+INFO:main.py:test_dataset first example: (tensor([-6.7522e-01, -8.5899e-01, -7.7352e-01, -3.5454e-01, -3.9480e-01,
+        -3.9595e-01, -1.9843e+00, -1.0579e+00, -1.8637e-01, -3.1790e-01,
+        -3.3396e-01, -3.9201e-02, -6.4014e-01,  1.6626e-01, -1.3880e-01,
+        -1.3640e+00, -3.3033e-01,  1.3899e-02,  2.5754e-01, -2.6909e-01,
+        -4.9807e-02, -1.4361e+00,  1.5625e-02, -5.0074e-01, -1.1942e-01,
+        -5.2631e-01, -7.3131e-01, -9.8945e-03, -7.7194e-01,  8.9756e-01,
+        -1.1274e-01, -3.3306e-02,  5.2344e-01,  1.0603e-01, -7.3826e-01,
+         1.6767e+00, -2.6485e-01, -8.1878e-01, -1.0266e-01, -9.7809e-01,
+        -1.7447e-02, -7.0648e-01, -3.2933e-01, -2.4509e-01, -4.0857e-01,
+         2.1178e-02, -3.0764e-01, -4.5999e-02,  7.8728e-01, -1.5961e-01,
+        -2.1936e-01, -1.4328e-01, -4.9308e-01, -1.7873e+00, -8.4909e-01,
+        -5.9278e-01,  2.3711e-02, -1.4146e-01,  2.6521e-01,  3.2746e-01,
+         1.2523e-01,  1.5584e-01,  5.1855e-02,  5.8330e-01, -3.3397e-02,
+        -1.1656e-01, -8.7893e-01, -1.0490e+00,  1.7038e+00, -1.9758e-01,
+        -2.5418e-02, -1.4501e-02,  1.6058e-02, -1.6175e-02, -2.3477e-01,
+         3.6422e-01, -1.6578e-01,  5.0159e-01, -5.4632e-01,  6.7351e-01,
+         8.9478e-01,  1.2073e+00, -1.7279e-03, -3.4889e-01, -3.3369e-01,
+        -9.3302e-02,  5.0885e-01, -6.7573e-01, -5.0538e-01, -5.4557e-01,
+        -2.7308e-01, -1.9048e-01, -7.1294e-01, -7.4782e-01,  1.8113e+00,
+         0.0000e+00,  0.0000e+00,  0.0000e+00,  0.0000e+00,  0.0000e+00,
+         0.0000e+00,  0.0000e+00]), tensor([464]), tensor(0.0132))
+INFO:main.py:Create retrain_dataset
+INFO:main.py:retrain_dataset first example: (tensor([ 0.2123,  0.6734,  0.1763, -0.7115,  0.0451, -0.5348, -0.0388, -0.2714,
+         0.5090, -0.1714, -0.8376, -0.0809, -0.6399, -0.3671, -0.2593, -0.0232,
+        -0.4044,  0.0652, -0.2076,  0.6818, -0.5499, -0.2125, -0.1399,  0.0151,
+        -0.0441, -0.2697, -0.6162, -0.0128,  0.6134,  1.3566,  0.5259, -0.1403,
+         0.7889,  0.1295, -0.4656, -0.2423,  0.1850,  0.2147,  0.0277, -1.1334,
+        -0.2565,  0.2628,  0.3621,  0.1829, -0.0580, -0.6472,  0.0938, -0.0675,
+        -0.5569, -0.1682, -0.2524,  0.5018, -0.4884,  0.1337,  0.0265, -0.3371,
+        -0.9185, -0.5611, -0.5730, -0.2002, -0.0152, -0.5715, -0.6928, -0.4504,
+        -0.3352, -0.5349,  0.4998, -0.2741, -0.3339, -0.5561, -0.6846, -0.3385,
+         0.0162, -0.7918,  0.1821, -0.8947,  0.3013,  0.3363,  0.7248,  0.6765,
+        -1.1103,  0.2421, -0.0043, -0.0637, -0.0998,  0.1928, -0.4086, -0.7698,
+        -0.6540, -0.7387,  0.1588, -0.1942,  0.0121, -0.3607, -0.6350,  0.0000,
+         0.0000,  0.0000,  0.0000,  0.0000,  0.0000,  0.0000]), tensor([5478]), tensor(0.2117))
+INFO:main.py:Create prediction_dataset
+INFO:main.py:prediction_dataset first example: (tensor([-6.0426e-01, -7.8261e-01, -3.5856e-01, -4.8198e-02, -3.2702e-01,
+        -4.4945e-01, -2.0276e+00, -1.0374e+00, -1.9367e-01, -1.0126e-01,
+        -2.5505e-01, -6.0892e-02, -6.3990e-01,  1.4602e-01, -1.4422e-01,
+        -6.1470e-02, -2.8639e-01, -1.0423e-01,  3.5899e-01, -2.3153e-01,
+         5.4894e-01,  2.3498e+00,  3.7602e-01, -1.7602e-01, -1.3051e-02,
+        -4.3214e-01, -7.5747e-01, -1.0411e+00, -9.0341e-02,  9.1575e-01,
+         1.1430e+00, -7.6074e-02,  4.2846e-01,  1.2945e-01, -7.6376e-01,
+         4.7789e-01, -2.7913e-01, -8.2174e-01, -1.4139e-01, -1.1003e+00,
+        -6.1511e-02,  3.7568e-01, -2.5567e-01, -3.0536e-01, -3.5786e-01,
+        -2.6266e-01,  9.3790e-01, -1.1325e-01,  4.1681e-01,  1.0906e+00,
+        -2.5237e-01,  4.6016e-01, -4.8843e-01, -5.2186e-01, -8.4130e-01,
+        -6.4415e-01,  2.2961e-02,  1.5526e+00,  8.9615e-02, -5.6042e-01,
+        -2.3631e-01,  1.0849e-02, -3.8950e-01, -4.6001e-01, -2.7295e-02,
+        -4.1060e-01, -8.1986e-01,  4.9547e+00,  9.5687e-01, -1.1417e-01,
+        -4.1341e-02, -1.3353e-02,  1.6226e-02, -1.3486e-01, -3.1499e-01,
+         3.8567e-01, -2.5223e-01,  4.8282e-01, -1.6740e-01,  6.7651e-01,
+         8.8897e-01,  1.2162e+00, -4.3117e-03, -2.1435e-01, -3.1083e-01,
+        -1.7022e-01,  6.1069e-01, -4.1143e-01, -5.4897e-01, -6.1119e-01,
+        -5.6143e-03, -5.3026e-02,  5.0490e-01, -3.7760e-01,  3.3609e-01,
+         0.0000e+00,  0.0000e+00,  0.0000e+00,  0.0000e+00,  0.0000e+00,
+         0.0000e+00,  0.0000e+00]), tensor([476]), tensor(-0.0517))
+INFO:main.py:
+
+Create dataloader
+
+INFO:main.py:Create train and test dataloader
+INFO:main.py:Create retrain and prediction dataloader
+INFO:main.py:
+
+Hyperparameters tuning with Ray Tune
+
+INFO:main.py:Training data years: [1980, 1981, 1982, 1983, 1984, 1985, 1986, 1987, 1988, 1989, 1990]
+INFO:main.py:Testing data year: 1991
+INFO:main.py:
+
+            ray_results_path: /zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/ray_results
+            num_samples: 60
+            max_num_epochs: 20
+            num_cpus: 60
+            cpus_per_trial: 1
+            num_gpus: 2
+            gpus_per_trial: 0
+            continuous_dim: 102
+            num_embeddings: 8562
+            device: cuda
+            
+2024-07-04 07:07:36,383	INFO worker.py:1753 -- Started a local Ray instance.
+2024-07-04 07:07:36,411	INFO packaging.py:530 -- Creating a file package for local directory '/zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/src'.
+2024-07-04 07:07:36,431	INFO packaging.py:358 -- Pushing file package 'gcs://_ray_pkg_cfb21e315b1af741.zip' (1.20MiB) to Ray cluster...
+2024-07-04 07:07:36,438	INFO packaging.py:371 -- Successfully pushed file package 'gcs://_ray_pkg_cfb21e315b1af741.zip'.
+2024-07-04 07:07:39,048	WARNING tune.py:902 -- AIR_VERBOSITY is set, ignoring passed-in ProgressReporter for now.
+2024-07-04 07:18:26,546	INFO tune.py:1009 -- Wrote the latest version of all result files and experiment state to '/zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/ray_results/train_fnn_2024-07-04_07-07-39' in 0.1557s.
+INFO:model_data_nn.py:Best trial config: {'continuous_dim': 102, 'hidden_dim': 155, 'num_layers': 4, 'num_embeddings': 8562, 'embedding_dim': 5, 'dropout_rate': 0.5290328931486485, 'lr': 0.00034166582909960413, 'weight_decay': 0.00017456626922659324, 'num_epochs': 20, 'num_gpus': 2}
+INFO:model_data_nn.py:Best trial training loss: 0.030106583653183975
+INFO:model_data_nn.py:Best trial testing loss: 0.057496295807843885
+INFO:main.py:Ray Tune results have been saved to: /zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/ray_results
+INFO:main.py:Best trial directory: /tmp/ray/session_2024-07-04_07-07-33_874662_4067061/artifacts/2024-07-04_07-07-39/train_fnn_2024-07-04_07-07-39/driver_artifacts/train_fnn_1933f_00009_9_dropout_rate=0.5290,embedding_dim=5,hidden_dim=155,lr=0.0003,num_layers=4,weight_decay=0.0002_2024-07-04_07-07-39
+INFO:main.py:
+
+Retrain a new model with data in years: [1980, 1981, 1982, 1983, 1984, 1985, 1986, 1987, 1988, 1989, 1990, 1991]
+
+            Using the optimized hyperparameters: {'continuous_dim': 102, 'hidden_dim': 155, 'num_layers': 4, 'num_embeddings': 8896, 'embedding_dim': 5, 'dropout_rate': 0.5290328931486485, 'lr': 0.00034166582909960413, 'weight_decay': 0.00017456626922659324, 'num_epochs': 20, 'num_gpus': 2}
+
+INFO:model_data_nn.py:Epoch 1/20, metrics: {'avg_train_loss': 14.57296252162637, 'avg_test_loss': 0.057693759590071045}
+INFO:model_data_nn.py:Epoch 2/20, metrics: {'avg_train_loss': 0.03162418437375151, 'avg_test_loss': 0.05747635117380546}
+INFO:model_data_nn.py:Epoch 3/20, metrics: {'avg_train_loss': 0.033311897745885444, 'avg_test_loss': 0.05736315263136518}
+INFO:model_data_nn.py:Epoch 4/20, metrics: {'avg_train_loss': 0.032209407633374015, 'avg_test_loss': 0.05722052763427063}
+INFO:model_data_nn.py:Epoch 5/20, metrics: {'avg_train_loss': 0.03090256775713717, 'avg_test_loss': 0.05693414384490406}
+INFO:model_data_nn.py:Epoch 6/20, metrics: {'avg_train_loss': 0.030555802378119917, 'avg_test_loss': 0.057265008285747106}
+INFO:model_data_nn.py:Epoch 7/20, metrics: {'avg_train_loss': 0.03050297053240003, 'avg_test_loss': 0.05736443919858913}
+INFO:model_data_nn.py:Epoch 8/20, metrics: {'avg_train_loss': 0.03053373894660973, 'avg_test_loss': 0.057460725232783075}
+INFO:model_data_nn.py:Epoch 9/20, metrics: {'avg_train_loss': 0.030496763115470314, 'avg_test_loss': 0.05708604030539545}
+INFO:model_data_nn.py:Epoch 10/20, metrics: {'avg_train_loss': 0.030498263863497146, 'avg_test_loss': 0.057480684784680325}
+INFO:model_data_nn.py:Epoch 11/20, metrics: {'avg_train_loss': 0.03049127911681917, 'avg_test_loss': 0.057360025129351275}
+INFO:model_data_nn.py:Epoch 12/20, metrics: {'avg_train_loss': 0.030492639074284716, 'avg_test_loss': 0.05739101605437134}
+INFO:model_data_nn.py:Epoch 13/20, metrics: {'avg_train_loss': 0.030495122539487007, 'avg_test_loss': 0.05701794092244697}
+INFO:model_data_nn.py:Epoch 14/20, metrics: {'avg_train_loss': 0.030497834109397083, 'avg_test_loss': 0.057060039310083494}
+INFO:model_data_nn.py:Epoch 15/20, metrics: {'avg_train_loss': 0.03049213352639992, 'avg_test_loss': 0.057142368082905994}
+INFO:model_data_nn.py:Epoch 16/20, metrics: {'avg_train_loss': 0.030493315921027754, 'avg_test_loss': 0.057200724524797276}
+INFO:model_data_nn.py:Epoch 17/20, metrics: {'avg_train_loss': 0.03048582044712969, 'avg_test_loss': 0.05714028152057304}
+INFO:model_data_nn.py:Epoch 18/20, metrics: {'avg_train_loss': 0.030474227415167972, 'avg_test_loss': 0.05743114859577409}
+INFO:model_data_nn.py:Epoch 19/20, metrics: {'avg_train_loss': 0.030495499848906996, 'avg_test_loss': 0.05753116460763059}
+INFO:model_data_nn.py:Epoch 20/20, metrics: {'avg_train_loss': 0.03049817901253762, 'avg_test_loss': 0.05711171205840864}
+INFO:main.py:Making prediction for data in year: 1991
+INFO:main.py:Prediction data shape: (54174,)
+/zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/src/main.py:372: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+
+See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
+  prediction_data['pred'] = predictions
+INFO:main.py:Root Mean Squared Error for Prediction in 1992: 0.23904729109772732
+INFO:main.py:Prediction Stats:                 ret          pred
+count  54174.000000  54174.000000
+mean       0.023158      0.011254
+std        0.239548      0.011836
+min       -0.958333     -0.031565
+25%       -0.065934      0.005125
+50%        0.000000      0.008494
+75%        0.079365      0.013651
+max       24.000000      0.164942
+INFO:main.py:
+
+Transform data
+
+INFO:transform_data_nn.py:Train data years: [1980, 1981, 1982, 1983, 1984, 1985, 1986, 1987, 1988, 1989, 1990, 1991]
+INFO:transform_data_nn.py:Train_data: (617283, 158)
+
+INFO:transform_data_nn.py:Test data years: [1992]
+INFO:transform_data_nn.py:Test_data: (54174, 158)
+
+INFO:transform_data_nn.py:Retrain data years: [1980, 1981, 1982, 1983, 1984, 1985, 1986, 1987, 1988, 1989, 1990, 1991, 1992]
+INFO:transform_data_nn.py:Retrain_data: (671457, 158)
+
+INFO:transform_data_nn.py:Prediction data years: [1993]
+INFO:transform_data_nn.py:Prediction_data: (56408, 158)
+
+INFO:main.py:
+
+Generate X and y with train_data, test_data, retrain_data, and prediction_data
+
+INFO:main.py:
+            x_train_tf: torch.Size([617283, 103])
+            y_train_tf: torch.Size([617283])
+
+            x_test_tf: torch.Size([54174, 103])
+            y_test_tf: torch.Size([54174])
+
+        
+INFO:main.py:
+
+Generate X and y with retrain_data and prediction_data
+
+INFO:main.py:
+            x_retrain_tf: torch.Size([671457, 103])
+            y_retrain_tf: torch.Size([671457])
+
+            x_prediction_tf: torch.Size([56408, 103])
+            y_prediction_tf: torch.Size([56408])
+
+        
+INFO:main.py:
+
+Create dataset
+
+INFO:main.py:Create train_dataset
+INFO:main.py:train_dataset first example: (tensor([ 0.2123,  0.6734,  0.1763, -0.7115,  0.0451, -0.5348, -0.0388, -0.2714,
+         0.5090, -0.1714, -0.8376, -0.0809, -0.6399, -0.3671, -0.2593, -0.0232,
+        -0.4044,  0.0652, -0.2076,  0.6818, -0.5499, -0.2125, -0.1399,  0.0151,
+        -0.0441, -0.2697, -0.6162, -0.0128,  0.6134,  1.3566,  0.5259, -0.1403,
+         0.7889,  0.1295, -0.4656, -0.2423,  0.1850,  0.2147,  0.0277, -1.1334,
+        -0.2565,  0.2628,  0.3621,  0.1829, -0.0580, -0.6472,  0.0938, -0.0675,
+        -0.5569, -0.1682, -0.2524,  0.5018, -0.4884,  0.1337,  0.0265, -0.3371,
+        -0.9185, -0.5611, -0.5730, -0.2002, -0.0152, -0.5715, -0.6928, -0.4504,
+        -0.3352, -0.5349,  0.4998, -0.2741, -0.3339, -0.5561, -0.6846, -0.3385,
+         0.0162, -0.7918,  0.1821, -0.8947,  0.3013,  0.3363,  0.7248,  0.6765,
+        -1.1103,  0.2421, -0.0043, -0.0637, -0.0998,  0.1928, -0.4086, -0.7698,
+        -0.6540, -0.7387,  0.1588, -0.1942,  0.0121, -0.3607, -0.6350,  0.0000,
+         0.0000,  0.0000,  0.0000,  0.0000,  0.0000,  0.0000]), tensor([5478]), tensor(0.2117))
+INFO:main.py:Create test_dataset
+INFO:main.py:test_dataset first example: (tensor([-6.0426e-01, -7.8261e-01, -3.5856e-01, -4.8198e-02, -3.2702e-01,
+        -4.4945e-01, -2.0276e+00, -1.0374e+00, -1.9367e-01, -1.0126e-01,
+        -2.5505e-01, -6.0892e-02, -6.3990e-01,  1.4602e-01, -1.4422e-01,
+        -6.1470e-02, -2.8639e-01, -1.0423e-01,  3.5899e-01, -2.3153e-01,
+         5.4894e-01,  2.3498e+00,  3.7602e-01, -1.7602e-01, -1.3051e-02,
+        -4.3214e-01, -7.5747e-01, -1.0411e+00, -9.0341e-02,  9.1575e-01,
+         1.1430e+00, -7.6074e-02,  4.2846e-01,  1.2945e-01, -7.6376e-01,
+         4.7789e-01, -2.7913e-01, -8.2174e-01, -1.4139e-01, -1.1003e+00,
+        -6.1511e-02,  3.7568e-01, -2.5567e-01, -3.0536e-01, -3.5786e-01,
+        -2.6266e-01,  9.3790e-01, -1.1325e-01,  4.1681e-01,  1.0906e+00,
+        -2.5237e-01,  4.6016e-01, -4.8843e-01, -5.2186e-01, -8.4130e-01,
+        -6.4415e-01,  2.2961e-02,  1.5526e+00,  8.9615e-02, -5.6042e-01,
+        -2.3631e-01,  1.0849e-02, -3.8950e-01, -4.6001e-01, -2.7295e-02,
+        -4.1060e-01, -8.1986e-01,  4.9547e+00,  9.5687e-01, -1.1417e-01,
+        -4.1341e-02, -1.3353e-02,  1.6226e-02, -1.3486e-01, -3.1499e-01,
+         3.8567e-01, -2.5223e-01,  4.8282e-01, -1.6740e-01,  6.7651e-01,
+         8.8897e-01,  1.2162e+00, -4.3117e-03, -2.1435e-01, -3.1083e-01,
+        -1.7022e-01,  6.1069e-01, -4.1143e-01, -5.4897e-01, -6.1119e-01,
+        -5.6143e-03, -5.3026e-02,  5.0490e-01, -3.7760e-01,  3.3609e-01,
+         0.0000e+00,  0.0000e+00,  0.0000e+00,  0.0000e+00,  0.0000e+00,
+         0.0000e+00,  0.0000e+00]), tensor([476]), tensor(-0.0517))
+INFO:main.py:Create retrain_dataset
+INFO:main.py:retrain_dataset first example: (tensor([ 0.2078,  0.7333,  0.1573, -0.7337,  0.0577, -0.5400, -0.0377, -0.2726,
+         0.4854, -0.1865, -0.8303, -0.0736, -0.6418, -0.3871, -0.2554, -0.0227,
+        -0.3972,  0.0728, -0.2341,  0.7049, -0.5322, -0.1822, -0.1778,  0.0134,
+        -0.0452, -0.2705, -0.6090, -0.0213,  0.6128,  1.3675,  0.4996, -0.1370,
+         0.7980,  0.1452, -0.4583, -0.2330,  0.1987,  0.2166,  0.0357, -1.1217,
+        -0.2206,  0.2220,  0.3813,  0.1725, -0.0467, -0.6501,  0.0715, -0.0717,
+        -0.5253, -0.1680, -0.2810,  0.4985, -0.4854,  0.1706,  0.0213, -0.3318,
+        -0.9114, -0.5725, -0.5662, -0.2007, -0.0128, -0.5653, -0.6919, -0.4561,
+        -0.3344, -0.5311,  0.5711, -0.2821, -0.3793, -0.5567, -0.6736, -0.3316,
+         0.0108, -0.7880,  0.1939, -0.8824,  0.3043,  0.3412,  0.7506,  0.6789,
+        -1.1236,  0.2439, -0.0022, -0.1117, -0.0902,  0.1913, -0.4094, -0.7722,
+        -0.6475, -0.7395,  0.1509, -0.1786,  0.0153, -0.3679, -0.6335,  0.0000,
+         0.0000,  0.0000,  0.0000,  0.0000,  0.0000,  0.0000]), tensor([5723]), tensor(0.2117))
+INFO:main.py:Create prediction_dataset
+INFO:main.py:prediction_dataset first example: (tensor([-2.7144e-01, -9.2483e-01,  5.6547e+00,  2.5692e-01, -4.3142e-02,
+        -5.1112e-01, -2.0646e+00, -1.0188e+00, -2.8036e-01, -6.2462e-01,
+        -5.1290e-01, -1.0026e-01, -6.4180e-01,  1.6266e-01, -4.1062e-01,
+        -7.0843e-01, -4.0105e-01,  7.3343e-01,  2.3100e-01,  4.7488e-01,
+         8.1031e-01, -1.2827e-01, -2.3397e-01, -1.9036e-01,  4.9697e-01,
+        -8.6960e-01, -7.0497e-01, -7.7275e-01, -1.1698e+00,  8.9525e-01,
+        -4.1271e-02, -2.5388e-01,  2.6517e-01,  1.4524e-01, -8.1531e-01,
+        -4.0476e-01,  5.5147e-01, -8.3431e-01,  4.1462e-01, -1.0027e+00,
+        -9.1566e-02, -1.8816e-01,  5.8454e-01, -2.7571e-01, -6.4535e-02,
+        -5.0350e-01, -2.3349e-01, -1.7237e-01,  3.3159e-01,  5.2000e-01,
+        -2.8096e-01,  4.0967e-01, -4.8540e-01, -8.9542e-01, -8.3853e-01,
+        -7.0856e-01,  2.2886e-02, -6.3633e-01, -1.0632e+00, -2.3650e-03,
+        -1.6542e-01, -9.1405e-01, -1.4759e+00,  2.6516e-01, -2.6962e-02,
+        -1.1788e+00, -7.6745e-01,  1.1609e+00,  2.5361e-01, -6.6775e-01,
+        -1.1665e-02, -1.3998e-02,  1.0789e-02, -4.4624e-01, -4.0712e-01,
+         2.6581e-01, -3.5837e-01,  2.4606e-01, -5.9469e-01,  6.7894e-01,
+         8.8072e-01,  1.2181e+00, -2.1632e-03, -2.1594e-01, -4.1166e-01,
+        -2.8467e-01, -2.5763e-01, -7.0113e-01, -5.5708e-01, -6.3792e-01,
+        -2.5600e-02, -2.1565e-01, -6.0568e-02, -6.9211e-01,  1.8173e+00,
+         0.0000e+00,  0.0000e+00,  0.0000e+00,  0.0000e+00,  0.0000e+00,
+         0.0000e+00,  0.0000e+00]), tensor([509]), tensor(0.))
+INFO:main.py:
+
+Create dataloader
+
+INFO:main.py:Create train and test dataloader
+INFO:main.py:Create retrain and prediction dataloader
+INFO:main.py:
+
+Hyperparameters tuning with Ray Tune
+
+INFO:main.py:Training data years: [1980, 1981, 1982, 1983, 1984, 1985, 1986, 1987, 1988, 1989, 1990, 1991]
+INFO:main.py:Testing data year: 1992
+INFO:main.py:
+
+            ray_results_path: /zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/ray_results
+            num_samples: 60
+            max_num_epochs: 20
+            num_cpus: 60
+            cpus_per_trial: 1
+            num_gpus: 2
+            gpus_per_trial: 0
+            continuous_dim: 102
+            num_embeddings: 8896
+            device: cuda
+            
+2024-07-04 08:36:46,273	INFO worker.py:1753 -- Started a local Ray instance.
+2024-07-04 08:36:46,300	INFO packaging.py:530 -- Creating a file package for local directory '/zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/src'.
+2024-07-04 08:36:46,330	INFO packaging.py:358 -- Pushing file package 'gcs://_ray_pkg_cfb21e315b1af741.zip' (1.20MiB) to Ray cluster...
+2024-07-04 08:36:46,336	INFO packaging.py:371 -- Successfully pushed file package 'gcs://_ray_pkg_cfb21e315b1af741.zip'.
+2024-07-04 08:36:48,978	WARNING tune.py:902 -- AIR_VERBOSITY is set, ignoring passed-in ProgressReporter for now.
+2024-07-04 08:37:19,613	WARNING util.py:201 -- The `on_step_begin` operation took 10.555 s, which may be a performance bottleneck.
+2024-07-04 09:08:29,213	INFO tune.py:1009 -- Wrote the latest version of all result files and experiment state to '/zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/ray_results/train_fnn_2024-07-04_08-36-48' in 0.1555s.
+INFO:model_data_nn.py:Best trial config: {'continuous_dim': 102, 'hidden_dim': 65, 'num_layers': 2, 'num_embeddings': 8896, 'embedding_dim': 5, 'dropout_rate': 0.5040782247936416, 'lr': 0.00035490795460959705, 'weight_decay': 2.2302421654007694e-05, 'num_epochs': 20, 'num_gpus': 2}
+INFO:model_data_nn.py:Best trial training loss: 0.030360292711859232
+INFO:model_data_nn.py:Best trial testing loss: 0.05691338227051398
+INFO:main.py:Ray Tune results have been saved to: /zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/ray_results
+INFO:main.py:Best trial directory: /tmp/ray/session_2024-07-04_08-36-43_716273_4067061/artifacts/2024-07-04_08-36-48/train_fnn_2024-07-04_08-36-48/driver_artifacts/train_fnn_8e027_00012_12_dropout_rate=0.5041,embedding_dim=5,hidden_dim=65,lr=0.0004,num_layers=2,weight_decay=0.0000_2024-07-04_08-36-49
+INFO:main.py:
+
+Retrain a new model with data in years: [1980, 1981, 1982, 1983, 1984, 1985, 1986, 1987, 1988, 1989, 1990, 1991, 1992]
+
+            Using the optimized hyperparameters: {'continuous_dim': 102, 'hidden_dim': 65, 'num_layers': 2, 'num_embeddings': 9315, 'embedding_dim': 5, 'dropout_rate': 0.5040782247936416, 'lr': 0.00035490795460959705, 'weight_decay': 2.2302421654007694e-05, 'num_epochs': 20, 'num_gpus': 2}
+
+INFO:model_data_nn.py:Epoch 1/20, metrics: {'avg_train_loss': 6.675067060486084, 'avg_test_loss': 0.03978773783427788}
+INFO:model_data_nn.py:Epoch 2/20, metrics: {'avg_train_loss': 0.03364504188486651, 'avg_test_loss': 0.03911289459309813}
+INFO:model_data_nn.py:Epoch 3/20, metrics: {'avg_train_loss': 0.03385871857936589, 'avg_test_loss': 0.038758233413438134}
+INFO:model_data_nn.py:Epoch 4/20, metrics: {'avg_train_loss': 0.033447346517093995, 'avg_test_loss': 0.038578575035628955}
+INFO:model_data_nn.py:Epoch 5/20, metrics: {'avg_train_loss': 0.032981946174974235, 'avg_test_loss': 0.03854847904463676}
+INFO:model_data_nn.py:Epoch 6/20, metrics: {'avg_train_loss': 0.03281800917325257, 'avg_test_loss': 0.038401764806976664}
+INFO:model_data_nn.py:Epoch 7/20, metrics: {'avg_train_loss': 0.03272101282292293, 'avg_test_loss': 0.038389829331649944}
+INFO:model_data_nn.py:Epoch 8/20, metrics: {'avg_train_loss': 0.03264283663314511, 'avg_test_loss': 0.03861339923306928}
+INFO:model_data_nn.py:Epoch 9/20, metrics: {'avg_train_loss': 0.03260525607806107, 'avg_test_loss': 0.03832226374784227}
+INFO:model_data_nn.py:Epoch 10/20, metrics: {'avg_train_loss': 0.03258099714368638, 'avg_test_loss': 0.03821727218710376}
+INFO:model_data_nn.py:Epoch 11/20, metrics: {'avg_train_loss': 0.03256298010203784, 'avg_test_loss': 0.038383119467164384}
+INFO:model_data_nn.py:Epoch 12/20, metrics: {'avg_train_loss': 0.03255692273811545, 'avg_test_loss': 0.03851793745486171}
+INFO:model_data_nn.py:Epoch 13/20, metrics: {'avg_train_loss': 0.03254421753791103, 'avg_test_loss': 0.03834218394788417}
+INFO:model_data_nn.py:Epoch 14/20, metrics: {'avg_train_loss': 0.03253327080982784, 'avg_test_loss': 0.038399172554008}
+INFO:model_data_nn.py:Epoch 15/20, metrics: {'avg_train_loss': 0.03252951107444146, 'avg_test_loss': 0.03847781091805995}
+INFO:model_data_nn.py:Epoch 16/20, metrics: {'avg_train_loss': 0.032511502470262986, 'avg_test_loss': 0.03827928597753753}
+INFO:model_data_nn.py:Epoch 17/20, metrics: {'avg_train_loss': 0.03250498159565216, 'avg_test_loss': 0.03822683574433297}
+INFO:model_data_nn.py:Epoch 18/20, metrics: {'avg_train_loss': 0.03251965599897234, 'avg_test_loss': 0.03849388548339846}
+INFO:model_data_nn.py:Epoch 19/20, metrics: {'avg_train_loss': 0.03249281812462781, 'avg_test_loss': 0.03840823948294634}
+INFO:model_data_nn.py:Epoch 20/20, metrics: {'avg_train_loss': 0.032513463158860625, 'avg_test_loss': 0.03845153169393911}
+INFO:main.py:Making prediction for data in year: 1992
+INFO:main.py:Prediction data shape: (56408,)
+/zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/src/main.py:372: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+
+See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
+  prediction_data['pred'] = predictions
+INFO:main.py:Root Mean Squared Error for Prediction in 1993: 0.19612040325719796
+INFO:main.py:Prediction Stats:                 ret          pred
+count  56408.000000  56408.000000
+mean       0.018643      0.005722
+std        0.196798      0.013862
+min       -0.950000     -0.101972
+25%       -0.062500      0.002322
+50%        0.000000      0.005446
+75%        0.075472      0.009003
+max       19.000000      0.181221
+INFO:main.py:
+
+Transform data
+
+INFO:transform_data_nn.py:Train data years: [1980, 1981, 1982, 1983, 1984, 1985, 1986, 1987, 1988, 1989, 1990, 1991, 1992]
+INFO:transform_data_nn.py:Train_data: (671457, 158)
+
+INFO:transform_data_nn.py:Test data years: [1993]
+INFO:transform_data_nn.py:Test_data: (56408, 158)
+
+INFO:transform_data_nn.py:Retrain data years: [1980, 1981, 1982, 1983, 1984, 1985, 1986, 1987, 1988, 1989, 1990, 1991, 1992, 1993]
+INFO:transform_data_nn.py:Retrain_data: (727865, 158)
+
+INFO:transform_data_nn.py:Prediction data years: [1994]
+INFO:transform_data_nn.py:Prediction_data: (62902, 158)
+
+INFO:main.py:
+
+Generate X and y with train_data, test_data, retrain_data, and prediction_data
+
+INFO:main.py:
+            x_train_tf: torch.Size([671457, 103])
+            y_train_tf: torch.Size([671457])
+
+            x_test_tf: torch.Size([56408, 103])
+            y_test_tf: torch.Size([56408])
+
+        
+INFO:main.py:
+
+Generate X and y with retrain_data and prediction_data
+
+INFO:main.py:
+            x_retrain_tf: torch.Size([727865, 103])
+            y_retrain_tf: torch.Size([727865])
+
+            x_prediction_tf: torch.Size([62902, 103])
+            y_prediction_tf: torch.Size([62902])
+
+        
+INFO:main.py:
+
+Create dataset
+
+INFO:main.py:Create train_dataset
+INFO:main.py:train_dataset first example: (tensor([ 0.2078,  0.7333,  0.1573, -0.7337,  0.0577, -0.5400, -0.0377, -0.2726,
+         0.4854, -0.1865, -0.8303, -0.0736, -0.6418, -0.3871, -0.2554, -0.0227,
+        -0.3972,  0.0728, -0.2341,  0.7049, -0.5322, -0.1822, -0.1778,  0.0134,
+        -0.0452, -0.2705, -0.6090, -0.0213,  0.6128,  1.3675,  0.4996, -0.1370,
+         0.7980,  0.1452, -0.4583, -0.2330,  0.1987,  0.2166,  0.0357, -1.1217,
+        -0.2206,  0.2220,  0.3813,  0.1725, -0.0467, -0.6501,  0.0715, -0.0717,
+        -0.5253, -0.1680, -0.2810,  0.4985, -0.4854,  0.1706,  0.0213, -0.3318,
+        -0.9114, -0.5725, -0.5662, -0.2007, -0.0128, -0.5653, -0.6919, -0.4561,
+        -0.3344, -0.5311,  0.5711, -0.2821, -0.3793, -0.5567, -0.6736, -0.3316,
+         0.0108, -0.7880,  0.1939, -0.8824,  0.3043,  0.3412,  0.7506,  0.6789,
+        -1.1236,  0.2439, -0.0022, -0.1117, -0.0902,  0.1913, -0.4094, -0.7722,
+        -0.6475, -0.7395,  0.1509, -0.1786,  0.0153, -0.3679, -0.6335,  0.0000,
+         0.0000,  0.0000,  0.0000,  0.0000,  0.0000,  0.0000]), tensor([5723]), tensor(0.2117))
+INFO:main.py:Create test_dataset
+INFO:main.py:test_dataset first example: (tensor([-2.7144e-01, -9.2483e-01,  5.6547e+00,  2.5692e-01, -4.3142e-02,
+        -5.1112e-01, -2.0646e+00, -1.0188e+00, -2.8036e-01, -6.2462e-01,
+        -5.1290e-01, -1.0026e-01, -6.4180e-01,  1.6266e-01, -4.1062e-01,
+        -7.0843e-01, -4.0105e-01,  7.3343e-01,  2.3100e-01,  4.7488e-01,
+         8.1031e-01, -1.2827e-01, -2.3397e-01, -1.9036e-01,  4.9697e-01,
+        -8.6960e-01, -7.0497e-01, -7.7275e-01, -1.1698e+00,  8.9525e-01,
+        -4.1271e-02, -2.5388e-01,  2.6517e-01,  1.4524e-01, -8.1531e-01,
+        -4.0476e-01,  5.5147e-01, -8.3431e-01,  4.1462e-01, -1.0027e+00,
+        -9.1566e-02, -1.8816e-01,  5.8454e-01, -2.7571e-01, -6.4535e-02,
+        -5.0350e-01, -2.3349e-01, -1.7237e-01,  3.3159e-01,  5.2000e-01,
+        -2.8096e-01,  4.0967e-01, -4.8540e-01, -8.9542e-01, -8.3853e-01,
+        -7.0856e-01,  2.2886e-02, -6.3633e-01, -1.0632e+00, -2.3650e-03,
+        -1.6542e-01, -9.1405e-01, -1.4759e+00,  2.6516e-01, -2.6962e-02,
+        -1.1788e+00, -7.6745e-01,  1.1609e+00,  2.5361e-01, -6.6775e-01,
+        -1.1665e-02, -1.3998e-02,  1.0789e-02, -4.4624e-01, -4.0712e-01,
+         2.6581e-01, -3.5837e-01,  2.4606e-01, -5.9469e-01,  6.7894e-01,
+         8.8072e-01,  1.2181e+00, -2.1632e-03, -2.1594e-01, -4.1166e-01,
+        -2.8467e-01, -2.5763e-01, -7.0113e-01, -5.5708e-01, -6.3792e-01,
+        -2.5600e-02, -2.1565e-01, -6.0568e-02, -6.9211e-01,  1.8173e+00,
+         0.0000e+00,  0.0000e+00,  0.0000e+00,  0.0000e+00,  0.0000e+00,
+         0.0000e+00,  0.0000e+00]), tensor([509]), tensor(0.))
+INFO:main.py:Create retrain_dataset
+INFO:main.py:retrain_dataset first example: (tensor([ 2.0946e-01,  7.8521e-01,  1.3368e-01, -7.5090e-01,  5.7200e-02,
+        -5.4335e-01, -4.0595e-02, -2.7607e-01,  5.0272e-01, -1.9426e-01,
+        -8.2161e-01, -6.9950e-02, -6.5038e-01, -4.0323e-01, -2.4948e-01,
+        -2.1829e-02, -3.9665e-01,  7.3386e-02, -1.9962e-01,  7.2082e-01,
+        -5.3842e-01, -1.4689e-01, -1.8716e-01,  8.6186e-03, -4.8425e-02,
+        -2.7564e-01, -6.0669e-01, -1.8244e-02,  6.1847e-01,  1.4066e+00,
+         4.7914e-01, -1.4131e-01,  8.1592e-01,  1.5764e-01, -4.5354e-01,
+        -2.2535e-01,  2.0464e-01,  2.2237e-01,  3.4247e-02, -1.1172e+00,
+        -2.2417e-01,  2.0245e-01,  3.9467e-01,  1.7378e-01, -4.0732e-02,
+        -6.5819e-01,  6.0290e-02, -7.5285e-02, -5.2240e-01, -1.8040e-01,
+        -3.0286e-01,  5.0708e-01, -4.8354e-01,  1.9025e-01,  1.3736e-02,
+        -3.2677e-01, -9.0577e-01, -5.8501e-01, -5.5478e-01, -1.9905e-01,
+        -1.4960e-02, -5.5125e-01, -6.9279e-01, -4.5711e-01, -3.3632e-01,
+        -5.3222e-01,  6.2952e-01, -2.8707e-01, -4.2254e-01, -5.5768e-01,
+        -6.7665e-01, -3.2336e-01,  7.8541e-03, -7.9246e-01,  2.0260e-01,
+        -8.6929e-01,  3.0447e-01,  3.4345e-01,  7.6309e-01,  6.8605e-01,
+        -1.1366e+00,  2.3470e-01, -1.2408e-03, -1.0388e-01, -8.4946e-02,
+         2.0421e-01, -4.0514e-01, -7.7921e-01, -6.3440e-01, -7.4012e-01,
+         1.4384e-01, -1.6469e-01,  1.6398e-02, -3.8184e-01, -6.2260e-01,
+         0.0000e+00,  0.0000e+00,  0.0000e+00,  0.0000e+00,  0.0000e+00,
+         0.0000e+00,  0.0000e+00]), tensor([6093]), tensor(0.2117))
+INFO:main.py:Create prediction_dataset
+INFO:main.py:prediction_dataset first example: (tensor([-1.0455e+00, -2.7298e-01,  5.5237e+00,  5.4998e-01,  2.1153e-01,
+        -4.4073e-01, -2.1541e+00, -9.8516e-01, -4.9634e-01, -2.5323e-01,
+        -4.7828e-01, -5.0779e-02, -2.5329e-01,  1.2606e-02, -1.8934e-01,
+         3.2061e-02, -3.6268e-01,  8.2152e-02, -1.9962e-01,  4.2952e-03,
+        -2.6589e-01, -1.6748e-01, -9.2002e-02, -1.0599e+00, -5.7838e-01,
+        -6.1173e-01, -6.4213e-01, -6.0629e-01, -8.0627e-01,  5.3371e-01,
+         1.1316e-01, -1.6460e-01,  3.1472e-01,  1.5764e-01, -7.0932e-01,
+         1.3750e-01,  5.6141e-01, -8.3940e-01, -1.2913e-01, -9.4993e-01,
+        -1.2877e-01, -1.3852e-01,  4.2372e-01, -3.0154e-01,  8.3751e-02,
+        -1.7456e-01,  1.8190e-01,  5.3215e-01,  3.4722e-01, -6.6146e-02,
+        -3.0286e-01,  5.0708e-01, -4.8354e-01, -8.2693e-01, -8.3152e-01,
+        -5.7766e-01,  2.3084e-02, -3.9221e-01,  9.4254e-01,  1.1163e-01,
+         3.9848e-01,  8.7524e-01, -4.0531e-01, -1.3693e+00, -2.6467e-02,
+        -3.9310e-01, -5.6171e-01, -1.0159e+00,  1.4449e+00, -4.3931e-01,
+        -6.4183e-03, -2.3388e-02,  7.8541e-03, -1.2484e-01, -5.5878e-01,
+         3.1352e-01, -5.8590e-01,  3.3227e-01, -8.8433e-02,  6.8605e-01,
+         8.7788e-01,  1.2300e+00, -1.2408e-03, -2.6793e-01, -6.8790e-03,
+        -3.7939e-01,  1.3581e+00,  8.4850e-01, -4.9512e-01, -5.8061e-01,
+        -8.2514e-02, -3.2878e-01, -1.4678e-01, -4.6850e-01,  9.0492e-01,
+         0.0000e+00,  0.0000e+00,  0.0000e+00,  0.0000e+00,  0.0000e+00,
+         0.0000e+00,  0.0000e+00]), tensor([634]), tensor(-0.0476))
+INFO:main.py:
+
+Create dataloader
+
+INFO:main.py:Create train and test dataloader
+INFO:main.py:Create retrain and prediction dataloader
+INFO:main.py:
+
+Hyperparameters tuning with Ray Tune
+
+INFO:main.py:Training data years: [1980, 1981, 1982, 1983, 1984, 1985, 1986, 1987, 1988, 1989, 1990, 1991, 1992]
+INFO:main.py:Testing data year: 1993
+INFO:main.py:
+
+            ray_results_path: /zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/ray_results
+            num_samples: 60
+            max_num_epochs: 20
+            num_cpus: 60
+            cpus_per_trial: 1
+            num_gpus: 2
+            gpus_per_trial: 0
+            continuous_dim: 102
+            num_embeddings: 9315
+            device: cuda
+            
+2024-07-04 10:27:08,223	INFO worker.py:1753 -- Started a local Ray instance.
+2024-07-04 10:27:08,272	INFO packaging.py:530 -- Creating a file package for local directory '/zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/src'.
+2024-07-04 10:27:08,291	INFO packaging.py:358 -- Pushing file package 'gcs://_ray_pkg_cfb21e315b1af741.zip' (1.20MiB) to Ray cluster...
+2024-07-04 10:27:08,296	INFO packaging.py:371 -- Successfully pushed file package 'gcs://_ray_pkg_cfb21e315b1af741.zip'.
+2024-07-04 10:27:11,071	WARNING tune.py:902 -- AIR_VERBOSITY is set, ignoring passed-in ProgressReporter for now.
+2024-07-04 10:27:54,484	WARNING util.py:201 -- The `on_step_begin` operation took 13.264 s, which may be a performance bottleneck.
+2024-07-04 10:28:11,101	ERROR tune_controller.py:1331 -- Trial task failed for trial train_fnn_f915b_00043
+Traceback (most recent call last):
+  File "/zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/venv/lib/python3.10/site-packages/ray/air/execution/_internal/event_manager.py", line 110, in resolve_future
+    result = ray.get(future)
+  File "/zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/venv/lib/python3.10/site-packages/ray/_private/auto_init_hook.py", line 21, in auto_init_wrapper
+    return fn(*args, **kwargs)
+  File "/zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/venv/lib/python3.10/site-packages/ray/_private/client_mode_hook.py", line 103, in wrapper
+    return func(*args, **kwargs)
+  File "/zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/venv/lib/python3.10/site-packages/ray/_private/worker.py", line 2613, in get
+    values, debugger_breakpoint = worker.get_objects(object_refs, timeout=timeout)
+  File "/zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/venv/lib/python3.10/site-packages/ray/_private/worker.py", line 863, in get_objects
+    raise value
+ray.exceptions.ActorDiedError: The actor died unexpectedly before finishing this task.
+	class_name: ImplicitFunc
+	actor_id: a550f2caf8ae95834f411f1f01000000
+	pid: 1028355
+	namespace: 99f7fd65-b3e6-405b-86a2-1a3137d96e9e
+	ip: 10.112.2.40
+The actor is dead because its worker process has died. Worker exit type: SYSTEM_ERROR Worker exit detail: Worker unexpectedly exits with a connection error code 2. End of file. There are some potential root causes. (1) The process is killed by SIGKILL by OOM killer due to high memory usage. (2) ray stop --force is called. (3) The worker is crashed unexpectedly due to SIGSEGV or other unexpected errors.
+2024-07-04 10:28:11,142	ERROR tune_controller.py:1331 -- Trial task failed for trial train_fnn_f915b_00028
+Traceback (most recent call last):
+  File "/zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/venv/lib/python3.10/site-packages/ray/air/execution/_internal/event_manager.py", line 110, in resolve_future
+    result = ray.get(future)
+  File "/zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/venv/lib/python3.10/site-packages/ray/_private/auto_init_hook.py", line 21, in auto_init_wrapper
+    return fn(*args, **kwargs)
+  File "/zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/venv/lib/python3.10/site-packages/ray/_private/client_mode_hook.py", line 103, in wrapper
+    return func(*args, **kwargs)
+  File "/zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/venv/lib/python3.10/site-packages/ray/_private/worker.py", line 2613, in get
+    values, debugger_breakpoint = worker.get_objects(object_refs, timeout=timeout)
+  File "/zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/venv/lib/python3.10/site-packages/ray/_private/worker.py", line 863, in get_objects
+    raise value
+ray.exceptions.ActorDiedError: The actor died unexpectedly before finishing this task.
+	class_name: ImplicitFunc
+	actor_id: 210092086e8f9e674bf11d9901000000
+	pid: 1028116
+	namespace: 99f7fd65-b3e6-405b-86a2-1a3137d96e9e
+	ip: 10.112.2.40
+The actor is dead because its worker process has died. Worker exit type: SYSTEM_ERROR Worker exit detail: Worker unexpectedly exits with a connection error code 2. End of file. There are some potential root causes. (1) The process is killed by SIGKILL by OOM killer due to high memory usage. (2) ray stop --force is called. (3) The worker is crashed unexpectedly due to SIGSEGV or other unexpected errors.
+2024-07-04 10:41:16,632	INFO tune.py:1009 -- Wrote the latest version of all result files and experiment state to '/zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/ray_results/train_fnn_2024-07-04_10-27-11' in 0.1628s.
+╭──────────────────────────────────────────────────────────────────╮
+│ Configuration for experiment     train_fnn_2024-07-03_23-43-30   │
+├──────────────────────────────────────────────────────────────────┤
+│ Search algorithm                 BasicVariantGenerator           │
+│ Scheduler                        AsyncHyperBandScheduler         │
+│ Number of trials                 60                              │
+╰──────────────────────────────────────────────────────────────────╯
+
+View detailed results here: /zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/ray_results/train_fnn_2024-07-03_23-43-30
+To visualize your results with TensorBoard, run: `tensorboard --logdir /tmp/ray/session_2024-07-03_23-43-25_382658_4067061/artifacts/2024-07-03_23-43-30/train_fnn_2024-07-03_23-43-30/driver_artifacts`
+
+╭──────────────────────────────────────────────────────────────────╮
+│ Configuration for experiment     train_fnn_2024-07-04_00-21-08   │
+├──────────────────────────────────────────────────────────────────┤
+│ Search algorithm                 BasicVariantGenerator           │
+│ Scheduler                        AsyncHyperBandScheduler         │
+│ Number of trials                 60                              │
+╰──────────────────────────────────────────────────────────────────╯
+
+View detailed results here: /zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/ray_results/train_fnn_2024-07-04_00-21-08
+To visualize your results with TensorBoard, run: `tensorboard --logdir /tmp/ray/session_2024-07-04_00-21-02_714601_4067061/artifacts/2024-07-04_00-21-08/train_fnn_2024-07-04_00-21-08/driver_artifacts`
+
+╭──────────────────────────────────────────────────────────────────╮
+│ Configuration for experiment     train_fnn_2024-07-04_01-10-32   │
+├──────────────────────────────────────────────────────────────────┤
+│ Search algorithm                 BasicVariantGenerator           │
+│ Scheduler                        AsyncHyperBandScheduler         │
+│ Number of trials                 60                              │
+╰──────────────────────────────────────────────────────────────────╯
+
+View detailed results here: /zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/ray_results/train_fnn_2024-07-04_01-10-32
+To visualize your results with TensorBoard, run: `tensorboard --logdir /tmp/ray/session_2024-07-04_01-10-27_034357_4067061/artifacts/2024-07-04_01-10-32/train_fnn_2024-07-04_01-10-32/driver_artifacts`
+
+╭──────────────────────────────────────────────────────────────────╮
+│ Configuration for experiment     train_fnn_2024-07-04_02-10-24   │
+├──────────────────────────────────────────────────────────────────┤
+│ Search algorithm                 BasicVariantGenerator           │
+│ Scheduler                        AsyncHyperBandScheduler         │
+│ Number of trials                 60                              │
+╰──────────────────────────────────────────────────────────────────╯
+
+View detailed results here: /zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/ray_results/train_fnn_2024-07-04_02-10-24
+To visualize your results with TensorBoard, run: `tensorboard --logdir /tmp/ray/session_2024-07-04_02-10-19_279927_4067061/artifacts/2024-07-04_02-10-24/train_fnn_2024-07-04_02-10-24/driver_artifacts`
+
+╭──────────────────────────────────────────────────────────────────╮
+│ Configuration for experiment     train_fnn_2024-07-04_03-13-24   │
+├──────────────────────────────────────────────────────────────────┤
+│ Search algorithm                 BasicVariantGenerator           │
+│ Scheduler                        AsyncHyperBandScheduler         │
+│ Number of trials                 60                              │
+╰──────────────────────────────────────────────────────────────────╯
+
+View detailed results here: /zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/ray_results/train_fnn_2024-07-04_03-13-24
+To visualize your results with TensorBoard, run: `tensorboard --logdir /tmp/ray/session_2024-07-04_03-13-19_665970_4067061/artifacts/2024-07-04_03-13-24/train_fnn_2024-07-04_03-13-24/driver_artifacts`
+
+╭──────────────────────────────────────────────────────────────────╮
+│ Configuration for experiment     train_fnn_2024-07-04_04-25-04   │
+├──────────────────────────────────────────────────────────────────┤
+│ Search algorithm                 BasicVariantGenerator           │
+│ Scheduler                        AsyncHyperBandScheduler         │
+│ Number of trials                 60                              │
+╰──────────────────────────────────────────────────────────────────╯
+
+View detailed results here: /zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/ray_results/train_fnn_2024-07-04_04-25-04
+To visualize your results with TensorBoard, run: `tensorboard --logdir /tmp/ray/session_2024-07-04_04-24-59_350238_4067061/artifacts/2024-07-04_04-25-04/train_fnn_2024-07-04_04-25-04/driver_artifacts`
+
+╭──────────────────────────────────────────────────────────────────╮
+│ Configuration for experiment     train_fnn_2024-07-04_05-43-18   │
+├──────────────────────────────────────────────────────────────────┤
+│ Search algorithm                 BasicVariantGenerator           │
+│ Scheduler                        AsyncHyperBandScheduler         │
+│ Number of trials                 60                              │
+╰──────────────────────────────────────────────────────────────────╯
+
+View detailed results here: /zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/ray_results/train_fnn_2024-07-04_05-43-18
+To visualize your results with TensorBoard, run: `tensorboard --logdir /tmp/ray/session_2024-07-04_05-43-13_803682_4067061/artifacts/2024-07-04_05-43-18/train_fnn_2024-07-04_05-43-18/driver_artifacts`
+
+╭──────────────────────────────────────────────────────────────────╮
+│ Configuration for experiment     train_fnn_2024-07-04_07-07-39   │
+├──────────────────────────────────────────────────────────────────┤
+│ Search algorithm                 BasicVariantGenerator           │
+│ Scheduler                        AsyncHyperBandScheduler         │
+│ Number of trials                 60                              │
+╰──────────────────────────────────────────────────────────────────╯
+
+View detailed results here: /zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/ray_results/train_fnn_2024-07-04_07-07-39
+To visualize your results with TensorBoard, run: `tensorboard --logdir /tmp/ray/session_2024-07-04_07-07-33_874662_4067061/artifacts/2024-07-04_07-07-39/train_fnn_2024-07-04_07-07-39/driver_artifacts`
+
+╭──────────────────────────────────────────────────────────────────╮
+│ Configuration for experiment     train_fnn_2024-07-04_08-36-48   │
+├──────────────────────────────────────────────────────────────────┤
+│ Search algorithm                 BasicVariantGenerator           │
+│ Scheduler                        AsyncHyperBandScheduler         │
+│ Number of trials                 60                              │
+╰──────────────────────────────────────────────────────────────────╯
+
+View detailed results here: /zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/ray_results/train_fnn_2024-07-04_08-36-48
+To visualize your results with TensorBoard, run: `tensorboard --logdir /tmp/ray/session_2024-07-04_08-36-43_716273_4067061/artifacts/2024-07-04_08-36-48/train_fnn_2024-07-04_08-36-48/driver_artifacts`
+
+╭──────────────────────────────────────────────────────────────────╮
+│ Configuration for experiment     train_fnn_2024-07-04_10-27-11   │
+├──────────────────────────────────────────────────────────────────┤
+│ Search algorithm                 BasicVariantGenerator           │
+│ Scheduler                        AsyncHyperBandScheduler         │
+│ Number of trials                 60                              │
+╰──────────────────────────────────────────────────────────────────╯
+
+View detailed results here: /zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/ray_results/train_fnn_2024-07-04_10-27-11
+To visualize your results with TensorBoard, run: `tensorboard --logdir /tmp/ray/session_2024-07-04_10-27-05_371815_4067061/artifacts/2024-07-04_10-27-11/train_fnn_2024-07-04_10-27-11/driver_artifacts`
+[33m(raylet)[0m A worker died or was killed while executing a task by an unexpected system error. To troubleshoot the problem, check the logs for the dead worker. RayTask ID: ffffffffffffffffa550f2caf8ae95834f411f1f01000000 Worker ID: feee815e62542a9f1130832b93ec12d2a0191cc97ad10b13a354d552 Node ID: 0e6526b06f5bb6e0602de21de57dc7ca2a47822edb74f9dc138cd932 Worker IP address: 10.112.2.40 Worker port: 37273 Worker PID: 1028355 Worker exit type: SYSTEM_ERROR Worker exit detail: Worker unexpectedly exits with a connection error code 2. End of file. There are some potential root causes. (1) The process is killed by SIGKILL by OOM killer due to high memory usage. (2) ray stop --force is called. (3) The worker is crashed unexpectedly due to SIGSEGV or other unexpected errors.
+
+Trial train_fnn_f915b_00043 errored after 0 iterations at 2024-07-04 10:28:11. Total running time: 1min 0s
+Error file: /tmp/ray/session_2024-07-04_10-27-05_371815_4067061/artifacts/2024-07-04_10-27-11/train_fnn_2024-07-04_10-27-11/driver_artifacts/train_fnn_f915b_00043_43_dropout_rate=0.3226,embedding_dim=20,hidden_dim=115,lr=0.0000,num_layers=3,weight_decay=0.0001_2024-07-04_10-27-11/error.txt
+
+Trial train_fnn_f915b_00028 errored after 0 iterations at 2024-07-04 10:28:11. Total running time: 1min 0s
+Error file: /tmp/ray/session_2024-07-04_10-27-05_371815_4067061/artifacts/2024-07-04_10-27-11/train_fnn_2024-07-04_10-27-11/driver_artifacts/train_fnn_f915b_00028_28_dropout_rate=0.1045,embedding_dim=20,hidden_dim=95,lr=0.0009,num_layers=3,weight_decay=0.0000_2024-07-04_10-27-11/error.txt
+
+Traceback (most recent call last):
+  File "/zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/src/main.py", line 384, in <module>
+    main()
+  File "/zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/src/main.py", line 332, in main
+    best_trial = data_modeler.get_best_trial(
+  File "/zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/src/model_data_nn.py", line 271, in get_best_trial
+    result = tune.run(
+  File "/zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/venv/lib/python3.10/site-packages/ray/tune/tune.py", line 1035, in run
+    raise TuneError("Trials did not complete", incomplete_trials)
+ray.tune.error.TuneError: ('Trials did not complete', [train_fnn_f915b_00028, train_fnn_f915b_00043])
+[33m(raylet)[0m A worker died or was killed while executing a task by an unexpected system error. To troubleshoot the problem, check the logs for the dead worker. RayTask ID: ffffffffffffffff210092086e8f9e674bf11d9901000000 Worker ID: 1a3b7fb8f7673cc5aaae2b996de2065c4fde625b6e088976acfde3ea Node ID: 0e6526b06f5bb6e0602de21de57dc7ca2a47822edb74f9dc138cd932 Worker IP address: 10.112.2.40 Worker port: 35557 Worker PID: 1028116 Worker exit type: SYSTEM_ERROR Worker exit detail: Worker unexpectedly exits with a connection error code 2. End of file. There are some potential root causes. (1) The process is killed by SIGKILL by OOM killer due to high memory usage. (2) ray stop --force is called. (3) The worker is crashed unexpectedly due to SIGSEGV or other unexpected errors.
+slurmstepd-yen-gpu1: error: Detected 2 oom-kill event(s) in StepId=411104.batch. Some of your processes may have been killed by the cgroup out-of-memory handler.

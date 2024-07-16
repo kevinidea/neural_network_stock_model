@@ -1,0 +1,1096 @@
+Current working directory
+/zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin
+source venv/bin/activate
+which python3
+/zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/venv/bin/python3
+2024-07-03 05:39:34,747	PANIC scripts.py:900 -- `--address` is a required flag unless starting a head node with `--head`.
+Error: `{}` is a required flag unless starting a head node with `{}`.
+Intel(R) Extension for Scikit-learn* enabled (https://github.com/intel/scikit-learn-intelex)
+Intel(R) Extension for Scikit-learn* enabled (https://github.com/intel/scikit-learn-intelex)
+INFO:preprocess_data_nn.py:
+
+Loading and preprocessing data...
+
+DEBUG:preprocess_data_nn.py:      date  permno
+0  1980-01   10006
+1  1980-01   10057
+2  1980-01   10103
+3  1980-01   10137
+4  1980-01   10145
+DEBUG:preprocess_data_nn.py:--------------------------------------------------
+INFO:main.py:preprocessed df: (2216189, 158)
+INFO:preprocess_data_nn.py:
+
+Applying secondary data preprocessing..
+
+INFO:main.py:secondary preprocessed df: (2165515, 158)
+INFO:main.py:df sample:    permno  gvkey   adatadate  fyear  sic2     spi       mve_f        bm  ...           ill     zerotrade      beta    betasq      rsq1  pricedelay   idiovol  pyear
+0   10006   1010  12/31/1978   1978    37  0.0000  269.308500  1.180962  ...  2.565667e-08  1.115306e-07  1.060420  1.124491  0.343408    0.029859  0.025576   1980
+1   10057   1098  09/30/1978   1978    36  0.0000   97.372000  0.956692  ...  2.719812e-07  6.199128e-08  1.526013  2.328716  0.307905    0.092667  0.037473   1980
+2   10103   1012  10/31/1978   1978    33     NaN    1.697500  3.362003  ...           NaN           NaN  1.759493  3.095816  0.096753    0.221851  0.087020   1980
+3   10137   1279  12/31/1978   1978    49     NaN  537.524500  1.330341  ...  1.765620e-08  9.726790e-08  0.492885  0.242936  0.189693    0.125777  0.017540   1980
+4   10145   1300  12/31/1978   1978    99 -0.0031  805.633282  1.579284  ...  2.898901e-09  6.190654e-08  1.139163  1.297691  0.279437    0.024228  0.031201   1980
+
+[5 rows x 158 columns]
+INFO:main.py:
+
+Transform data
+
+INFO:transform_data_nn.py:Train data years: [1980, 1981, 1982, 1983, 1984, 1985, 1986]
+INFO:transform_data_nn.py:Train_data: (341783, 158)
+
+INFO:transform_data_nn.py:Test data years: [1987]
+INFO:transform_data_nn.py:Test_data: (53899, 158)
+
+INFO:transform_data_nn.py:Retrain data years: [1980, 1981, 1982, 1983, 1984, 1985, 1986, 1987]
+INFO:transform_data_nn.py:Retrain_data: (395682, 158)
+
+INFO:transform_data_nn.py:Prediction data years: [1988]
+INFO:transform_data_nn.py:Prediction_data: (56005, 158)
+
+INFO:main.py:
+
+Generate X and y with train_data, test_data, retrain_data, and prediction_data
+
+INFO:main.py:Tensors directory already exists at: /zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/tensors
+INFO:main.py:
+        x_train_tf: torch.Size([341783, 103])
+        y_train_tf: torch.Size([341783])
+
+        x_test_tf: torch.Size([53899, 103])
+        y_test_tf: torch.Size([53899])
+
+    
+INFO:main.py:
+        x_retrain_tf: torch.Size([395682, 103])
+        y_retrain_tf: torch.Size([395682])
+
+        x_prediction_tf: torch.Size([56005, 103])
+        y_prediction_tf: torch.Size([56005])
+
+    
+INFO:main.py:Create train_dataset
+INFO:main.py:train_dataset first example: (tensor([ 0.2614,  0.5034,  0.2386, -0.6303,  0.0469, -0.5241, -0.0284, -0.2584,
+         0.3866,  0.1910, -0.8830,  0.0062, -0.5088, -0.1862, -0.0053,  0.0250,
+        -0.4235,  0.1175,  0.0000,  0.6719, -0.3586,  0.0000,  0.0257,  0.0166,
+         0.0370, -0.2229, -0.6756,  0.0000,  0.5764,  1.1873,  0.6227, -0.1414,
+         0.5064,  0.0000, -0.5226, -0.2165,  0.1496,  0.1907,  0.1020, -1.1512,
+        -0.3211,  0.0239,  0.3191, -0.0440, -0.0208, -0.6509, -0.0216, -0.0993,
+        -0.6609, -0.2278, -0.1547,  0.9190, -0.1748,  0.0000,  0.0265, -0.3809,
+        -0.9466, -0.0875, -0.6362, -0.1616,  0.1008, -0.6415, -0.3684, -0.1993,
+        -0.2698, -0.5237,  0.0996, -0.1018, -0.1900, -0.4132, -0.7240, -0.3249,
+         0.0346, -0.8136,  0.1052, -1.0783,  0.2870,  0.2369,  0.6056,  0.1760,
+        -0.4392, -0.2020, -0.0110,  0.0000, -0.0826, -0.0538, -0.3134, -0.6841,
+        -0.4092, -0.4207,  0.1949, -0.2766,  0.1496, -0.1756, -0.5206,  0.0000,
+         0.0000,  0.0000,  0.0000,  0.0000,  0.0000,  0.0000]), tensor([1351]), tensor(0.2117))
+INFO:main.py:Create test_dataset
+INFO:main.py:test_dataset first example: (tensor([-6.9920e-03,  8.9557e-03, -3.4033e-01, -1.6683e+00,  4.0069e-03,
+         1.0097e+00, -2.5891e-03, -1.0957e-02, -9.5448e-01,  1.8591e-01,
+         3.8505e-01,  6.2086e-01,  1.9972e-01,  2.1500e-02, -2.2037e-05,
+         6.4081e-03, -7.8682e-03,  1.2509e-02,  0.0000e+00,  2.2175e-02,
+        -7.5173e-02,  0.0000e+00, -1.5533e-02,  1.2460e-02,  3.1036e-02,
+         1.3005e-01, -2.3377e-01,  0.0000e+00, -4.6695e-01, -7.7328e-01,
+        -6.6426e-01,  6.0568e-03, -1.6879e-02,  0.0000e+00,  1.5509e-02,
+        -1.9876e-03,  9.2778e-03, -4.6920e-01,  6.8878e-04, -2.7767e-02,
+        -1.1036e-01, -6.2118e-01,  1.3711e-02, -4.6129e-01, -4.5306e-03,
+         2.2998e+00,  1.6293e-02, -1.3041e+00,  5.4224e-02, -1.1150e-03,
+        -8.5550e-01, -1.1288e+00, -3.1813e-01,  0.0000e+00, -8.7597e-01,
+         1.4499e-02,  3.0605e-02,  1.3658e-02, -8.7689e-03, -1.7061e-02,
+         1.2506e-02, -1.1364e-02, -2.6022e-03,  1.5424e-03, -6.5274e-04,
+        -7.4535e-03, -6.8802e-03, -2.2825e-02,  2.5533e-02,  1.5004e-01,
+        -1.1726e-02, -2.4365e-02,  3.4575e-02,  1.6018e+00, -3.4779e+00,
+        -7.2764e-02, -2.0625e+00,  4.1949e-01, -3.2436e-01, -4.6815e-01,
+        -4.0800e-01, -3.1863e-01,  1.6746e+00,  0.0000e+00, -3.2632e-03,
+        -6.4726e-01,  8.8510e-02,  5.2651e-01, -4.4860e-02, -4.4852e-02,
+        -2.1688e-01,  1.4353e+00,  1.8772e-01,  3.0461e-01, -5.2065e-01,
+         0.0000e+00,  0.0000e+00,  0.0000e+00,  1.0000e+00,  0.0000e+00,
+         1.0000e+00,  0.0000e+00]), tensor([3535]), tensor(-0.5200))
+INFO:main.py:Create retrain_dataset
+INFO:main.py:retrain_dataset first example: (tensor([ 2.4375e-01,  4.9617e-01,  2.3474e-01, -6.5108e-01,  3.9445e-02,
+        -5.2971e-01, -3.2399e-02, -2.6454e-01,  4.4939e-01,  1.9404e-01,
+        -8.7559e-01,  2.9982e-02, -5.1678e-01, -1.7870e-01,  2.8057e-02,
+         2.6105e-02, -4.2786e-01,  1.3802e-01,  0.0000e+00,  6.8093e-01,
+        -3.5624e-01,  0.0000e+00,  3.2302e-02, -4.2100e-03,  2.3124e-02,
+        -2.2767e-01, -6.6230e-01,  0.0000e+00,  5.4395e-01,  1.2575e+00,
+         6.0546e-01, -1.2386e-01,  5.1282e-01,  0.0000e+00, -5.0374e-01,
+        -2.0934e-01,  1.6390e-01,  1.9552e-01,  8.7618e-02, -1.1469e+00,
+        -3.1720e-01,  6.2132e-02,  3.3133e-01, -2.5122e-02, -3.4593e-02,
+        -6.5851e-01,  4.2816e-04, -7.2423e-02, -6.5629e-01, -2.1883e-01,
+        -1.4935e-01,  8.9773e-01, -1.5623e-01,  0.0000e+00,  2.4546e-02,
+        -3.5709e-01, -9.4222e-01, -1.1718e-01, -6.1813e-01, -1.7652e-01,
+         1.0460e-01, -6.2822e-01, -3.6749e-01, -1.8878e-01, -2.6630e-01,
+        -5.2445e-01,  7.6502e-02, -1.0615e-01, -1.6425e-01, -4.0413e-01,
+        -7.2657e-01, -3.3089e-01,  3.7161e-02, -8.1525e-01,  1.3346e-01,
+        -9.9192e-01,  2.9311e-01,  2.4566e-01,  6.3414e-01,  1.7033e-01,
+        -4.4184e-01, -2.0106e-01, -3.8979e-03,  0.0000e+00, -7.9384e-02,
+        -1.3757e-02, -3.2263e-01, -6.8126e-01, -1.6517e-01, -1.5155e-01,
+         1.8087e-01, -2.6300e-01,  1.4201e-01, -2.0741e-01, -5.1845e-01,
+         0.0000e+00,  0.0000e+00,  0.0000e+00,  0.0000e+00,  0.0000e+00,
+         0.0000e+00,  0.0000e+00]), tensor([1488]), tensor(0.2117))
+INFO:main.py:Create prediction_dataset
+INFO:main.py:prediction_dataset first example: (tensor([-9.6036e-01, -4.9283e-01, -4.7202e-01, -1.2875e+00, -5.9088e-01,
+        -3.4143e-01, -1.7353e+00, -1.0156e+00,  6.0711e-02,  1.9547e-01,
+        -4.0377e-01, -9.2351e-03, -4.1386e-03, -3.5552e-02,  1.6291e-02,
+         4.4557e-03, -4.1867e-01,  1.1388e-02,  0.0000e+00, -2.8223e-01,
+        -1.5983e-01,  0.0000e+00,  8.3143e-02,  4.9025e-02, -1.0656e-02,
+        -6.2313e-01, -8.2264e-01,  0.0000e+00, -5.7750e-01,  1.3797e+00,
+        -1.6007e+00, -3.2115e-01,  1.1211e-01,  0.0000e+00, -1.0634e+00,
+         3.8040e-03, -5.2228e-01, -8.2825e-01, -2.7243e-01, -8.6950e-01,
+         5.3128e-01, -8.5044e-01, -3.8617e-01, -2.6063e-01, -4.5432e-01,
+        -1.9406e-01,  1.0492e-02, -3.0692e-01,  5.1011e-03, -9.7349e-03,
+        -8.4332e-01, -1.1018e+00, -1.1294e+00,  0.0000e+00, -8.6923e-01,
+        -9.1403e-01,  2.6640e-02, -1.2260e-01, -3.3319e-01, -3.9018e-02,
+        -1.9560e-01, -3.4380e-01, -1.7398e-01,  3.2079e-01, -1.7674e-03,
+        -4.6619e-01, -2.1413e-01,  1.4636e+00, -8.8986e-01, -3.8259e-01,
+        -9.5638e-03, -3.3089e-02,  3.7161e-02,  3.0098e-02, -4.4583e-01,
+        -7.1099e-02, -3.4420e-01,  8.4362e-02, -6.3088e-01, -2.8029e-01,
+         4.2441e+00,  3.3876e-01, -3.8979e-03,  0.0000e+00, -7.6692e-01,
+        -6.3231e-02,  2.3258e+00,  5.0224e+00, -3.6348e-02, -4.6659e-02,
+         2.0041e-01, -8.0320e-01, -4.0666e-01,  3.0623e-01,  1.1257e+00,
+         0.0000e+00,  0.0000e+00,  0.0000e+00,  0.0000e+00,  0.0000e+00,
+         0.0000e+00,  0.0000e+00]), tensor([3916]), tensor(0.0638))
+INFO:main.py:
+
+Create dataloader
+
+INFO:main.py:train and test dataloader
+INFO:main.py:train_loader first example: [tensor([[-1.0088e+00, -5.4216e-01, -4.3827e-01,  ...,  0.0000e+00,
+          0.0000e+00,  0.0000e+00],
+        [-6.9240e-01, -2.8173e-01, -2.2381e-03,  ...,  0.0000e+00,
+          0.0000e+00,  0.0000e+00],
+        [-2.1133e-01,  1.1428e-01, -3.3944e-01,  ...,  0.0000e+00,
+          0.0000e+00,  0.0000e+00],
+        ...,
+        [ 8.4022e-03, -7.8293e-03,  8.2009e-04,  ...,  0.0000e+00,
+          0.0000e+00,  0.0000e+00],
+        [-9.2500e-01, -1.0112e+00,  1.9986e+00,  ...,  0.0000e+00,
+          1.0000e+00,  0.0000e+00],
+        [-5.1030e-01, -1.3183e-01,  1.1196e+00,  ...,  0.0000e+00,
+          0.0000e+00,  0.0000e+00]]), tensor([[ 687],
+        [ 359],
+        [2044],
+        ...,
+        [4897],
+        [ 405],
+        [6195]]), tensor([ 0.0655, -0.0700,  0.0394,  ...,  0.2727, -0.1797,  0.0132])]
+
+INFO:main.py:test_loader first example: [tensor([[-6.9920e-03,  8.9557e-03, -3.4033e-01,  ...,  0.0000e+00,
+          1.0000e+00,  0.0000e+00],
+        [-6.9920e-03,  8.9557e-03, -6.7673e-04,  ...,  0.0000e+00,
+          0.0000e+00,  0.0000e+00],
+        [-6.9920e-03,  8.9557e-03,  1.0606e-01,  ...,  0.0000e+00,
+          0.0000e+00,  0.0000e+00],
+        ...,
+        [ 7.8901e-02, -1.8376e+00, -2.7026e-01,  ...,  0.0000e+00,
+          0.0000e+00,  0.0000e+00],
+        [ 6.9570e-01,  8.6093e-01, -7.5999e-01,  ...,  0.0000e+00,
+          1.0000e+00,  0.0000e+00],
+        [-5.2975e-01, -1.3366e+00, -6.7673e-04,  ...,  0.0000e+00,
+          1.0000e+00,  0.0000e+00]]), tensor([[3535],
+        [2942],
+        [1719],
+        ...,
+        [ 953],
+        [3033],
+        [1330]]), tensor([-0.5200,  0.0000, -0.0217,  ..., -0.0370,  0.0241,  0.0000])]
+
+INFO:main.py:retrain and prediction dataloader
+INFO:main.py:retrain_loader first example: [tensor([[-6.4251e-01, -2.3176e-01, -1.2428e-02,  ...,  0.0000e+00,
+          1.0000e+00,  0.0000e+00],
+        [ 6.6112e-03, -8.9386e-04,  1.0027e-01,  ...,  0.0000e+00,
+          1.0000e+00,  0.0000e+00],
+        [-1.1822e+00, -7.7625e-01,  4.7390e-02,  ...,  0.0000e+00,
+          1.0000e+00,  0.0000e+00],
+        ...,
+        [-5.2869e-01, -1.3828e-01, -7.6413e-01,  ...,  0.0000e+00,
+          0.0000e+00,  0.0000e+00],
+        [-9.2668e-01, -4.6516e-01, -4.2798e-01,  ...,  0.0000e+00,
+          0.0000e+00,  0.0000e+00],
+        [-1.0730e+00, -5.8532e-01, -8.6665e-01,  ...,  0.0000e+00,
+          0.0000e+00,  0.0000e+00]]), tensor([[6110],
+        [4005],
+        [7213],
+        ...,
+        [5486],
+        [3139],
+        [6525]]), tensor([-0.0385,  0.0476, -0.1154,  ..., -0.1579, -0.0112,  0.1385])]
+
+INFO:main.py:prediction_loader first example: [tensor([[-0.9604, -0.4928, -0.4720,  ...,  0.0000,  0.0000,  0.0000],
+        [-0.0053,  0.0067,  3.1135,  ...,  0.0000,  0.0000,  0.0000],
+        [-0.0053,  0.0067, -0.1770,  ...,  0.0000,  1.0000,  0.0000],
+        ...,
+        [-0.9297, -0.9836,  1.5953,  ...,  0.0000,  0.0000,  0.0000],
+        [-0.0902,  0.2219, -0.3686,  ...,  0.0000,  1.0000,  0.0000],
+        [ 1.5210,  1.5452, -0.0183,  ...,  0.0000,  0.0000,  0.0000]]), tensor([[3916],
+        [1305],
+        [3047],
+        ...,
+        [ 420],
+        [4176],
+        [1044]]), tensor([0.0638, 0.1111, 0.1190,  ..., 0.1628, 0.0167, 0.8462])]
+
+INFO:main.py:
+
+Hyperparameters tuning with Ray Tune
+
+INFO:main.py:Training data years: [1980, 1981, 1982, 1983, 1984, 1985, 1986]
+INFO:main.py:Testing data year: 1987
+2024-07-03 05:40:25,476	INFO worker.py:1753 -- Started a local Ray instance.
+2024-07-03 05:40:25,506	INFO packaging.py:530 -- Creating a file package for local directory '/zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/src'.
+2024-07-03 05:40:25,533	INFO packaging.py:358 -- Pushing file package 'gcs://_ray_pkg_a30ae61c6f1ac4aa.zip' (1.19MiB) to Ray cluster...
+2024-07-03 05:40:25,541	INFO packaging.py:371 -- Successfully pushed file package 'gcs://_ray_pkg_a30ae61c6f1ac4aa.zip'.
+2024-07-03 05:40:27,533	WARNING tune.py:902 -- AIR_VERBOSITY is set, ignoring passed-in ProgressReporter for now.
+2024-07-03 05:44:24,529	INFO tune.py:1009 -- Wrote the latest version of all result files and experiment state to '/zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/ray_results/train_fnn_2024-07-03_05-40-27' in 0.0648s.
+INFO:model_data_nn.py:Best trial config: {'continuous_dim': 102, 'hidden_dim': 135, 'num_layers': 1, 'num_embeddings': 6642, 'embedding_dim': 20, 'dropout_rate': 0.10840748740555366, 'lr': 0.00018453732926615923, 'weight_decay': 1.8856783874794976e-05, 'num_epochs': 5, 'num_gpus': 2}
+INFO:model_data_nn.py:Best trial training loss: 0.6574245073838149
+INFO:model_data_nn.py:Best trial testing loss: 1.4833444705549277
+INFO:main.py:Ray Tune results have been saved to: /zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/ray_results
+INFO:main.py:/n/nRetrain a new model with data in years: [1980, 1981, 1982, 1983, 1984, 1985, 1986, 1987]
+
+        Using the optimized hyperparameters: {'continuous_dim': 102, 'hidden_dim': 135, 'num_layers': 1, 'num_embeddings': 7281, 'embedding_dim': 20, 'dropout_rate': 0.10840748740555366, 'lr': 0.00018453732926615923, 'weight_decay': 1.8856783874794976e-05, 'num_epochs': 5, 'num_gpus': 2}/n
+INFO:model_data_nn.py:Epoch 1/5, metrics: {'avg_train_loss': 6.288951145586117, 'avg_test_loss': 3.526403045654297}
+INFO:model_data_nn.py:Epoch 2/5, metrics: {'avg_train_loss': 1.743840309076531, 'avg_test_loss': 2.321737848628651}
+INFO:model_data_nn.py:Epoch 3/5, metrics: {'avg_train_loss': 1.124512028632546, 'avg_test_loss': 1.5801683425903321}
+INFO:model_data_nn.py:Epoch 4/5, metrics: {'avg_train_loss': 0.7709528608223573, 'avg_test_loss': 1.167203805663369}
+INFO:model_data_nn.py:Epoch 5/5, metrics: {'avg_train_loss': 0.5532624134721682, 'avg_test_loss': 0.882856506651098}
+INFO:main.py:Making prediction for data in year: 1987
+INFO:main.py:Prediction data shape: (56005,)
+/zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/src/main.py:344: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+
+See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
+  prediction_data['pred'] = predictions
+INFO:main.py:Root Mean Squared Error for Prediction in 1988: 0.938816732710785
+INFO:main.py:Prediction Stats:                 ret          pred
+count  56005.000000  56005.000000
+mean       0.016656      0.374285
+std        0.165388      0.851737
+min       -0.909836     -8.641875
+25%       -0.056338      0.139338
+50%        0.000000      0.430963
+75%        0.069444      0.774155
+max        6.166667      6.864588
+╭──────────────────────────────────────────────────────────────────╮
+│ Configuration for experiment     train_fnn_2024-07-03_05-40-27   │
+├──────────────────────────────────────────────────────────────────┤
+│ Search algorithm                 BasicVariantGenerator           │
+│ Scheduler                        AsyncHyperBandScheduler         │
+│ Number of trials                 20                              │
+╰──────────────────────────────────────────────────────────────────╯
+
+View detailed results here: /zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/ray_results/train_fnn_2024-07-03_05-40-27
+To visualize your results with TensorBoard, run: `tensorboard --logdir /tmp/ray/session_2024-07-03_05-40-23_078048_1631926/artifacts/2024-07-03_05-40-27/train_fnn_2024-07-03_05-40-27/driver_artifacts`
+
+Trial status: 20 PENDING
+Current time: 2024-07-03 05:40:27. Total running time: 0s
+Logical resource usage: 0/40 CPUs, 0/2 GPUs (0.0/1.0 accelerator_type:A30)
+╭──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╮
+│ Trial name              status       hidden_dim     num_layers     embedding_dim     dropout_rate            lr     weight_decay │
+├──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┤
+│ train_fnn_c08be_00000   PENDING              65              4                25         0.109055   0.00021831       6.17377e-05 │
+│ train_fnn_c08be_00001   PENDING             105              3                25         0.334602   0.000133112      1.1528e-06  │
+│ train_fnn_c08be_00002   PENDING             115              2                20         0.109038   8.1795e-06       3.75206e-05 │
+│ train_fnn_c08be_00003   PENDING             165              3                15         0.225925   1.38037e-06      0.000834193 │
+│ train_fnn_c08be_00004   PENDING             145              3                20         0.287687   5.98747e-05      1.37832e-06 │
+│ train_fnn_c08be_00005   PENDING              85              2                20         0.518789   4.89626e-05      1.43301e-05 │
+│ train_fnn_c08be_00006   PENDING              15              4                20         0.247682   2.32335e-06      3.05866e-05 │
+│ train_fnn_c08be_00007   PENDING             135              1                20         0.108407   0.000184537      1.88568e-05 │
+│ train_fnn_c08be_00008   PENDING              35              5                10         0.428572   0.000658411      0.000483595 │
+│ train_fnn_c08be_00009   PENDING             155              4                 5         0.529033   0.000341666      0.000174566 │
+│ train_fnn_c08be_00010   PENDING             125              1                25         0.443186   1.6736e-06       0.0009134   │
+│ train_fnn_c08be_00011   PENDING             115              3                15         0.391703   0.000153823      0.000205973 │
+│ train_fnn_c08be_00012   PENDING              65              2                 5         0.504078   0.000354908      2.23024e-05 │
+│ train_fnn_c08be_00013   PENDING              45              3                20         0.354281   0.000458816      2.61003e-05 │
+│ train_fnn_c08be_00014   PENDING             135              3                 5         0.399734   5.10452e-06      5.86415e-06 │
+│ train_fnn_c08be_00015   PENDING             145              2                10         0.247242   4.02863e-06      0.000486733 │
+│ train_fnn_c08be_00016   PENDING              35              5                25         0.301514   4.06615e-06      0.000673846 │
+│ train_fnn_c08be_00017   PENDING             185              4                10         0.347151   7.70728e-06      2.07244e-06 │
+│ train_fnn_c08be_00018   PENDING             115              4                20         0.491982   4.1498e-05       0.000264436 │
+│ train_fnn_c08be_00019   PENDING              65              1                 5         0.133085   1.91128e-05      0.000284475 │
+╰──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯
+
+Trial train_fnn_c08be_00001 started with configuration:
+╭────────────────────────────────────────────────╮
+│ Trial train_fnn_c08be_00001 config             │
+├────────────────────────────────────────────────┤
+│ continuous_dim                             102 │
+│ dropout_rate                            0.3346 │
+│ embedding_dim                               25 │
+│ hidden_dim                                 105 │
+│ lr                                     0.00013 │
+│ num_embeddings                            6642 │
+│ num_epochs                                   5 │
+│ num_gpus                                     2 │
+│ num_layers                                   3 │
+│ weight_decay                                 0 │
+╰────────────────────────────────────────────────╯
+
+Trial train_fnn_c08be_00000 started with configuration:
+╭────────────────────────────────────────────────╮
+│ Trial train_fnn_c08be_00000 config             │
+├────────────────────────────────────────────────┤
+│ continuous_dim                             102 │
+│ dropout_rate                           0.10905 │
+│ embedding_dim                               25 │
+│ hidden_dim                                  65 │
+│ lr                                     0.00022 │
+│ num_embeddings                            6642 │
+│ num_epochs                                   5 │
+│ num_gpus                                     2 │
+│ num_layers                                   4 │
+│ weight_decay                             6e-05 │
+╰────────────────────────────────────────────────╯
+
+Trial train_fnn_c08be_00000 completed after 1 iterations at 2024-07-03 05:40:42. Total running time: 14s
+╭────────────────────────────────────────────────╮
+│ Trial train_fnn_c08be_00000 result             │
+├────────────────────────────────────────────────┤
+│ checkpoint_dir_name                            │
+│ time_this_iter_s                       8.90643 │
+│ time_total_s                           8.90643 │
+│ training_iteration                           1 │
+│ avg_test_loss                          5968.98 │
+│ avg_train_loss                         12131.3 │
+╰────────────────────────────────────────────────╯
+
+Trial train_fnn_c08be_00002 started with configuration:
+╭────────────────────────────────────────────────╮
+│ Trial train_fnn_c08be_00002 config             │
+├────────────────────────────────────────────────┤
+│ continuous_dim                             102 │
+│ dropout_rate                           0.10904 │
+│ embedding_dim                               20 │
+│ hidden_dim                                 115 │
+│ lr                                       1e-05 │
+│ num_embeddings                            6642 │
+│ num_epochs                                   5 │
+│ num_gpus                                     2 │
+│ num_layers                                   2 │
+│ weight_decay                             4e-05 │
+╰────────────────────────────────────────────────╯
+
+Trial status: 1 TERMINATED | 2 RUNNING | 17 PENDING
+Current time: 2024-07-03 05:40:57. Total running time: 30s
+Logical resource usage: 4.0/40 CPUs, 2.0/2 GPUs (0.0/1.0 accelerator_type:A30)
+╭─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╮
+│ Trial name              status         hidden_dim     num_layers     embedding_dim     dropout_rate            lr     weight_decay     iter     total time (s)     avg_train_loss     avg_test_loss │
+├─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┤
+│ train_fnn_c08be_00001   RUNNING               105              3                25         0.334602   0.000133112      1.1528e-06         3           22.1378             254.004           142.272 │
+│ train_fnn_c08be_00002   RUNNING               115              2                20         0.109038   8.1795e-06       3.75206e-05        1            8.49981            331.06            413.301 │
+│ train_fnn_c08be_00000   TERMINATED             65              4                25         0.109055   0.00021831       6.17377e-05        1            8.90643          12131.3            5968.98  │
+│ train_fnn_c08be_00003   PENDING               165              3                15         0.225925   1.38037e-06      0.000834193                                                                  │
+│ train_fnn_c08be_00004   PENDING               145              3                20         0.287687   5.98747e-05      1.37832e-06                                                                  │
+│ train_fnn_c08be_00005   PENDING                85              2                20         0.518789   4.89626e-05      1.43301e-05                                                                  │
+│ train_fnn_c08be_00006   PENDING                15              4                20         0.247682   2.32335e-06      3.05866e-05                                                                  │
+│ train_fnn_c08be_00007   PENDING               135              1                20         0.108407   0.000184537      1.88568e-05                                                                  │
+│ train_fnn_c08be_00008   PENDING                35              5                10         0.428572   0.000658411      0.000483595                                                                  │
+│ train_fnn_c08be_00009   PENDING               155              4                 5         0.529033   0.000341666      0.000174566                                                                  │
+│ train_fnn_c08be_00010   PENDING               125              1                25         0.443186   1.6736e-06       0.0009134                                                                    │
+│ train_fnn_c08be_00011   PENDING               115              3                15         0.391703   0.000153823      0.000205973                                                                  │
+│ train_fnn_c08be_00012   PENDING                65              2                 5         0.504078   0.000354908      2.23024e-05                                                                  │
+│ train_fnn_c08be_00013   PENDING                45              3                20         0.354281   0.000458816      2.61003e-05                                                                  │
+│ train_fnn_c08be_00014   PENDING               135              3                 5         0.399734   5.10452e-06      5.86415e-06                                                                  │
+│ train_fnn_c08be_00015   PENDING               145              2                10         0.247242   4.02863e-06      0.000486733                                                                  │
+│ train_fnn_c08be_00016   PENDING                35              5                25         0.301514   4.06615e-06      0.000673846                                                                  │
+│ train_fnn_c08be_00017   PENDING               185              4                10         0.347151   7.70728e-06      2.07244e-06                                                                  │
+│ train_fnn_c08be_00018   PENDING               115              4                20         0.491982   4.1498e-05       0.000264436                                                                  │
+│ train_fnn_c08be_00019   PENDING                65              1                 5         0.133085   1.91128e-05      0.000284475                                                                  │
+╰─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯
+
+Trial train_fnn_c08be_00001 completed after 5 iterations at 2024-07-03 05:41:09. Total running time: 41s
+╭────────────────────────────────────────────────╮
+│ Trial train_fnn_c08be_00001 result             │
+├────────────────────────────────────────────────┤
+│ checkpoint_dir_name                            │
+│ time_this_iter_s                       6.73585 │
+│ time_total_s                           35.6591 │
+│ training_iteration                           5 │
+│ avg_test_loss                           47.852 │
+│ avg_train_loss                          111.78 │
+╰────────────────────────────────────────────────╯
+
+Trial train_fnn_c08be_00003 started with configuration:
+╭────────────────────────────────────────────────╮
+│ Trial train_fnn_c08be_00003 config             │
+├────────────────────────────────────────────────┤
+│ continuous_dim                             102 │
+│ dropout_rate                           0.22592 │
+│ embedding_dim                               15 │
+│ hidden_dim                                 165 │
+│ lr                                           0 │
+│ num_embeddings                            6642 │
+│ num_epochs                                   5 │
+│ num_gpus                                     2 │
+│ num_layers                                   3 │
+│ weight_decay                           0.00083 │
+╰────────────────────────────────────────────────╯
+
+Trial train_fnn_c08be_00002 completed after 4 iterations at 2024-07-03 05:41:17. Total running time: 49s
+╭────────────────────────────────────────────────╮
+│ Trial train_fnn_c08be_00002 result             │
+├────────────────────────────────────────────────┤
+│ checkpoint_dir_name                            │
+│ time_this_iter_s                       6.90629 │
+│ time_total_s                           29.2117 │
+│ training_iteration                           4 │
+│ avg_test_loss                          281.408 │
+│ avg_train_loss                         116.341 │
+╰────────────────────────────────────────────────╯
+
+Trial train_fnn_c08be_00004 started with configuration:
+╭────────────────────────────────────────────────╮
+│ Trial train_fnn_c08be_00004 config             │
+├────────────────────────────────────────────────┤
+│ continuous_dim                             102 │
+│ dropout_rate                           0.28769 │
+│ embedding_dim                               20 │
+│ hidden_dim                                 145 │
+│ lr                                       6e-05 │
+│ num_embeddings                            6642 │
+│ num_epochs                                   5 │
+│ num_gpus                                     2 │
+│ num_layers                                   3 │
+│ weight_decay                                 0 │
+╰────────────────────────────────────────────────╯
+
+Trial train_fnn_c08be_00003 completed after 1 iterations at 2024-07-03 05:41:21. Total running time: 54s
+╭────────────────────────────────────────────────╮
+│ Trial train_fnn_c08be_00003 result             │
+├────────────────────────────────────────────────┤
+│ checkpoint_dir_name                            │
+│ time_this_iter_s                       8.57805 │
+│ time_total_s                           8.57805 │
+│ training_iteration                           1 │
+│ avg_test_loss                          28548.2 │
+│ avg_train_loss                           24365 │
+╰────────────────────────────────────────────────╯
+
+Trial train_fnn_c08be_00005 started with configuration:
+╭────────────────────────────────────────────────╮
+│ Trial train_fnn_c08be_00005 config             │
+├────────────────────────────────────────────────┤
+│ continuous_dim                             102 │
+│ dropout_rate                           0.51879 │
+│ embedding_dim                               20 │
+│ hidden_dim                                  85 │
+│ lr                                       5e-05 │
+│ num_embeddings                            6642 │
+│ num_epochs                                   5 │
+│ num_gpus                                     2 │
+│ num_layers                                   2 │
+│ weight_decay                             1e-05 │
+╰────────────────────────────────────────────────╯
+
+Trial status: 4 TERMINATED | 2 RUNNING | 14 PENDING
+Current time: 2024-07-03 05:41:27. Total running time: 1min 0s
+Logical resource usage: 4.0/40 CPUs, 2.0/2 GPUs (0.0/1.0 accelerator_type:A30)
+╭─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╮
+│ Trial name              status         hidden_dim     num_layers     embedding_dim     dropout_rate            lr     weight_decay     iter     total time (s)     avg_train_loss     avg_test_loss │
+├─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┤
+│ train_fnn_c08be_00004   RUNNING               145              3                20         0.287687   5.98747e-05      1.37832e-06                                                                  │
+│ train_fnn_c08be_00005   RUNNING                85              2                20         0.518789   4.89626e-05      1.43301e-05                                                                  │
+│ train_fnn_c08be_00000   TERMINATED             65              4                25         0.109055   0.00021831       6.17377e-05        1            8.90643          12131.3            5968.98  │
+│ train_fnn_c08be_00001   TERMINATED            105              3                25         0.334602   0.000133112      1.1528e-06         5           35.6591             111.78             47.852 │
+│ train_fnn_c08be_00002   TERMINATED            115              2                20         0.109038   8.1795e-06       3.75206e-05        4           29.2117             116.341           281.408 │
+│ train_fnn_c08be_00003   TERMINATED            165              3                15         0.225925   1.38037e-06      0.000834193        1            8.57805          24365             28548.2   │
+│ train_fnn_c08be_00006   PENDING                15              4                20         0.247682   2.32335e-06      3.05866e-05                                                                  │
+│ train_fnn_c08be_00007   PENDING               135              1                20         0.108407   0.000184537      1.88568e-05                                                                  │
+│ train_fnn_c08be_00008   PENDING                35              5                10         0.428572   0.000658411      0.000483595                                                                  │
+│ train_fnn_c08be_00009   PENDING               155              4                 5         0.529033   0.000341666      0.000174566                                                                  │
+│ train_fnn_c08be_00010   PENDING               125              1                25         0.443186   1.6736e-06       0.0009134                                                                    │
+│ train_fnn_c08be_00011   PENDING               115              3                15         0.391703   0.000153823      0.000205973                                                                  │
+│ train_fnn_c08be_00012   PENDING                65              2                 5         0.504078   0.000354908      2.23024e-05                                                                  │
+│ train_fnn_c08be_00013   PENDING                45              3                20         0.354281   0.000458816      2.61003e-05                                                                  │
+│ train_fnn_c08be_00014   PENDING               135              3                 5         0.399734   5.10452e-06      5.86415e-06                                                                  │
+│ train_fnn_c08be_00015   PENDING               145              2                10         0.247242   4.02863e-06      0.000486733                                                                  │
+│ train_fnn_c08be_00016   PENDING                35              5                25         0.301514   4.06615e-06      0.000673846                                                                  │
+│ train_fnn_c08be_00017   PENDING               185              4                10         0.347151   7.70728e-06      2.07244e-06                                                                  │
+│ train_fnn_c08be_00018   PENDING               115              4                20         0.491982   4.1498e-05       0.000264436                                                                  │
+│ train_fnn_c08be_00019   PENDING                65              1                 5         0.133085   1.91128e-05      0.000284475                                                                  │
+╰─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯
+
+Trial train_fnn_c08be_00004 completed after 2 iterations at 2024-07-03 05:41:36. Total running time: 1min 9s
+╭────────────────────────────────────────────────╮
+│ Trial train_fnn_c08be_00004 result             │
+├────────────────────────────────────────────────┤
+│ checkpoint_dir_name                            │
+│ time_this_iter_s                       6.81139 │
+│ time_total_s                           15.3923 │
+│ training_iteration                           2 │
+│ avg_test_loss                          717.097 │
+│ avg_train_loss                         1060.99 │
+╰────────────────────────────────────────────────╯
+
+Trial train_fnn_c08be_00006 started with configuration:
+╭────────────────────────────────────────────────╮
+│ Trial train_fnn_c08be_00006 config             │
+├────────────────────────────────────────────────┤
+│ continuous_dim                             102 │
+│ dropout_rate                           0.24768 │
+│ embedding_dim                               20 │
+│ hidden_dim                                  15 │
+│ lr                                           0 │
+│ num_embeddings                            6642 │
+│ num_epochs                                   5 │
+│ num_gpus                                     2 │
+│ num_layers                                   4 │
+│ weight_decay                             3e-05 │
+╰────────────────────────────────────────────────╯
+
+Trial train_fnn_c08be_00005 completed after 2 iterations at 2024-07-03 05:41:41. Total running time: 1min 13s
+╭────────────────────────────────────────────────╮
+│ Trial train_fnn_c08be_00005 result             │
+├────────────────────────────────────────────────┤
+│ checkpoint_dir_name                            │
+│ time_this_iter_s                       6.65045 │
+│ time_total_s                            15.019 │
+│ training_iteration                           2 │
+│ avg_test_loss                          411.304 │
+│ avg_train_loss                         255.199 │
+╰────────────────────────────────────────────────╯
+
+Trial train_fnn_c08be_00007 started with configuration:
+╭────────────────────────────────────────────────╮
+│ Trial train_fnn_c08be_00007 config             │
+├────────────────────────────────────────────────┤
+│ continuous_dim                             102 │
+│ dropout_rate                           0.10841 │
+│ embedding_dim                               20 │
+│ hidden_dim                                 135 │
+│ lr                                     0.00018 │
+│ num_embeddings                            6642 │
+│ num_epochs                                   5 │
+│ num_gpus                                     2 │
+│ num_layers                                   1 │
+│ weight_decay                             2e-05 │
+╰────────────────────────────────────────────────╯
+
+Trial train_fnn_c08be_00006 completed after 1 iterations at 2024-07-03 05:41:50. Total running time: 1min 23s
+╭────────────────────────────────────────────────╮
+│ Trial train_fnn_c08be_00006 result             │
+├────────────────────────────────────────────────┤
+│ checkpoint_dir_name                            │
+│ time_this_iter_s                       9.38877 │
+│ time_total_s                           9.38877 │
+│ training_iteration                           1 │
+│ avg_test_loss                          69215.7 │
+│ avg_train_loss                          119695 │
+╰────────────────────────────────────────────────╯
+
+Trial train_fnn_c08be_00008 started with configuration:
+╭────────────────────────────────────────────────╮
+│ Trial train_fnn_c08be_00008 config             │
+├────────────────────────────────────────────────┤
+│ continuous_dim                             102 │
+│ dropout_rate                           0.42857 │
+│ embedding_dim                               10 │
+│ hidden_dim                                  35 │
+│ lr                                     0.00066 │
+│ num_embeddings                            6642 │
+│ num_epochs                                   5 │
+│ num_gpus                                     2 │
+│ num_layers                                   5 │
+│ weight_decay                           0.00048 │
+╰────────────────────────────────────────────────╯
+
+Trial status: 7 TERMINATED | 2 RUNNING | 11 PENDING
+Current time: 2024-07-03 05:41:57. Total running time: 1min 30s
+Logical resource usage: 4.0/40 CPUs, 2.0/2 GPUs (0.0/1.0 accelerator_type:A30)
+╭─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╮
+│ Trial name              status         hidden_dim     num_layers     embedding_dim     dropout_rate            lr     weight_decay     iter     total time (s)     avg_train_loss     avg_test_loss │
+├─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┤
+│ train_fnn_c08be_00007   RUNNING               135              1                20         0.108407   0.000184537      1.88568e-05        1            8.32823            6.67394           5.84544 │
+│ train_fnn_c08be_00008   RUNNING                35              5                10         0.428572   0.000658411      0.000483595                                                                  │
+│ train_fnn_c08be_00000   TERMINATED             65              4                25         0.109055   0.00021831       6.17377e-05        1            8.90643        12131.3            5968.98    │
+│ train_fnn_c08be_00001   TERMINATED            105              3                25         0.334602   0.000133112      1.1528e-06         5           35.6591           111.78             47.852   │
+│ train_fnn_c08be_00002   TERMINATED            115              2                20         0.109038   8.1795e-06       3.75206e-05        4           29.2117           116.341           281.408   │
+│ train_fnn_c08be_00003   TERMINATED            165              3                15         0.225925   1.38037e-06      0.000834193        1            8.57805        24365             28548.2     │
+│ train_fnn_c08be_00004   TERMINATED            145              3                20         0.287687   5.98747e-05      1.37832e-06        2           15.3923          1060.99            717.097   │
+│ train_fnn_c08be_00005   TERMINATED             85              2                20         0.518789   4.89626e-05      1.43301e-05        2           15.019            255.199           411.304   │
+│ train_fnn_c08be_00006   TERMINATED             15              4                20         0.247682   2.32335e-06      3.05866e-05        1            9.38877       119695             69215.7     │
+│ train_fnn_c08be_00009   PENDING               155              4                 5         0.529033   0.000341666      0.000174566                                                                  │
+│ train_fnn_c08be_00010   PENDING               125              1                25         0.443186   1.6736e-06       0.0009134                                                                    │
+│ train_fnn_c08be_00011   PENDING               115              3                15         0.391703   0.000153823      0.000205973                                                                  │
+│ train_fnn_c08be_00012   PENDING                65              2                 5         0.504078   0.000354908      2.23024e-05                                                                  │
+│ train_fnn_c08be_00013   PENDING                45              3                20         0.354281   0.000458816      2.61003e-05                                                                  │
+│ train_fnn_c08be_00014   PENDING               135              3                 5         0.399734   5.10452e-06      5.86415e-06                                                                  │
+│ train_fnn_c08be_00015   PENDING               145              2                10         0.247242   4.02863e-06      0.000486733                                                                  │
+│ train_fnn_c08be_00016   PENDING                35              5                25         0.301514   4.06615e-06      0.000673846                                                                  │
+│ train_fnn_c08be_00017   PENDING               185              4                10         0.347151   7.70728e-06      2.07244e-06                                                                  │
+│ train_fnn_c08be_00018   PENDING               115              4                20         0.491982   4.1498e-05       0.000264436                                                                  │
+│ train_fnn_c08be_00019   PENDING                65              1                 5         0.133085   1.91128e-05      0.000284475                                                                  │
+╰─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯
+
+Trial train_fnn_c08be_00008 completed after 1 iterations at 2024-07-03 05:42:04. Total running time: 1min 36s
+╭────────────────────────────────────────────────╮
+│ Trial train_fnn_c08be_00008 result             │
+├────────────────────────────────────────────────┤
+│ checkpoint_dir_name                            │
+│ time_this_iter_s                       8.85329 │
+│ time_total_s                           8.85329 │
+│ training_iteration                           1 │
+│ avg_test_loss                          3123.91 │
+│ avg_train_loss                          177917 │
+╰────────────────────────────────────────────────╯
+
+Trial train_fnn_c08be_00009 started with configuration:
+╭────────────────────────────────────────────────╮
+│ Trial train_fnn_c08be_00009 config             │
+├────────────────────────────────────────────────┤
+│ continuous_dim                             102 │
+│ dropout_rate                           0.52903 │
+│ embedding_dim                                5 │
+│ hidden_dim                                 155 │
+│ lr                                     0.00034 │
+│ num_embeddings                            6642 │
+│ num_epochs                                   5 │
+│ num_gpus                                     2 │
+│ num_layers                                   4 │
+│ weight_decay                           0.00017 │
+╰────────────────────────────────────────────────╯
+
+Trial train_fnn_c08be_00009 completed after 1 iterations at 2024-07-03 05:42:17. Total running time: 1min 50s
+╭────────────────────────────────────────────────╮
+│ Trial train_fnn_c08be_00009 result             │
+├────────────────────────────────────────────────┤
+│ checkpoint_dir_name                            │
+│ time_this_iter_s                       8.58522 │
+│ time_total_s                           8.58522 │
+│ training_iteration                           1 │
+│ avg_test_loss                          5062.62 │
+│ avg_train_loss                         38663.6 │
+╰────────────────────────────────────────────────╯
+
+Trial train_fnn_c08be_00007 completed after 5 iterations at 2024-07-03 05:42:20. Total running time: 1min 53s
+╭────────────────────────────────────────────────╮
+│ Trial train_fnn_c08be_00007 result             │
+├────────────────────────────────────────────────┤
+│ checkpoint_dir_name                            │
+│ time_this_iter_s                       6.37049 │
+│ time_total_s                           33.8955 │
+│ training_iteration                           5 │
+│ avg_test_loss                          1.48334 │
+│ avg_train_loss                         0.65742 │
+╰────────────────────────────────────────────────╯
+
+Trial train_fnn_c08be_00010 started with configuration:
+╭────────────────────────────────────────────────╮
+│ Trial train_fnn_c08be_00010 config             │
+├────────────────────────────────────────────────┤
+│ continuous_dim                             102 │
+│ dropout_rate                           0.44319 │
+│ embedding_dim                               25 │
+│ hidden_dim                                 125 │
+│ lr                                           0 │
+│ num_embeddings                            6642 │
+│ num_epochs                                   5 │
+│ num_gpus                                     2 │
+│ num_layers                                   1 │
+│ weight_decay                           0.00091 │
+╰────────────────────────────────────────────────╯
+
+Trial train_fnn_c08be_00011 started with configuration:
+╭────────────────────────────────────────────────╮
+│ Trial train_fnn_c08be_00011 config             │
+├────────────────────────────────────────────────┤
+│ continuous_dim                             102 │
+│ dropout_rate                            0.3917 │
+│ embedding_dim                               15 │
+│ hidden_dim                                 115 │
+│ lr                                     0.00015 │
+│ num_embeddings                            6642 │
+│ num_epochs                                   5 │
+│ num_gpus                                     2 │
+│ num_layers                                   3 │
+│ weight_decay                           0.00021 │
+╰────────────────────────────────────────────────╯
+
+Trial status: 10 TERMINATED | 2 RUNNING | 8 PENDING
+Current time: 2024-07-03 05:42:28. Total running time: 2min 0s
+Logical resource usage: 4.0/40 CPUs, 2.0/2 GPUs (0.0/1.0 accelerator_type:A30)
+╭─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╮
+│ Trial name              status         hidden_dim     num_layers     embedding_dim     dropout_rate            lr     weight_decay     iter     total time (s)     avg_train_loss     avg_test_loss │
+├─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┤
+│ train_fnn_c08be_00010   RUNNING               125              1                25         0.443186   1.6736e-06       0.0009134                                                                    │
+│ train_fnn_c08be_00011   RUNNING               115              3                15         0.391703   0.000153823      0.000205973                                                                  │
+│ train_fnn_c08be_00000   TERMINATED             65              4                25         0.109055   0.00021831       6.17377e-05        1            8.90643       12131.3             5968.98    │
+│ train_fnn_c08be_00001   TERMINATED            105              3                25         0.334602   0.000133112      1.1528e-06         5           35.6591          111.78              47.852   │
+│ train_fnn_c08be_00002   TERMINATED            115              2                20         0.109038   8.1795e-06       3.75206e-05        4           29.2117          116.341            281.408   │
+│ train_fnn_c08be_00003   TERMINATED            165              3                15         0.225925   1.38037e-06      0.000834193        1            8.57805       24365              28548.2     │
+│ train_fnn_c08be_00004   TERMINATED            145              3                20         0.287687   5.98747e-05      1.37832e-06        2           15.3923         1060.99             717.097   │
+│ train_fnn_c08be_00005   TERMINATED             85              2                20         0.518789   4.89626e-05      1.43301e-05        2           15.019           255.199            411.304   │
+│ train_fnn_c08be_00006   TERMINATED             15              4                20         0.247682   2.32335e-06      3.05866e-05        1            9.38877      119695              69215.7     │
+│ train_fnn_c08be_00007   TERMINATED            135              1                20         0.108407   0.000184537      1.88568e-05        5           33.8955            0.657425           1.48334 │
+│ train_fnn_c08be_00008   TERMINATED             35              5                10         0.428572   0.000658411      0.000483595        1            8.85329      177917               3123.91    │
+│ train_fnn_c08be_00009   TERMINATED            155              4                 5         0.529033   0.000341666      0.000174566        1            8.58522       38663.6             5062.62    │
+│ train_fnn_c08be_00012   PENDING                65              2                 5         0.504078   0.000354908      2.23024e-05                                                                  │
+│ train_fnn_c08be_00013   PENDING                45              3                20         0.354281   0.000458816      2.61003e-05                                                                  │
+│ train_fnn_c08be_00014   PENDING               135              3                 5         0.399734   5.10452e-06      5.86415e-06                                                                  │
+│ train_fnn_c08be_00015   PENDING               145              2                10         0.247242   4.02863e-06      0.000486733                                                                  │
+│ train_fnn_c08be_00016   PENDING                35              5                25         0.301514   4.06615e-06      0.000673846                                                                  │
+│ train_fnn_c08be_00017   PENDING               185              4                10         0.347151   7.70728e-06      2.07244e-06                                                                  │
+│ train_fnn_c08be_00018   PENDING               115              4                20         0.491982   4.1498e-05       0.000264436                                                                  │
+│ train_fnn_c08be_00019   PENDING                65              1                 5         0.133085   1.91128e-05      0.000284475                                                                  │
+╰─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯
+
+Trial train_fnn_c08be_00011 completed after 1 iterations at 2024-07-03 05:42:33. Total running time: 2min 6s
+╭────────────────────────────────────────────────╮
+│ Trial train_fnn_c08be_00011 result             │
+├────────────────────────────────────────────────┤
+│ checkpoint_dir_name                            │
+│ time_this_iter_s                       8.39769 │
+│ time_total_s                           8.39769 │
+│ training_iteration                           1 │
+│ avg_test_loss                          1615.45 │
+│ avg_train_loss                         3249.76 │
+╰────────────────────────────────────────────────╯
+
+Trial train_fnn_c08be_00012 started with configuration:
+╭────────────────────────────────────────────────╮
+│ Trial train_fnn_c08be_00012 config             │
+├────────────────────────────────────────────────┤
+│ continuous_dim                             102 │
+│ dropout_rate                           0.50408 │
+│ embedding_dim                                5 │
+│ hidden_dim                                  65 │
+│ lr                                     0.00035 │
+│ num_embeddings                            6642 │
+│ num_epochs                                   5 │
+│ num_gpus                                     2 │
+│ num_layers                                   2 │
+│ weight_decay                             2e-05 │
+╰────────────────────────────────────────────────╯
+
+Trial train_fnn_c08be_00010 completed after 4 iterations at 2024-07-03 05:42:49. Total running time: 2min 22s
+╭────────────────────────────────────────────────╮
+│ Trial train_fnn_c08be_00010 result             │
+├────────────────────────────────────────────────┤
+│ checkpoint_dir_name                            │
+│ time_this_iter_s                       6.36791 │
+│ time_total_s                            27.542 │
+│ training_iteration                           4 │
+│ avg_test_loss                          134.679 │
+│ avg_train_loss                         87.5241 │
+╰────────────────────────────────────────────────╯
+
+Trial train_fnn_c08be_00013 started with configuration:
+╭────────────────────────────────────────────────╮
+│ Trial train_fnn_c08be_00013 config             │
+├────────────────────────────────────────────────┤
+│ continuous_dim                             102 │
+│ dropout_rate                           0.35428 │
+│ embedding_dim                               20 │
+│ hidden_dim                                  45 │
+│ lr                                     0.00046 │
+│ num_embeddings                            6642 │
+│ num_epochs                                   5 │
+│ num_gpus                                     2 │
+│ num_layers                                   3 │
+│ weight_decay                             3e-05 │
+╰────────────────────────────────────────────────╯
+
+Trial status: 12 TERMINATED | 2 RUNNING | 6 PENDING
+Current time: 2024-07-03 05:42:58. Total running time: 2min 30s
+Logical resource usage: 4.0/40 CPUs, 2.0/2 GPUs (0.0/1.0 accelerator_type:A30)
+╭─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╮
+│ Trial name              status         hidden_dim     num_layers     embedding_dim     dropout_rate            lr     weight_decay     iter     total time (s)     avg_train_loss     avg_test_loss │
+├─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┤
+│ train_fnn_c08be_00012   RUNNING                65              2                 5         0.504078   0.000354908      2.23024e-05        2           15.0974           51.6366            45.607   │
+│ train_fnn_c08be_00013   RUNNING                45              3                20         0.354281   0.000458816      2.61003e-05                                                                  │
+│ train_fnn_c08be_00000   TERMINATED             65              4                25         0.109055   0.00021831       6.17377e-05        1            8.90643       12131.3             5968.98    │
+│ train_fnn_c08be_00001   TERMINATED            105              3                25         0.334602   0.000133112      1.1528e-06         5           35.6591          111.78              47.852   │
+│ train_fnn_c08be_00002   TERMINATED            115              2                20         0.109038   8.1795e-06       3.75206e-05        4           29.2117          116.341            281.408   │
+│ train_fnn_c08be_00003   TERMINATED            165              3                15         0.225925   1.38037e-06      0.000834193        1            8.57805       24365              28548.2     │
+│ train_fnn_c08be_00004   TERMINATED            145              3                20         0.287687   5.98747e-05      1.37832e-06        2           15.3923         1060.99             717.097   │
+│ train_fnn_c08be_00005   TERMINATED             85              2                20         0.518789   4.89626e-05      1.43301e-05        2           15.019           255.199            411.304   │
+│ train_fnn_c08be_00006   TERMINATED             15              4                20         0.247682   2.32335e-06      3.05866e-05        1            9.38877      119695              69215.7     │
+│ train_fnn_c08be_00007   TERMINATED            135              1                20         0.108407   0.000184537      1.88568e-05        5           33.8955            0.657425           1.48334 │
+│ train_fnn_c08be_00008   TERMINATED             35              5                10         0.428572   0.000658411      0.000483595        1            8.85329      177917               3123.91    │
+│ train_fnn_c08be_00009   TERMINATED            155              4                 5         0.529033   0.000341666      0.000174566        1            8.58522       38663.6             5062.62    │
+│ train_fnn_c08be_00010   TERMINATED            125              1                25         0.443186   1.6736e-06       0.0009134          4           27.542            87.5241           134.679   │
+│ train_fnn_c08be_00011   TERMINATED            115              3                15         0.391703   0.000153823      0.000205973        1            8.39769        3249.76            1615.45    │
+│ train_fnn_c08be_00014   PENDING               135              3                 5         0.399734   5.10452e-06      5.86415e-06                                                                  │
+│ train_fnn_c08be_00015   PENDING               145              2                10         0.247242   4.02863e-06      0.000486733                                                                  │
+│ train_fnn_c08be_00016   PENDING                35              5                25         0.301514   4.06615e-06      0.000673846                                                                  │
+│ train_fnn_c08be_00017   PENDING               185              4                10         0.347151   7.70728e-06      2.07244e-06                                                                  │
+│ train_fnn_c08be_00018   PENDING               115              4                20         0.491982   4.1498e-05       0.000264436                                                                  │
+│ train_fnn_c08be_00019   PENDING                65              1                 5         0.133085   1.91128e-05      0.000284475                                                                  │
+╰─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯
+
+Trial train_fnn_c08be_00013 completed after 1 iterations at 2024-07-03 05:43:03. Total running time: 2min 35s
+╭────────────────────────────────────────────────╮
+│ Trial train_fnn_c08be_00013 result             │
+├────────────────────────────────────────────────┤
+│ checkpoint_dir_name                            │
+│ time_this_iter_s                       8.51691 │
+│ time_total_s                           8.51691 │
+│ training_iteration                           1 │
+│ avg_test_loss                          2255.89 │
+│ avg_train_loss                         5034.49 │
+╰────────────────────────────────────────────────╯
+
+Trial train_fnn_c08be_00014 started with configuration:
+╭────────────────────────────────────────────────╮
+│ Trial train_fnn_c08be_00014 config             │
+├────────────────────────────────────────────────┤
+│ continuous_dim                             102 │
+│ dropout_rate                           0.39973 │
+│ embedding_dim                                5 │
+│ hidden_dim                                 135 │
+│ lr                                       1e-05 │
+│ num_embeddings                            6642 │
+│ num_epochs                                   5 │
+│ num_gpus                                     2 │
+│ num_layers                                   3 │
+│ weight_decay                             1e-05 │
+╰────────────────────────────────────────────────╯
+
+Trial train_fnn_c08be_00012 completed after 5 iterations at 2024-07-03 05:43:13. Total running time: 2min 45s
+╭────────────────────────────────────────────────╮
+│ Trial train_fnn_c08be_00012 result             │
+├────────────────────────────────────────────────┤
+│ checkpoint_dir_name                            │
+│ time_this_iter_s                        6.6989 │
+│ time_total_s                           35.3236 │
+│ training_iteration                           5 │
+│ avg_test_loss                          10.3652 │
+│ avg_train_loss                          8.8854 │
+╰────────────────────────────────────────────────╯
+
+Trial train_fnn_c08be_00014 completed after 1 iterations at 2024-07-03 05:43:17. Total running time: 2min 49s
+╭────────────────────────────────────────────────╮
+│ Trial train_fnn_c08be_00014 result             │
+├────────────────────────────────────────────────┤
+│ checkpoint_dir_name                            │
+│ time_this_iter_s                       8.44595 │
+│ time_total_s                           8.44595 │
+│ training_iteration                           1 │
+│ avg_test_loss                          26230.8 │
+│ avg_train_loss                         26043.9 │
+╰────────────────────────────────────────────────╯
+
+Trial train_fnn_c08be_00015 started with configuration:
+╭────────────────────────────────────────────────╮
+│ Trial train_fnn_c08be_00015 config             │
+├────────────────────────────────────────────────┤
+│ continuous_dim                             102 │
+│ dropout_rate                           0.24724 │
+│ embedding_dim                               10 │
+│ hidden_dim                                 145 │
+│ lr                                           0 │
+│ num_embeddings                            6642 │
+│ num_epochs                                   5 │
+│ num_gpus                                     2 │
+│ num_layers                                   2 │
+│ weight_decay                           0.00049 │
+╰────────────────────────────────────────────────╯
+
+Trial train_fnn_c08be_00016 started with configuration:
+╭────────────────────────────────────────────────╮
+│ Trial train_fnn_c08be_00016 config             │
+├────────────────────────────────────────────────┤
+│ continuous_dim                             102 │
+│ dropout_rate                           0.30151 │
+│ embedding_dim                               25 │
+│ hidden_dim                                  35 │
+│ lr                                           0 │
+│ num_embeddings                            6642 │
+│ num_epochs                                   5 │
+│ num_gpus                                     2 │
+│ num_layers                                   5 │
+│ weight_decay                           0.00067 │
+╰────────────────────────────────────────────────╯
+
+Trial status: 15 TERMINATED | 2 RUNNING | 3 PENDING
+Current time: 2024-07-03 05:43:28. Total running time: 3min 0s
+Logical resource usage: 4.0/40 CPUs, 2.0/2 GPUs (0.0/1.0 accelerator_type:A30)
+╭─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╮
+│ Trial name              status         hidden_dim     num_layers     embedding_dim     dropout_rate            lr     weight_decay     iter     total time (s)     avg_train_loss     avg_test_loss │
+├─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┤
+│ train_fnn_c08be_00015   RUNNING               145              2                10         0.247242   4.02863e-06      0.000486733        1            8.40624         288.089            272.791   │
+│ train_fnn_c08be_00016   RUNNING                35              5                25         0.301514   4.06615e-06      0.000673846                                                                  │
+│ train_fnn_c08be_00000   TERMINATED             65              4                25         0.109055   0.00021831       6.17377e-05        1            8.90643       12131.3             5968.98    │
+│ train_fnn_c08be_00001   TERMINATED            105              3                25         0.334602   0.000133112      1.1528e-06         5           35.6591          111.78              47.852   │
+│ train_fnn_c08be_00002   TERMINATED            115              2                20         0.109038   8.1795e-06       3.75206e-05        4           29.2117          116.341            281.408   │
+│ train_fnn_c08be_00003   TERMINATED            165              3                15         0.225925   1.38037e-06      0.000834193        1            8.57805       24365              28548.2     │
+│ train_fnn_c08be_00004   TERMINATED            145              3                20         0.287687   5.98747e-05      1.37832e-06        2           15.3923         1060.99             717.097   │
+│ train_fnn_c08be_00005   TERMINATED             85              2                20         0.518789   4.89626e-05      1.43301e-05        2           15.019           255.199            411.304   │
+│ train_fnn_c08be_00006   TERMINATED             15              4                20         0.247682   2.32335e-06      3.05866e-05        1            9.38877      119695              69215.7     │
+│ train_fnn_c08be_00007   TERMINATED            135              1                20         0.108407   0.000184537      1.88568e-05        5           33.8955            0.657425           1.48334 │
+│ train_fnn_c08be_00008   TERMINATED             35              5                10         0.428572   0.000658411      0.000483595        1            8.85329      177917               3123.91    │
+│ train_fnn_c08be_00009   TERMINATED            155              4                 5         0.529033   0.000341666      0.000174566        1            8.58522       38663.6             5062.62    │
+│ train_fnn_c08be_00010   TERMINATED            125              1                25         0.443186   1.6736e-06       0.0009134          4           27.542            87.5241           134.679   │
+│ train_fnn_c08be_00011   TERMINATED            115              3                15         0.391703   0.000153823      0.000205973        1            8.39769        3249.76            1615.45    │
+│ train_fnn_c08be_00012   TERMINATED             65              2                 5         0.504078   0.000354908      2.23024e-05        5           35.3236            8.8854            10.3652  │
+│ train_fnn_c08be_00013   TERMINATED             45              3                20         0.354281   0.000458816      2.61003e-05        1            8.51691        5034.49            2255.89    │
+│ train_fnn_c08be_00014   TERMINATED            135              3                 5         0.399734   5.10452e-06      5.86415e-06        1            8.44595       26043.9            26230.8     │
+│ train_fnn_c08be_00017   PENDING               185              4                10         0.347151   7.70728e-06      2.07244e-06                                                                  │
+│ train_fnn_c08be_00018   PENDING               115              4                20         0.491982   4.1498e-05       0.000264436                                                                  │
+│ train_fnn_c08be_00019   PENDING                65              1                 5         0.133085   1.91128e-05      0.000284475                                                                  │
+╰─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯
+
+Trial train_fnn_c08be_00016 completed after 1 iterations at 2024-07-03 05:43:30. Total running time: 3min 2s
+╭───────────────────────────────────────────────╮
+│ Trial train_fnn_c08be_00016 result            │
+├───────────────────────────────────────────────┤
+│ checkpoint_dir_name                           │
+│ time_this_iter_s                       8.8452 │
+│ time_total_s                           8.8452 │
+│ training_iteration                          1 │
+│ avg_test_loss                          949156 │
+│ avg_train_loss                         992765 │
+╰───────────────────────────────────────────────╯
+
+Trial train_fnn_c08be_00017 started with configuration:
+╭────────────────────────────────────────────────╮
+│ Trial train_fnn_c08be_00017 config             │
+├────────────────────────────────────────────────┤
+│ continuous_dim                             102 │
+│ dropout_rate                           0.34715 │
+│ embedding_dim                               10 │
+│ hidden_dim                                 185 │
+│ lr                                       1e-05 │
+│ num_embeddings                            6642 │
+│ num_epochs                                   5 │
+│ num_gpus                                     2 │
+│ num_layers                                   4 │
+│ weight_decay                                 0 │
+╰────────────────────────────────────────────────╯
+
+Trial train_fnn_c08be_00017 completed after 1 iterations at 2024-07-03 05:43:43. Total running time: 3min 16s
+╭────────────────────────────────────────────────╮
+│ Trial train_fnn_c08be_00017 result             │
+├────────────────────────────────────────────────┤
+│ checkpoint_dir_name                            │
+│ time_this_iter_s                       8.49252 │
+│ time_total_s                           8.49252 │
+│ training_iteration                           1 │
+│ avg_test_loss                          30633.9 │
+│ avg_train_loss                         45629.6 │
+╰────────────────────────────────────────────────╯
+
+Trial train_fnn_c08be_00015 completed after 4 iterations at 2024-07-03 05:43:46. Total running time: 3min 19s
+╭────────────────────────────────────────────────╮
+│ Trial train_fnn_c08be_00015 result             │
+├────────────────────────────────────────────────┤
+│ checkpoint_dir_name                            │
+│ time_this_iter_s                       6.45591 │
+│ time_total_s                           28.0669 │
+│ training_iteration                           4 │
+│ avg_test_loss                           229.55 │
+│ avg_train_loss                         159.039 │
+╰────────────────────────────────────────────────╯
+
+Trial train_fnn_c08be_00018 started with configuration:
+╭────────────────────────────────────────────────╮
+│ Trial train_fnn_c08be_00018 config             │
+├────────────────────────────────────────────────┤
+│ continuous_dim                             102 │
+│ dropout_rate                           0.49198 │
+│ embedding_dim                               20 │
+│ hidden_dim                                 115 │
+│ lr                                       4e-05 │
+│ num_embeddings                            6642 │
+│ num_epochs                                   5 │
+│ num_gpus                                     2 │
+│ num_layers                                   4 │
+│ weight_decay                           0.00026 │
+╰────────────────────────────────────────────────╯
+
+Trial train_fnn_c08be_00019 started with configuration:
+╭────────────────────────────────────────────────╮
+│ Trial train_fnn_c08be_00019 config             │
+├────────────────────────────────────────────────┤
+│ continuous_dim                             102 │
+│ dropout_rate                           0.13308 │
+│ embedding_dim                                5 │
+│ hidden_dim                                  65 │
+│ lr                                       2e-05 │
+│ num_embeddings                            6642 │
+│ num_epochs                                   5 │
+│ num_gpus                                     2 │
+│ num_layers                                   1 │
+│ weight_decay                           0.00028 │
+╰────────────────────────────────────────────────╯
+
+Trial train_fnn_c08be_00018 completed after 1 iterations at 2024-07-03 05:43:57. Total running time: 3min 29s
+╭────────────────────────────────────────────────╮
+│ Trial train_fnn_c08be_00018 result             │
+├────────────────────────────────────────────────┤
+│ checkpoint_dir_name                            │
+│ time_this_iter_s                       8.84252 │
+│ time_total_s                           8.84252 │
+│ training_iteration                           1 │
+│ avg_test_loss                           127296 │
+│ avg_train_loss                          192145 │
+╰────────────────────────────────────────────────╯
+
+Trial status: 19 TERMINATED | 1 RUNNING
+Current time: 2024-07-03 05:43:58. Total running time: 3min 30s
+Logical resource usage: 2.0/40 CPUs, 1.0/2 GPUs (0.0/1.0 accelerator_type:A30)
+╭─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╮
+│ Trial name              status         hidden_dim     num_layers     embedding_dim     dropout_rate            lr     weight_decay     iter     total time (s)     avg_train_loss     avg_test_loss │
+├─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┤
+│ train_fnn_c08be_00019   RUNNING                65              1                 5         0.133085   1.91128e-05      0.000284475                                                                  │
+│ train_fnn_c08be_00000   TERMINATED             65              4                25         0.109055   0.00021831       6.17377e-05        1            8.90643       12131.3             5968.98    │
+│ train_fnn_c08be_00001   TERMINATED            105              3                25         0.334602   0.000133112      1.1528e-06         5           35.6591          111.78              47.852   │
+│ train_fnn_c08be_00002   TERMINATED            115              2                20         0.109038   8.1795e-06       3.75206e-05        4           29.2117          116.341            281.408   │
+│ train_fnn_c08be_00003   TERMINATED            165              3                15         0.225925   1.38037e-06      0.000834193        1            8.57805       24365              28548.2     │
+│ train_fnn_c08be_00004   TERMINATED            145              3                20         0.287687   5.98747e-05      1.37832e-06        2           15.3923         1060.99             717.097   │
+│ train_fnn_c08be_00005   TERMINATED             85              2                20         0.518789   4.89626e-05      1.43301e-05        2           15.019           255.199            411.304   │
+│ train_fnn_c08be_00006   TERMINATED             15              4                20         0.247682   2.32335e-06      3.05866e-05        1            9.38877      119695              69215.7     │
+│ train_fnn_c08be_00007   TERMINATED            135              1                20         0.108407   0.000184537      1.88568e-05        5           33.8955            0.657425           1.48334 │
+│ train_fnn_c08be_00008   TERMINATED             35              5                10         0.428572   0.000658411      0.000483595        1            8.85329      177917               3123.91    │
+│ train_fnn_c08be_00009   TERMINATED            155              4                 5         0.529033   0.000341666      0.000174566        1            8.58522       38663.6             5062.62    │
+│ train_fnn_c08be_00010   TERMINATED            125              1                25         0.443186   1.6736e-06       0.0009134          4           27.542            87.5241           134.679   │
+│ train_fnn_c08be_00011   TERMINATED            115              3                15         0.391703   0.000153823      0.000205973        1            8.39769        3249.76            1615.45    │
+│ train_fnn_c08be_00012   TERMINATED             65              2                 5         0.504078   0.000354908      2.23024e-05        5           35.3236            8.8854            10.3652  │
+│ train_fnn_c08be_00013   TERMINATED             45              3                20         0.354281   0.000458816      2.61003e-05        1            8.51691        5034.49            2255.89    │
+│ train_fnn_c08be_00014   TERMINATED            135              3                 5         0.399734   5.10452e-06      5.86415e-06        1            8.44595       26043.9            26230.8     │
+│ train_fnn_c08be_00015   TERMINATED            145              2                10         0.247242   4.02863e-06      0.000486733        4           28.0669          159.039            229.55    │
+│ train_fnn_c08be_00016   TERMINATED             35              5                25         0.301514   4.06615e-06      0.000673846        1            8.8452       992765             949156       │
+│ train_fnn_c08be_00017   TERMINATED            185              4                10         0.347151   7.70728e-06      2.07244e-06        1            8.49252       45629.6            30633.9     │
+│ train_fnn_c08be_00018   TERMINATED            115              4                20         0.491982   4.1498e-05       0.000264436        1            8.84252      192145             127296       │
+╰─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯
+
+Trial train_fnn_c08be_00019 completed after 5 iterations at 2024-07-03 05:44:24. Total running time: 3min 56s
+╭────────────────────────────────────────────────╮
+│ Trial train_fnn_c08be_00019 result             │
+├────────────────────────────────────────────────┤
+│ checkpoint_dir_name                            │
+│ time_this_iter_s                       6.30769 │
+│ time_total_s                           33.1491 │
+│ training_iteration                           5 │
+│ avg_test_loss                          17.2083 │
+│ avg_train_loss                         8.92954 │
+╰────────────────────────────────────────────────╯
+
+Trial status: 20 TERMINATED
+Current time: 2024-07-03 05:44:24. Total running time: 3min 56s
+Logical resource usage: 2.0/40 CPUs, 1.0/2 GPUs (0.0/1.0 accelerator_type:A30)
+╭─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╮
+│ Trial name              status         hidden_dim     num_layers     embedding_dim     dropout_rate            lr     weight_decay     iter     total time (s)     avg_train_loss     avg_test_loss │
+├─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┤
+│ train_fnn_c08be_00000   TERMINATED             65              4                25         0.109055   0.00021831       6.17377e-05        1            8.90643       12131.3             5968.98    │
+│ train_fnn_c08be_00001   TERMINATED            105              3                25         0.334602   0.000133112      1.1528e-06         5           35.6591          111.78              47.852   │
+│ train_fnn_c08be_00002   TERMINATED            115              2                20         0.109038   8.1795e-06       3.75206e-05        4           29.2117          116.341            281.408   │
+│ train_fnn_c08be_00003   TERMINATED            165              3                15         0.225925   1.38037e-06      0.000834193        1            8.57805       24365              28548.2     │
+│ train_fnn_c08be_00004   TERMINATED            145              3                20         0.287687   5.98747e-05      1.37832e-06        2           15.3923         1060.99             717.097   │
+│ train_fnn_c08be_00005   TERMINATED             85              2                20         0.518789   4.89626e-05      1.43301e-05        2           15.019           255.199            411.304   │
+│ train_fnn_c08be_00006   TERMINATED             15              4                20         0.247682   2.32335e-06      3.05866e-05        1            9.38877      119695              69215.7     │
+│ train_fnn_c08be_00007   TERMINATED            135              1                20         0.108407   0.000184537      1.88568e-05        5           33.8955            0.657425           1.48334 │
+│ train_fnn_c08be_00008   TERMINATED             35              5                10         0.428572   0.000658411      0.000483595        1            8.85329      177917               3123.91    │
+│ train_fnn_c08be_00009   TERMINATED            155              4                 5         0.529033   0.000341666      0.000174566        1            8.58522       38663.6             5062.62    │
+│ train_fnn_c08be_00010   TERMINATED            125              1                25         0.443186   1.6736e-06       0.0009134          4           27.542            87.5241           134.679   │
+│ train_fnn_c08be_00011   TERMINATED            115              3                15         0.391703   0.000153823      0.000205973        1            8.39769        3249.76            1615.45    │
+│ train_fnn_c08be_00012   TERMINATED             65              2                 5         0.504078   0.000354908      2.23024e-05        5           35.3236            8.8854            10.3652  │
+│ train_fnn_c08be_00013   TERMINATED             45              3                20         0.354281   0.000458816      2.61003e-05        1            8.51691        5034.49            2255.89    │
+│ train_fnn_c08be_00014   TERMINATED            135              3                 5         0.399734   5.10452e-06      5.86415e-06        1            8.44595       26043.9            26230.8     │
+│ train_fnn_c08be_00015   TERMINATED            145              2                10         0.247242   4.02863e-06      0.000486733        4           28.0669          159.039            229.55    │
+│ train_fnn_c08be_00016   TERMINATED             35              5                25         0.301514   4.06615e-06      0.000673846        1            8.8452       992765             949156       │
+│ train_fnn_c08be_00017   TERMINATED            185              4                10         0.347151   7.70728e-06      2.07244e-06        1            8.49252       45629.6            30633.9     │
+│ train_fnn_c08be_00018   TERMINATED            115              4                20         0.491982   4.1498e-05       0.000264436        1            8.84252      192145             127296       │
+│ train_fnn_c08be_00019   TERMINATED             65              1                 5         0.133085   1.91128e-05      0.000284475        5           33.1491            8.92954           17.2083  │
+╰─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯
+
