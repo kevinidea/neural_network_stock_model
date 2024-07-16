@@ -40,7 +40,7 @@ python3 kevin/src/main.py \
     --num_gpus ${SLURM_GPUS} \
     --gpus_per_trial 0 \
     --patience 3 \
-    --prediction_years 1985
+    --prediction_years 1986 1987 1991 1998 1999 2000 2001 2003 2009 2012 2020
 
 # post process prediction files
 python3 kevin/src/postprocess_predictions.py \
