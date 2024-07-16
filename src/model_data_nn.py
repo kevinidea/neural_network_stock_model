@@ -36,7 +36,10 @@ class ModelData():
             super(ModelData.FlexibleNeuralNetwork, self).__init__()
 
             # Embedding layer for one categorical variable
-            self.embedding = nn.Embedding(num_embeddings, embedding_dim)
+            self.num_embeddings = num_embeddings
+            # Handle new category during test or prediction phase
+            self.unknown_index = num_embeddings # Note that index starts at 0 so num_embeddings position is 1 unit outside of the range
+            self.embedding = nn.Embedding(num_embeddings + 1, embedding_dim) # + 1 for the unknown index
 
             # First layer
             input_dim = continuous_dim + embedding_dim
@@ -83,6 +86,12 @@ class ModelData():
                 nn.init.constant_(self.output_layer.bias, 0)
 
         def forward(self, x_continuous, x_categorical):
+            # Handle new categories by mapping them to the unknown index
+            x_categorical = torch.where(
+                x_categorical >= self.num_embeddings, 
+                torch.full_like(x_categorical, self.unknown_index),
+                x_categorical
+            )
             # Embedding lookup
             embedded = self.embedding(x_categorical)
             # Flatten the embedding
