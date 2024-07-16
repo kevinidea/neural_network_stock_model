@@ -128,9 +128,8 @@ def main():
     
     # Get all predictio data years
     train_year_start = df['pyear'].drop_duplicates().min()
-    # Reserve minimum 8 years of data for training, e.g. prediction year start in 1988 if data starts in 1980
-    # This would prevent the NaN / Inf training loss bug
-    prediction_years = list(df['pyear'].drop_duplicates().sort_values())[8:]
+    # Reserve minimum 5 years of data for training, e.g. prediction year start in 1985 if data starts in 1980
+    prediction_years = list(df['pyear'].drop_duplicates().sort_values())[5:]
     
     # If specific list of prediction years are provided, they will override the default list above
     if args.prediction_years:
