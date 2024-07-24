@@ -45,7 +45,7 @@ class ModelData():
             input_dim = continuous_dim + embedding_dim
             self.first_layer = nn.Linear(input_dim, hidden_dim)
             self.first_batch_norm = nn.BatchNorm1d(hidden_dim)
-            self.first_activation = nn.LeakyReLU(negative_slope=negative_slope)
+            self.first_activation = nn.tanh()
             self.first_dropout = nn.Dropout(dropout_rate)
 
             # Dynamic middle layers
@@ -56,12 +56,12 @@ class ModelData():
             for i in range(num_layers - 1):
                 self.middle_layers.append(nn.Linear(hidden_dim, hidden_dim))
                 self.middle_batch_norms.append(nn.BatchNorm1d(hidden_dim))
-                self.middle_activations.append(nn.LeakyReLU(negative_slope=negative_slope))
+                self.middle_activations.append(nn.tanh())
                 self.middle_dropouts.append(nn.Dropout(dropout_rate))
 
             # Output layer
             self.output_layer = nn.Linear(hidden_dim, output_dim)
-            self.output_activation = nn.LeakyReLU(negative_slope=negative_slope)
+            self.output_activation = nn.tanh()
 
             # Xavier initialization
             self._initialize_weights()
