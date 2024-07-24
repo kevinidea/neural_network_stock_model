@@ -1,11 +1,11 @@
 #!/bin/bash
 
 #SBATCH -J NN_month_rerun                   # Job name
-#SBATCH -p normal                         # Partition (queue) to submit to
-#SBATCH -G 0                           # Max GPUs per user: 2
+#SBATCH -p gpu                         # Partition (queue) to submit to
+#SBATCH -G 4                           # Max GPUs per user: 4
 #SBATCH -c 50                          # Number of CPU cores
-#SBATCH --mem=100G                    # memory
-#SBATCH -t 2-                          # Max job time
+#SBATCH --mem=160G                    # memory
+#SBATCH -t 1-                          # Max job time
 #SBATCH -o '/zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/output/log/monthly_new_vars_rerun_%j.out'           # Output file
 #SBATCH --mail-type=ALL                # Email notifications
 #SBATCH --mail-user=kevin128@stanford.edu
@@ -38,9 +38,9 @@ python3 kevin/src/main.py \
     --num_cpus ${SLURM_CPUS_PER_TASK} \
     --cpus_per_trial 1 \
     --num_gpus ${SLURM_GPUS} \
-    --gpus_per_trial 0 \
+    --gpus_per_trial 1 \
     --patience 3 \
-    --prediction_years 1986 1987 1991 1998 1999 2000 2001 2003 2009 2012 2020
+    --prediction_years 2012 2020
 
 # post process prediction files
 python3 kevin/src/postprocess_predictions.py \
