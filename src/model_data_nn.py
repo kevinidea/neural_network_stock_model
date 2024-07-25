@@ -116,7 +116,6 @@ class ModelData():
 
             # Output layer
             x = self.output_layer(x)
-            x = self.output_activation(x)
             
             return x
 
