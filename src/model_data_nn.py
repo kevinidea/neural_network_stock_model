@@ -63,7 +63,6 @@ class ModelData():
 
             # Output layer
             self.output_layer = nn.Linear(hidden_dim, output_dim)
-            # self.output_activation = nn.Tanhshrink() # Remove the activation function to have wider range of predictions
 
             # Xavier initialization
             self._initialize_weights()
