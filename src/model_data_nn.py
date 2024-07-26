@@ -32,7 +32,7 @@ class ModelData():
         self.best_trial = None
         
     class FlexibleNeuralNetwork(nn.Module):
-        def __init__(self, continuous_dim, hidden_dim, output_dim, num_layers, num_embeddings, embedding_dim, dropout_rate=0.5, negative_slope=4):
+        def __init__(self, continuous_dim, hidden_dim, output_dim, num_layers, num_embeddings, embedding_dim, dropout_rate=0.5):
             super(ModelData.FlexibleNeuralNetwork, self).__init__()
 
             # Embedding layer for one categorical variable
@@ -45,8 +45,7 @@ class ModelData():
             input_dim = continuous_dim + embedding_dim
             self.first_layer = nn.Linear(input_dim, hidden_dim)
             self.first_batch_norm = nn.BatchNorm1d(hidden_dim)
-            # https://pytorch.org/docs/stable/generated/torch.nn.Tanhshrink.html#torch.nn.Tanhshrink
-            self.first_activation = nn.Tanhshrink()
+            self.first_activation = nn.ReLU()
             self.first_dropout = nn.Dropout(dropout_rate)
 
             # Dynamic middle layers
@@ -57,8 +56,7 @@ class ModelData():
             for i in range(num_layers - 1):
                 self.middle_layers.append(nn.Linear(hidden_dim, hidden_dim))
                 self.middle_batch_norms.append(nn.BatchNorm1d(hidden_dim))
-                # https://pytorch.org/docs/stable/generated/torch.nn.Tanhshrink.html#torch.nn.Tanhshrink
-                self.middle_activations.append(nn.Tanhshrink())
+                self.middle_activations.append(nn.ReLU())
                 self.middle_dropouts.append(nn.Dropout(dropout_rate))
 
             # Output layer
@@ -69,22 +67,22 @@ class ModelData():
 
         def _initialize_weights(self):
             # Embedding layer
-            nn.init.xavier_uniform_(self.embedding.weight)
+            nn.init.xavier_normal_(self.embedding.weight)
             # First linear layer
-            nn.init.xavier_uniform_(self.first_layer.weight)
+            nn.init.xavier_normal_(self.first_layer.weight)
             if self.first_layer.bias is not None:
-                nn.init.constant_(self.first_layer.bias, 0)
+                nn.init.xavier_normal_(self.first_layer.bias)
             
             # Middle layers
             for layer in self.middle_layers:
-                nn.init.xavier_uniform_(layer.weight)
+                nn.init.xavier_normal_(layer.weight)
                 if layer.bias is not None:
-                    nn.init.constant_(layer.bias, 0)
+                    nn.init.xavier_normal_(layer.bias)
             
             # Output layer
-            nn.init.xavier_uniform_(self.output_layer.weight)
+            nn.init.xavier_normal_(self.output_layer.weight)
             if self.output_layer.bias is not None:
-                nn.init.constant_(self.output_layer.bias, 0)
+                nn.init.xavier_normal_(self.output_layer.bias)
 
         def forward(self, x_continuous, x_categorical):
             # Handle new categories by mapping them to the unknown index
@@ -277,10 +275,10 @@ class ModelData():
             "hidden_dim": tune.choice([i for i in range(5, 200, 10)]),
             "num_layers": tune.choice([1, 2, 3, 4, 5]),
             "num_embeddings": num_embeddings,
-            "embedding_dim": tune.choice([i for i in range(5, 31, 5)]),
+            "embedding_dim": tune.choice([i for i in range(1, 11, 1)]),
             "dropout_rate": tune.choice([round(i * 0.01, 2) for i in range(1, 56)]), # uniform (0.01, 0.55)
-            "lr": tune.choice([1e-5, 5e-5, 1e-4, 3e-4, 5e-4, 7e-4, 9e-4, 1e-3, 2e-3, 3e-3, 5e-3, 7e-3, 1e-2, 5e-2]),
-            "weight_decay": tune.loguniform(1e-5, 1e-3),
+            "lr": tune.loguniform(1e-6, 1e-2),
+            "weight_decay": tune.loguniform(1e-6, 1e-3),
             "num_epochs": max_num_epochs,
             "num_gpus": num_gpus,
         }
