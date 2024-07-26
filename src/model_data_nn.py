@@ -67,22 +67,22 @@ class ModelData():
 
         def _initialize_weights(self):
             # Embedding layer
-            nn.init.xavier_normal_(self.embedding.weight)
+            nn.init.normal_(self.embedding.weight, mean=0.0, std=0.01)
             # First linear layer
-            nn.init.xavier_normal_(self.first_layer.weight)
+            nn.init.kaiming_normal_(self.first_layer.weight, nonlinearity='relu')
             if self.first_layer.bias is not None:
-                nn.init.normal_(self.first_layer.bias, mean=0.0, std=0.01)
+                nn.init.constant_(self.first_layer.bias, 0.0)
             
             # Middle layers
             for layer in self.middle_layers:
-                nn.init.xavier_normal_(layer.weight)
+                nn.init.kaiming_normal_(layer.weight, nonlinearity='relu')
                 if layer.bias is not None:
-                    nn.init.normal_(layer.bias, mean=0.0, std=0.01)
+                    nn.init.constant_(layer.bias, 0.0)
             
             # Output layer
-            nn.init.xavier_normal_(self.output_layer.weight)
+            nn.init.normal_(self.output_layer.weight, mean=0.0, std=0.01)
             if self.output_layer.bias is not None:
-                nn.init.normal_(self.output_layer.bias, mean=0.0, std=0.01)
+                nn.init.constant_(self.output_layer.bias, 0.0)
 
         def forward(self, x_continuous, x_categorical):
             # Handle new categories by mapping them to the unknown index
