@@ -22,9 +22,10 @@ logger.setLevel(level=logging.INFO)
 def get_prediction_file_paths(directory):
     # Use glob to get all csv files in the directory
     csv_files = glob.glob(os.path.join(directory, '*prediction*.csv'))
+    csv_files = sorted(csv_files, reverse=False)
     return csv_files
 
-def postprocess_predictions(prediction_df, prediction_col='pred', period='month'):
+def postprocess_predictions(prediction_df, period, prediction_col='pred'):
     
     # Target name based on period
     if period == 'quarter':
@@ -45,7 +46,7 @@ def postprocess_predictions(prediction_df, prediction_col='pred', period='month'
     
     return year_vret
 
-def create_result(prediction_parent_path, result_file_name=None):
+def create_result(prediction_parent_path, period, result_file_name=None):
     # Get the prediction data paths
     prediction_data_paths = get_prediction_file_paths(prediction_parent_path)
     
@@ -54,7 +55,7 @@ def create_result(prediction_parent_path, result_file_name=None):
     for df_path in prediction_data_paths:
         logger.info(f'Postprocessing data from path: {df_path}')
         df = pd.read_csv(df_path)
-        year_vret = postprocess_predictions(df)
+        year_vret = postprocess_predictions(df, period=period)
         results = pd.concat([results, year_vret]).reset_index(drop=True)
     
     # Sort the results
@@ -74,11 +75,13 @@ def main():
     parser = argparse.ArgumentParser(description='Postprocess prediction files')
     parser.add_argument('--prediction_parent_path', type=str, required=True,
                         help='The parent path for prediction files.')
+    parser.add_argument('--period', type=str, required=True,
+                        help='Period is either month or quarter')
     parser.add_argument('--result_file_name', type=str, default='result.csv',
-                        help='The name of the result file including extension')
+                    help='The name of the result file including extension')
     
     args = parser.parse_args()
-    create_result(args.prediction_parent_path, args.result_file_name)
+    create_result(args.prediction_parent_path, args.period, args.result_file_name)
     
 if __name__ == '__main__':
     main()
