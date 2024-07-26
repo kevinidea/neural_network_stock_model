@@ -43,4 +43,5 @@ python3 kevin/src/main.py \
 
 # post process prediction files
 python3 kevin/src/postprocess_predictions.py \
-    --prediction_parent_path 'kevin/output/prediction/monthly_new_vars'
+    --prediction_parent_path 'kevin/output/prediction/monthly_new_vars' \
+    --period 'month'
