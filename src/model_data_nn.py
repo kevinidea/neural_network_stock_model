@@ -71,18 +71,18 @@ class ModelData():
             # First linear layer
             nn.init.xavier_normal_(self.first_layer.weight)
             if self.first_layer.bias is not None:
-                nn.init.xavier_normal_(self.first_layer.bias)
+                nn.init.normal_(self.first_layer.bias, mean=0.0, std=0.01)
             
             # Middle layers
             for layer in self.middle_layers:
                 nn.init.xavier_normal_(layer.weight)
                 if layer.bias is not None:
-                    nn.init.xavier_normal_(layer.bias)
+                    nn.init.normal_(layer.bias, mean=0.0, std=0.01)
             
             # Output layer
             nn.init.xavier_normal_(self.output_layer.weight)
             if self.output_layer.bias is not None:
-                nn.init.xavier_normal_(self.output_layer.bias)
+                nn.init.normal_(self.output_layer.bias, mean=0.0, std=0.01)
 
         def forward(self, x_continuous, x_categorical):
             # Handle new categories by mapping them to the unknown index
