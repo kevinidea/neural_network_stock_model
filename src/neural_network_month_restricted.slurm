@@ -39,7 +39,7 @@ python3 kevin/src/main_restricted.py \
     --cpus_per_trial 1 \
     --num_gpus ${SLURM_GPUS} \
     --gpus_per_trial 0 \
-    --patience 10
+    --patience 4
 
 # post process prediction files
 python3 kevin/src/postprocess_predictions.py \
