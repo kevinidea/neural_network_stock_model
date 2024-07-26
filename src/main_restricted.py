@@ -248,7 +248,7 @@ def main():
 
         ModelData.set_seed(42)
         # Batch size has a big impact to performance, smaller seems to yield lower loss
-        batch_size = 32
+        batch_size = 16
 
         # Train and test dataloader
         logger.info(f'Create train and test dataloader')
