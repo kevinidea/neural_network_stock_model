@@ -34,12 +34,12 @@ python3 kevin/src/main_restricted.py \
     --period 'month' \
     --prediction_parent_path 'kevin/output/prediction/monthly_new_restricted' \
     --num_samples 100 \
-    --max_num_epochs 20 \
+    --max_num_epochs 80 \
     --num_cpus ${SLURM_CPUS_PER_TASK} \
     --cpus_per_trial 1 \
     --num_gpus ${SLURM_GPUS} \
     --gpus_per_trial 0 \
-    --patience 3
+    --patience 20
 
 # post process prediction files
 python3 kevin/src/postprocess_predictions.py \
