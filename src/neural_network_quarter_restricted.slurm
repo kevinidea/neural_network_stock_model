@@ -34,12 +34,14 @@ python3 kevin/src/main_restricted.py \
     --period 'quarter' \
     --prediction_parent_path 'kevin/output/prediction/quarterly_new_restricted' \
     --num_samples 100 \
-    --max_num_epochs 120 \
+    --max_num_epochs 50 \
     --num_cpus ${SLURM_CPUS_PER_TASK} \
     --cpus_per_trial 1 \
     --num_gpus ${SLURM_GPUS} \
     --gpus_per_trial 0 \
-    --patience 30
+    --patience 10 \
+    --batch_size 64 \
+    --prediction_years 1999 2000 2001 2002 2003 2004 2005 2006 2007 2008 2009 2010 2011 2012 2013 2014 2015 2016 2017 2018 2019 2020 && \
 
 # post process prediction files
 python3 kevin/src/postprocess_predictions.py \
