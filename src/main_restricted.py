@@ -100,6 +100,8 @@ def main():
                         help='Number of GPUs per trial for Ray Tune')
     parser.add_argument('--patience', type=int, default=2,
                         help='Number of consecutive epochs not improving the test metrics to early stopping the training')
+    parser.add_argument('--batch_size', type=int, default=32,
+                        help='batch_size')
     parser.add_argument('--prediction_years', nargs='*', type=int, required=False, default=[],
                         help='A list of prediction years in integer')
 
@@ -248,7 +250,7 @@ def main():
 
         ModelData.set_seed(42)
         # Batch size has a big impact to performance, smaller seems to yield lower loss
-        batch_size = 32
+        batch_size = args.batch_size
 
         # Train and test dataloader
         logger.info(f'Create train and test dataloader')
