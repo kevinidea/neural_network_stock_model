@@ -254,14 +254,14 @@ def main():
 
         # Train and test dataloader
         logger.info(f'Create train and test dataloader')
-        train_loader = DataLoader(train_dataset, batch_size=batch_size, shuffle=True)
+        train_loader = DataLoader(train_dataset, batch_size=batch_size, shuffle=True, drop_last=True)
         test_loader = DataLoader(test_dataset, batch_size=batch_size, shuffle=False)
         logger.debug(f'train_loader first example: {next(iter(train_loader))}\n')
         logger.debug(f'test_loader first example: {next(iter(test_loader))}\n')
 
         # Retrain and prediction dataloader
         logger.info(f'Create retrain and prediction dataloader')
-        retrain_loader = DataLoader(retrain_dataset, batch_size=batch_size, shuffle=True)
+        retrain_loader = DataLoader(retrain_dataset, batch_size=batch_size, shuffle=True, drop_last=True)
         prediction_loader = DataLoader(prediction_dataset, batch_size=batch_size, shuffle=False)
         logger.debug(f'retrain_loader first example: {next(iter(retrain_loader))}\n')
         logger.debug(f'prediction_loader first example: {next(iter(prediction_loader))}\n')
