@@ -39,7 +39,7 @@ python3 kevin/src/main_restricted.py \
     --cpus_per_trial 1 \
     --num_gpus ${SLURM_GPUS} \
     --gpus_per_trial 0 \
-    --patience 50 \
+    --patience 10 \
     --batch_size 32 \
     --prediction_years 1986 1987 1989 1991 1992 1993 1994 1996 1999 2000 2004 2009 2010 2011 2013 2015 2016 2017 && \
 
