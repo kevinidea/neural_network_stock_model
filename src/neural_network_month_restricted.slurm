@@ -29,7 +29,7 @@ ray start \
     --num-gpus=${SLURM_GPUS}
 
 # start the main script
-python3 kevin/src/main_restricted_month.py \
+python3 kevin/src/main_restricted.py \
     --infile_path '/zfs/projects/faculty/suzienoh-ml/Data/pf_vars_240620.csv' \
     --period 'month' \
     --prediction_parent_path 'kevin/output/prediction/monthly_new_restricted' \
@@ -40,7 +40,8 @@ python3 kevin/src/main_restricted_month.py \
     --num_gpus ${SLURM_GPUS} \
     --gpus_per_trial 0 \
     --patience 10 \
-    --batch_size 64 && \
+    --batch_size 128 \
+    --prediction_years 1986 1987 1989 1991 1993 1996 2000 2002 2004 2005 2011 2014 2016 2020 && \
 
 # post process prediction files
 python3 kevin/src/postprocess_predictions.py \
