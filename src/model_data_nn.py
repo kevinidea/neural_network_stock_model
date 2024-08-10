@@ -4,6 +4,8 @@ import torch
 from torch import nn
 import random
 import torch.optim as optim
+# To disable annoying duplicate messages from Ray
+os.environ['RAY_DEDUP_LOGS'] = '0'
 import logging
 from ray import tune
 from ray.tune import CLIReporter

@@ -2,6 +2,8 @@ import os
 from sklearn.metrics import root_mean_squared_error
 import torch
 from torch.utils.data import DataLoader
+# To disable annoying duplicate messages from Ray
+os.environ['RAY_DEDUP_LOGS'] = '0'
 import logging
 import ray
 import sys
