@@ -9,6 +9,7 @@ from ray import tune
 from ray.tune import CLIReporter
 from ray.tune.schedulers import ASHAScheduler
 import ray
+from torch.utils.data import DataLoader
 
 
 ### Initial setup
