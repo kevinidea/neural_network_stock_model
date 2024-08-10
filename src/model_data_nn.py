@@ -23,7 +23,7 @@ os.chdir(project_dir)
 logging.basicConfig(level=logging.WARNING)
 file_name = os.path.basename(__file__)
 logger = logging.getLogger(file_name)
-logger.setLevel(level=logging.DEBUG)
+logger.setLevel(level=logging.INFO)
 
 
 ### Model data
@@ -204,7 +204,7 @@ class ModelData():
         # Update DataLoader creation with dynamic batch size
         train_loader = DataLoader(train_dataset, batch_size=batch_size, shuffle=True, drop_last=True)
         test_loader = DataLoader(test_dataset, batch_size=batch_size, shuffle=False)
-        logger.info(f'Created data_loaders from datasets')
+        logger.debug(f'Created data_loaders from datasets')
         
         # Early stopping patience
         patience = patience
