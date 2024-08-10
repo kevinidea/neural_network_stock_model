@@ -33,7 +33,7 @@ python3 kevin/src/main_restricted.py \
     --infile_path '/zfs/projects/faculty/suzienoh-ml/Data/pf_vars_240620.csv' \
     --period 'month' \
     --prediction_parent_path 'kevin/output/prediction/monthly_new_restricted' \
-    --num_samples 200 \
+    --num_samples 120 \
     --max_num_epochs 50 \
     --num_cpus ${SLURM_CPUS_PER_TASK} \
     --cpus_per_trial 1 \
