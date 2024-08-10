@@ -100,8 +100,6 @@ def main():
                         help='Number of GPUs per trial for Ray Tune')
     parser.add_argument('--patience', type=int, default=2,
                         help='Number of consecutive epochs not improving the test metrics to early stopping the training')
-    parser.add_argument('--batch_size', type=int, default=32,
-                        help='batch_size')
     parser.add_argument('--prediction_years', nargs='*', type=int, required=False, default=[],
                         help='A list of prediction years in integer')
 
@@ -244,28 +242,6 @@ def main():
         )
         logger.info(f'prediction_dataset first example: {prediction_dataset[0]}')
 
-        ### Create dataloader ###
-
-        logger.info(f'\n\nCreate dataloader\n')
-
-        ModelData.set_seed(42)
-        # Batch size has a big impact to performance, smaller seems to yield lower loss
-        batch_size = args.batch_size
-
-        # Train and test dataloader
-        logger.info(f'Create train and test dataloader')
-        train_loader = DataLoader(train_dataset, batch_size=batch_size, shuffle=True, drop_last=True)
-        test_loader = DataLoader(test_dataset, batch_size=batch_size, shuffle=False)
-        logger.debug(f'train_loader first example: {next(iter(train_loader))}\n')
-        logger.debug(f'test_loader first example: {next(iter(test_loader))}\n')
-
-        # Retrain and prediction dataloader
-        logger.info(f'Create retrain and prediction dataloader')
-        retrain_loader = DataLoader(retrain_dataset, batch_size=batch_size, shuffle=True, drop_last=True)
-        prediction_loader = DataLoader(prediction_dataset, batch_size=batch_size, shuffle=False)
-        logger.debug(f'retrain_loader first example: {next(iter(retrain_loader))}\n')
-        logger.debug(f'prediction_loader first example: {next(iter(prediction_loader))}\n')
-
         ### Model the data and tune hyperparameters ###
 
         logger.info(f'\n\nHyperparameters tuning with Ray Tune\n')
@@ -309,8 +285,8 @@ def main():
         data_modeler = ModelData(ray_results_path=ray_results_path, verbose=0)
 
         best_trial = data_modeler.get_best_trial(
-            train_loader=train_loader,
-            test_loader=test_loader,
+            train_dataset=train_dataset,
+            test_dataset=test_dataset,
             continuous_dim=continuous_dim,
             num_embeddings=num_embeddings,
             device=device, # CPUs seem to be faster than GPUs because of more parellel processing
@@ -334,8 +310,8 @@ def main():
             Using the optimized hyperparameters: {best_config}\n''')
         trained_model = data_modeler.train_fnn(
             config=best_config, 
-            train_loader=retrain_loader, 
-            test_loader=prediction_loader,
+            train_dataset=retrain_dataset, 
+            test_dataset=prediction_dataset,
             device=device,
             ray_tuning=False,
             patience=args.patience,
@@ -347,7 +323,8 @@ def main():
 
         # Make predictions
         logger.info(f'Making prediction for data in year: {prediction_year}')
-        predictions = data_modeler.predict(trained_model, prediction_loader, device)
+        # The batch_size during inference does not affect prediction performance but only speed so larger is usually better
+        predictions = data_modeler.predict(trained_model, prediction_dataset, device, batch_size=256)
         logger.info(f'Prediction data shape: {predictions.shape}')
         prediction_data['pred'] = predictions
 

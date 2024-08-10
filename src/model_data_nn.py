@@ -163,9 +163,12 @@ class ModelData():
         return average_loss
 
     @staticmethod
-    def predict(model, data_loader, device):
+    def predict(model, dataset, device, batch_size=256):
         model.eval()
         predictions = []
+        # Create DataLoader
+        data_loader = DataLoader(dataset, batch_size=batch_size, shuffle=False)
+        
         with torch.no_grad():
             for batch in data_loader:
                 # If the loader provides three values, unpack and ignore the third (targets)
@@ -182,7 +185,7 @@ class ModelData():
         return np.concatenate(predictions)
 
     @staticmethod
-    def train_fnn(config, train_loader, test_loader, device, ray_tuning=True, patience=2):
+    def train_fnn(config, train_dataset, test_dataset, device, ray_tuning=True, patience=2):
         continuous_dim = config["continuous_dim"]
         hidden_dim = config["hidden_dim"]
         output_dim = 1
@@ -193,6 +196,12 @@ class ModelData():
         lr = config["lr"]
         weight_decay = config["weight_decay"]
         num_epochs = config["num_epochs"]
+        batch_size = config["batch_size"]
+
+        # Update DataLoader creation with dynamic batch size
+        train_loader = DataLoader(train_dataset, batch_size=batch_size, shuffle=True, drop_last=True)
+        test_loader = DataLoader(test_dataset, batch_size=batch_size, shuffle=False)
+        logger.info(f'Created data_loaders from datasets')
         
         # Early stopping patience
         patience = patience
@@ -267,7 +276,7 @@ class ModelData():
             return model
     
     def get_best_trial(
-        self, train_loader, test_loader, continuous_dim, num_embeddings, device, 
+        self, train_dataset, test_dataset, continuous_dim, num_embeddings, device, 
         num_samples=10, max_num_epochs=20, num_cpus=2, num_gpus=0, cpus_per_trial=1, gpus_per_trial=0
     ):
         config = {
@@ -281,6 +290,7 @@ class ModelData():
             "weight_decay": tune.loguniform(1e-6, 1e-3),
             "num_epochs": max_num_epochs,
             "num_gpus": num_gpus,
+            "batch_size": tune.choice([8, 16, 32, 64, 128, 256]),
         }
 
         scheduler = ASHAScheduler(
@@ -297,7 +307,7 @@ class ModelData():
         result = tune.run(
             # Use a large patience number because Ray Tune has early stopping schedule already
             tune.with_parameters(
-                ModelData.train_fnn, train_loader=train_loader, test_loader=test_loader, device=device, ray_tuning=True, patience=100
+                ModelData.train_fnn, train_dataset=train_dataset, test_dataset=test_dataset, device=device, ray_tuning=True, patience=100
             ),
             resources_per_trial={"cpu": cpus_per_trial, "gpu": gpus_per_trial},
             config=config,

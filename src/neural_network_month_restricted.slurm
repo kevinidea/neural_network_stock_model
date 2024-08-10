@@ -33,14 +33,13 @@ python3 kevin/src/main_restricted.py \
     --infile_path '/zfs/projects/faculty/suzienoh-ml/Data/pf_vars_240620.csv' \
     --period 'month' \
     --prediction_parent_path 'kevin/output/prediction/monthly_new_restricted' \
-    --num_samples 100 \
+    --num_samples 200 \
     --max_num_epochs 50 \
     --num_cpus ${SLURM_CPUS_PER_TASK} \
     --cpus_per_trial 1 \
     --num_gpus ${SLURM_GPUS} \
     --gpus_per_trial 0 \
     --patience 10 \
-    --batch_size 128 \
     --prediction_years 1986 1987 1989 1991 1993 1996 2000 2002 2004 2005 2011 2014 2016 2020 && \
 
 # post process prediction files
