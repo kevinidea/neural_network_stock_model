@@ -41,7 +41,8 @@ class ModelData():
             # Embedding layer for one categorical variable
             self.num_embeddings = num_embeddings
             # Handle new category during test or prediction phase
-            self.unknown_index = num_embeddings # Note that index starts at 0 so num_embeddings position is 1 unit outside of the range
+            # Note that index starts at 0 so num_embeddings position is 1 unit outside of the range
+            self.unknown_index = num_embeddings
             self.embedding = nn.Embedding(num_embeddings + 1, embedding_dim) # + 1 for the unknown index
 
             # First layer
@@ -157,7 +158,8 @@ class ModelData():
         total_loss = 0.0
         with torch.no_grad():
             for x_continuous, x_embedding_vars, targets in test_loader:
-                x_continuous, x_embedding_vars, targets = x_continuous.to(device), x_embedding_vars.to(device), targets.to(device)
+                x_continuous, x_embedding_vars, targets = \
+                    x_continuous.to(device), x_embedding_vars.to(device), targets.to(device)
                 outputs = model(x_continuous, x_embedding_vars).squeeze()
                 loss = loss_function(outputs, targets)
                 total_loss += loss.item()
@@ -212,7 +214,9 @@ class ModelData():
         epochs_without_improvement = 0
 
         # Use ModelData.FlexibleNeuralNetwork to reference the nested class
-        model = ModelData.FlexibleNeuralNetwork(continuous_dim, hidden_dim, output_dim, num_layers, num_embeddings, embedding_dim, dropout_rate)
+        model = ModelData.FlexibleNeuralNetwork(
+            continuous_dim, hidden_dim, output_dim, num_layers, num_embeddings, embedding_dim, dropout_rate
+        )
         # Wrap the model with DataParallel
         if torch.cuda.device_count() > 1:
             model = nn.DataParallel(model)
@@ -226,7 +230,8 @@ class ModelData():
                 model.train()
                 running_loss = 0.0
                 for x_continuous, x_embedding_vars, targets in train_loader:
-                    x_continuous, x_embedding_vars, targets = x_continuous.to(device), x_embedding_vars.to(device), targets.to(device)
+                    x_continuous, x_embedding_vars, targets = \
+                        x_continuous.to(device), x_embedding_vars.to(device), targets.to(device)
 
                     optimizer.zero_grad()
                     outputs = model(x_continuous, x_embedding_vars).squeeze()
@@ -310,9 +315,17 @@ class ModelData():
         result = tune.run(
             # May use a large patience number because Ray Tune has early stopping schedule already
             tune.with_parameters(
-                ModelData.train_fnn, train_dataset=train_dataset, test_dataset=test_dataset, device=device, ray_tuning=True, patience=patience
+                ModelData.train_fnn, 
+                train_dataset=train_dataset, 
+                test_dataset=test_dataset, 
+                device=device, 
+                ray_tuning=True, 
+                patience=patience,
             ),
-            resources_per_trial={"cpu": cpus_per_trial, "gpu": gpus_per_trial},
+            resources_per_trial={
+                "cpu": cpus_per_trial, 
+                "gpu": gpus_per_trial
+            },
             config=config,
             num_samples=num_samples,
             scheduler=scheduler,
