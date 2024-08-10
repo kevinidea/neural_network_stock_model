@@ -215,7 +215,7 @@ def main():
             X_embedding_vars=x_train_tf[:, continuous_len:], 
             y=y_train_tf
         )
-        logger.info(f'train_dataset first example: {train_dataset[0]}')
+        logger.debug(f'train_dataset first example: {train_dataset[0]}')
 
         # Test dataset
         logger.info(f'Create test_dataset')
@@ -224,7 +224,7 @@ def main():
             X_embedding_vars=x_test_tf[:, continuous_len:], 
             y=y_test_tf
         )
-        logger.info(f'test_dataset first example: {test_dataset[0]}')
+        logger.debug(f'test_dataset first example: {test_dataset[0]}')
 
         # Retrain dataset
         logger.info(f'Create retrain_dataset')
@@ -233,7 +233,7 @@ def main():
             X_embedding_vars=x_retrain_tf[:, continuous_len:], 
             y=y_retrain_tf
         )
-        logger.info(f'retrain_dataset first example: {retrain_dataset[0]}')
+        logger.debug(f'retrain_dataset first example: {retrain_dataset[0]}')
 
         # Prediction dataset
         logger.info(f'Create prediction_dataset')
@@ -242,7 +242,7 @@ def main():
             X_embedding_vars=x_prediction_tf[:, continuous_len:], 
             y=y_prediction_tf
         )
-        logger.info(f'prediction_dataset first example: {prediction_dataset[0]}')
+        logger.debug(f'prediction_dataset first example: {prediction_dataset[0]}')
 
         ### Model the data and tune hyperparameters ###
 
