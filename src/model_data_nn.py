@@ -188,7 +188,7 @@ class ModelData():
         return np.concatenate(predictions)
 
     @staticmethod
-    def train_fnn(config, train_dataset, test_dataset, device, ray_tuning=True, patience=2):
+    def train_fnn(config, train_dataset, test_dataset, device, ray_tuning=True, patience=10):
         continuous_dim = config["continuous_dim"]
         hidden_dim = config["hidden_dim"]
         output_dim = 1
@@ -280,7 +280,7 @@ class ModelData():
     
     def get_best_trial(
         self, train_dataset, test_dataset, continuous_dim, num_embeddings, device, 
-        num_samples=10, max_num_epochs=20, num_cpus=2, num_gpus=0, cpus_per_trial=1, gpus_per_trial=0
+        num_samples=10, max_num_epochs=20, num_cpus=2, num_gpus=0, cpus_per_trial=1, gpus_per_trial=0, patience=10
     ):
         config = {
             "continuous_dim": continuous_dim,
@@ -308,9 +308,9 @@ class ModelData():
             metric_columns=["average_train_loss", "avg_test_loss", "training_iteration"])
 
         result = tune.run(
-            # Use a large patience number because Ray Tune has early stopping schedule already
+            # May use a large patience number because Ray Tune has early stopping schedule already
             tune.with_parameters(
-                ModelData.train_fnn, train_dataset=train_dataset, test_dataset=test_dataset, device=device, ray_tuning=True, patience=100
+                ModelData.train_fnn, train_dataset=train_dataset, test_dataset=test_dataset, device=device, ray_tuning=True, patience=patience
             ),
             resources_per_trial={"cpu": cpus_per_trial, "gpu": gpus_per_trial},
             config=config,

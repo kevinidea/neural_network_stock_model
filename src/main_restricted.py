@@ -298,7 +298,8 @@ def main():
             num_gpus=num_gpus,
             cpus_per_trial=cpus_per_trial,
             gpus_per_trial=gpus_per_trial,
-        )
+            patience=args.patience,
+        ) # Ensure patience is consistent in hyperparameter tuning and re-training
         logger.info(f'Ray Tune results have been saved to: {ray_results_path}')
         logger.info(f'Best trial directory: {best_trial.local_path}')
 
