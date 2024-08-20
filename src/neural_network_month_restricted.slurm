@@ -1,11 +1,11 @@
 #!/bin/bash
 
 #SBATCH -J NN_month                   # Job name
-#SBATCH -p long                         # Partition (queue) to submit to
+#SBATCH -p normal                         # Partition (queue) to submit to
 #SBATCH -G 0                           # Max GPUs per user: 2
 #SBATCH -c 26                         # Number of CPU cores
 #SBATCH --mem=160G                    # memory
-#SBATCH -t 7-                        # Max job time
+#SBATCH -t 2-                        # Max job time
 #SBATCH -o '/zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/output/log/monthly_new_restricted_%j.out'
 #SBATCH --mail-type=ALL                # Email notifications
 #SBATCH --mail-user=kevin128@stanford.edu
@@ -33,14 +33,14 @@ python3 kevin/src/main_restricted.py \
     --infile_path '/zfs/projects/faculty/suzienoh-ml/Data/pf_vars_240620.csv' \
     --period 'month' \
     --prediction_parent_path 'kevin/output/prediction/monthly_new_restricted' \
-    --num_samples 150 \
-    --max_num_epochs 100 \
+    --num_samples 200 \
+    --max_num_epochs 40 \
     --num_cpus ${SLURM_CPUS_PER_TASK} \
     --cpus_per_trial 1 \
     --num_gpus ${SLURM_GPUS} \
     --gpus_per_trial 0 \
-    --patience 50 \
-    --prediction_years 1989 1996 2002 2011 2014 && \
+    --patience 3 \
+    --prediction_years 1996 && \
 
 # post process prediction files
 python3 kevin/src/postprocess_predictions.py \
