@@ -2,11 +2,11 @@
 
 #SBATCH -J NN_month                   # Job name
 #SBATCH -p long                         # Partition (queue) to submit to
-#SBATCH -G 0                           # Max GPUs per user: 2
-#SBATCH -c 32                          # Number of CPU cores
+#SBATCH -G 0                          # Max GPUs per user: 2
+#SBATCH -c 26                          # Number of CPU cores
 #SBATCH --mem=160G                    # memory
-#SBATCH -t 7-                          # Max job time
-#SBATCH -o '/zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/output/log/monthly_new_vars_%j.out'           # Output file
+#SBATCH -t 7-                        # Max job time
+#SBATCH -o '/zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/output/log/monthly_new_vars_%j.out'
 #SBATCH --mail-type=ALL                # Email notifications
 #SBATCH --mail-user=kevin128@stanford.edu
 
@@ -33,13 +33,13 @@ python3 kevin/src/main.py \
     --infile_path '/zfs/projects/faculty/suzienoh-ml/Data/pf_vars_240620.csv' \
     --period 'month' \
     --prediction_parent_path 'kevin/output/prediction/monthly_new_vars' \
-    --num_samples ${SLURM_CPUS_PER_TASK} \
-    --max_num_epochs 40 \
+    --num_samples 150 \
+    --max_num_epochs 50 \
     --num_cpus ${SLURM_CPUS_PER_TASK} \
     --cpus_per_trial 1 \
     --num_gpus ${SLURM_GPUS} \
     --gpus_per_trial 0 \
-    --patience 2
+    --patience 5 && \
 
 # post process prediction files
 python3 kevin/src/postprocess_predictions.py \

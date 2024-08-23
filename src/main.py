@@ -218,7 +218,7 @@ def main():
             X_embedding_vars=x_train_tf[:, continuous_len:], 
             y=y_train_tf
         )
-        logger.info(f'train_dataset first example: {train_dataset[0]}')
+        logger.debug(f'train_dataset first example: {train_dataset[0]}')
 
         # Test dataset
         logger.info(f'Create test_dataset')
@@ -227,7 +227,7 @@ def main():
             X_embedding_vars=x_test_tf[:, continuous_len:], 
             y=y_test_tf
         )
-        logger.info(f'test_dataset first example: {test_dataset[0]}')
+        logger.debug(f'test_dataset first example: {test_dataset[0]}')
 
         # Retrain dataset
         logger.info(f'Create retrain_dataset')
@@ -236,7 +236,7 @@ def main():
             X_embedding_vars=x_retrain_tf[:, continuous_len:], 
             y=y_retrain_tf
         )
-        logger.info(f'retrain_dataset first example: {retrain_dataset[0]}')
+        logger.debug(f'retrain_dataset first example: {retrain_dataset[0]}')
 
         # Prediction dataset
         logger.info(f'Create prediction_dataset')
@@ -245,29 +245,7 @@ def main():
             X_embedding_vars=x_prediction_tf[:, continuous_len:], 
             y=y_prediction_tf
         )
-        logger.info(f'prediction_dataset first example: {prediction_dataset[0]}')
-
-        ### Create dataloader ###
-
-        logger.info(f'\n\nCreate dataloader\n')
-
-        ModelData.set_seed(42)
-        # Batch size has a big impact to performance, smaller seems to yield lower loss
-        batch_size = 256
-
-        # Train and test dataloader
-        logger.info(f'Create train and test dataloader')
-        train_loader = DataLoader(train_dataset, batch_size=batch_size, shuffle=True)
-        test_loader = DataLoader(test_dataset, batch_size=batch_size, shuffle=False)
-        logger.debug(f'train_loader first example: {next(iter(train_loader))}\n')
-        logger.debug(f'test_loader first example: {next(iter(test_loader))}\n')
-
-        # Retrain and prediction dataloader
-        logger.info(f'Create retrain and prediction dataloader')
-        retrain_loader = DataLoader(retrain_dataset, batch_size=batch_size, shuffle=True)
-        prediction_loader = DataLoader(prediction_dataset, batch_size=batch_size, shuffle=False)
-        logger.debug(f'retrain_loader first example: {next(iter(retrain_loader))}\n')
-        logger.debug(f'prediction_loader first example: {next(iter(prediction_loader))}\n')
+        logger.debug(f'prediction_dataset first example: {prediction_dataset[0]}')
 
         ### Model the data and tune hyperparameters ###
 
@@ -312,8 +290,8 @@ def main():
         data_modeler = ModelData(ray_results_path=ray_results_path, verbose=0)
 
         best_trial = data_modeler.get_best_trial(
-            train_loader=train_loader,
-            test_loader=test_loader,
+            train_dataset=train_dataset,
+            test_dataset=test_dataset,
             continuous_dim=continuous_dim,
             num_embeddings=num_embeddings,
             device=device, # CPUs seem to be faster than GPUs because of more parellel processing
@@ -323,7 +301,8 @@ def main():
             num_gpus=num_gpus,
             cpus_per_trial=cpus_per_trial,
             gpus_per_trial=gpus_per_trial,
-        )
+            patience=args.patience,
+        ) # Ensure patience is consistent in hyperparameter tuning and re-training
         logger.info(f'Ray Tune results have been saved to: {ray_results_path}')
         logger.info(f'Best trial directory: {best_trial.local_path}')
 
@@ -337,8 +316,8 @@ def main():
             Using the optimized hyperparameters: {best_config}\n''')
         trained_model = data_modeler.train_fnn(
             config=best_config, 
-            train_loader=retrain_loader, 
-            test_loader=prediction_loader,
+            train_dataset=retrain_dataset, 
+            test_dataset=prediction_dataset,
             device=device,
             ray_tuning=False,
             patience=args.patience,
@@ -350,7 +329,8 @@ def main():
 
         # Make predictions
         logger.info(f'Making prediction for data in year: {prediction_year}')
-        predictions = data_modeler.predict(trained_model, prediction_loader, device)
+        # The batch_size during inference does not affect prediction performance but only speed so larger is usually better
+        predictions = data_modeler.predict(trained_model, prediction_dataset, device, batch_size=256)
         logger.info(f'Prediction data shape: {predictions.shape}')
         prediction_data['pred'] = predictions
 
