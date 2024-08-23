@@ -222,7 +222,8 @@ class ModelData():
             model = nn.DataParallel(model)
         model.to(device)
 
-        loss_function = nn.MSELoss()
+        # loss_function = nn.MSELoss()
+        loss_function = nn.L1Loss()
         optimizer = optim.Adam(model.parameters(), lr=lr, weight_decay=weight_decay)
 
         try:
