@@ -127,11 +127,9 @@ The project is structured with several supporting modules to handle data preproc
   ```
 - **Detailed Results**:
   All the predictions are saved by default in the directory below. It should contain at least four subdirectories corresponding to the four datasets: `monthly_new_vars`, `monthly_new_restricted`, `quarterly_new_vars`, and `quarterly_new_restricted`.
-
   ```bash
   /zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/output/prediction
   ```
-
   Note that each subdirectory should contain prediction data generated from 1985 to 2020 and a `result.csv` file.
 
 ## Log
