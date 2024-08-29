@@ -107,7 +107,18 @@ The project is structured with several supporting modules to handle data preproc
 - **Data Transformation**: `transform_data_nn.py`
 - **Modeling**: `model_data_nn.py`
 - **Post-processing Predictions**: `postprocess_predictions.py`
-- **Result Summary**: `prediction_postprocessing.ipynb`
+
+## Prediction Results
+- **Result Summary**: `prediction_result_summary.ipynb`
+- **Detailed Results**:
+  
+All the predictions, by default, are saved in the directory below. It should contain at least four subdirectories corresponding to the four datasets: `monthly_new_vars`, `monthly_new_restricted`, `quarterly_new_vars`, and `quarterly_new_restricted`.
+
+```
+/zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/output/prediction
+```
+
+Note that in each of the subdirectory, there should be prediction data generated from 1985 to 2020 and a `result.csv`
 
 ## Log
 
@@ -116,15 +127,6 @@ All the logs, by default, are saved in the directory below. It should contain at
 ```
 /zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/output/log
 ```
-
-## Prediction Results
-All the predictions, by default, are saved in the directory below. It should contain at least four subdirectories corresponding to the four datasets: `monthly_new_vars`, `monthly_new_restricted`, `quarterly_new_vars`, and `quarterly_new_restricted`.
-
-```
-/zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/output/prediction
-```
-
-Note that in each of the subdirectory, there should be prediction data generated from 1985 to 2020 and a `result.csv`
 
 ## Ray Tune Detailed Results
 
