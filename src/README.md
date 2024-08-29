@@ -111,14 +111,13 @@ The project is structured with several supporting modules to handle data preproc
 ## Prediction Results
 - **Result Summary**: `prediction_result_summary.ipynb`
 - **Detailed Results**:
-  
-All the predictions, by default, are saved in the directory below. It should contain at least four subdirectories corresponding to the four datasets: `monthly_new_vars`, `monthly_new_restricted`, `quarterly_new_vars`, and `quarterly_new_restricted`.
+  All the predictions, by default, are saved in the directory below. It should contain at least four subdirectories corresponding to the four datasets: `monthly_new_vars`, `monthly_new_restricted`, `quarterly_new_vars`, and `quarterly_new_restricted`.
 
-```
-/zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/output/prediction
-```
+  ```
+  /zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/output/prediction
+  ```
 
-Note that in each of the subdirectory, there should be prediction data generated from 1985 to 2020 and a `result.csv`
+  Note that in each of the subdirectory, there should be prediction data generated from 1985 to 2020 and a `result.csv`
 
 ## Log
 
