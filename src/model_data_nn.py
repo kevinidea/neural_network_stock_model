@@ -144,6 +144,10 @@ class ModelData():
                 optimizer.zero_grad()
                 # outputs is squeezed from shape [batch_size, 1] to [batch_size]
                 outputs = model(x_continuous, x_embedding_vars).squeeze()
+                # Handle last batch where batch size might be 1
+                if outputs.dim() == 0:
+                    # If output is scalar, ensure it has a dimension of [1]
+                    outputs = outputs.unsqueeze(0)
                 loss = loss_function(outputs, targets)
                 loss.backward()
                 optimizer.step()
@@ -161,6 +165,10 @@ class ModelData():
                 x_continuous, x_embedding_vars, targets = \
                     x_continuous.to(device), x_embedding_vars.to(device), targets.to(device)
                 outputs = model(x_continuous, x_embedding_vars).squeeze()
+                # Handle last batch where batch size might be 1
+                if outputs.dim() == 0:
+                    # If output is scalar, ensure it has a dimension of [1]
+                    outputs = outputs.unsqueeze(0)
                 loss = loss_function(outputs, targets)
                 total_loss += loss.item()
 
@@ -236,6 +244,10 @@ class ModelData():
 
                     optimizer.zero_grad()
                     outputs = model(x_continuous, x_embedding_vars).squeeze()
+                    # Handle last batch where batch size might be 1
+                    if outputs.dim() == 0:
+                        # If output is scalar, ensure it has a dimension of [1]
+                        outputs = outputs.unsqueeze(0)
                     loss = loss_function(outputs, targets)
                     loss.backward()
                     optimizer.step()
