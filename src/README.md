@@ -38,6 +38,8 @@ To train the model, submit the appropriate SLURM job script based on the dataset
   sbatch src/neural_network_quarter_restricted.slurm
   ```
 
+*Note: Some years may require re-running due to issues with fixed number predictions, running out of computing time on the server, or the need for further hyperparameter tuning. In such cases, you can specify the affected years using the `--prediction_years` parameter in the main Python script. If not needed, omit the `--prediction_years` parameter entirely.*
+
 ### Modifying SLURM Script Parameters
 
 Each SLURM script contains several configurable parameters:
