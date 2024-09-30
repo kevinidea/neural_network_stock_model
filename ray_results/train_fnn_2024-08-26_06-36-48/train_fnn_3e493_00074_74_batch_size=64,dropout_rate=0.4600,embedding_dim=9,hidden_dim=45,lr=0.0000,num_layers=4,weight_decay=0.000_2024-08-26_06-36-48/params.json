@@ -1,0 +1,13 @@
+{
+  "batch_size": 64,
+  "continuous_dim": 151,
+  "dropout_rate": 0.46,
+  "embedding_dim": 9,
+  "hidden_dim": 45,
+  "lr": 4.4652615289249474e-05,
+  "num_embeddings": 17402,
+  "num_epochs": 50,
+  "num_gpus": 0,
+  "num_layers": 4,
+  "weight_decay": 0.00010653749462504317
+}

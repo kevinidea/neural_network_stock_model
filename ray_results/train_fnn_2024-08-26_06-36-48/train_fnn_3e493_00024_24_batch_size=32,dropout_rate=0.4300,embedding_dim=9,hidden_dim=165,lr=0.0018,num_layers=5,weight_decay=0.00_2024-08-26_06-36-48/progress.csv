@@ -1,0 +1,2 @@
+avg_train_loss,avg_test_loss,timestamp,checkpoint_dir_name,done,training_iteration,trial_id,date,time_this_iter_s,time_total_s,pid,hostname,node_ip,time_since_restore,iterations_since_restore
+0.19114904316433368,0.1840901367815144,1724679646,,True,1,3e493_00024,2024-08-26_06-40-46,171.46976017951965,171.46976017951965,1993142,yen16,10.112.2.45,171.46976017951965,1
