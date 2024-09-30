@@ -1,0 +1,205 @@
+Current working directory
+/zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml
+source kevin/venv/bin/activate
+which python3
+/zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/venv/bin/python3
+2024-09-06 15:45:32,474	PANIC scripts.py:900 -- `--address` is a required flag unless starting a head node with `--head`.
+Error: `{}` is a required flag unless starting a head node with `{}`.
+Intel(R) Extension for Scikit-learn* enabled (https://github.com/intel/scikit-learn-intelex)
+Intel(R) Extension for Scikit-learn* enabled (https://github.com/intel/scikit-learn-intelex)
+INFO:preprocess_data_nn.py:
+
+Loading and preprocessing data...
+
+DEBUG:preprocess_data_nn.py:          date   permno
+626    1980-01  10006.0
+5399   1980-01  10057.0
+11398  1980-01  10137.0
+12828  1980-01  10145.0
+13984  1980-01  10153.0
+DEBUG:preprocess_data_nn.py:--------------------------------------------------
+INFO:main.py:preprocessed df: (667724, 161)
+INFO:preprocess_data_nn.py:
+
+Applying secondary data preprocessing..
+
+INFO:main.py:secondary preprocessed df: (667724, 161)
+INFO:main.py:df sample:     permno       pdate        ym  gvkey  sic2    absacc       acc  ...      roea   roavola       ret        mve_m      retq  pyear     date
+0  10006.0  1980-01-01  198001.0   1010    37  0.083420  0.083420  ...  0.141715  0.004512  0.211679   303420.750 -0.055806   1980  1980-01
+1  10057.0  1980-01-01  198001.0   1098    36  0.088951  0.088951  ...  0.174252  0.035698  0.282297   111423.125 -0.069431   1980  1980-01
+2  10137.0  1980-01-01  198001.0   1279    49  0.041008  0.041008  ...  0.097554  0.006254 -0.032258   617349.500 -0.108065   1980  1980-01
+3  10145.0  1980-01-01  198001.0   1300    99  0.050486  0.050486  ...  0.122729  0.004320  0.150127  1415193.000 -0.085950   1980  1980-01
+4  10153.0  1980-01-01  198001.0   1308    13       NaN       NaN  ...  0.109950  0.009149 -0.122744   429488.500 -0.285199   1980  1980-01
+
+[5 rows x 161 columns]
+INFO:main.py:Train year start: 1980
+INFO:main.py:Prediction data years: [2009]
+INFO:main.py:
+
+Loop through all the prediction years and build optimized model for each year
+
+INFO:main.py:
+
+Transform data
+
+INFO:transform_data_nn.py:Train data years: [1980, 1981, 1982, 1983, 1984, 1985, 1986, 1987, 1988, 1989, 1990, 1991, 1992, 1993, 1994, 1995, 1996, 1997, 1998, 1999, 2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007]
+INFO:transform_data_nn.py:Train_data: (483505, 161)
+
+INFO:transform_data_nn.py:Test data years: [2008]
+INFO:transform_data_nn.py:Test_data: (16465, 161)
+
+INFO:transform_data_nn.py:Retrain data years: [1980, 1981, 1982, 1983, 1984, 1985, 1986, 1987, 1988, 1989, 1990, 1991, 1992, 1993, 1994, 1995, 1996, 1997, 1998, 1999, 2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008]
+INFO:transform_data_nn.py:Retrain_data: (499970, 161)
+
+INFO:transform_data_nn.py:Prediction data years: [2009]
+INFO:transform_data_nn.py:Prediction_data: (16061, 161)
+
+INFO:main.py:
+
+Generate X and y with train_data and test_data
+
+INFO:main.py:
+            x_train_tf: torch.Size([483505, 152])
+            y_train_tf: torch.Size([483505])
+
+            x_test_tf: torch.Size([16465, 152])
+            y_test_tf: torch.Size([16465])
+
+        
+INFO:main.py:
+
+Generate X and y with retrain_data and prediction_data
+
+INFO:main.py:
+            x_retrain_tf: torch.Size([499970, 152])
+            y_retrain_tf: torch.Size([499970])
+
+            x_prediction_tf: torch.Size([16061, 152])
+            y_prediction_tf: torch.Size([16061])
+
+        
+INFO:main.py:
+
+Create dataset
+
+INFO:main.py:Create train_dataset
+INFO:main.py:Create test_dataset
+INFO:main.py:Create retrain_dataset
+INFO:main.py:Create prediction_dataset
+INFO:main.py:
+
+Hyperparameters tuning with Ray Tune
+
+INFO:main.py:Training data years: [1980, 1981, 1982, 1983, 1984, 1985, 1986, 1987, 1988, 1989, 1990, 1991, 1992, 1993, 1994, 1995, 1996, 1997, 1998, 1999, 2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007]
+INFO:main.py:Testing data year: 2008
+INFO:main.py:
+
+            ray_results_path: /zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/ray_results
+            num_samples: 24
+            max_num_epochs: 50
+            num_cpus: 50
+            cpus_per_trial: 1
+            num_gpus: 4
+            gpus_per_trial: 1
+            continuous_dim: 151
+            num_embeddings: 15361
+            device: cuda
+            
+2024-09-06 16:46:08,701	INFO worker.py:1753 -- Started a local Ray instance.
+2024-09-06 16:46:08,972	INFO packaging.py:530 -- Creating a file package for local directory '/zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/src'.
+2024-09-06 16:46:09,054	INFO packaging.py:358 -- Pushing file package 'gcs://_ray_pkg_5fb7bc2497051712.zip' (5.17MiB) to Ray cluster...
+2024-09-06 16:46:09,083	INFO packaging.py:371 -- Successfully pushed file package 'gcs://_ray_pkg_5fb7bc2497051712.zip'.
+2024-09-06 16:46:11,670	WARNING tune.py:902 -- AIR_VERBOSITY is set, ignoring passed-in ProgressReporter for now.
+2024-09-06 16:54:21,835	INFO tune.py:1009 -- Wrote the latest version of all result files and experiment state to '/zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/ray_results/train_fnn_2024-09-06_16-46-11' in 0.0820s.
+INFO:model_data_nn.py:Best trial config: {'continuous_dim': 151, 'hidden_dim': 5, 'num_layers': 2, 'num_embeddings': 15361, 'embedding_dim': 7, 'dropout_rate': 0.11, 'lr': 3.789686381381605e-06, 'weight_decay': 3.475081624366097e-05, 'num_epochs': 50, 'num_gpus': 4, 'batch_size': 256}
+INFO:model_data_nn.py:Best trial training loss: 0.19550191993051666
+INFO:model_data_nn.py:Best trial testing loss: 0.2371009948161932
+INFO:main.py:Ray Tune results have been saved to: /zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/ray_results
+INFO:main.py:Best trial directory: /tmp/ray/session_2024-09-06_16-46-05_873658_508471/artifacts/2024-09-06_16-46-11/train_fnn_2024-09-06_16-46-11/driver_artifacts/train_fnn_324e7_00014_14_batch_size=256,dropout_rate=0.1100,embedding_dim=7,hidden_dim=5,lr=0.0000,num_layers=2,weight_decay=0.000_2024-09-06_16-46-11
+INFO:main.py:
+
+Retrain a new model with data in years: [1980, 1981, 1982, 1983, 1984, 1985, 1986, 1987, 1988, 1989, 1990, 1991, 1992, 1993, 1994, 1995, 1996, 1997, 1998, 1999, 2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008]
+
+            Using the optimized hyperparameters: {'continuous_dim': 151, 'hidden_dim': 5, 'num_layers': 2, 'num_embeddings': 15661, 'embedding_dim': 7, 'dropout_rate': 0.11, 'lr': 3.789686381381605e-06, 'weight_decay': 3.475081624366097e-05, 'num_epochs': 50, 'num_gpus': 4, 'batch_size': 256}
+
+INFO:model_data_nn.py:Epoch 1/50, metrics: {'avg_train_loss': 0.19906345231833364, 'avg_test_loss': 0.28018974808473435}
+INFO:model_data_nn.py:Epoch 2/50, metrics: {'avg_train_loss': 0.19820011766885892, 'avg_test_loss': 0.2809508169690768}
+INFO:model_data_nn.py:Epoch 3/50, metrics: {'avg_train_loss': 0.1977723593124047, 'avg_test_loss': 0.2818272463859074}
+INFO:model_data_nn.py:Epoch 4/50, metrics: {'avg_train_loss': 0.19750541691223414, 'avg_test_loss': 0.2826441415245571}
+INFO:model_data_nn.py:Epoch 5/50, metrics: {'avg_train_loss': 0.19737766567127435, 'avg_test_loss': 0.2828942314972953}
+INFO:model_data_nn.py:Epoch 6/50, metrics: {'avg_train_loss': 0.1972397467568784, 'avg_test_loss': 0.28310951921674943}
+INFO:model_data_nn.py:Epoch 7/50, metrics: {'avg_train_loss': 0.19716093916955266, 'avg_test_loss': 0.2836386205421554}
+INFO:model_data_nn.py:Epoch 8/50, metrics: {'avg_train_loss': 0.19706694995416962, 'avg_test_loss': 0.2837376981264069}
+INFO:model_data_nn.py:Epoch 9/50, metrics: {'avg_train_loss': 0.19700832839690902, 'avg_test_loss': 0.2835701838845298}
+INFO:model_data_nn.py:Epoch 10/50, metrics: {'avg_train_loss': 0.19692973852066034, 'avg_test_loss': 0.2837001317077213}
+INFO:model_data_nn.py:Epoch 11/50, metrics: {'avg_train_loss': 0.19680871216688045, 'avg_test_loss': 0.28380156958860064}
+INFO:model_data_nn.py:Early stopping at epoch 11
+INFO:main.py:Making prediction for data in year: 2009
+INFO:main.py:Prediction data shape: (16061,)
+/zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/src/main.py:335: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+
+See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
+  prediction_data['pred'] = predictions
+INFO:main.py:Root Mean Squared Error for Prediction in 2009: 0.5348495350517788
+INFO:main.py:Prediction Stats:                retq          pred
+count  16061.000000  16061.000000
+mean       0.139171     -0.002032
+std        0.512778      0.020879
+min       -0.941129     -0.189568
+25%       -0.088888     -0.009036
+50%        0.057852      0.005241
+75%        0.252000      0.011234
+max       18.331762      0.034272
+╭──────────────────────────────────────────────────────────────────╮
+│ Configuration for experiment     train_fnn_2024-09-06_16-46-11   │
+├──────────────────────────────────────────────────────────────────┤
+│ Search algorithm                 BasicVariantGenerator           │
+│ Scheduler                        AsyncHyperBandScheduler         │
+│ Number of trials                 24                              │
+╰──────────────────────────────────────────────────────────────────╯
+
+View detailed results here: /zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/ray_results/train_fnn_2024-09-06_16-46-11
+To visualize your results with TensorBoard, run: `tensorboard --logdir /tmp/ray/session_2024-09-06_16-46-05_873658_508471/artifacts/2024-09-06_16-46-11/train_fnn_2024-09-06_16-46-11/driver_artifacts`
+
+INFO:postprocess_predictions.py:Post processing prediction files
+INFO:postprocess_predictions.py:Postprocessing data from path: kevin/output/prediction/quarterly_new_vars/quarterly_prediction_1985.csv
+INFO:postprocess_predictions.py:Postprocessing data from path: kevin/output/prediction/quarterly_new_vars/quarterly_prediction_1986.csv
+INFO:postprocess_predictions.py:Postprocessing data from path: kevin/output/prediction/quarterly_new_vars/quarterly_prediction_1987.csv
+INFO:postprocess_predictions.py:Postprocessing data from path: kevin/output/prediction/quarterly_new_vars/quarterly_prediction_1988.csv
+INFO:postprocess_predictions.py:Postprocessing data from path: kevin/output/prediction/quarterly_new_vars/quarterly_prediction_1989.csv
+INFO:postprocess_predictions.py:Postprocessing data from path: kevin/output/prediction/quarterly_new_vars/quarterly_prediction_1990.csv
+INFO:postprocess_predictions.py:Postprocessing data from path: kevin/output/prediction/quarterly_new_vars/quarterly_prediction_1991.csv
+INFO:postprocess_predictions.py:Postprocessing data from path: kevin/output/prediction/quarterly_new_vars/quarterly_prediction_1992.csv
+INFO:postprocess_predictions.py:Postprocessing data from path: kevin/output/prediction/quarterly_new_vars/quarterly_prediction_1993.csv
+INFO:postprocess_predictions.py:Postprocessing data from path: kevin/output/prediction/quarterly_new_vars/quarterly_prediction_1994.csv
+INFO:postprocess_predictions.py:Postprocessing data from path: kevin/output/prediction/quarterly_new_vars/quarterly_prediction_1995.csv
+INFO:postprocess_predictions.py:Postprocessing data from path: kevin/output/prediction/quarterly_new_vars/quarterly_prediction_1996.csv
+INFO:postprocess_predictions.py:Postprocessing data from path: kevin/output/prediction/quarterly_new_vars/quarterly_prediction_1997.csv
+INFO:postprocess_predictions.py:Postprocessing data from path: kevin/output/prediction/quarterly_new_vars/quarterly_prediction_1998.csv
+INFO:postprocess_predictions.py:Postprocessing data from path: kevin/output/prediction/quarterly_new_vars/quarterly_prediction_1999.csv
+INFO:postprocess_predictions.py:Postprocessing data from path: kevin/output/prediction/quarterly_new_vars/quarterly_prediction_2000.csv
+INFO:postprocess_predictions.py:Postprocessing data from path: kevin/output/prediction/quarterly_new_vars/quarterly_prediction_2001.csv
+INFO:postprocess_predictions.py:Postprocessing data from path: kevin/output/prediction/quarterly_new_vars/quarterly_prediction_2002.csv
+INFO:postprocess_predictions.py:Postprocessing data from path: kevin/output/prediction/quarterly_new_vars/quarterly_prediction_2003.csv
+INFO:postprocess_predictions.py:Postprocessing data from path: kevin/output/prediction/quarterly_new_vars/quarterly_prediction_2004.csv
+INFO:postprocess_predictions.py:Postprocessing data from path: kevin/output/prediction/quarterly_new_vars/quarterly_prediction_2005.csv
+INFO:postprocess_predictions.py:Postprocessing data from path: kevin/output/prediction/quarterly_new_vars/quarterly_prediction_2006.csv
+INFO:postprocess_predictions.py:Postprocessing data from path: kevin/output/prediction/quarterly_new_vars/quarterly_prediction_2007.csv
+INFO:postprocess_predictions.py:Postprocessing data from path: kevin/output/prediction/quarterly_new_vars/quarterly_prediction_2008.csv
+INFO:postprocess_predictions.py:Postprocessing data from path: kevin/output/prediction/quarterly_new_vars/quarterly_prediction_2009.csv
+INFO:postprocess_predictions.py:Postprocessing data from path: kevin/output/prediction/quarterly_new_vars/quarterly_prediction_2010.csv
+INFO:postprocess_predictions.py:Postprocessing data from path: kevin/output/prediction/quarterly_new_vars/quarterly_prediction_2011.csv
+INFO:postprocess_predictions.py:Postprocessing data from path: kevin/output/prediction/quarterly_new_vars/quarterly_prediction_2012.csv
+INFO:postprocess_predictions.py:Postprocessing data from path: kevin/output/prediction/quarterly_new_vars/quarterly_prediction_2013.csv
+INFO:postprocess_predictions.py:Postprocessing data from path: kevin/output/prediction/quarterly_new_vars/quarterly_prediction_2014.csv
+INFO:postprocess_predictions.py:Postprocessing data from path: kevin/output/prediction/quarterly_new_vars/quarterly_prediction_2015.csv
+INFO:postprocess_predictions.py:Postprocessing data from path: kevin/output/prediction/quarterly_new_vars/quarterly_prediction_2016.csv
+INFO:postprocess_predictions.py:Postprocessing data from path: kevin/output/prediction/quarterly_new_vars/quarterly_prediction_2017.csv
+INFO:postprocess_predictions.py:Postprocessing data from path: kevin/output/prediction/quarterly_new_vars/quarterly_prediction_2018.csv
+INFO:postprocess_predictions.py:Postprocessing data from path: kevin/output/prediction/quarterly_new_vars/quarterly_prediction_2019.csv
+INFO:postprocess_predictions.py:Postprocessing data from path: kevin/output/prediction/quarterly_new_vars/quarterly_prediction_2020.csv
+INFO:postprocess_predictions.py:Sort the result by date and rank both ascendingly
+INFO:postprocess_predictions.py:Saved the result file: result.csv
+to the directory: kevin/output/prediction/quarterly_new_vars

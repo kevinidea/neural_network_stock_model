@@ -1,0 +1,831 @@
+Current working directory
+/zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml
+source kevin/venv/bin/activate
+which python3
+/zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/venv/bin/python3
+2024-08-31 14:30:24,434	PANIC scripts.py:900 -- `--address` is a required flag unless starting a head node with `--head`.
+Error: `{}` is a required flag unless starting a head node with `{}`.
+Intel(R) Extension for Scikit-learn* enabled (https://github.com/intel/scikit-learn-intelex)
+Intel(R) Extension for Scikit-learn* enabled (https://github.com/intel/scikit-learn-intelex)
+INFO:preprocess_data_nn.py:
+
+Loading and preprocessing data...
+
+DEBUG:preprocess_data_nn.py:          date   permno
+626    1980-01  10006.0
+5399   1980-01  10057.0
+11398  1980-01  10137.0
+12828  1980-01  10145.0
+13984  1980-01  10153.0
+DEBUG:preprocess_data_nn.py:--------------------------------------------------
+INFO:main.py:preprocessed df: (667724, 161)
+INFO:preprocess_data_nn.py:
+
+Applying secondary data preprocessing..
+
+INFO:main.py:secondary preprocessed df: (667724, 161)
+INFO:main.py:df sample:     permno       pdate        ym  gvkey  sic2    absacc       acc  ...      roea   roavola       ret        mve_m      retq  pyear     date
+0  10006.0  1980-01-01  198001.0   1010    37  0.083420  0.083420  ...  0.141715  0.004512  0.211679   303420.750 -0.055806   1980  1980-01
+1  10057.0  1980-01-01  198001.0   1098    36  0.088951  0.088951  ...  0.174252  0.035698  0.282297   111423.125 -0.069431   1980  1980-01
+2  10137.0  1980-01-01  198001.0   1279    49  0.041008  0.041008  ...  0.097554  0.006254 -0.032258   617349.500 -0.108065   1980  1980-01
+3  10145.0  1980-01-01  198001.0   1300    99  0.050486  0.050486  ...  0.122729  0.004320  0.150127  1415193.000 -0.085950   1980  1980-01
+4  10153.0  1980-01-01  198001.0   1308    13       NaN       NaN  ...  0.109950  0.009149 -0.122744   429488.500 -0.285199   1980  1980-01
+
+[5 rows x 161 columns]
+INFO:main.py:Train year start: 1980
+INFO:main.py:Prediction data years: [2000, 2006, 2009]
+INFO:main.py:
+
+Loop through all the prediction years and build optimized model for each year
+
+INFO:main.py:
+
+Transform data
+
+INFO:transform_data_nn.py:Train data years: [1980, 1981, 1982, 1983, 1984, 1985, 1986, 1987, 1988, 1989, 1990, 1991, 1992, 1993, 1994, 1995, 1996, 1997, 1998]
+INFO:transform_data_nn.py:Train_data: (307585, 161)
+
+INFO:transform_data_nn.py:Test data years: [1999]
+INFO:transform_data_nn.py:Test_data: (23257, 161)
+
+INFO:transform_data_nn.py:Retrain data years: [1980, 1981, 1982, 1983, 1984, 1985, 1986, 1987, 1988, 1989, 1990, 1991, 1992, 1993, 1994, 1995, 1996, 1997, 1998, 1999]
+INFO:transform_data_nn.py:Retrain_data: (330842, 161)
+
+INFO:transform_data_nn.py:Prediction data years: [2000]
+INFO:transform_data_nn.py:Prediction_data: (22167, 161)
+
+INFO:main.py:
+
+Generate X and y with train_data and test_data
+
+/zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/venv/lib/python3.10/site-packages/sklearn/utils/extmath.py:1140: RuntimeWarning: invalid value encountered in divide
+  updated_mean = (last_sum + new_sum) / updated_sample_count
+/zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/venv/lib/python3.10/site-packages/sklearn/utils/extmath.py:1145: RuntimeWarning: invalid value encountered in divide
+  T = new_sum / new_sample_count
+/zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/venv/lib/python3.10/site-packages/sklearn/utils/extmath.py:1165: RuntimeWarning: invalid value encountered in divide
+  new_unnormalized_variance -= correction**2 / new_sample_count
+INFO:main.py:
+            x_train_tf: torch.Size([307585, 152])
+            y_train_tf: torch.Size([307585])
+
+            x_test_tf: torch.Size([23257, 152])
+            y_test_tf: torch.Size([23257])
+
+        
+INFO:main.py:
+
+Generate X and y with retrain_data and prediction_data
+
+/zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/venv/lib/python3.10/site-packages/sklearn/utils/extmath.py:1140: RuntimeWarning: invalid value encountered in divide
+  updated_mean = (last_sum + new_sum) / updated_sample_count
+/zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/venv/lib/python3.10/site-packages/sklearn/utils/extmath.py:1145: RuntimeWarning: invalid value encountered in divide
+  T = new_sum / new_sample_count
+/zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/venv/lib/python3.10/site-packages/sklearn/utils/extmath.py:1165: RuntimeWarning: invalid value encountered in divide
+  new_unnormalized_variance -= correction**2 / new_sample_count
+INFO:main.py:
+            x_retrain_tf: torch.Size([330842, 152])
+            y_retrain_tf: torch.Size([330842])
+
+            x_prediction_tf: torch.Size([22167, 152])
+            y_prediction_tf: torch.Size([22167])
+
+        
+INFO:main.py:
+
+Create dataset
+
+INFO:main.py:Create train_dataset
+INFO:main.py:Create test_dataset
+INFO:main.py:Create retrain_dataset
+INFO:main.py:Create prediction_dataset
+INFO:main.py:
+
+Hyperparameters tuning with Ray Tune
+
+INFO:main.py:Training data years: [1980, 1981, 1982, 1983, 1984, 1985, 1986, 1987, 1988, 1989, 1990, 1991, 1992, 1993, 1994, 1995, 1996, 1997, 1998]
+INFO:main.py:Testing data year: 1999
+INFO:main.py:
+
+            ray_results_path: /zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/ray_results
+            num_samples: 200
+            max_num_epochs: 50
+            num_cpus: 24
+            cpus_per_trial: 1
+            num_gpus: 0
+            gpus_per_trial: 0
+            continuous_dim: 151
+            num_embeddings: 12245
+            device: cpu
+            
+2024-08-31 15:09:04,108	INFO worker.py:1753 -- Started a local Ray instance.
+2024-08-31 15:09:04,264	INFO packaging.py:530 -- Creating a file package for local directory '/zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/src'.
+2024-08-31 15:09:04,321	INFO packaging.py:358 -- Pushing file package 'gcs://_ray_pkg_360b0bbce57fb629.zip' (5.17MiB) to Ray cluster...
+2024-08-31 15:09:04,338	INFO packaging.py:371 -- Successfully pushed file package 'gcs://_ray_pkg_360b0bbce57fb629.zip'.
+2024-08-31 15:09:06,369	WARNING tune.py:902 -- AIR_VERBOSITY is set, ignoring passed-in ProgressReporter for now.
+[36m(train_fnn pid=1500455)[0m /zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/venv/lib/python3.10/site-packages/torch/nn/modules/loss.py:101: UserWarning: Using a target size (torch.Size([1])) that is different to the input size (torch.Size([])). This will likely lead to incorrect results due to broadcasting. Please ensure they have the same size.
+[36m(train_fnn pid=1500455)[0m   return F.l1_loss(input, target, reduction=self.reduction)
+[36m(train_fnn pid=1501304)[0m /zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/venv/lib/python3.10/site-packages/torch/nn/modules/loss.py:101: UserWarning: Using a target size (torch.Size([1])) that is different to the input size (torch.Size([])). This will likely lead to incorrect results due to broadcasting. Please ensure they have the same size.
+[36m(train_fnn pid=1501304)[0m   return F.l1_loss(input, target, reduction=self.reduction)
+[36m(train_fnn pid=1500644)[0m /zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/venv/lib/python3.10/site-packages/torch/nn/modules/loss.py:101: UserWarning: Using a target size (torch.Size([1])) that is different to the input size (torch.Size([])). This will likely lead to incorrect results due to broadcasting. Please ensure they have the same size.
+[36m(train_fnn pid=1500644)[0m   return F.l1_loss(input, target, reduction=self.reduction)
+[36m(train_fnn pid=1500771)[0m /zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/venv/lib/python3.10/site-packages/torch/nn/modules/loss.py:101: UserWarning: Using a target size (torch.Size([1])) that is different to the input size (torch.Size([])). This will likely lead to incorrect results due to broadcasting. Please ensure they have the same size.
+[36m(train_fnn pid=1500771)[0m   return F.l1_loss(input, target, reduction=self.reduction)
+[36m(train_fnn pid=1501718)[0m /zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/venv/lib/python3.10/site-packages/torch/nn/modules/loss.py:101: UserWarning: Using a target size (torch.Size([1])) that is different to the input size (torch.Size([])). This will likely lead to incorrect results due to broadcasting. Please ensure they have the same size.
+[36m(train_fnn pid=1501718)[0m   return F.l1_loss(input, target, reduction=self.reduction)
+[36m(train_fnn pid=1518675)[0m /zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/venv/lib/python3.10/site-packages/torch/nn/modules/loss.py:101: UserWarning: Using a target size (torch.Size([1])) that is different to the input size (torch.Size([])). This will likely lead to incorrect results due to broadcasting. Please ensure they have the same size.
+[36m(train_fnn pid=1518675)[0m   return F.l1_loss(input, target, reduction=self.reduction)
+[36m(train_fnn pid=1531448)[0m /zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/venv/lib/python3.10/site-packages/torch/nn/modules/loss.py:101: UserWarning: Using a target size (torch.Size([1])) that is different to the input size (torch.Size([])). This will likely lead to incorrect results due to broadcasting. Please ensure they have the same size.
+[36m(train_fnn pid=1531448)[0m   return F.l1_loss(input, target, reduction=self.reduction)
+[36m(train_fnn pid=1540510)[0m /zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/venv/lib/python3.10/site-packages/torch/nn/modules/loss.py:101: UserWarning: Using a target size (torch.Size([1])) that is different to the input size (torch.Size([])). This will likely lead to incorrect results due to broadcasting. Please ensure they have the same size.
+[36m(train_fnn pid=1540510)[0m   return F.l1_loss(input, target, reduction=self.reduction)
+[36m(train_fnn pid=1546847)[0m /zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/venv/lib/python3.10/site-packages/torch/nn/modules/loss.py:101: UserWarning: Using a target size (torch.Size([1])) that is different to the input size (torch.Size([])). This will likely lead to incorrect results due to broadcasting. Please ensure they have the same size.
+[36m(train_fnn pid=1546847)[0m   return F.l1_loss(input, target, reduction=self.reduction)
+[36m(train_fnn pid=1567422)[0m /zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/venv/lib/python3.10/site-packages/torch/nn/modules/loss.py:101: UserWarning: Using a target size (torch.Size([1])) that is different to the input size (torch.Size([])). This will likely lead to incorrect results due to broadcasting. Please ensure they have the same size.
+[36m(train_fnn pid=1567422)[0m   return F.l1_loss(input, target, reduction=self.reduction)
+[36m(train_fnn pid=1568276)[0m /zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/venv/lib/python3.10/site-packages/torch/nn/modules/loss.py:101: UserWarning: Using a target size (torch.Size([1])) that is different to the input size (torch.Size([])). This will likely lead to incorrect results due to broadcasting. Please ensure they have the same size.
+[36m(train_fnn pid=1568276)[0m   return F.l1_loss(input, target, reduction=self.reduction)
+[36m(train_fnn pid=1552645)[0m /zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/venv/lib/python3.10/site-packages/torch/nn/modules/loss.py:101: UserWarning: Using a target size (torch.Size([1])) that is different to the input size (torch.Size([])). This will likely lead to incorrect results due to broadcasting. Please ensure they have the same size.
+[36m(train_fnn pid=1552645)[0m   return F.l1_loss(input, target, reduction=self.reduction)
+[36m(train_fnn pid=1589258)[0m /zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/venv/lib/python3.10/site-packages/torch/nn/modules/loss.py:101: UserWarning: Using a target size (torch.Size([1])) that is different to the input size (torch.Size([])). This will likely lead to incorrect results due to broadcasting. Please ensure they have the same size.
+[36m(train_fnn pid=1589258)[0m   return F.l1_loss(input, target, reduction=self.reduction)
+[36m(train_fnn pid=1621276)[0m /zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/venv/lib/python3.10/site-packages/torch/nn/modules/loss.py:101: UserWarning: Using a target size (torch.Size([1])) that is different to the input size (torch.Size([])). This will likely lead to incorrect results due to broadcasting. Please ensure they have the same size.
+[36m(train_fnn pid=1621276)[0m   return F.l1_loss(input, target, reduction=self.reduction)
+[36m(train_fnn pid=1640865)[0m /zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/venv/lib/python3.10/site-packages/torch/nn/modules/loss.py:101: UserWarning: Using a target size (torch.Size([1])) that is different to the input size (torch.Size([])). This will likely lead to incorrect results due to broadcasting. Please ensure they have the same size.
+[36m(train_fnn pid=1640865)[0m   return F.l1_loss(input, target, reduction=self.reduction)
+[36m(train_fnn pid=1639826)[0m /zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/venv/lib/python3.10/site-packages/torch/nn/modules/loss.py:101: UserWarning: Using a target size (torch.Size([1])) that is different to the input size (torch.Size([])). This will likely lead to incorrect results due to broadcasting. Please ensure they have the same size.
+[36m(train_fnn pid=1639826)[0m   return F.l1_loss(input, target, reduction=self.reduction)
+[36m(train_fnn pid=1642320)[0m /zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/venv/lib/python3.10/site-packages/torch/nn/modules/loss.py:101: UserWarning: Using a target size (torch.Size([1])) that is different to the input size (torch.Size([])). This will likely lead to incorrect results due to broadcasting. Please ensure they have the same size.
+[36m(train_fnn pid=1642320)[0m   return F.l1_loss(input, target, reduction=self.reduction)
+[36m(train_fnn pid=1661256)[0m /zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/venv/lib/python3.10/site-packages/torch/nn/modules/loss.py:101: UserWarning: Using a target size (torch.Size([1])) that is different to the input size (torch.Size([])). This will likely lead to incorrect results due to broadcasting. Please ensure they have the same size.
+[36m(train_fnn pid=1661256)[0m   return F.l1_loss(input, target, reduction=self.reduction)
+[36m(train_fnn pid=1661257)[0m /zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/venv/lib/python3.10/site-packages/torch/nn/modules/loss.py:101: UserWarning: Using a target size (torch.Size([1])) that is different to the input size (torch.Size([])). This will likely lead to incorrect results due to broadcasting. Please ensure they have the same size.
+[36m(train_fnn pid=1661257)[0m   return F.l1_loss(input, target, reduction=self.reduction)
+[36m(train_fnn pid=1690241)[0m /zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/venv/lib/python3.10/site-packages/torch/nn/modules/loss.py:101: UserWarning: Using a target size (torch.Size([1])) that is different to the input size (torch.Size([])). This will likely lead to incorrect results due to broadcasting. Please ensure they have the same size.
+[36m(train_fnn pid=1690241)[0m   return F.l1_loss(input, target, reduction=self.reduction)
+[36m(train_fnn pid=1729305)[0m /zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/venv/lib/python3.10/site-packages/torch/nn/modules/loss.py:101: UserWarning: Using a target size (torch.Size([1])) that is different to the input size (torch.Size([])). This will likely lead to incorrect results due to broadcasting. Please ensure they have the same size.
+[36m(train_fnn pid=1729305)[0m   return F.l1_loss(input, target, reduction=self.reduction)
+[36m(train_fnn pid=1728394)[0m /zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/venv/lib/python3.10/site-packages/torch/nn/modules/loss.py:101: UserWarning: Using a target size (torch.Size([1])) that is different to the input size (torch.Size([])). This will likely lead to incorrect results due to broadcasting. Please ensure they have the same size.
+[36m(train_fnn pid=1728394)[0m   return F.l1_loss(input, target, reduction=self.reduction)
+[36m(train_fnn pid=1777056)[0m /zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/venv/lib/python3.10/site-packages/torch/nn/modules/loss.py:101: UserWarning: Using a target size (torch.Size([1])) that is different to the input size (torch.Size([])). This will likely lead to incorrect results due to broadcasting. Please ensure they have the same size.
+[36m(train_fnn pid=1777056)[0m   return F.l1_loss(input, target, reduction=self.reduction)
+[36m(train_fnn pid=1778589)[0m /zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/venv/lib/python3.10/site-packages/torch/nn/modules/loss.py:101: UserWarning: Using a target size (torch.Size([1])) that is different to the input size (torch.Size([])). This will likely lead to incorrect results due to broadcasting. Please ensure they have the same size.
+[36m(train_fnn pid=1778589)[0m   return F.l1_loss(input, target, reduction=self.reduction)
+2024-08-31 16:09:44,382	INFO tune.py:1009 -- Wrote the latest version of all result files and experiment state to '/zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/ray_results/train_fnn_2024-08-31_15-09-06' in 0.4841s.
+INFO:model_data_nn.py:Best trial config: {'continuous_dim': 151, 'hidden_dim': 5, 'num_layers': 3, 'num_embeddings': 12245, 'embedding_dim': 5, 'dropout_rate': 0.52, 'lr': 0.00018989906407588494, 'weight_decay': 1.069383784308752e-06, 'num_epochs': 50, 'num_gpus': 0, 'batch_size': 32}
+INFO:model_data_nn.py:Best trial training loss: 0.18092499047989058
+INFO:model_data_nn.py:Best trial testing loss: 0.26260015262903175
+INFO:main.py:Ray Tune results have been saved to: /zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/ray_results
+INFO:main.py:Best trial directory: /tmp/ray/session_2024-08-31_15-09-01_269313_1024549/artifacts/2024-08-31_15-09-06/train_fnn_2024-08-31_15-09-06/driver_artifacts/train_fnn_a3ae4_00169_169_batch_size=32,dropout_rate=0.5200,embedding_dim=5,hidden_dim=5,lr=0.0002,num_layers=3,weight_decay=0.000_2024-08-31_15-09-07
+INFO:main.py:
+
+Retrain a new model with data in years: [1980, 1981, 1982, 1983, 1984, 1985, 1986, 1987, 1988, 1989, 1990, 1991, 1992, 1993, 1994, 1995, 1996, 1997, 1998, 1999]
+
+            Using the optimized hyperparameters: {'continuous_dim': 151, 'hidden_dim': 5, 'num_layers': 3, 'num_embeddings': 12852, 'embedding_dim': 5, 'dropout_rate': 0.52, 'lr': 0.00018989906407588494, 'weight_decay': 1.069383784308752e-06, 'num_epochs': 50, 'num_gpus': 0, 'batch_size': 32}
+
+INFO:model_data_nn.py:Epoch 1/50, metrics: {'avg_train_loss': 0.19037138439482842, 'avg_test_loss': 0.2758424838018452}
+INFO:model_data_nn.py:Epoch 2/50, metrics: {'avg_train_loss': 0.18995203641163103, 'avg_test_loss': 0.27430054179861774}
+INFO:model_data_nn.py:Epoch 3/50, metrics: {'avg_train_loss': 0.18965734891531477, 'avg_test_loss': 0.2733418144618966}
+INFO:model_data_nn.py:Epoch 4/50, metrics: {'avg_train_loss': 0.18929993366279554, 'avg_test_loss': 0.2722442372450753}
+INFO:model_data_nn.py:Epoch 5/50, metrics: {'avg_train_loss': 0.18898525980601552, 'avg_test_loss': 0.2717011206787386}
+INFO:model_data_nn.py:Epoch 6/50, metrics: {'avg_train_loss': 0.188804098628901, 'avg_test_loss': 0.27253342132805747}
+INFO:model_data_nn.py:Epoch 7/50, metrics: {'avg_train_loss': 0.18856017466171102, 'avg_test_loss': 0.2733043759717226}
+INFO:model_data_nn.py:Epoch 8/50, metrics: {'avg_train_loss': 0.18826646773473601, 'avg_test_loss': 0.27302086131827313}
+INFO:model_data_nn.py:Epoch 9/50, metrics: {'avg_train_loss': 0.1880322856986043, 'avg_test_loss': 0.2727157956077939}
+INFO:model_data_nn.py:Epoch 10/50, metrics: {'avg_train_loss': 0.18779991070357413, 'avg_test_loss': 0.273690620939883}
+INFO:model_data_nn.py:Epoch 11/50, metrics: {'avg_train_loss': 0.18754836992236512, 'avg_test_loss': 0.27439017026197343}
+INFO:model_data_nn.py:Epoch 12/50, metrics: {'avg_train_loss': 0.18739874486848035, 'avg_test_loss': 0.27411696768512284}
+INFO:model_data_nn.py:Epoch 13/50, metrics: {'avg_train_loss': 0.1871964151663484, 'avg_test_loss': 0.27433570791546574}
+INFO:model_data_nn.py:Epoch 14/50, metrics: {'avg_train_loss': 0.18692388944003516, 'avg_test_loss': 0.2743854552915946}
+INFO:model_data_nn.py:Epoch 15/50, metrics: {'avg_train_loss': 0.18689558427138725, 'avg_test_loss': 0.2752146520161354}
+INFO:model_data_nn.py:Early stopping at epoch 15
+INFO:main.py:Making prediction for data in year: 2000
+INFO:main.py:Prediction data shape: (22167,)
+/zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/src/main.py:335: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+
+See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
+  prediction_data['pred'] = predictions
+INFO:main.py:Root Mean Squared Error for Prediction in 2000: 0.4569376953401387
+INFO:main.py:Prediction Stats:                retq          pred
+count  22167.000000  22167.000000
+mean      -0.000670     -0.007088
+std        0.453416      0.059766
+min       -0.980000     -7.105531
+25%       -0.222436     -0.026010
+50%       -0.022528     -0.000085
+75%        0.141851      0.026740
+max       10.941179      0.026989
+INFO:main.py:
+
+Transform data
+
+INFO:transform_data_nn.py:Train data years: [1980, 1981, 1982, 1983, 1984, 1985, 1986, 1987, 1988, 1989, 1990, 1991, 1992, 1993, 1994, 1995, 1996, 1997, 1998, 1999, 2000, 2001, 2002, 2003, 2004]
+INFO:transform_data_nn.py:Train_data: (432159, 161)
+
+INFO:transform_data_nn.py:Test data years: [2005]
+INFO:transform_data_nn.py:Test_data: (17457, 161)
+
+INFO:transform_data_nn.py:Retrain data years: [1980, 1981, 1982, 1983, 1984, 1985, 1986, 1987, 1988, 1989, 1990, 1991, 1992, 1993, 1994, 1995, 1996, 1997, 1998, 1999, 2000, 2001, 2002, 2003, 2004, 2005]
+INFO:transform_data_nn.py:Retrain_data: (449616, 161)
+
+INFO:transform_data_nn.py:Prediction data years: [2006]
+INFO:transform_data_nn.py:Prediction_data: (17129, 161)
+
+INFO:main.py:
+
+Generate X and y with train_data and test_data
+
+INFO:main.py:
+            x_train_tf: torch.Size([432159, 152])
+            y_train_tf: torch.Size([432159])
+
+            x_test_tf: torch.Size([17457, 152])
+            y_test_tf: torch.Size([17457])
+
+        
+INFO:main.py:
+
+Generate X and y with retrain_data and prediction_data
+
+INFO:main.py:
+            x_retrain_tf: torch.Size([449616, 152])
+            y_retrain_tf: torch.Size([449616])
+
+            x_prediction_tf: torch.Size([17129, 152])
+            y_prediction_tf: torch.Size([17129])
+
+        
+INFO:main.py:
+
+Create dataset
+
+INFO:main.py:Create train_dataset
+INFO:main.py:Create test_dataset
+INFO:main.py:Create retrain_dataset
+INFO:main.py:Create prediction_dataset
+INFO:main.py:
+
+Hyperparameters tuning with Ray Tune
+
+INFO:main.py:Training data years: [1980, 1981, 1982, 1983, 1984, 1985, 1986, 1987, 1988, 1989, 1990, 1991, 1992, 1993, 1994, 1995, 1996, 1997, 1998, 1999, 2000, 2001, 2002, 2003, 2004]
+INFO:main.py:Testing data year: 2005
+INFO:main.py:
+
+            ray_results_path: /zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/ray_results
+            num_samples: 200
+            max_num_epochs: 50
+            num_cpus: 24
+            cpus_per_trial: 1
+            num_gpus: 0
+            gpus_per_trial: 0
+            continuous_dim: 151
+            num_embeddings: 14571
+            device: cpu
+            
+2024-08-31 17:09:57,485	INFO worker.py:1753 -- Started a local Ray instance.
+2024-08-31 17:09:57,531	INFO packaging.py:530 -- Creating a file package for local directory '/zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/src'.
+2024-08-31 17:09:57,577	INFO packaging.py:358 -- Pushing file package 'gcs://_ray_pkg_360b0bbce57fb629.zip' (5.17MiB) to Ray cluster...
+2024-08-31 17:09:57,594	INFO packaging.py:371 -- Successfully pushed file package 'gcs://_ray_pkg_360b0bbce57fb629.zip'.
+2024-08-31 17:09:59,602	WARNING tune.py:902 -- AIR_VERBOSITY is set, ignoring passed-in ProgressReporter for now.
+[36m(train_fnn pid=3038801)[0m /zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/venv/lib/python3.10/site-packages/torch/nn/modules/loss.py:101: UserWarning: Using a target size (torch.Size([1])) that is different to the input size (torch.Size([])). This will likely lead to incorrect results due to broadcasting. Please ensure they have the same size.
+[36m(train_fnn pid=3038801)[0m   return F.l1_loss(input, target, reduction=self.reduction)
+[36m(train_fnn pid=3038785)[0m /zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/venv/lib/python3.10/site-packages/torch/nn/modules/loss.py:101: UserWarning: Using a target size (torch.Size([1])) that is different to the input size (torch.Size([])). This will likely lead to incorrect results due to broadcasting. Please ensure they have the same size.
+[36m(train_fnn pid=3038785)[0m   return F.l1_loss(input, target, reduction=self.reduction)
+[36m(train_fnn pid=3038116)[0m /zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/venv/lib/python3.10/site-packages/torch/nn/modules/loss.py:101: UserWarning: Using a target size (torch.Size([1])) that is different to the input size (torch.Size([])). This will likely lead to incorrect results due to broadcasting. Please ensure they have the same size.
+[36m(train_fnn pid=3038116)[0m   return F.l1_loss(input, target, reduction=self.reduction)
+[36m(train_fnn pid=3038800)[0m /zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/venv/lib/python3.10/site-packages/torch/nn/modules/loss.py:101: UserWarning: Using a target size (torch.Size([1])) that is different to the input size (torch.Size([])). This will likely lead to incorrect results due to broadcasting. Please ensure they have the same size.
+[36m(train_fnn pid=3038800)[0m   return F.l1_loss(input, target, reduction=self.reduction)
+[36m(train_fnn pid=3038675)[0m /zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/venv/lib/python3.10/site-packages/torch/nn/modules/loss.py:101: UserWarning: Using a target size (torch.Size([1])) that is different to the input size (torch.Size([])). This will likely lead to incorrect results due to broadcasting. Please ensure they have the same size.
+[36m(train_fnn pid=3038675)[0m   return F.l1_loss(input, target, reduction=self.reduction)
+[36m(train_fnn pid=3067698)[0m /zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/venv/lib/python3.10/site-packages/torch/nn/modules/loss.py:101: UserWarning: Using a target size (torch.Size([1])) that is different to the input size (torch.Size([])). This will likely lead to incorrect results due to broadcasting. Please ensure they have the same size.
+[36m(train_fnn pid=3067698)[0m   return F.l1_loss(input, target, reduction=self.reduction)
+[36m(train_fnn pid=3038661)[0m /zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/venv/lib/python3.10/site-packages/torch/nn/modules/loss.py:101: UserWarning: Using a target size (torch.Size([1])) that is different to the input size (torch.Size([])). This will likely lead to incorrect results due to broadcasting. Please ensure they have the same size.
+[36m(train_fnn pid=3038661)[0m   return F.l1_loss(input, target, reduction=self.reduction)
+[36m(train_fnn pid=3038012)[0m /zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/venv/lib/python3.10/site-packages/torch/nn/modules/loss.py:101: UserWarning: Using a target size (torch.Size([1])) that is different to the input size (torch.Size([])). This will likely lead to incorrect results due to broadcasting. Please ensure they have the same size.
+[36m(train_fnn pid=3038012)[0m   return F.l1_loss(input, target, reduction=self.reduction)
+[36m(train_fnn pid=3069073)[0m /zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/venv/lib/python3.10/site-packages/torch/nn/modules/loss.py:101: UserWarning: Using a target size (torch.Size([1])) that is different to the input size (torch.Size([])). This will likely lead to incorrect results due to broadcasting. Please ensure they have the same size.
+[36m(train_fnn pid=3069073)[0m   return F.l1_loss(input, target, reduction=self.reduction)
+[36m(train_fnn pid=3068194)[0m /zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/venv/lib/python3.10/site-packages/torch/nn/modules/loss.py:101: UserWarning: Using a target size (torch.Size([1])) that is different to the input size (torch.Size([])). This will likely lead to incorrect results due to broadcasting. Please ensure they have the same size.[32m [repeated 2x across cluster] (Ray deduplicates logs by default. Set RAY_DEDUP_LOGS=0 to disable log deduplication, or see https://docs.ray.io/en/master/ray-observability/user-guides/configure-logging.html#log-deduplication for more options.)[0m
+[36m(train_fnn pid=3068194)[0m   return F.l1_loss(input, target, reduction=self.reduction)[32m [repeated 2x across cluster][0m
+[36m(train_fnn pid=3038143)[0m /zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/venv/lib/python3.10/site-packages/torch/nn/modules/loss.py:101: UserWarning: Using a target size (torch.Size([1])) that is different to the input size (torch.Size([])). This will likely lead to incorrect results due to broadcasting. Please ensure they have the same size.
+[36m(train_fnn pid=3038143)[0m   return F.l1_loss(input, target, reduction=self.reduction)
+[36m(train_fnn pid=3038286)[0m /zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/venv/lib/python3.10/site-packages/torch/nn/modules/loss.py:101: UserWarning: Using a target size (torch.Size([1])) that is different to the input size (torch.Size([])). This will likely lead to incorrect results due to broadcasting. Please ensure they have the same size.
+[36m(train_fnn pid=3038286)[0m   return F.l1_loss(input, target, reduction=self.reduction)
+[36m(train_fnn pid=3037689)[0m /zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/venv/lib/python3.10/site-packages/torch/nn/modules/loss.py:101: UserWarning: Using a target size (torch.Size([1])) that is different to the input size (torch.Size([])). This will likely lead to incorrect results due to broadcasting. Please ensure they have the same size.
+[36m(train_fnn pid=3037689)[0m   return F.l1_loss(input, target, reduction=self.reduction)
+[36m(train_fnn pid=3038799)[0m /zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/venv/lib/python3.10/site-packages/torch/nn/modules/loss.py:101: UserWarning: Using a target size (torch.Size([1])) that is different to the input size (torch.Size([])). This will likely lead to incorrect results due to broadcasting. Please ensure they have the same size.
+[36m(train_fnn pid=3038799)[0m   return F.l1_loss(input, target, reduction=self.reduction)
+[36m(train_fnn pid=3087615)[0m /zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/venv/lib/python3.10/site-packages/torch/nn/modules/loss.py:101: UserWarning: Using a target size (torch.Size([1])) that is different to the input size (torch.Size([])). This will likely lead to incorrect results due to broadcasting. Please ensure they have the same size.
+[36m(train_fnn pid=3087615)[0m   return F.l1_loss(input, target, reduction=self.reduction)
+[36m(train_fnn pid=3038619)[0m /zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/venv/lib/python3.10/site-packages/torch/nn/modules/loss.py:101: UserWarning: Using a target size (torch.Size([1])) that is different to the input size (torch.Size([])). This will likely lead to incorrect results due to broadcasting. Please ensure they have the same size.
+[36m(train_fnn pid=3038619)[0m   return F.l1_loss(input, target, reduction=self.reduction)
+[36m(train_fnn pid=3068700)[0m /zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/venv/lib/python3.10/site-packages/torch/nn/modules/loss.py:101: UserWarning: Using a target size (torch.Size([1])) that is different to the input size (torch.Size([])). This will likely lead to incorrect results due to broadcasting. Please ensure they have the same size.
+[36m(train_fnn pid=3068700)[0m   return F.l1_loss(input, target, reduction=self.reduction)
+[36m(train_fnn pid=3110326)[0m /zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/venv/lib/python3.10/site-packages/torch/nn/modules/loss.py:101: UserWarning: Using a target size (torch.Size([1])) that is different to the input size (torch.Size([])). This will likely lead to incorrect results due to broadcasting. Please ensure they have the same size.
+[36m(train_fnn pid=3110326)[0m   return F.l1_loss(input, target, reduction=self.reduction)
+[36m(train_fnn pid=3105584)[0m /zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/venv/lib/python3.10/site-packages/torch/nn/modules/loss.py:101: UserWarning: Using a target size (torch.Size([1])) that is different to the input size (torch.Size([])). This will likely lead to incorrect results due to broadcasting. Please ensure they have the same size.
+[36m(train_fnn pid=3105584)[0m   return F.l1_loss(input, target, reduction=self.reduction)
+[36m(train_fnn pid=3108680)[0m /zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/venv/lib/python3.10/site-packages/torch/nn/modules/loss.py:101: UserWarning: Using a target size (torch.Size([1])) that is different to the input size (torch.Size([])). This will likely lead to incorrect results due to broadcasting. Please ensure they have the same size.
+[36m(train_fnn pid=3108680)[0m   return F.l1_loss(input, target, reduction=self.reduction)
+[36m(train_fnn pid=3143454)[0m /zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/venv/lib/python3.10/site-packages/torch/nn/modules/loss.py:101: UserWarning: Using a target size (torch.Size([1])) that is different to the input size (torch.Size([])). This will likely lead to incorrect results due to broadcasting. Please ensure they have the same size.
+[36m(train_fnn pid=3143454)[0m   return F.l1_loss(input, target, reduction=self.reduction)
+[36m(train_fnn pid=3152158)[0m /zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/venv/lib/python3.10/site-packages/torch/nn/modules/loss.py:101: UserWarning: Using a target size (torch.Size([1])) that is different to the input size (torch.Size([])). This will likely lead to incorrect results due to broadcasting. Please ensure they have the same size.
+[36m(train_fnn pid=3152158)[0m   return F.l1_loss(input, target, reduction=self.reduction)
+[36m(train_fnn pid=3152425)[0m /zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/venv/lib/python3.10/site-packages/torch/nn/modules/loss.py:101: UserWarning: Using a target size (torch.Size([1])) that is different to the input size (torch.Size([])). This will likely lead to incorrect results due to broadcasting. Please ensure they have the same size.
+[36m(train_fnn pid=3152425)[0m   return F.l1_loss(input, target, reduction=self.reduction)
+[36m(train_fnn pid=3171061)[0m /zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/venv/lib/python3.10/site-packages/torch/nn/modules/loss.py:101: UserWarning: Using a target size (torch.Size([1])) that is different to the input size (torch.Size([])). This will likely lead to incorrect results due to broadcasting. Please ensure they have the same size.
+[36m(train_fnn pid=3171061)[0m   return F.l1_loss(input, target, reduction=self.reduction)
+[36m(train_fnn pid=3197889)[0m /zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/venv/lib/python3.10/site-packages/torch/nn/modules/loss.py:101: UserWarning: Using a target size (torch.Size([1])) that is different to the input size (torch.Size([])). This will likely lead to incorrect results due to broadcasting. Please ensure they have the same size.
+[36m(train_fnn pid=3197889)[0m   return F.l1_loss(input, target, reduction=self.reduction)
+[36m(train_fnn pid=3157076)[0m /zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/venv/lib/python3.10/site-packages/torch/nn/modules/loss.py:101: UserWarning: Using a target size (torch.Size([1])) that is different to the input size (torch.Size([])). This will likely lead to incorrect results due to broadcasting. Please ensure they have the same size.
+[36m(train_fnn pid=3157076)[0m   return F.l1_loss(input, target, reduction=self.reduction)
+[36m(train_fnn pid=3171324)[0m /zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/venv/lib/python3.10/site-packages/torch/nn/modules/loss.py:101: UserWarning: Using a target size (torch.Size([1])) that is different to the input size (torch.Size([])). This will likely lead to incorrect results due to broadcasting. Please ensure they have the same size.
+[36m(train_fnn pid=3171324)[0m   return F.l1_loss(input, target, reduction=self.reduction)
+[36m(train_fnn pid=3215663)[0m /zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/venv/lib/python3.10/site-packages/torch/nn/modules/loss.py:101: UserWarning: Using a target size (torch.Size([1])) that is different to the input size (torch.Size([])). This will likely lead to incorrect results due to broadcasting. Please ensure they have the same size.
+[36m(train_fnn pid=3215663)[0m   return F.l1_loss(input, target, reduction=self.reduction)
+[36m(train_fnn pid=3215839)[0m /zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/venv/lib/python3.10/site-packages/torch/nn/modules/loss.py:101: UserWarning: Using a target size (torch.Size([1])) that is different to the input size (torch.Size([])). This will likely lead to incorrect results due to broadcasting. Please ensure they have the same size.
+[36m(train_fnn pid=3215839)[0m   return F.l1_loss(input, target, reduction=self.reduction)
+[36m(train_fnn pid=3217403)[0m /zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/venv/lib/python3.10/site-packages/torch/nn/modules/loss.py:101: UserWarning: Using a target size (torch.Size([1])) that is different to the input size (torch.Size([])). This will likely lead to incorrect results due to broadcasting. Please ensure they have the same size.
+[36m(train_fnn pid=3217403)[0m   return F.l1_loss(input, target, reduction=self.reduction)
+[36m(train_fnn pid=3265703)[0m /zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/venv/lib/python3.10/site-packages/torch/nn/modules/loss.py:101: UserWarning: Using a target size (torch.Size([1])) that is different to the input size (torch.Size([])). This will likely lead to incorrect results due to broadcasting. Please ensure they have the same size.[32m [repeated 2x across cluster][0m
+[36m(train_fnn pid=3265703)[0m   return F.l1_loss(input, target, reduction=self.reduction)[32m [repeated 2x across cluster][0m
+[36m(train_fnn pid=3263549)[0m /zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/venv/lib/python3.10/site-packages/torch/nn/modules/loss.py:101: UserWarning: Using a target size (torch.Size([1])) that is different to the input size (torch.Size([])). This will likely lead to incorrect results due to broadcasting. Please ensure they have the same size.
+[36m(train_fnn pid=3263549)[0m   return F.l1_loss(input, target, reduction=self.reduction)
+[36m(train_fnn pid=3284033)[0m /zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/venv/lib/python3.10/site-packages/torch/nn/modules/loss.py:101: UserWarning: Using a target size (torch.Size([1])) that is different to the input size (torch.Size([])). This will likely lead to incorrect results due to broadcasting. Please ensure they have the same size.
+[36m(train_fnn pid=3284033)[0m   return F.l1_loss(input, target, reduction=self.reduction)
+[36m(train_fnn pid=3263847)[0m /zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/venv/lib/python3.10/site-packages/torch/nn/modules/loss.py:101: UserWarning: Using a target size (torch.Size([1])) that is different to the input size (torch.Size([])). This will likely lead to incorrect results due to broadcasting. Please ensure they have the same size.
+[36m(train_fnn pid=3263847)[0m   return F.l1_loss(input, target, reduction=self.reduction)
+[36m(train_fnn pid=3285260)[0m /zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/venv/lib/python3.10/site-packages/torch/nn/modules/loss.py:101: UserWarning: Using a target size (torch.Size([1])) that is different to the input size (torch.Size([])). This will likely lead to incorrect results due to broadcasting. Please ensure they have the same size.
+[36m(train_fnn pid=3285260)[0m   return F.l1_loss(input, target, reduction=self.reduction)
+[36m(train_fnn pid=3264605)[0m /zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/venv/lib/python3.10/site-packages/torch/nn/modules/loss.py:101: UserWarning: Using a target size (torch.Size([1])) that is different to the input size (torch.Size([])). This will likely lead to incorrect results due to broadcasting. Please ensure they have the same size.
+[36m(train_fnn pid=3264605)[0m   return F.l1_loss(input, target, reduction=self.reduction)
+[36m(train_fnn pid=3284769)[0m /zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/venv/lib/python3.10/site-packages/torch/nn/modules/loss.py:101: UserWarning: Using a target size (torch.Size([1])) that is different to the input size (torch.Size([])). This will likely lead to incorrect results due to broadcasting. Please ensure they have the same size.
+[36m(train_fnn pid=3284769)[0m   return F.l1_loss(input, target, reduction=self.reduction)
+[36m(train_fnn pid=3303382)[0m /zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/venv/lib/python3.10/site-packages/torch/nn/modules/loss.py:101: UserWarning: Using a target size (torch.Size([1])) that is different to the input size (torch.Size([])). This will likely lead to incorrect results due to broadcasting. Please ensure they have the same size.
+[36m(train_fnn pid=3303382)[0m   return F.l1_loss(input, target, reduction=self.reduction)
+[36m(train_fnn pid=3290298)[0m /zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/venv/lib/python3.10/site-packages/torch/nn/modules/loss.py:101: UserWarning: Using a target size (torch.Size([1])) that is different to the input size (torch.Size([])). This will likely lead to incorrect results due to broadcasting. Please ensure they have the same size.
+[36m(train_fnn pid=3290298)[0m   return F.l1_loss(input, target, reduction=self.reduction)
+[36m(train_fnn pid=3304133)[0m /zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/venv/lib/python3.10/site-packages/torch/nn/modules/loss.py:101: UserWarning: Using a target size (torch.Size([1])) that is different to the input size (torch.Size([])). This will likely lead to incorrect results due to broadcasting. Please ensure they have the same size.
+[36m(train_fnn pid=3304133)[0m   return F.l1_loss(input, target, reduction=self.reduction)
+[36m(train_fnn pid=3303883)[0m /zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/venv/lib/python3.10/site-packages/torch/nn/modules/loss.py:101: UserWarning: Using a target size (torch.Size([1])) that is different to the input size (torch.Size([])). This will likely lead to incorrect results due to broadcasting. Please ensure they have the same size.
+[36m(train_fnn pid=3303883)[0m   return F.l1_loss(input, target, reduction=self.reduction)
+[36m(train_fnn pid=3350375)[0m /zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/venv/lib/python3.10/site-packages/torch/nn/modules/loss.py:101: UserWarning: Using a target size (torch.Size([1])) that is different to the input size (torch.Size([])). This will likely lead to incorrect results due to broadcasting. Please ensure they have the same size.
+[36m(train_fnn pid=3350375)[0m   return F.l1_loss(input, target, reduction=self.reduction)
+[36m(train_fnn pid=3350371)[0m /zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/venv/lib/python3.10/site-packages/torch/nn/modules/loss.py:101: UserWarning: Using a target size (torch.Size([1])) that is different to the input size (torch.Size([])). This will likely lead to incorrect results due to broadcasting. Please ensure they have the same size.
+[36m(train_fnn pid=3350371)[0m   return F.l1_loss(input, target, reduction=self.reduction)
+[36m(train_fnn pid=3369998)[0m /zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/venv/lib/python3.10/site-packages/torch/nn/modules/loss.py:101: UserWarning: Using a target size (torch.Size([1])) that is different to the input size (torch.Size([])). This will likely lead to incorrect results due to broadcasting. Please ensure they have the same size.
+[36m(train_fnn pid=3369998)[0m   return F.l1_loss(input, target, reduction=self.reduction)
+[36m(train_fnn pid=3370805)[0m /zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/venv/lib/python3.10/site-packages/torch/nn/modules/loss.py:101: UserWarning: Using a target size (torch.Size([1])) that is different to the input size (torch.Size([])). This will likely lead to incorrect results due to broadcasting. Please ensure they have the same size.
+[36m(train_fnn pid=3370805)[0m   return F.l1_loss(input, target, reduction=self.reduction)
+[36m(train_fnn pid=3350612)[0m /zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/venv/lib/python3.10/site-packages/torch/nn/modules/loss.py:101: UserWarning: Using a target size (torch.Size([1])) that is different to the input size (torch.Size([])). This will likely lead to incorrect results due to broadcasting. Please ensure they have the same size.
+[36m(train_fnn pid=3350612)[0m   return F.l1_loss(input, target, reduction=self.reduction)
+[36m(train_fnn pid=3416224)[0m /zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/venv/lib/python3.10/site-packages/torch/nn/modules/loss.py:101: UserWarning: Using a target size (torch.Size([1])) that is different to the input size (torch.Size([])). This will likely lead to incorrect results due to broadcasting. Please ensure they have the same size.
+[36m(train_fnn pid=3416224)[0m   return F.l1_loss(input, target, reduction=self.reduction)
+[36m(train_fnn pid=3435258)[0m /zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/venv/lib/python3.10/site-packages/torch/nn/modules/loss.py:101: UserWarning: Using a target size (torch.Size([1])) that is different to the input size (torch.Size([])). This will likely lead to incorrect results due to broadcasting. Please ensure they have the same size.[32m [repeated 2x across cluster][0m
+[36m(train_fnn pid=3435258)[0m   return F.l1_loss(input, target, reduction=self.reduction)[32m [repeated 2x across cluster][0m
+[36m(train_fnn pid=3453551)[0m /zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/venv/lib/python3.10/site-packages/torch/nn/modules/loss.py:101: UserWarning: Using a target size (torch.Size([1])) that is different to the input size (torch.Size([])). This will likely lead to incorrect results due to broadcasting. Please ensure they have the same size.[32m [repeated 2x across cluster][0m
+[36m(train_fnn pid=3453551)[0m   return F.l1_loss(input, target, reduction=self.reduction)[32m [repeated 2x across cluster][0m
+[36m(train_fnn pid=3434763)[0m /zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/venv/lib/python3.10/site-packages/torch/nn/modules/loss.py:101: UserWarning: Using a target size (torch.Size([1])) that is different to the input size (torch.Size([])). This will likely lead to incorrect results due to broadcasting. Please ensure they have the same size.
+[36m(train_fnn pid=3434763)[0m   return F.l1_loss(input, target, reduction=self.reduction)
+[36m(train_fnn pid=3481334)[0m /zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/venv/lib/python3.10/site-packages/torch/nn/modules/loss.py:101: UserWarning: Using a target size (torch.Size([1])) that is different to the input size (torch.Size([])). This will likely lead to incorrect results due to broadcasting. Please ensure they have the same size.
+[36m(train_fnn pid=3481334)[0m   return F.l1_loss(input, target, reduction=self.reduction)
+[36m(train_fnn pid=3462463)[0m /zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/venv/lib/python3.10/site-packages/torch/nn/modules/loss.py:101: UserWarning: Using a target size (torch.Size([1])) that is different to the input size (torch.Size([])). This will likely lead to incorrect results due to broadcasting. Please ensure they have the same size.
+[36m(train_fnn pid=3462463)[0m   return F.l1_loss(input, target, reduction=self.reduction)
+[36m(train_fnn pid=3500288)[0m /zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/venv/lib/python3.10/site-packages/torch/nn/modules/loss.py:101: UserWarning: Using a target size (torch.Size([1])) that is different to the input size (torch.Size([])). This will likely lead to incorrect results due to broadcasting. Please ensure they have the same size.
+[36m(train_fnn pid=3500288)[0m   return F.l1_loss(input, target, reduction=self.reduction)
+[36m(train_fnn pid=3500035)[0m /zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/venv/lib/python3.10/site-packages/torch/nn/modules/loss.py:101: UserWarning: Using a target size (torch.Size([1])) that is different to the input size (torch.Size([])). This will likely lead to incorrect results due to broadcasting. Please ensure they have the same size.
+[36m(train_fnn pid=3500035)[0m   return F.l1_loss(input, target, reduction=self.reduction)
+[36m(train_fnn pid=3546145)[0m /zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/venv/lib/python3.10/site-packages/torch/nn/modules/loss.py:101: UserWarning: Using a target size (torch.Size([1])) that is different to the input size (torch.Size([])). This will likely lead to incorrect results due to broadcasting. Please ensure they have the same size.
+[36m(train_fnn pid=3546145)[0m   return F.l1_loss(input, target, reduction=self.reduction)
+[36m(train_fnn pid=3546392)[0m /zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/venv/lib/python3.10/site-packages/torch/nn/modules/loss.py:101: UserWarning: Using a target size (torch.Size([1])) that is different to the input size (torch.Size([])). This will likely lead to incorrect results due to broadcasting. Please ensure they have the same size.
+[36m(train_fnn pid=3546392)[0m   return F.l1_loss(input, target, reduction=self.reduction)
+[36m(train_fnn pid=3564452)[0m /zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/venv/lib/python3.10/site-packages/torch/nn/modules/loss.py:101: UserWarning: Using a target size (torch.Size([1])) that is different to the input size (torch.Size([])). This will likely lead to incorrect results due to broadcasting. Please ensure they have the same size.
+[36m(train_fnn pid=3564452)[0m   return F.l1_loss(input, target, reduction=self.reduction)
+[36m(train_fnn pid=3531104)[0m /zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/venv/lib/python3.10/site-packages/torch/nn/modules/loss.py:101: UserWarning: Using a target size (torch.Size([1])) that is different to the input size (torch.Size([])). This will likely lead to incorrect results due to broadcasting. Please ensure they have the same size.
+[36m(train_fnn pid=3531104)[0m   return F.l1_loss(input, target, reduction=self.reduction)
+[36m(train_fnn pid=3583159)[0m /zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/venv/lib/python3.10/site-packages/torch/nn/modules/loss.py:101: UserWarning: Using a target size (torch.Size([1])) that is different to the input size (torch.Size([])). This will likely lead to incorrect results due to broadcasting. Please ensure they have the same size.
+[36m(train_fnn pid=3583159)[0m   return F.l1_loss(input, target, reduction=self.reduction)
+[36m(train_fnn pid=3600492)[0m /zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/venv/lib/python3.10/site-packages/torch/nn/modules/loss.py:101: UserWarning: Using a target size (torch.Size([1])) that is different to the input size (torch.Size([])). This will likely lead to incorrect results due to broadcasting. Please ensure they have the same size.
+[36m(train_fnn pid=3600492)[0m   return F.l1_loss(input, target, reduction=self.reduction)
+[36m(train_fnn pid=3600517)[0m /zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/venv/lib/python3.10/site-packages/torch/nn/modules/loss.py:101: UserWarning: Using a target size (torch.Size([1])) that is different to the input size (torch.Size([])). This will likely lead to incorrect results due to broadcasting. Please ensure they have the same size.
+[36m(train_fnn pid=3600517)[0m   return F.l1_loss(input, target, reduction=self.reduction)
+2024-08-31 19:35:43,073	INFO tune.py:1009 -- Wrote the latest version of all result files and experiment state to '/zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/ray_results/train_fnn_2024-08-31_17-09-59' in 0.4438s.
+INFO:model_data_nn.py:Best trial config: {'continuous_dim': 151, 'hidden_dim': 15, 'num_layers': 3, 'num_embeddings': 14571, 'embedding_dim': 8, 'dropout_rate': 0.32, 'lr': 6.915359017305405e-06, 'weight_decay': 4.817264587126729e-05, 'num_epochs': 50, 'num_gpus': 0, 'batch_size': 256}
+INFO:model_data_nn.py:Best trial training loss: 0.1988909301211201
+INFO:model_data_nn.py:Best trial testing loss: 0.14335776249999585
+INFO:main.py:Ray Tune results have been saved to: /zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/ray_results
+INFO:main.py:Best trial directory: /tmp/ray/session_2024-08-31_17-09-55_076723_1024549/artifacts/2024-08-31_17-09-59/train_fnn_2024-08-31_17-09-59/driver_artifacts/train_fnn_86fb7_00057_57_batch_size=256,dropout_rate=0.3200,embedding_dim=8,hidden_dim=15,lr=0.0000,num_layers=3,weight_decay=0.00_2024-08-31_17-10-00
+INFO:main.py:
+
+Retrain a new model with data in years: [1980, 1981, 1982, 1983, 1984, 1985, 1986, 1987, 1988, 1989, 1990, 1991, 1992, 1993, 1994, 1995, 1996, 1997, 1998, 1999, 2000, 2001, 2002, 2003, 2004, 2005]
+
+            Using the optimized hyperparameters: {'continuous_dim': 151, 'hidden_dim': 15, 'num_layers': 3, 'num_embeddings': 14834, 'embedding_dim': 8, 'dropout_rate': 0.32, 'lr': 6.915359017305405e-06, 'weight_decay': 4.817264587126729e-05, 'num_epochs': 50, 'num_gpus': 0, 'batch_size': 256}
+
+INFO:model_data_nn.py:Epoch 1/50, metrics: {'avg_train_loss': 0.20137669853781243, 'avg_test_loss': 0.14637271092454}
+INFO:model_data_nn.py:Epoch 2/50, metrics: {'avg_train_loss': 0.20003890656868253, 'avg_test_loss': 0.14602386962566802}
+INFO:model_data_nn.py:Epoch 3/50, metrics: {'avg_train_loss': 0.19968705015057583, 'avg_test_loss': 0.14589928924592574}
+INFO:model_data_nn.py:Epoch 4/50, metrics: {'avg_train_loss': 0.19952015373389106, 'avg_test_loss': 0.14583513285241909}
+INFO:model_data_nn.py:Epoch 5/50, metrics: {'avg_train_loss': 0.19941872155510212, 'avg_test_loss': 0.14579540835832483}
+INFO:model_data_nn.py:Epoch 6/50, metrics: {'avg_train_loss': 0.1993328687694594, 'avg_test_loss': 0.14572317509064034}
+INFO:model_data_nn.py:Epoch 7/50, metrics: {'avg_train_loss': 0.19924509319092798, 'avg_test_loss': 0.14567776724918566}
+INFO:model_data_nn.py:Epoch 8/50, metrics: {'avg_train_loss': 0.1991818048959441, 'avg_test_loss': 0.1456378256874298}
+INFO:model_data_nn.py:Epoch 9/50, metrics: {'avg_train_loss': 0.1990926996942669, 'avg_test_loss': 0.14554893814805728}
+INFO:model_data_nn.py:Epoch 10/50, metrics: {'avg_train_loss': 0.1989985360150864, 'avg_test_loss': 0.14549161427056612}
+INFO:model_data_nn.py:Epoch 11/50, metrics: {'avg_train_loss': 0.19896894680645852, 'avg_test_loss': 0.14549298684543638}
+INFO:model_data_nn.py:Epoch 12/50, metrics: {'avg_train_loss': 0.19888456791198064, 'avg_test_loss': 0.14547551323228808}
+INFO:model_data_nn.py:Epoch 13/50, metrics: {'avg_train_loss': 0.19878697598985223, 'avg_test_loss': 0.14544312099912274}
+INFO:model_data_nn.py:Epoch 14/50, metrics: {'avg_train_loss': 0.19875404623958678, 'avg_test_loss': 0.14539076643648433}
+INFO:model_data_nn.py:Epoch 15/50, metrics: {'avg_train_loss': 0.19872463559031758, 'avg_test_loss': 0.14540801608740395}
+INFO:model_data_nn.py:Epoch 16/50, metrics: {'avg_train_loss': 0.1986826200776464, 'avg_test_loss': 0.14539468077136508}
+INFO:model_data_nn.py:Epoch 17/50, metrics: {'avg_train_loss': 0.19858126607055274, 'avg_test_loss': 0.14537817139678927}
+INFO:model_data_nn.py:Epoch 18/50, metrics: {'avg_train_loss': 0.1985472144308693, 'avg_test_loss': 0.14534646383861996}
+INFO:model_data_nn.py:Epoch 19/50, metrics: {'avg_train_loss': 0.19850002798614577, 'avg_test_loss': 0.14534980737006487}
+INFO:model_data_nn.py:Epoch 20/50, metrics: {'avg_train_loss': 0.19836537237013935, 'avg_test_loss': 0.14532062411308289}
+INFO:model_data_nn.py:Epoch 21/50, metrics: {'avg_train_loss': 0.1983696534160465, 'avg_test_loss': 0.14530320187557988}
+INFO:model_data_nn.py:Epoch 22/50, metrics: {'avg_train_loss': 0.1983501656078532, 'avg_test_loss': 0.14528839812794728}
+INFO:model_data_nn.py:Epoch 23/50, metrics: {'avg_train_loss': 0.19828279229021017, 'avg_test_loss': 0.14530060429181627}
+INFO:model_data_nn.py:Epoch 24/50, metrics: {'avg_train_loss': 0.19824091163474497, 'avg_test_loss': 0.1452947621470067}
+INFO:model_data_nn.py:Epoch 25/50, metrics: {'avg_train_loss': 0.1981826084061337, 'avg_test_loss': 0.14527283853559353}
+INFO:model_data_nn.py:Epoch 26/50, metrics: {'avg_train_loss': 0.19811156756989234, 'avg_test_loss': 0.14526589515049065}
+INFO:model_data_nn.py:Epoch 27/50, metrics: {'avg_train_loss': 0.1980979174782855, 'avg_test_loss': 0.14526763992078268}
+INFO:model_data_nn.py:Epoch 28/50, metrics: {'avg_train_loss': 0.19806483912372916, 'avg_test_loss': 0.14527421945066593}
+INFO:model_data_nn.py:Epoch 29/50, metrics: {'avg_train_loss': 0.1979776044675321, 'avg_test_loss': 0.14525035468500053}
+INFO:model_data_nn.py:Epoch 30/50, metrics: {'avg_train_loss': 0.1979407535988948, 'avg_test_loss': 0.14524709611241496}
+INFO:model_data_nn.py:Epoch 31/50, metrics: {'avg_train_loss': 0.19787392946032295, 'avg_test_loss': 0.14522487636822373}
+INFO:model_data_nn.py:Epoch 32/50, metrics: {'avg_train_loss': 0.19781819084374944, 'avg_test_loss': 0.14521312090887953}
+INFO:model_data_nn.py:Epoch 33/50, metrics: {'avg_train_loss': 0.1978049859794913, 'avg_test_loss': 0.14524475696371564}
+INFO:model_data_nn.py:Epoch 34/50, metrics: {'avg_train_loss': 0.19775607300273107, 'avg_test_loss': 0.1452321832749381}
+INFO:model_data_nn.py:Epoch 35/50, metrics: {'avg_train_loss': 0.19770874030429844, 'avg_test_loss': 0.1452275932724796}
+INFO:model_data_nn.py:Epoch 36/50, metrics: {'avg_train_loss': 0.19770711830950816, 'avg_test_loss': 0.14520591897750967}
+INFO:model_data_nn.py:Epoch 37/50, metrics: {'avg_train_loss': 0.19768200829998508, 'avg_test_loss': 0.14518786188381821}
+INFO:model_data_nn.py:Epoch 38/50, metrics: {'avg_train_loss': 0.19762221414061235, 'avg_test_loss': 0.1452466821047797}
+INFO:model_data_nn.py:Epoch 39/50, metrics: {'avg_train_loss': 0.19752367891388223, 'avg_test_loss': 0.14518052061547093}
+INFO:model_data_nn.py:Epoch 40/50, metrics: {'avg_train_loss': 0.19752252239369042, 'avg_test_loss': 0.14519049127155276}
+INFO:model_data_nn.py:Epoch 41/50, metrics: {'avg_train_loss': 0.19742380108064833, 'avg_test_loss': 0.14517397188873432}
+INFO:model_data_nn.py:Epoch 42/50, metrics: {'avg_train_loss': 0.19746466618294325, 'avg_test_loss': 0.14519898459982516}
+INFO:model_data_nn.py:Epoch 43/50, metrics: {'avg_train_loss': 0.19747125888603967, 'avg_test_loss': 0.14519656393955002}
+INFO:model_data_nn.py:Epoch 44/50, metrics: {'avg_train_loss': 0.19742745629475708, 'avg_test_loss': 0.14518530266498453}
+INFO:model_data_nn.py:Epoch 45/50, metrics: {'avg_train_loss': 0.1973443781969759, 'avg_test_loss': 0.1451868938643541}
+INFO:model_data_nn.py:Epoch 46/50, metrics: {'avg_train_loss': 0.19727808737741245, 'avg_test_loss': 0.14516316054027473}
+INFO:model_data_nn.py:Epoch 47/50, metrics: {'avg_train_loss': 0.19727290577015463, 'avg_test_loss': 0.1451832306251597}
+INFO:model_data_nn.py:Epoch 48/50, metrics: {'avg_train_loss': 0.19715399028635786, 'avg_test_loss': 0.14517992401300972}
+INFO:model_data_nn.py:Epoch 49/50, metrics: {'avg_train_loss': 0.19714040304099237, 'avg_test_loss': 0.14517339930605533}
+INFO:model_data_nn.py:Epoch 50/50, metrics: {'avg_train_loss': 0.19707850135166988, 'avg_test_loss': 0.1451824684418849}
+INFO:main.py:Making prediction for data in year: 2006
+INFO:main.py:Prediction data shape: (17129,)
+/zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/src/main.py:335: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+
+See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
+  prediction_data['pred'] = predictions
+INFO:main.py:Root Mean Squared Error for Prediction in 2006: 0.2290750605323018
+INFO:main.py:Prediction Stats:                retq          pred
+count  17129.000000  17129.000000
+mean       0.041924      0.008742
+std        0.226924      0.020142
+min       -0.891239     -0.136411
+25%       -0.066391      0.004383
+50%        0.021390      0.013997
+75%        0.123542      0.020101
+max        3.713501      0.045495
+INFO:main.py:
+
+Transform data
+
+INFO:transform_data_nn.py:Train data years: [1980, 1981, 1982, 1983, 1984, 1985, 1986, 1987, 1988, 1989, 1990, 1991, 1992, 1993, 1994, 1995, 1996, 1997, 1998, 1999, 2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007]
+INFO:transform_data_nn.py:Train_data: (483505, 161)
+
+INFO:transform_data_nn.py:Test data years: [2008]
+INFO:transform_data_nn.py:Test_data: (16465, 161)
+
+INFO:transform_data_nn.py:Retrain data years: [1980, 1981, 1982, 1983, 1984, 1985, 1986, 1987, 1988, 1989, 1990, 1991, 1992, 1993, 1994, 1995, 1996, 1997, 1998, 1999, 2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008]
+INFO:transform_data_nn.py:Retrain_data: (499970, 161)
+
+INFO:transform_data_nn.py:Prediction data years: [2009]
+INFO:transform_data_nn.py:Prediction_data: (16061, 161)
+
+INFO:main.py:
+
+Generate X and y with train_data and test_data
+
+INFO:main.py:
+            x_train_tf: torch.Size([483505, 152])
+            y_train_tf: torch.Size([483505])
+
+            x_test_tf: torch.Size([16465, 152])
+            y_test_tf: torch.Size([16465])
+
+        
+INFO:main.py:
+
+Generate X and y with retrain_data and prediction_data
+
+INFO:main.py:
+            x_retrain_tf: torch.Size([499970, 152])
+            y_retrain_tf: torch.Size([499970])
+
+            x_prediction_tf: torch.Size([16061, 152])
+            y_prediction_tf: torch.Size([16061])
+
+        
+INFO:main.py:
+
+Create dataset
+
+INFO:main.py:Create train_dataset
+INFO:main.py:Create test_dataset
+INFO:main.py:Create retrain_dataset
+INFO:main.py:Create prediction_dataset
+INFO:main.py:
+
+Hyperparameters tuning with Ray Tune
+
+INFO:main.py:Training data years: [1980, 1981, 1982, 1983, 1984, 1985, 1986, 1987, 1988, 1989, 1990, 1991, 1992, 1993, 1994, 1995, 1996, 1997, 1998, 1999, 2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007]
+INFO:main.py:Testing data year: 2008
+INFO:main.py:
+
+            ray_results_path: /zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/ray_results
+            num_samples: 200
+            max_num_epochs: 50
+            num_cpus: 24
+            cpus_per_trial: 1
+            num_gpus: 0
+            gpus_per_trial: 0
+            continuous_dim: 151
+            num_embeddings: 15361
+            device: cpu
+            
+2024-08-31 20:44:12,127	INFO worker.py:1753 -- Started a local Ray instance.
+2024-08-31 20:44:12,179	INFO packaging.py:530 -- Creating a file package for local directory '/zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/src'.
+2024-08-31 20:44:12,230	INFO packaging.py:358 -- Pushing file package 'gcs://_ray_pkg_360b0bbce57fb629.zip' (5.17MiB) to Ray cluster...
+2024-08-31 20:44:12,247	INFO packaging.py:371 -- Successfully pushed file package 'gcs://_ray_pkg_360b0bbce57fb629.zip'.
+2024-08-31 20:44:14,100	WARNING tune.py:902 -- AIR_VERBOSITY is set, ignoring passed-in ProgressReporter for now.
+[36m(train_fnn pid=1555795)[0m /zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/venv/lib/python3.10/site-packages/torch/nn/modules/loss.py:101: UserWarning: Using a target size (torch.Size([1])) that is different to the input size (torch.Size([])). This will likely lead to incorrect results due to broadcasting. Please ensure they have the same size.
+[36m(train_fnn pid=1555795)[0m   return F.l1_loss(input, target, reduction=self.reduction)
+[36m(train_fnn pid=1556595)[0m /zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/venv/lib/python3.10/site-packages/torch/nn/modules/loss.py:101: UserWarning: Using a target size (torch.Size([1])) that is different to the input size (torch.Size([])). This will likely lead to incorrect results due to broadcasting. Please ensure they have the same size.
+[36m(train_fnn pid=1556595)[0m   return F.l1_loss(input, target, reduction=self.reduction)
+[36m(train_fnn pid=1555450)[0m /zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/venv/lib/python3.10/site-packages/torch/nn/modules/loss.py:101: UserWarning: Using a target size (torch.Size([1])) that is different to the input size (torch.Size([])). This will likely lead to incorrect results due to broadcasting. Please ensure they have the same size.
+[36m(train_fnn pid=1555450)[0m   return F.l1_loss(input, target, reduction=self.reduction)
+[36m(train_fnn pid=1555471)[0m /zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/venv/lib/python3.10/site-packages/torch/nn/modules/loss.py:101: UserWarning: Using a target size (torch.Size([1])) that is different to the input size (torch.Size([])). This will likely lead to incorrect results due to broadcasting. Please ensure they have the same size.
+[36m(train_fnn pid=1555471)[0m   return F.l1_loss(input, target, reduction=self.reduction)
+[36m(train_fnn pid=1555903)[0m /zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/venv/lib/python3.10/site-packages/torch/nn/modules/loss.py:101: UserWarning: Using a target size (torch.Size([1])) that is different to the input size (torch.Size([])). This will likely lead to incorrect results due to broadcasting. Please ensure they have the same size.
+[36m(train_fnn pid=1555903)[0m   return F.l1_loss(input, target, reduction=self.reduction)
+[36m(train_fnn pid=1556708)[0m /zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/venv/lib/python3.10/site-packages/torch/nn/modules/loss.py:101: UserWarning: Using a target size (torch.Size([1])) that is different to the input size (torch.Size([])). This will likely lead to incorrect results due to broadcasting. Please ensure they have the same size.
+[36m(train_fnn pid=1556708)[0m   return F.l1_loss(input, target, reduction=self.reduction)
+[36m(train_fnn pid=1555860)[0m /zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/venv/lib/python3.10/site-packages/torch/nn/modules/loss.py:101: UserWarning: Using a target size (torch.Size([1])) that is different to the input size (torch.Size([])). This will likely lead to incorrect results due to broadcasting. Please ensure they have the same size.
+[36m(train_fnn pid=1555860)[0m   return F.l1_loss(input, target, reduction=self.reduction)
+[36m(train_fnn pid=1555405)[0m /zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/venv/lib/python3.10/site-packages/torch/nn/modules/loss.py:101: UserWarning: Using a target size (torch.Size([1])) that is different to the input size (torch.Size([])). This will likely lead to incorrect results due to broadcasting. Please ensure they have the same size.[32m [repeated 2x across cluster][0m
+[36m(train_fnn pid=1555405)[0m   return F.l1_loss(input, target, reduction=self.reduction)[32m [repeated 2x across cluster][0m
+[36m(train_fnn pid=1582393)[0m /zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/venv/lib/python3.10/site-packages/torch/nn/modules/loss.py:101: UserWarning: Using a target size (torch.Size([1])) that is different to the input size (torch.Size([])). This will likely lead to incorrect results due to broadcasting. Please ensure they have the same size.
+[36m(train_fnn pid=1582393)[0m   return F.l1_loss(input, target, reduction=self.reduction)
+[36m(train_fnn pid=1565447)[0m /zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/venv/lib/python3.10/site-packages/torch/nn/modules/loss.py:101: UserWarning: Using a target size (torch.Size([1])) that is different to the input size (torch.Size([])). This will likely lead to incorrect results due to broadcasting. Please ensure they have the same size.
+[36m(train_fnn pid=1565447)[0m   return F.l1_loss(input, target, reduction=self.reduction)
+[36m(train_fnn pid=1588627)[0m /zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/venv/lib/python3.10/site-packages/torch/nn/modules/loss.py:101: UserWarning: Using a target size (torch.Size([1])) that is different to the input size (torch.Size([])). This will likely lead to incorrect results due to broadcasting. Please ensure they have the same size.
+[36m(train_fnn pid=1588627)[0m   return F.l1_loss(input, target, reduction=self.reduction)
+[36m(train_fnn pid=1556702)[0m /zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/venv/lib/python3.10/site-packages/torch/nn/modules/loss.py:101: UserWarning: Using a target size (torch.Size([1])) that is different to the input size (torch.Size([])). This will likely lead to incorrect results due to broadcasting. Please ensure they have the same size.
+[36m(train_fnn pid=1556702)[0m   return F.l1_loss(input, target, reduction=self.reduction)
+[36m(train_fnn pid=1608089)[0m /zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/venv/lib/python3.10/site-packages/torch/nn/modules/loss.py:101: UserWarning: Using a target size (torch.Size([1])) that is different to the input size (torch.Size([])). This will likely lead to incorrect results due to broadcasting. Please ensure they have the same size.
+[36m(train_fnn pid=1608089)[0m   return F.l1_loss(input, target, reduction=self.reduction)
+[36m(train_fnn pid=1601069)[0m /zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/venv/lib/python3.10/site-packages/torch/nn/modules/loss.py:101: UserWarning: Using a target size (torch.Size([1])) that is different to the input size (torch.Size([])). This will likely lead to incorrect results due to broadcasting. Please ensure they have the same size.
+[36m(train_fnn pid=1601069)[0m   return F.l1_loss(input, target, reduction=self.reduction)
+[36m(train_fnn pid=1556705)[0m /zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/venv/lib/python3.10/site-packages/torch/nn/modules/loss.py:101: UserWarning: Using a target size (torch.Size([1])) that is different to the input size (torch.Size([])). This will likely lead to incorrect results due to broadcasting. Please ensure they have the same size.
+[36m(train_fnn pid=1556705)[0m   return F.l1_loss(input, target, reduction=self.reduction)
+[36m(train_fnn pid=1588198)[0m /zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/venv/lib/python3.10/site-packages/torch/nn/modules/loss.py:101: UserWarning: Using a target size (torch.Size([1])) that is different to the input size (torch.Size([])). This will likely lead to incorrect results due to broadcasting. Please ensure they have the same size.
+[36m(train_fnn pid=1588198)[0m   return F.l1_loss(input, target, reduction=self.reduction)
+[36m(train_fnn pid=1582379)[0m /zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/venv/lib/python3.10/site-packages/torch/nn/modules/loss.py:101: UserWarning: Using a target size (torch.Size([1])) that is different to the input size (torch.Size([])). This will likely lead to incorrect results due to broadcasting. Please ensure they have the same size.
+[36m(train_fnn pid=1582379)[0m   return F.l1_loss(input, target, reduction=self.reduction)
+[36m(train_fnn pid=1607659)[0m /zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/venv/lib/python3.10/site-packages/torch/nn/modules/loss.py:101: UserWarning: Using a target size (torch.Size([1])) that is different to the input size (torch.Size([])). This will likely lead to incorrect results due to broadcasting. Please ensure they have the same size.
+[36m(train_fnn pid=1607659)[0m   return F.l1_loss(input, target, reduction=self.reduction)
+[36m(train_fnn pid=1653828)[0m /zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/venv/lib/python3.10/site-packages/torch/nn/modules/loss.py:101: UserWarning: Using a target size (torch.Size([1])) that is different to the input size (torch.Size([])). This will likely lead to incorrect results due to broadcasting. Please ensure they have the same size.
+[36m(train_fnn pid=1653828)[0m   return F.l1_loss(input, target, reduction=self.reduction)
+[36m(train_fnn pid=1673333)[0m /zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/venv/lib/python3.10/site-packages/torch/nn/modules/loss.py:101: UserWarning: Using a target size (torch.Size([1])) that is different to the input size (torch.Size([])). This will likely lead to incorrect results due to broadcasting. Please ensure they have the same size.
+[36m(train_fnn pid=1673333)[0m   return F.l1_loss(input, target, reduction=self.reduction)
+[36m(train_fnn pid=1654077)[0m /zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/venv/lib/python3.10/site-packages/torch/nn/modules/loss.py:101: UserWarning: Using a target size (torch.Size([1])) that is different to the input size (torch.Size([])). This will likely lead to incorrect results due to broadcasting. Please ensure they have the same size.
+[36m(train_fnn pid=1654077)[0m   return F.l1_loss(input, target, reduction=self.reduction)
+[36m(train_fnn pid=1654938)[0m /zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/venv/lib/python3.10/site-packages/torch/nn/modules/loss.py:101: UserWarning: Using a target size (torch.Size([1])) that is different to the input size (torch.Size([])). This will likely lead to incorrect results due to broadcasting. Please ensure they have the same size.
+[36m(train_fnn pid=1654938)[0m   return F.l1_loss(input, target, reduction=self.reduction)
+[36m(train_fnn pid=1674574)[0m /zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/venv/lib/python3.10/site-packages/torch/nn/modules/loss.py:101: UserWarning: Using a target size (torch.Size([1])) that is different to the input size (torch.Size([])). This will likely lead to incorrect results due to broadcasting. Please ensure they have the same size.
+[36m(train_fnn pid=1674574)[0m   return F.l1_loss(input, target, reduction=self.reduction)
+[36m(train_fnn pid=1692470)[0m /zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/venv/lib/python3.10/site-packages/torch/nn/modules/loss.py:101: UserWarning: Using a target size (torch.Size([1])) that is different to the input size (torch.Size([])). This will likely lead to incorrect results due to broadcasting. Please ensure they have the same size.
+[36m(train_fnn pid=1692470)[0m   return F.l1_loss(input, target, reduction=self.reduction)
+[36m(train_fnn pid=1692473)[0m /zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/venv/lib/python3.10/site-packages/torch/nn/modules/loss.py:101: UserWarning: Using a target size (torch.Size([1])) that is different to the input size (torch.Size([])). This will likely lead to incorrect results due to broadcasting. Please ensure they have the same size.
+[36m(train_fnn pid=1692473)[0m   return F.l1_loss(input, target, reduction=self.reduction)
+[36m(train_fnn pid=1692702)[0m /zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/venv/lib/python3.10/site-packages/torch/nn/modules/loss.py:101: UserWarning: Using a target size (torch.Size([1])) that is different to the input size (torch.Size([])). This will likely lead to incorrect results due to broadcasting. Please ensure they have the same size.
+[36m(train_fnn pid=1692702)[0m   return F.l1_loss(input, target, reduction=self.reduction)
+[36m(train_fnn pid=1688857)[0m /zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/venv/lib/python3.10/site-packages/torch/nn/modules/loss.py:101: UserWarning: Using a target size (torch.Size([1])) that is different to the input size (torch.Size([])). This will likely lead to incorrect results due to broadcasting. Please ensure they have the same size.
+[36m(train_fnn pid=1688857)[0m   return F.l1_loss(input, target, reduction=self.reduction)
+[36m(train_fnn pid=1723675)[0m /zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/venv/lib/python3.10/site-packages/torch/nn/modules/loss.py:101: UserWarning: Using a target size (torch.Size([1])) that is different to the input size (torch.Size([])). This will likely lead to incorrect results due to broadcasting. Please ensure they have the same size.
+[36m(train_fnn pid=1723675)[0m   return F.l1_loss(input, target, reduction=self.reduction)
+[36m(train_fnn pid=1738845)[0m /zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/venv/lib/python3.10/site-packages/torch/nn/modules/loss.py:101: UserWarning: Using a target size (torch.Size([1])) that is different to the input size (torch.Size([])). This will likely lead to incorrect results due to broadcasting. Please ensure they have the same size.
+[36m(train_fnn pid=1738845)[0m   return F.l1_loss(input, target, reduction=self.reduction)
+[36m(train_fnn pid=1723492)[0m /zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/venv/lib/python3.10/site-packages/torch/nn/modules/loss.py:101: UserWarning: Using a target size (torch.Size([1])) that is different to the input size (torch.Size([])). This will likely lead to incorrect results due to broadcasting. Please ensure they have the same size.
+[36m(train_fnn pid=1723492)[0m   return F.l1_loss(input, target, reduction=self.reduction)
+[36m(train_fnn pid=1740123)[0m /zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/venv/lib/python3.10/site-packages/torch/nn/modules/loss.py:101: UserWarning: Using a target size (torch.Size([1])) that is different to the input size (torch.Size([])). This will likely lead to incorrect results due to broadcasting. Please ensure they have the same size.
+[36m(train_fnn pid=1740123)[0m   return F.l1_loss(input, target, reduction=self.reduction)
+[36m(train_fnn pid=1693343)[0m /zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/venv/lib/python3.10/site-packages/torch/nn/modules/loss.py:101: UserWarning: Using a target size (torch.Size([1])) that is different to the input size (torch.Size([])). This will likely lead to incorrect results due to broadcasting. Please ensure they have the same size.
+[36m(train_fnn pid=1693343)[0m   return F.l1_loss(input, target, reduction=self.reduction)
+[36m(train_fnn pid=1740679)[0m /zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/venv/lib/python3.10/site-packages/torch/nn/modules/loss.py:101: UserWarning: Using a target size (torch.Size([1])) that is different to the input size (torch.Size([])). This will likely lead to incorrect results due to broadcasting. Please ensure they have the same size.
+[36m(train_fnn pid=1740679)[0m   return F.l1_loss(input, target, reduction=self.reduction)
+[36m(train_fnn pid=1727138)[0m /zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/venv/lib/python3.10/site-packages/torch/nn/modules/loss.py:101: UserWarning: Using a target size (torch.Size([1])) that is different to the input size (torch.Size([])). This will likely lead to incorrect results due to broadcasting. Please ensure they have the same size.
+[36m(train_fnn pid=1727138)[0m   return F.l1_loss(input, target, reduction=self.reduction)
+[36m(train_fnn pid=1758370)[0m /zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/venv/lib/python3.10/site-packages/torch/nn/modules/loss.py:101: UserWarning: Using a target size (torch.Size([1])) that is different to the input size (torch.Size([])). This will likely lead to incorrect results due to broadcasting. Please ensure they have the same size.
+[36m(train_fnn pid=1758370)[0m   return F.l1_loss(input, target, reduction=self.reduction)
+[36m(train_fnn pid=1725376)[0m /zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/venv/lib/python3.10/site-packages/torch/nn/modules/loss.py:101: UserWarning: Using a target size (torch.Size([1])) that is different to the input size (torch.Size([])). This will likely lead to incorrect results due to broadcasting. Please ensure they have the same size.
+[36m(train_fnn pid=1725376)[0m   return F.l1_loss(input, target, reduction=self.reduction)
+[36m(train_fnn pid=1799763)[0m /zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/venv/lib/python3.10/site-packages/torch/nn/modules/loss.py:101: UserWarning: Using a target size (torch.Size([1])) that is different to the input size (torch.Size([])). This will likely lead to incorrect results due to broadcasting. Please ensure they have the same size.
+[36m(train_fnn pid=1799763)[0m   return F.l1_loss(input, target, reduction=self.reduction)
+[36m(train_fnn pid=1801498)[0m /zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/venv/lib/python3.10/site-packages/torch/nn/modules/loss.py:101: UserWarning: Using a target size (torch.Size([1])) that is different to the input size (torch.Size([])). This will likely lead to incorrect results due to broadcasting. Please ensure they have the same size.
+[36m(train_fnn pid=1801498)[0m   return F.l1_loss(input, target, reduction=self.reduction)
+[36m(train_fnn pid=1804746)[0m /zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/venv/lib/python3.10/site-packages/torch/nn/modules/loss.py:101: UserWarning: Using a target size (torch.Size([1])) that is different to the input size (torch.Size([])). This will likely lead to incorrect results due to broadcasting. Please ensure they have the same size.
+[36m(train_fnn pid=1804746)[0m   return F.l1_loss(input, target, reduction=self.reduction)
+[36m(train_fnn pid=1848922)[0m /zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/venv/lib/python3.10/site-packages/torch/nn/modules/loss.py:101: UserWarning: Using a target size (torch.Size([1])) that is different to the input size (torch.Size([])). This will likely lead to incorrect results due to broadcasting. Please ensure they have the same size.
+[36m(train_fnn pid=1848922)[0m   return F.l1_loss(input, target, reduction=self.reduction)
+[36m(train_fnn pid=1849234)[0m /zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/venv/lib/python3.10/site-packages/torch/nn/modules/loss.py:101: UserWarning: Using a target size (torch.Size([1])) that is different to the input size (torch.Size([])). This will likely lead to incorrect results due to broadcasting. Please ensure they have the same size.
+[36m(train_fnn pid=1849234)[0m   return F.l1_loss(input, target, reduction=self.reduction)
+[36m(train_fnn pid=1846850)[0m /zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/venv/lib/python3.10/site-packages/torch/nn/modules/loss.py:101: UserWarning: Using a target size (torch.Size([1])) that is different to the input size (torch.Size([])). This will likely lead to incorrect results due to broadcasting. Please ensure they have the same size.
+[36m(train_fnn pid=1846850)[0m   return F.l1_loss(input, target, reduction=self.reduction)
+[36m(train_fnn pid=1867904)[0m /zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/venv/lib/python3.10/site-packages/torch/nn/modules/loss.py:101: UserWarning: Using a target size (torch.Size([1])) that is different to the input size (torch.Size([])). This will likely lead to incorrect results due to broadcasting. Please ensure they have the same size.
+[36m(train_fnn pid=1867904)[0m   return F.l1_loss(input, target, reduction=self.reduction)
+[36m(train_fnn pid=1822058)[0m /zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/venv/lib/python3.10/site-packages/torch/nn/modules/loss.py:101: UserWarning: Using a target size (torch.Size([1])) that is different to the input size (torch.Size([])). This will likely lead to incorrect results due to broadcasting. Please ensure they have the same size.
+[36m(train_fnn pid=1822058)[0m   return F.l1_loss(input, target, reduction=self.reduction)
+[36m(train_fnn pid=1885851)[0m /zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/venv/lib/python3.10/site-packages/torch/nn/modules/loss.py:101: UserWarning: Using a target size (torch.Size([1])) that is different to the input size (torch.Size([])). This will likely lead to incorrect results due to broadcasting. Please ensure they have the same size.
+[36m(train_fnn pid=1885851)[0m   return F.l1_loss(input, target, reduction=self.reduction)
+[36m(train_fnn pid=1888597)[0m /zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/venv/lib/python3.10/site-packages/torch/nn/modules/loss.py:101: UserWarning: Using a target size (torch.Size([1])) that is different to the input size (torch.Size([])). This will likely lead to incorrect results due to broadcasting. Please ensure they have the same size.
+[36m(train_fnn pid=1888597)[0m   return F.l1_loss(input, target, reduction=self.reduction)
+[36m(train_fnn pid=1913966)[0m /zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/venv/lib/python3.10/site-packages/torch/nn/modules/loss.py:101: UserWarning: Using a target size (torch.Size([1])) that is different to the input size (torch.Size([])). This will likely lead to incorrect results due to broadcasting. Please ensure they have the same size.
+[36m(train_fnn pid=1913966)[0m   return F.l1_loss(input, target, reduction=self.reduction)
+[36m(train_fnn pid=1886161)[0m /zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/venv/lib/python3.10/site-packages/torch/nn/modules/loss.py:101: UserWarning: Using a target size (torch.Size([1])) that is different to the input size (torch.Size([])). This will likely lead to incorrect results due to broadcasting. Please ensure they have the same size.
+[36m(train_fnn pid=1886161)[0m   return F.l1_loss(input, target, reduction=self.reduction)
+[36m(train_fnn pid=1886844)[0m /zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/venv/lib/python3.10/site-packages/torch/nn/modules/loss.py:101: UserWarning: Using a target size (torch.Size([1])) that is different to the input size (torch.Size([])). This will likely lead to incorrect results due to broadcasting. Please ensure they have the same size.
+[36m(train_fnn pid=1886844)[0m   return F.l1_loss(input, target, reduction=self.reduction)
+[36m(train_fnn pid=1933678)[0m /zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/venv/lib/python3.10/site-packages/torch/nn/modules/loss.py:101: UserWarning: Using a target size (torch.Size([1])) that is different to the input size (torch.Size([])). This will likely lead to incorrect results due to broadcasting. Please ensure they have the same size.
+[36m(train_fnn pid=1933678)[0m   return F.l1_loss(input, target, reduction=self.reduction)
+[36m(train_fnn pid=1917616)[0m /zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/venv/lib/python3.10/site-packages/torch/nn/modules/loss.py:101: UserWarning: Using a target size (torch.Size([1])) that is different to the input size (torch.Size([])). This will likely lead to incorrect results due to broadcasting. Please ensure they have the same size.
+[36m(train_fnn pid=1917616)[0m   return F.l1_loss(input, target, reduction=self.reduction)
+[36m(train_fnn pid=1930414)[0m /zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/venv/lib/python3.10/site-packages/torch/nn/modules/loss.py:101: UserWarning: Using a target size (torch.Size([1])) that is different to the input size (torch.Size([])). This will likely lead to incorrect results due to broadcasting. Please ensure they have the same size.
+[36m(train_fnn pid=1930414)[0m   return F.l1_loss(input, target, reduction=self.reduction)
+[36m(train_fnn pid=1934174)[0m /zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/venv/lib/python3.10/site-packages/torch/nn/modules/loss.py:101: UserWarning: Using a target size (torch.Size([1])) that is different to the input size (torch.Size([])). This will likely lead to incorrect results due to broadcasting. Please ensure they have the same size.
+[36m(train_fnn pid=1934174)[0m   return F.l1_loss(input, target, reduction=self.reduction)
+[36m(train_fnn pid=1980966)[0m /zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/venv/lib/python3.10/site-packages/torch/nn/modules/loss.py:101: UserWarning: Using a target size (torch.Size([1])) that is different to the input size (torch.Size([])). This will likely lead to incorrect results due to broadcasting. Please ensure they have the same size.
+[36m(train_fnn pid=1980966)[0m   return F.l1_loss(input, target, reduction=self.reduction)
+[36m(train_fnn pid=1954335)[0m /zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/venv/lib/python3.10/site-packages/torch/nn/modules/loss.py:101: UserWarning: Using a target size (torch.Size([1])) that is different to the input size (torch.Size([])). This will likely lead to incorrect results due to broadcasting. Please ensure they have the same size.
+[36m(train_fnn pid=1954335)[0m   return F.l1_loss(input, target, reduction=self.reduction)
+[36m(train_fnn pid=1953003)[0m /zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/venv/lib/python3.10/site-packages/torch/nn/modules/loss.py:101: UserWarning: Using a target size (torch.Size([1])) that is different to the input size (torch.Size([])). This will likely lead to incorrect results due to broadcasting. Please ensure they have the same size.
+[36m(train_fnn pid=1953003)[0m   return F.l1_loss(input, target, reduction=self.reduction)
+[36m(train_fnn pid=1953252)[0m /zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/venv/lib/python3.10/site-packages/torch/nn/modules/loss.py:101: UserWarning: Using a target size (torch.Size([1])) that is different to the input size (torch.Size([])). This will likely lead to incorrect results due to broadcasting. Please ensure they have the same size.[32m [repeated 2x across cluster][0m
+[36m(train_fnn pid=1953252)[0m   return F.l1_loss(input, target, reduction=self.reduction)[32m [repeated 2x across cluster][0m
+[36m(train_fnn pid=1980967)[0m /zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/venv/lib/python3.10/site-packages/torch/nn/modules/loss.py:101: UserWarning: Using a target size (torch.Size([1])) that is different to the input size (torch.Size([])). This will likely lead to incorrect results due to broadcasting. Please ensure they have the same size.
+[36m(train_fnn pid=1980967)[0m   return F.l1_loss(input, target, reduction=self.reduction)
+[36m(train_fnn pid=1999819)[0m /zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/venv/lib/python3.10/site-packages/torch/nn/modules/loss.py:101: UserWarning: Using a target size (torch.Size([1])) that is different to the input size (torch.Size([])). This will likely lead to incorrect results due to broadcasting. Please ensure they have the same size.
+[36m(train_fnn pid=1999819)[0m   return F.l1_loss(input, target, reduction=self.reduction)
+[36m(train_fnn pid=2000049)[0m /zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/venv/lib/python3.10/site-packages/torch/nn/modules/loss.py:101: UserWarning: Using a target size (torch.Size([1])) that is different to the input size (torch.Size([])). This will likely lead to incorrect results due to broadcasting. Please ensure they have the same size.
+[36m(train_fnn pid=2000049)[0m   return F.l1_loss(input, target, reduction=self.reduction)
+[36m(train_fnn pid=2017300)[0m /zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/venv/lib/python3.10/site-packages/torch/nn/modules/loss.py:101: UserWarning: Using a target size (torch.Size([1])) that is different to the input size (torch.Size([])). This will likely lead to incorrect results due to broadcasting. Please ensure they have the same size.
+[36m(train_fnn pid=2017300)[0m   return F.l1_loss(input, target, reduction=self.reduction)
+[36m(train_fnn pid=2015522)[0m /zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/venv/lib/python3.10/site-packages/torch/nn/modules/loss.py:101: UserWarning: Using a target size (torch.Size([1])) that is different to the input size (torch.Size([])). This will likely lead to incorrect results due to broadcasting. Please ensure they have the same size.
+[36m(train_fnn pid=2015522)[0m   return F.l1_loss(input, target, reduction=self.reduction)
+[36m(train_fnn pid=2064227)[0m /zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/venv/lib/python3.10/site-packages/torch/nn/modules/loss.py:101: UserWarning: Using a target size (torch.Size([1])) that is different to the input size (torch.Size([])). This will likely lead to incorrect results due to broadcasting. Please ensure they have the same size.
+[36m(train_fnn pid=2064227)[0m   return F.l1_loss(input, target, reduction=self.reduction)
+[36m(train_fnn pid=2045252)[0m /zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/venv/lib/python3.10/site-packages/torch/nn/modules/loss.py:101: UserWarning: Using a target size (torch.Size([1])) that is different to the input size (torch.Size([])). This will likely lead to incorrect results due to broadcasting. Please ensure they have the same size.
+[36m(train_fnn pid=2045252)[0m   return F.l1_loss(input, target, reduction=self.reduction)
+[36m(train_fnn pid=2051780)[0m /zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/venv/lib/python3.10/site-packages/torch/nn/modules/loss.py:101: UserWarning: Using a target size (torch.Size([1])) that is different to the input size (torch.Size([])). This will likely lead to incorrect results due to broadcasting. Please ensure they have the same size.
+[36m(train_fnn pid=2051780)[0m   return F.l1_loss(input, target, reduction=self.reduction)
+[36m(train_fnn pid=2082565)[0m /zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/venv/lib/python3.10/site-packages/torch/nn/modules/loss.py:101: UserWarning: Using a target size (torch.Size([1])) that is different to the input size (torch.Size([])). This will likely lead to incorrect results due to broadcasting. Please ensure they have the same size.
+[36m(train_fnn pid=2082565)[0m   return F.l1_loss(input, target, reduction=self.reduction)
+[36m(train_fnn pid=2027618)[0m /zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/venv/lib/python3.10/site-packages/torch/nn/modules/loss.py:101: UserWarning: Using a target size (torch.Size([1])) that is different to the input size (torch.Size([])). This will likely lead to incorrect results due to broadcasting. Please ensure they have the same size.
+[36m(train_fnn pid=2027618)[0m   return F.l1_loss(input, target, reduction=self.reduction)
+[36m(train_fnn pid=2083429)[0m /zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/venv/lib/python3.10/site-packages/torch/nn/modules/loss.py:101: UserWarning: Using a target size (torch.Size([1])) that is different to the input size (torch.Size([])). This will likely lead to incorrect results due to broadcasting. Please ensure they have the same size.
+[36m(train_fnn pid=2083429)[0m   return F.l1_loss(input, target, reduction=self.reduction)
+[36m(train_fnn pid=2082995)[0m /zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/venv/lib/python3.10/site-packages/torch/nn/modules/loss.py:101: UserWarning: Using a target size (torch.Size([1])) that is different to the input size (torch.Size([])). This will likely lead to incorrect results due to broadcasting. Please ensure they have the same size.
+[36m(train_fnn pid=2082995)[0m   return F.l1_loss(input, target, reduction=self.reduction)
+[36m(train_fnn pid=2067208)[0m /zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/venv/lib/python3.10/site-packages/torch/nn/modules/loss.py:101: UserWarning: Using a target size (torch.Size([1])) that is different to the input size (torch.Size([])). This will likely lead to incorrect results due to broadcasting. Please ensure they have the same size.
+[36m(train_fnn pid=2067208)[0m   return F.l1_loss(input, target, reduction=self.reduction)
+[36m(train_fnn pid=2111292)[0m /zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/venv/lib/python3.10/site-packages/torch/nn/modules/loss.py:101: UserWarning: Using a target size (torch.Size([1])) that is different to the input size (torch.Size([])). This will likely lead to incorrect results due to broadcasting. Please ensure they have the same size.
+[36m(train_fnn pid=2111292)[0m   return F.l1_loss(input, target, reduction=self.reduction)
+[36m(train_fnn pid=2083855)[0m /zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/venv/lib/python3.10/site-packages/torch/nn/modules/loss.py:101: UserWarning: Using a target size (torch.Size([1])) that is different to the input size (torch.Size([])). This will likely lead to incorrect results due to broadcasting. Please ensure they have the same size.
+[36m(train_fnn pid=2083855)[0m   return F.l1_loss(input, target, reduction=self.reduction)
+2024-08-31 21:55:59,128	INFO tune.py:1009 -- Wrote the latest version of all result files and experiment state to '/zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/ray_results/train_fnn_2024-08-31_20-44-14' in 0.4441s.
+INFO:model_data_nn.py:Best trial config: {'continuous_dim': 151, 'hidden_dim': 15, 'num_layers': 4, 'num_embeddings': 15361, 'embedding_dim': 8, 'dropout_rate': 0.18, 'lr': 2.494239617841715e-06, 'weight_decay': 4.28990003264555e-06, 'num_epochs': 50, 'num_gpus': 0, 'batch_size': 256}
+INFO:model_data_nn.py:Best trial training loss: 0.19568546915079577
+INFO:model_data_nn.py:Best trial testing loss: 0.2392375104702436
+INFO:main.py:Ray Tune results have been saved to: /zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/ray_results
+INFO:main.py:Best trial directory: /tmp/ray/session_2024-08-31_20-44-09_575640_1024549/artifacts/2024-08-31_20-44-14/train_fnn_2024-08-31_20-44-14/driver_artifacts/train_fnn_74dc1_00166_166_batch_size=256,dropout_rate=0.1800,embedding_dim=8,hidden_dim=15,lr=0.0000,num_layers=4,weight_decay=0.0_2024-08-31_20-44-15
+INFO:main.py:
+
+Retrain a new model with data in years: [1980, 1981, 1982, 1983, 1984, 1985, 1986, 1987, 1988, 1989, 1990, 1991, 1992, 1993, 1994, 1995, 1996, 1997, 1998, 1999, 2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008]
+
+            Using the optimized hyperparameters: {'continuous_dim': 151, 'hidden_dim': 15, 'num_layers': 4, 'num_embeddings': 15661, 'embedding_dim': 8, 'dropout_rate': 0.18, 'lr': 2.494239617841715e-06, 'weight_decay': 4.28990003264555e-06, 'num_epochs': 50, 'num_gpus': 0, 'batch_size': 256}
+
+INFO:model_data_nn.py:Epoch 1/50, metrics: {'avg_train_loss': 0.2001953578672834, 'avg_test_loss': 0.2824186777311658}
+INFO:model_data_nn.py:Epoch 2/50, metrics: {'avg_train_loss': 0.1992683092707313, 'avg_test_loss': 0.28196464100527385}
+INFO:model_data_nn.py:Epoch 3/50, metrics: {'avg_train_loss': 0.19864012664150593, 'avg_test_loss': 0.2816720415675451}
+INFO:model_data_nn.py:Epoch 4/50, metrics: {'avg_train_loss': 0.19823609661030514, 'avg_test_loss': 0.28147054132488036}
+INFO:model_data_nn.py:Epoch 5/50, metrics: {'avg_train_loss': 0.19797758966363888, 'avg_test_loss': 0.28145881304665216}
+INFO:model_data_nn.py:Epoch 6/50, metrics: {'avg_train_loss': 0.19779632066953995, 'avg_test_loss': 0.2814876737575682}
+INFO:model_data_nn.py:Epoch 7/50, metrics: {'avg_train_loss': 0.19768348886334342, 'avg_test_loss': 0.2814525894465901}
+INFO:model_data_nn.py:Epoch 8/50, metrics: {'avg_train_loss': 0.1976270074195515, 'avg_test_loss': 0.2814991252999457}
+INFO:model_data_nn.py:Epoch 9/50, metrics: {'avg_train_loss': 0.19755486256638002, 'avg_test_loss': 0.2814476324452294}
+INFO:model_data_nn.py:Epoch 10/50, metrics: {'avg_train_loss': 0.19752937395848558, 'avg_test_loss': 0.2815423585356228}
+INFO:model_data_nn.py:Epoch 11/50, metrics: {'avg_train_loss': 0.19748928337999325, 'avg_test_loss': 0.28154102263469544}
+INFO:model_data_nn.py:Epoch 12/50, metrics: {'avg_train_loss': 0.19747243254720645, 'avg_test_loss': 0.281521770334433}
+INFO:model_data_nn.py:Epoch 13/50, metrics: {'avg_train_loss': 0.19744863575901425, 'avg_test_loss': 0.2815576578889574}
+INFO:model_data_nn.py:Epoch 14/50, metrics: {'avg_train_loss': 0.19741217642488446, 'avg_test_loss': 0.2815526877603834}
+INFO:model_data_nn.py:Epoch 15/50, metrics: {'avg_train_loss': 0.19739761612107676, 'avg_test_loss': 0.2815337320641866}
+INFO:model_data_nn.py:Epoch 16/50, metrics: {'avg_train_loss': 0.19737054635730086, 'avg_test_loss': 0.2815660462966041}
+INFO:model_data_nn.py:Epoch 17/50, metrics: {'avg_train_loss': 0.19734068261435628, 'avg_test_loss': 0.28154117412983426}
+INFO:model_data_nn.py:Epoch 18/50, metrics: {'avg_train_loss': 0.1973258242339155, 'avg_test_loss': 0.28154980805185104}
+INFO:model_data_nn.py:Epoch 19/50, metrics: {'avg_train_loss': 0.19727703377306918, 'avg_test_loss': 0.28153391655475374}
+INFO:model_data_nn.py:Early stopping at epoch 19
+INFO:main.py:Making prediction for data in year: 2009
+INFO:main.py:Prediction data shape: (16061,)
+/zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/src/main.py:335: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+
+See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
+  prediction_data['pred'] = predictions
+INFO:main.py:Root Mean Squared Error for Prediction in 2009: 0.5302284942967758
+INFO:main.py:Prediction Stats:                retq          pred
+count  16061.000000  16061.000000
+mean       0.139171      0.008748
+std        0.512778      0.009112
+min       -0.941129     -0.051185
+25%       -0.088888      0.004881
+50%        0.057852      0.009279
+75%        0.252000      0.014668
+max       18.331762      0.030092
+╭──────────────────────────────────────────────────────────────────╮
+│ Configuration for experiment     train_fnn_2024-08-31_15-09-06   │
+├──────────────────────────────────────────────────────────────────┤
+│ Search algorithm                 BasicVariantGenerator           │
+│ Scheduler                        AsyncHyperBandScheduler         │
+│ Number of trials                 200                             │
+╰──────────────────────────────────────────────────────────────────╯
+
+View detailed results here: /zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/ray_results/train_fnn_2024-08-31_15-09-06
+To visualize your results with TensorBoard, run: `tensorboard --logdir /tmp/ray/session_2024-08-31_15-09-01_269313_1024549/artifacts/2024-08-31_15-09-06/train_fnn_2024-08-31_15-09-06/driver_artifacts`
+
+╭──────────────────────────────────────────────────────────────────╮
+│ Configuration for experiment     train_fnn_2024-08-31_17-09-59   │
+├──────────────────────────────────────────────────────────────────┤
+│ Search algorithm                 BasicVariantGenerator           │
+│ Scheduler                        AsyncHyperBandScheduler         │
+│ Number of trials                 200                             │
+╰──────────────────────────────────────────────────────────────────╯
+
+View detailed results here: /zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/ray_results/train_fnn_2024-08-31_17-09-59
+To visualize your results with TensorBoard, run: `tensorboard --logdir /tmp/ray/session_2024-08-31_17-09-55_076723_1024549/artifacts/2024-08-31_17-09-59/train_fnn_2024-08-31_17-09-59/driver_artifacts`
+
+╭──────────────────────────────────────────────────────────────────╮
+│ Configuration for experiment     train_fnn_2024-08-31_20-44-14   │
+├──────────────────────────────────────────────────────────────────┤
+│ Search algorithm                 BasicVariantGenerator           │
+│ Scheduler                        AsyncHyperBandScheduler         │
+│ Number of trials                 200                             │
+╰──────────────────────────────────────────────────────────────────╯
+
+View detailed results here: /zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/ray_results/train_fnn_2024-08-31_20-44-14
+To visualize your results with TensorBoard, run: `tensorboard --logdir /tmp/ray/session_2024-08-31_20-44-09_575640_1024549/artifacts/2024-08-31_20-44-14/train_fnn_2024-08-31_20-44-14/driver_artifacts`
+
+INFO:postprocess_predictions.py:Post processing prediction files
+INFO:postprocess_predictions.py:Postprocessing data from path: kevin/output/prediction/quarterly_new_vars/quarterly_prediction_1985.csv
+INFO:postprocess_predictions.py:Postprocessing data from path: kevin/output/prediction/quarterly_new_vars/quarterly_prediction_1986.csv
+INFO:postprocess_predictions.py:Postprocessing data from path: kevin/output/prediction/quarterly_new_vars/quarterly_prediction_1987.csv
+INFO:postprocess_predictions.py:Postprocessing data from path: kevin/output/prediction/quarterly_new_vars/quarterly_prediction_1988.csv
+INFO:postprocess_predictions.py:Postprocessing data from path: kevin/output/prediction/quarterly_new_vars/quarterly_prediction_1989.csv
+INFO:postprocess_predictions.py:Postprocessing data from path: kevin/output/prediction/quarterly_new_vars/quarterly_prediction_1990.csv
+INFO:postprocess_predictions.py:Postprocessing data from path: kevin/output/prediction/quarterly_new_vars/quarterly_prediction_1991.csv
+INFO:postprocess_predictions.py:Postprocessing data from path: kevin/output/prediction/quarterly_new_vars/quarterly_prediction_1992.csv
+INFO:postprocess_predictions.py:Postprocessing data from path: kevin/output/prediction/quarterly_new_vars/quarterly_prediction_1993.csv
+INFO:postprocess_predictions.py:Postprocessing data from path: kevin/output/prediction/quarterly_new_vars/quarterly_prediction_1994.csv
+INFO:postprocess_predictions.py:Postprocessing data from path: kevin/output/prediction/quarterly_new_vars/quarterly_prediction_1995.csv
+INFO:postprocess_predictions.py:Postprocessing data from path: kevin/output/prediction/quarterly_new_vars/quarterly_prediction_1996.csv
+INFO:postprocess_predictions.py:Postprocessing data from path: kevin/output/prediction/quarterly_new_vars/quarterly_prediction_1997.csv
+INFO:postprocess_predictions.py:Postprocessing data from path: kevin/output/prediction/quarterly_new_vars/quarterly_prediction_1998.csv
+INFO:postprocess_predictions.py:Postprocessing data from path: kevin/output/prediction/quarterly_new_vars/quarterly_prediction_1999.csv
+INFO:postprocess_predictions.py:Postprocessing data from path: kevin/output/prediction/quarterly_new_vars/quarterly_prediction_2000.csv
+INFO:postprocess_predictions.py:Postprocessing data from path: kevin/output/prediction/quarterly_new_vars/quarterly_prediction_2001.csv
+INFO:postprocess_predictions.py:Postprocessing data from path: kevin/output/prediction/quarterly_new_vars/quarterly_prediction_2002.csv
+INFO:postprocess_predictions.py:Postprocessing data from path: kevin/output/prediction/quarterly_new_vars/quarterly_prediction_2003.csv
+INFO:postprocess_predictions.py:Postprocessing data from path: kevin/output/prediction/quarterly_new_vars/quarterly_prediction_2004.csv
+INFO:postprocess_predictions.py:Postprocessing data from path: kevin/output/prediction/quarterly_new_vars/quarterly_prediction_2005.csv
+INFO:postprocess_predictions.py:Postprocessing data from path: kevin/output/prediction/quarterly_new_vars/quarterly_prediction_2006.csv
+INFO:postprocess_predictions.py:Postprocessing data from path: kevin/output/prediction/quarterly_new_vars/quarterly_prediction_2007.csv
+INFO:postprocess_predictions.py:Postprocessing data from path: kevin/output/prediction/quarterly_new_vars/quarterly_prediction_2008.csv
+INFO:postprocess_predictions.py:Postprocessing data from path: kevin/output/prediction/quarterly_new_vars/quarterly_prediction_2009.csv
+INFO:postprocess_predictions.py:Postprocessing data from path: kevin/output/prediction/quarterly_new_vars/quarterly_prediction_2010.csv
+INFO:postprocess_predictions.py:Postprocessing data from path: kevin/output/prediction/quarterly_new_vars/quarterly_prediction_2011.csv
+INFO:postprocess_predictions.py:Postprocessing data from path: kevin/output/prediction/quarterly_new_vars/quarterly_prediction_2012.csv
+INFO:postprocess_predictions.py:Postprocessing data from path: kevin/output/prediction/quarterly_new_vars/quarterly_prediction_2013.csv
+INFO:postprocess_predictions.py:Postprocessing data from path: kevin/output/prediction/quarterly_new_vars/quarterly_prediction_2014.csv
+INFO:postprocess_predictions.py:Postprocessing data from path: kevin/output/prediction/quarterly_new_vars/quarterly_prediction_2015.csv
+INFO:postprocess_predictions.py:Postprocessing data from path: kevin/output/prediction/quarterly_new_vars/quarterly_prediction_2016.csv
+INFO:postprocess_predictions.py:Postprocessing data from path: kevin/output/prediction/quarterly_new_vars/quarterly_prediction_2017.csv
+INFO:postprocess_predictions.py:Postprocessing data from path: kevin/output/prediction/quarterly_new_vars/quarterly_prediction_2018.csv
+INFO:postprocess_predictions.py:Postprocessing data from path: kevin/output/prediction/quarterly_new_vars/quarterly_prediction_2019.csv
+INFO:postprocess_predictions.py:Postprocessing data from path: kevin/output/prediction/quarterly_new_vars/quarterly_prediction_2020.csv
+INFO:postprocess_predictions.py:Sort the result by date and rank both ascendingly
+INFO:postprocess_predictions.py:Saved the result file: result.csv
+to the directory: kevin/output/prediction/quarterly_new_vars

@@ -1,0 +1,857 @@
+Current working directory
+/zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml
+source kevin/venv/bin/activate
+which python3
+/zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/venv/bin/python3
+2024-08-13 14:36:38,717	PANIC scripts.py:900 -- `--address` is a required flag unless starting a head node with `--head`.
+Error: `{}` is a required flag unless starting a head node with `{}`.
+Intel(R) Extension for Scikit-learn* enabled (https://github.com/intel/scikit-learn-intelex)
+Intel(R) Extension for Scikit-learn* enabled (https://github.com/intel/scikit-learn-intelex)
+INFO:preprocess_data_nn.py:
+
+Loading and preprocessing data...
+
+DEBUG:preprocess_data_nn.py:          date   permno
+626    1980-01  10006.0
+5399   1980-01  10057.0
+11398  1980-01  10137.0
+12828  1980-01  10145.0
+13984  1980-01  10153.0
+DEBUG:preprocess_data_nn.py:--------------------------------------------------
+INFO:main_restricted.py:preprocessed df: (2005900, 161)
+INFO:preprocess_data_nn.py:
+
+Applying secondary data preprocessing..
+
+INFO:main_restricted.py:secondary preprocessed df: (1942951, 161)
+INFO:main_restricted.py:df sample:     permno       pdate        ym  gvkey  sic2    absacc       acc    aeavol  ...      roaa      roea   roavola       ret        mve_m      retq  pyear     date
+0  10006.0  1980-01-01  198001.0   1010    37  0.083420  0.083420  1.001090  ...  0.048684  0.141715  0.004512  0.211679   303420.750 -0.055806   1980  1980-01
+1  10057.0  1980-01-01  198001.0   1098    36  0.088951  0.088951 -0.613146  ...  0.092434  0.174252  0.035698  0.282297   111423.125 -0.069431   1980  1980-01
+2  10137.0  1980-01-01  198001.0   1279    49  0.041008  0.041008 -0.491307  ...  0.034895  0.097554  0.006254 -0.032258   617349.500 -0.108065   1980  1980-01
+3  10145.0  1980-01-01  198001.0   1300    99  0.050486  0.050486 -0.256932  ...  0.049028  0.122729  0.004320  0.150127  1415193.000 -0.085950   1980  1980-01
+4  10153.0  1980-01-01  198001.0   1308    13       NaN       NaN  1.631801  ...  0.049860  0.109950  0.009149 -0.122744   429488.500 -0.285199   1980  1980-01
+
+[5 rows x 161 columns]
+INFO:main_restricted.py:Train year start: 1980
+INFO:main_restricted.py:Prediction data years: [1989, 1996, 2002, 2011, 2014]
+INFO:main_restricted.py:
+
+Loop through all the prediction years and build optimized model for each year
+
+INFO:main_restricted.py:
+
+Transform data
+
+INFO:transform_data_nn.py:Train data years: [1980, 1981, 1982, 1983, 1984, 1985, 1986, 1987]
+INFO:transform_data_nn.py:Train_data: (281499, 161)
+
+INFO:transform_data_nn.py:Test data years: [1988]
+INFO:transform_data_nn.py:Test_data: (46885, 161)
+
+INFO:transform_data_nn.py:Retrain data years: [1980, 1981, 1982, 1983, 1984, 1985, 1986, 1987, 1988]
+INFO:transform_data_nn.py:Retrain_data: (328384, 161)
+
+INFO:transform_data_nn.py:Prediction data years: [1989]
+INFO:transform_data_nn.py:Prediction_data: (47501, 161)
+
+INFO:main_restricted.py:
+
+Generate X and y with train_data and test_data
+
+/zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/venv/lib/python3.10/site-packages/sklearn/utils/extmath.py:1140: RuntimeWarning: invalid value encountered in divide
+  updated_mean = (last_sum + new_sum) / updated_sample_count
+/zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/venv/lib/python3.10/site-packages/sklearn/utils/extmath.py:1145: RuntimeWarning: invalid value encountered in divide
+  T = new_sum / new_sample_count
+/zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/venv/lib/python3.10/site-packages/sklearn/utils/extmath.py:1165: RuntimeWarning: invalid value encountered in divide
+  new_unnormalized_variance -= correction**2 / new_sample_count
+INFO:main_restricted.py:
+            x_train_tf: torch.Size([281499, 138])
+            y_train_tf: torch.Size([281499])
+
+            x_test_tf: torch.Size([46885, 138])
+            y_test_tf: torch.Size([46885])
+
+        
+INFO:main_restricted.py:
+
+Generate X and y with retrain_data and prediction_data
+
+/zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/venv/lib/python3.10/site-packages/sklearn/utils/extmath.py:1140: RuntimeWarning: invalid value encountered in divide
+  updated_mean = (last_sum + new_sum) / updated_sample_count
+/zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/venv/lib/python3.10/site-packages/sklearn/utils/extmath.py:1145: RuntimeWarning: invalid value encountered in divide
+  T = new_sum / new_sample_count
+/zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/venv/lib/python3.10/site-packages/sklearn/utils/extmath.py:1165: RuntimeWarning: invalid value encountered in divide
+  new_unnormalized_variance -= correction**2 / new_sample_count
+INFO:main_restricted.py:
+            x_retrain_tf: torch.Size([328384, 138])
+            y_retrain_tf: torch.Size([328384])
+
+            x_prediction_tf: torch.Size([47501, 138])
+            y_prediction_tf: torch.Size([47501])
+
+        
+INFO:main_restricted.py:
+
+Create dataset
+
+INFO:main_restricted.py:Create train_dataset
+INFO:main_restricted.py:Create test_dataset
+INFO:main_restricted.py:Create retrain_dataset
+INFO:main_restricted.py:Create prediction_dataset
+INFO:main_restricted.py:
+
+Hyperparameters tuning with Ray Tune
+
+INFO:main_restricted.py:Training data years: [1980, 1981, 1982, 1983, 1984, 1985, 1986, 1987]
+INFO:main_restricted.py:Testing data year: 1988
+INFO:main_restricted.py:
+
+            ray_results_path: /zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/ray_results
+            num_samples: 150
+            max_num_epochs: 100
+            num_cpus: 26
+            cpus_per_trial: 1
+            num_gpus: 0
+            gpus_per_trial: 0
+            continuous_dim: 137
+            num_embeddings: 5697
+            device: cpu
+            
+2024-08-13 15:20:42,166	INFO worker.py:1753 -- Started a local Ray instance.
+2024-08-13 15:20:42,250	INFO packaging.py:530 -- Creating a file package for local directory '/zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/src'.
+2024-08-13 15:20:42,307	INFO packaging.py:358 -- Pushing file package 'gcs://_ray_pkg_35fa27def23cedb5.zip' (5.11MiB) to Ray cluster...
+2024-08-13 15:20:42,324	INFO packaging.py:371 -- Successfully pushed file package 'gcs://_ray_pkg_35fa27def23cedb5.zip'.
+2024-08-13 15:20:44,307	WARNING tune.py:902 -- AIR_VERBOSITY is set, ignoring passed-in ProgressReporter for now.
+2024-08-13 16:48:49,550	INFO tune.py:1009 -- Wrote the latest version of all result files and experiment state to '/zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/ray_results/train_fnn_2024-08-13_15-20-44' in 0.4490s.
+INFO:model_data_nn.py:Best trial config: {'continuous_dim': 137, 'hidden_dim': 85, 'num_layers': 5, 'num_embeddings': 5697, 'embedding_dim': 5, 'dropout_rate': 0.49, 'lr': 4.311567323931175e-06, 'weight_decay': 1.4102530823156174e-05, 'num_epochs': 100, 'num_gpus': 0, 'batch_size': 32}
+INFO:model_data_nn.py:Best trial training loss: 0.018366491405328075
+INFO:model_data_nn.py:Best trial testing loss: 0.02144421920219073
+INFO:main_restricted.py:Ray Tune results have been saved to: /zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/ray_results
+INFO:main_restricted.py:Best trial directory: /tmp/ray/session_2024-08-13_15-20-38_927436_3646806/artifacts/2024-08-13_15-20-44/train_fnn_2024-08-13_15-20-44/driver_artifacts/train_fnn_48429_00126_126_batch_size=32,dropout_rate=0.4900,embedding_dim=5,hidden_dim=85,lr=0.0000,num_layers=5,weight_decay=0.00_2024-08-13_15-20-45
+INFO:main_restricted.py:
+
+Retrain a new model with data in years: [1980, 1981, 1982, 1983, 1984, 1985, 1986, 1987, 1988]
+
+            Using the optimized hyperparameters: {'continuous_dim': 137, 'hidden_dim': 85, 'num_layers': 5, 'num_embeddings': 6283, 'embedding_dim': 5, 'dropout_rate': 0.49, 'lr': 4.311567323931175e-06, 'weight_decay': 1.4102530823156174e-05, 'num_epochs': 100, 'num_gpus': 0, 'batch_size': 32}
+
+/zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/venv/lib/python3.10/site-packages/torch/cuda/__init__.py:619: UserWarning: Can't initialize NVML
+  warnings.warn("Can't initialize NVML")
+INFO:model_data_nn.py:Epoch 1/100, metrics: {'avg_train_loss': 0.021690542101099525, 'avg_test_loss': 0.023525081660209682}
+INFO:model_data_nn.py:Epoch 2/100, metrics: {'avg_train_loss': 0.01983088268700583, 'avg_test_loss': 0.023519722360847924}
+INFO:model_data_nn.py:Epoch 3/100, metrics: {'avg_train_loss': 0.01963770255866446, 'avg_test_loss': 0.023526373868870867}
+INFO:model_data_nn.py:Epoch 4/100, metrics: {'avg_train_loss': 0.019601597909097195, 'avg_test_loss': 0.02353023018214463}
+INFO:model_data_nn.py:Epoch 5/100, metrics: {'avg_train_loss': 0.019598349301175155, 'avg_test_loss': 0.023531096302731723}
+INFO:model_data_nn.py:Epoch 6/100, metrics: {'avg_train_loss': 0.019586121671392214, 'avg_test_loss': 0.023539775766915193}
+INFO:model_data_nn.py:Epoch 7/100, metrics: {'avg_train_loss': 0.019584147024947277, 'avg_test_loss': 0.02354272278166856}
+INFO:model_data_nn.py:Epoch 8/100, metrics: {'avg_train_loss': 0.019585909637752495, 'avg_test_loss': 0.023545821318841895}
+INFO:model_data_nn.py:Epoch 9/100, metrics: {'avg_train_loss': 0.0195730851163933, 'avg_test_loss': 0.023552092396331204}
+INFO:model_data_nn.py:Epoch 10/100, metrics: {'avg_train_loss': 0.01957156727203195, 'avg_test_loss': 0.02355790861430719}
+INFO:model_data_nn.py:Epoch 11/100, metrics: {'avg_train_loss': 0.01956221131403511, 'avg_test_loss': 0.023558594283306037}
+INFO:model_data_nn.py:Epoch 12/100, metrics: {'avg_train_loss': 0.01954866364678864, 'avg_test_loss': 0.0235759323381314}
+INFO:model_data_nn.py:Epoch 13/100, metrics: {'avg_train_loss': 0.01954786603704666, 'avg_test_loss': 0.02356871981252148}
+INFO:model_data_nn.py:Epoch 14/100, metrics: {'avg_train_loss': 0.019539250158408957, 'avg_test_loss': 0.02358004018438585}
+INFO:model_data_nn.py:Epoch 15/100, metrics: {'avg_train_loss': 0.019525607826560844, 'avg_test_loss': 0.023585882054497596}
+INFO:model_data_nn.py:Epoch 16/100, metrics: {'avg_train_loss': 0.019510635034708644, 'avg_test_loss': 0.023596494558803513}
+INFO:model_data_nn.py:Epoch 17/100, metrics: {'avg_train_loss': 0.01950486895917871, 'avg_test_loss': 0.02357688015279821}
+INFO:model_data_nn.py:Epoch 18/100, metrics: {'avg_train_loss': 0.01948539661349287, 'avg_test_loss': 0.023593721973242533}
+INFO:model_data_nn.py:Epoch 19/100, metrics: {'avg_train_loss': 0.019486782317093543, 'avg_test_loss': 0.023603349289565225}
+INFO:model_data_nn.py:Epoch 20/100, metrics: {'avg_train_loss': 0.019471123568502027, 'avg_test_loss': 0.02362622031644112}
+INFO:model_data_nn.py:Epoch 21/100, metrics: {'avg_train_loss': 0.01945119465031877, 'avg_test_loss': 0.02361753764922922}
+INFO:model_data_nn.py:Epoch 22/100, metrics: {'avg_train_loss': 0.01944220034342787, 'avg_test_loss': 0.023623723122181514}
+INFO:model_data_nn.py:Epoch 23/100, metrics: {'avg_train_loss': 0.01942927469663221, 'avg_test_loss': 0.023630640251398938}
+INFO:model_data_nn.py:Epoch 24/100, metrics: {'avg_train_loss': 0.0194124907561333, 'avg_test_loss': 0.02360591025621652}
+INFO:model_data_nn.py:Epoch 25/100, metrics: {'avg_train_loss': 0.019404649055857683, 'avg_test_loss': 0.023612391778427843}
+INFO:model_data_nn.py:Epoch 26/100, metrics: {'avg_train_loss': 0.019383155995386554, 'avg_test_loss': 0.023624556703392655}
+INFO:model_data_nn.py:Epoch 27/100, metrics: {'avg_train_loss': 0.019378105226439128, 'avg_test_loss': 0.023638876732156585}
+INFO:model_data_nn.py:Epoch 28/100, metrics: {'avg_train_loss': 0.019353237648896945, 'avg_test_loss': 0.023634440271710657}
+INFO:model_data_nn.py:Epoch 29/100, metrics: {'avg_train_loss': 0.019344896665245914, 'avg_test_loss': 0.023621138175385015}
+INFO:model_data_nn.py:Epoch 30/100, metrics: {'avg_train_loss': 0.019328033093195515, 'avg_test_loss': 0.023645466747960257}
+INFO:model_data_nn.py:Epoch 31/100, metrics: {'avg_train_loss': 0.01931951626546008, 'avg_test_loss': 0.023653737953252565}
+INFO:model_data_nn.py:Epoch 32/100, metrics: {'avg_train_loss': 0.01930649147516988, 'avg_test_loss': 0.023629858184398875}
+INFO:model_data_nn.py:Epoch 33/100, metrics: {'avg_train_loss': 0.019290400456318232, 'avg_test_loss': 0.023618678658611145}
+INFO:model_data_nn.py:Epoch 34/100, metrics: {'avg_train_loss': 0.01927691921972474, 'avg_test_loss': 0.02365899332642229}
+INFO:model_data_nn.py:Epoch 35/100, metrics: {'avg_train_loss': 0.019271503785192927, 'avg_test_loss': 0.023586921288039197}
+INFO:model_data_nn.py:Epoch 36/100, metrics: {'avg_train_loss': 0.019253245843962832, 'avg_test_loss': 0.023634175874719315}
+INFO:model_data_nn.py:Epoch 37/100, metrics: {'avg_train_loss': 0.019234245897676774, 'avg_test_loss': 0.02361802288271512}
+INFO:model_data_nn.py:Epoch 38/100, metrics: {'avg_train_loss': 0.019239350615834875, 'avg_test_loss': 0.023591646428693474}
+INFO:model_data_nn.py:Epoch 39/100, metrics: {'avg_train_loss': 0.01923058664731052, 'avg_test_loss': 0.02362204786524904}
+INFO:model_data_nn.py:Epoch 40/100, metrics: {'avg_train_loss': 0.019213239173613606, 'avg_test_loss': 0.023617584965276446}
+INFO:model_data_nn.py:Epoch 41/100, metrics: {'avg_train_loss': 0.019219712928559902, 'avg_test_loss': 0.023574098532937893}
+INFO:model_data_nn.py:Epoch 42/100, metrics: {'avg_train_loss': 0.019194346007767028, 'avg_test_loss': 0.023536831145378627}
+INFO:model_data_nn.py:Epoch 43/100, metrics: {'avg_train_loss': 0.019182685216437918, 'avg_test_loss': 0.02356599862263961}
+INFO:model_data_nn.py:Epoch 44/100, metrics: {'avg_train_loss': 0.01917170495756571, 'avg_test_loss': 0.023546566830333383}
+INFO:model_data_nn.py:Epoch 45/100, metrics: {'avg_train_loss': 0.019173353544206424, 'avg_test_loss': 0.02356054366751251}
+INFO:model_data_nn.py:Epoch 46/100, metrics: {'avg_train_loss': 0.019161726278538776, 'avg_test_loss': 0.02354608778340071}
+INFO:model_data_nn.py:Epoch 47/100, metrics: {'avg_train_loss': 0.01914326519034861, 'avg_test_loss': 0.02353949423139344}
+INFO:model_data_nn.py:Epoch 48/100, metrics: {'avg_train_loss': 0.019144896430403024, 'avg_test_loss': 0.02350098069801124}
+INFO:model_data_nn.py:Epoch 49/100, metrics: {'avg_train_loss': 0.019123483727587366, 'avg_test_loss': 0.02349846228637328}
+INFO:model_data_nn.py:Epoch 50/100, metrics: {'avg_train_loss': 0.019128241013531153, 'avg_test_loss': 0.023528729844211227}
+INFO:model_data_nn.py:Epoch 51/100, metrics: {'avg_train_loss': 0.019113997529319623, 'avg_test_loss': 0.02344068235808651}
+INFO:model_data_nn.py:Epoch 52/100, metrics: {'avg_train_loss': 0.019109044061686724, 'avg_test_loss': 0.02351430544695544}
+INFO:model_data_nn.py:Epoch 53/100, metrics: {'avg_train_loss': 0.019101802897120455, 'avg_test_loss': 0.02347165210947068}
+INFO:model_data_nn.py:Epoch 54/100, metrics: {'avg_train_loss': 0.01909127335331476, 'avg_test_loss': 0.023462554199389033}
+INFO:model_data_nn.py:Epoch 55/100, metrics: {'avg_train_loss': 0.019083429565527055, 'avg_test_loss': 0.023442668891245317}
+INFO:model_data_nn.py:Epoch 56/100, metrics: {'avg_train_loss': 0.019086568577782653, 'avg_test_loss': 0.023455366281391145}
+INFO:model_data_nn.py:Epoch 57/100, metrics: {'avg_train_loss': 0.019077212342417403, 'avg_test_loss': 0.02341871521865278}
+INFO:model_data_nn.py:Epoch 58/100, metrics: {'avg_train_loss': 0.019048631208973477, 'avg_test_loss': 0.023442035423974297}
+INFO:model_data_nn.py:Epoch 59/100, metrics: {'avg_train_loss': 0.01904705153974951, 'avg_test_loss': 0.023432511922994295}
+INFO:model_data_nn.py:Epoch 60/100, metrics: {'avg_train_loss': 0.019048887296657647, 'avg_test_loss': 0.023412901753409193}
+INFO:model_data_nn.py:Epoch 61/100, metrics: {'avg_train_loss': 0.01904054121580338, 'avg_test_loss': 0.023345234539510325}
+INFO:model_data_nn.py:Epoch 62/100, metrics: {'avg_train_loss': 0.019032228084954847, 'avg_test_loss': 0.0233126803901774}
+INFO:model_data_nn.py:Epoch 63/100, metrics: {'avg_train_loss': 0.01904141943883354, 'avg_test_loss': 0.02334352328272706}
+INFO:model_data_nn.py:Epoch 64/100, metrics: {'avg_train_loss': 0.019011931754389127, 'avg_test_loss': 0.02333683871447739}
+INFO:model_data_nn.py:Epoch 65/100, metrics: {'avg_train_loss': 0.019004207211330604, 'avg_test_loss': 0.023317726824890434}
+INFO:model_data_nn.py:Epoch 66/100, metrics: {'avg_train_loss': 0.019000075502914476, 'avg_test_loss': 0.023271498374597042}
+INFO:model_data_nn.py:Epoch 67/100, metrics: {'avg_train_loss': 0.018997766872505106, 'avg_test_loss': 0.02327847662946266}
+INFO:model_data_nn.py:Epoch 68/100, metrics: {'avg_train_loss': 0.01897515299864501, 'avg_test_loss': 0.023261956052748042}
+INFO:model_data_nn.py:Epoch 69/100, metrics: {'avg_train_loss': 0.018979201008211054, 'avg_test_loss': 0.023309614679145843}
+INFO:model_data_nn.py:Epoch 70/100, metrics: {'avg_train_loss': 0.018976750105028257, 'avg_test_loss': 0.023272019017939315}
+INFO:model_data_nn.py:Epoch 71/100, metrics: {'avg_train_loss': 0.018966719012379302, 'avg_test_loss': 0.023244160927694154}
+INFO:model_data_nn.py:Epoch 72/100, metrics: {'avg_train_loss': 0.018946851615280695, 'avg_test_loss': 0.023272662841235147}
+INFO:model_data_nn.py:Epoch 73/100, metrics: {'avg_train_loss': 0.018941378642742663, 'avg_test_loss': 0.02325954240533564}
+INFO:model_data_nn.py:Epoch 74/100, metrics: {'avg_train_loss': 0.01895499749340936, 'avg_test_loss': 0.023243234758437783}
+INFO:model_data_nn.py:Epoch 75/100, metrics: {'avg_train_loss': 0.018933308481470568, 'avg_test_loss': 0.02327178114372923}
+INFO:model_data_nn.py:Epoch 76/100, metrics: {'avg_train_loss': 0.018923223569934387, 'avg_test_loss': 0.02327236684402984}
+INFO:model_data_nn.py:Epoch 77/100, metrics: {'avg_train_loss': 0.01893599184279522, 'avg_test_loss': 0.023239611478221386}
+INFO:model_data_nn.py:Epoch 78/100, metrics: {'avg_train_loss': 0.018910618321201413, 'avg_test_loss': 0.023266188942071563}
+INFO:model_data_nn.py:Epoch 79/100, metrics: {'avg_train_loss': 0.01889937528794498, 'avg_test_loss': 0.02322156826294457}
+INFO:model_data_nn.py:Epoch 80/100, metrics: {'avg_train_loss': 0.01890242782469419, 'avg_test_loss': 0.023241150156855083}
+INFO:model_data_nn.py:Epoch 81/100, metrics: {'avg_train_loss': 0.018894866652150726, 'avg_test_loss': 0.023237596696042}
+INFO:model_data_nn.py:Epoch 82/100, metrics: {'avg_train_loss': 0.018874626393838148, 'avg_test_loss': 0.023233514515720685}
+INFO:model_data_nn.py:Epoch 83/100, metrics: {'avg_train_loss': 0.018885558953103426, 'avg_test_loss': 0.023217649754726326}
+INFO:model_data_nn.py:Epoch 84/100, metrics: {'avg_train_loss': 0.01887840329464946, 'avg_test_loss': 0.02321502619959188}
+INFO:model_data_nn.py:Epoch 85/100, metrics: {'avg_train_loss': 0.018877488407894463, 'avg_test_loss': 0.02322018601687042}
+INFO:model_data_nn.py:Epoch 86/100, metrics: {'avg_train_loss': 0.01885002795225229, 'avg_test_loss': 0.023219299059900573}
+INFO:model_data_nn.py:Epoch 87/100, metrics: {'avg_train_loss': 0.018866018653042105, 'avg_test_loss': 0.02321963189310874}
+INFO:model_data_nn.py:Epoch 88/100, metrics: {'avg_train_loss': 0.018849467859738508, 'avg_test_loss': 0.023208352203891686}
+INFO:model_data_nn.py:Epoch 89/100, metrics: {'avg_train_loss': 0.018846502097735925, 'avg_test_loss': 0.023219321309729958}
+INFO:model_data_nn.py:Epoch 90/100, metrics: {'avg_train_loss': 0.01883618796767554, 'avg_test_loss': 0.02322339470457499}
+INFO:model_data_nn.py:Epoch 91/100, metrics: {'avg_train_loss': 0.018819662344267532, 'avg_test_loss': 0.023214549318219375}
+INFO:model_data_nn.py:Epoch 92/100, metrics: {'avg_train_loss': 0.018823424243815445, 'avg_test_loss': 0.02323532057440015}
+INFO:model_data_nn.py:Epoch 93/100, metrics: {'avg_train_loss': 0.018825037097645502, 'avg_test_loss': 0.023240099992973082}
+INFO:model_data_nn.py:Epoch 94/100, metrics: {'avg_train_loss': 0.01881053811379352, 'avg_test_loss': 0.02322861899524576}
+INFO:model_data_nn.py:Epoch 95/100, metrics: {'avg_train_loss': 0.018809433573796327, 'avg_test_loss': 0.02323666482768727}
+INFO:model_data_nn.py:Epoch 96/100, metrics: {'avg_train_loss': 0.018788231093591852, 'avg_test_loss': 0.02320085050795315}
+INFO:model_data_nn.py:Epoch 97/100, metrics: {'avg_train_loss': 0.01876562691889097, 'avg_test_loss': 0.023225302224420638}
+INFO:model_data_nn.py:Epoch 98/100, metrics: {'avg_train_loss': 0.018793582333593253, 'avg_test_loss': 0.023229139410617827}
+INFO:model_data_nn.py:Epoch 99/100, metrics: {'avg_train_loss': 0.018778353254192807, 'avg_test_loss': 0.023224177225947582}
+INFO:model_data_nn.py:Epoch 100/100, metrics: {'avg_train_loss': 0.01877857498134227, 'avg_test_loss': 0.023212806092299244}
+INFO:main_restricted.py:Making prediction for data in year: 1989
+INFO:main_restricted.py:Prediction data shape: (47501,)
+/zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/src/main_restricted.py:332: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+
+See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
+  prediction_data['pred'] = predictions
+INFO:main_restricted.py:Root Mean Squared Error for Prediction in 1989: 0.15235450627926428
+INFO:main_restricted.py:Prediction Stats:                 ret          pred
+count  47501.000000  47501.000000
+mean       0.011252      0.009706
+std        0.153399      0.017783
+min       -0.900000     -0.106320
+25%       -0.055556     -0.000613
+50%        0.000000      0.012511
+75%        0.066140      0.022726
+max        6.384615      0.043043
+INFO:main_restricted.py:
+
+Transform data
+
+INFO:transform_data_nn.py:Train data years: [1980, 1981, 1982, 1983, 1984, 1985, 1986, 1987, 1988, 1989, 1990, 1991, 1992, 1993, 1994]
+INFO:transform_data_nn.py:Train_data: (625283, 161)
+
+INFO:transform_data_nn.py:Test data years: [1995]
+INFO:transform_data_nn.py:Test_data: (64688, 161)
+
+INFO:transform_data_nn.py:Retrain data years: [1980, 1981, 1982, 1983, 1984, 1985, 1986, 1987, 1988, 1989, 1990, 1991, 1992, 1993, 1994, 1995]
+INFO:transform_data_nn.py:Retrain_data: (689971, 161)
+
+INFO:transform_data_nn.py:Prediction data years: [1996]
+INFO:transform_data_nn.py:Prediction_data: (66364, 161)
+
+INFO:main_restricted.py:
+
+Generate X and y with train_data and test_data
+
+/zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/venv/lib/python3.10/site-packages/sklearn/utils/extmath.py:1140: RuntimeWarning: invalid value encountered in divide
+  updated_mean = (last_sum + new_sum) / updated_sample_count
+/zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/venv/lib/python3.10/site-packages/sklearn/utils/extmath.py:1145: RuntimeWarning: invalid value encountered in divide
+  T = new_sum / new_sample_count
+/zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/venv/lib/python3.10/site-packages/sklearn/utils/extmath.py:1165: RuntimeWarning: invalid value encountered in divide
+  new_unnormalized_variance -= correction**2 / new_sample_count
+INFO:main_restricted.py:
+            x_train_tf: torch.Size([625283, 138])
+            y_train_tf: torch.Size([625283])
+
+            x_test_tf: torch.Size([64688, 138])
+            y_test_tf: torch.Size([64688])
+
+        
+INFO:main_restricted.py:
+
+Generate X and y with retrain_data and prediction_data
+
+/zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/venv/lib/python3.10/site-packages/sklearn/utils/extmath.py:1140: RuntimeWarning: invalid value encountered in divide
+  updated_mean = (last_sum + new_sum) / updated_sample_count
+/zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/venv/lib/python3.10/site-packages/sklearn/utils/extmath.py:1145: RuntimeWarning: invalid value encountered in divide
+  T = new_sum / new_sample_count
+/zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/venv/lib/python3.10/site-packages/sklearn/utils/extmath.py:1165: RuntimeWarning: invalid value encountered in divide
+  new_unnormalized_variance -= correction**2 / new_sample_count
+INFO:main_restricted.py:
+            x_retrain_tf: torch.Size([689971, 138])
+            y_retrain_tf: torch.Size([689971])
+
+            x_prediction_tf: torch.Size([66364, 138])
+            y_prediction_tf: torch.Size([66364])
+
+        
+INFO:main_restricted.py:
+
+Create dataset
+
+INFO:main_restricted.py:Create train_dataset
+INFO:main_restricted.py:Create test_dataset
+INFO:main_restricted.py:Create retrain_dataset
+INFO:main_restricted.py:Create prediction_dataset
+INFO:main_restricted.py:
+
+Hyperparameters tuning with Ray Tune
+
+INFO:main_restricted.py:Training data years: [1980, 1981, 1982, 1983, 1984, 1985, 1986, 1987, 1988, 1989, 1990, 1991, 1992, 1993, 1994]
+INFO:main_restricted.py:Testing data year: 1995
+INFO:main_restricted.py:
+
+            ray_results_path: /zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/ray_results
+            num_samples: 150
+            max_num_epochs: 100
+            num_cpus: 26
+            cpus_per_trial: 1
+            num_gpus: 0
+            gpus_per_trial: 0
+            continuous_dim: 137
+            num_embeddings: 9176
+            device: cpu
+            
+2024-08-13 20:02:48,698	INFO worker.py:1753 -- Started a local Ray instance.
+2024-08-13 20:02:48,759	INFO packaging.py:530 -- Creating a file package for local directory '/zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/src'.
+2024-08-13 20:02:48,821	INFO packaging.py:358 -- Pushing file package 'gcs://_ray_pkg_35fa27def23cedb5.zip' (5.11MiB) to Ray cluster...
+2024-08-13 20:02:48,836	INFO packaging.py:371 -- Successfully pushed file package 'gcs://_ray_pkg_35fa27def23cedb5.zip'.
+2024-08-13 20:02:51,151	WARNING tune.py:902 -- AIR_VERBOSITY is set, ignoring passed-in ProgressReporter for now.
+2024-08-14 02:20:51,079	INFO tune.py:1009 -- Wrote the latest version of all result files and experiment state to '/zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/ray_results/train_fnn_2024-08-13_20-02-51' in 0.4543s.
+INFO:model_data_nn.py:Best trial config: {'continuous_dim': 137, 'hidden_dim': 155, 'num_layers': 5, 'num_embeddings': 9176, 'embedding_dim': 3, 'dropout_rate': 0.53, 'lr': 0.0020590906276482432, 'weight_decay': 0.00022195123288793153, 'num_epochs': 100, 'num_gpus': 0, 'batch_size': 128}
+INFO:model_data_nn.py:Best trial training loss: 0.026366081342154478
+INFO:model_data_nn.py:Best trial testing loss: 0.027136553461726005
+INFO:main_restricted.py:Ray Tune results have been saved to: /zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/ray_results
+INFO:main_restricted.py:Best trial directory: /tmp/ray/session_2024-08-13_20-02-45_759082_3646806/artifacts/2024-08-13_20-02-51/train_fnn_2024-08-13_20-02-51/driver_artifacts/train_fnn_b178a_00018_18_batch_size=128,dropout_rate=0.5300,embedding_dim=3,hidden_dim=155,lr=0.0021,num_layers=5,weight_decay=0.0_2024-08-13_20-02-51
+INFO:main_restricted.py:
+
+Retrain a new model with data in years: [1980, 1981, 1982, 1983, 1984, 1985, 1986, 1987, 1988, 1989, 1990, 1991, 1992, 1993, 1994, 1995]
+
+            Using the optimized hyperparameters: {'continuous_dim': 137, 'hidden_dim': 155, 'num_layers': 5, 'num_embeddings': 9990, 'embedding_dim': 3, 'dropout_rate': 0.53, 'lr': 0.0020590906276482432, 'weight_decay': 0.00022195123288793153, 'num_epochs': 100, 'num_gpus': 0, 'batch_size': 128}
+
+INFO:model_data_nn.py:Epoch 1/100, metrics: {'avg_train_loss': 0.02657458532518657, 'avg_test_loss': 0.028885184567392964}
+INFO:model_data_nn.py:Epoch 2/100, metrics: {'avg_train_loss': 0.02644270920230971, 'avg_test_loss': 0.028835772127559074}
+INFO:model_data_nn.py:Epoch 3/100, metrics: {'avg_train_loss': 0.026443701995802777, 'avg_test_loss': 0.028837424276759113}
+INFO:model_data_nn.py:Epoch 4/100, metrics: {'avg_train_loss': 0.026445465059069733, 'avg_test_loss': 0.028838482139872564}
+INFO:model_data_nn.py:Epoch 5/100, metrics: {'avg_train_loss': 0.02643574817358397, 'avg_test_loss': 0.028851527351929102}
+INFO:model_data_nn.py:Epoch 6/100, metrics: {'avg_train_loss': 0.026445485306955556, 'avg_test_loss': 0.028840365235537634}
+INFO:model_data_nn.py:Epoch 7/100, metrics: {'avg_train_loss': 0.026441414632656524, 'avg_test_loss': 0.028933606194852635}
+INFO:model_data_nn.py:Epoch 8/100, metrics: {'avg_train_loss': 0.02644811473019656, 'avg_test_loss': 0.02890214062276115}
+INFO:model_data_nn.py:Epoch 9/100, metrics: {'avg_train_loss': 0.02644504219697916, 'avg_test_loss': 0.028849465040371596}
+INFO:model_data_nn.py:Epoch 10/100, metrics: {'avg_train_loss': 0.026445079856623026, 'avg_test_loss': 0.02887464374454552}
+INFO:model_data_nn.py:Epoch 11/100, metrics: {'avg_train_loss': 0.026444503304536467, 'avg_test_loss': 0.02890354145393637}
+INFO:model_data_nn.py:Epoch 12/100, metrics: {'avg_train_loss': 0.02644587360678417, 'avg_test_loss': 0.028856747517243802}
+INFO:model_data_nn.py:Epoch 13/100, metrics: {'avg_train_loss': 0.026447003041886498, 'avg_test_loss': 0.02889129758035488}
+INFO:model_data_nn.py:Epoch 14/100, metrics: {'avg_train_loss': 0.02644387868203651, 'avg_test_loss': 0.028852004793818917}
+INFO:model_data_nn.py:Epoch 15/100, metrics: {'avg_train_loss': 0.026444061892020736, 'avg_test_loss': 0.028916424069453123}
+INFO:model_data_nn.py:Epoch 16/100, metrics: {'avg_train_loss': 0.0264417685751487, 'avg_test_loss': 0.028838612513369045}
+INFO:model_data_nn.py:Epoch 17/100, metrics: {'avg_train_loss': 0.026443010918858267, 'avg_test_loss': 0.028837498867801733}
+INFO:model_data_nn.py:Epoch 18/100, metrics: {'avg_train_loss': 0.02644354500280821, 'avg_test_loss': 0.02883791347412906}
+INFO:model_data_nn.py:Epoch 19/100, metrics: {'avg_train_loss': 0.026446663956149224, 'avg_test_loss': 0.028835812137643437}
+INFO:model_data_nn.py:Epoch 20/100, metrics: {'avg_train_loss': 0.02644374812270665, 'avg_test_loss': 0.028850514710896967}
+INFO:model_data_nn.py:Epoch 21/100, metrics: {'avg_train_loss': 0.026445079477268905, 'avg_test_loss': 0.028882101101904877}
+INFO:model_data_nn.py:Epoch 22/100, metrics: {'avg_train_loss': 0.02644330113072204, 'avg_test_loss': 0.028841492025493888}
+INFO:model_data_nn.py:Epoch 23/100, metrics: {'avg_train_loss': 0.02644337248057127, 'avg_test_loss': 0.028904062824104848}
+INFO:model_data_nn.py:Epoch 24/100, metrics: {'avg_train_loss': 0.02644459373492174, 'avg_test_loss': 0.028848017404405023}
+INFO:model_data_nn.py:Epoch 25/100, metrics: {'avg_train_loss': 0.026441522419162384, 'avg_test_loss': 0.028835804207943135}
+INFO:model_data_nn.py:Epoch 26/100, metrics: {'avg_train_loss': 0.0264438569758274, 'avg_test_loss': 0.028837042627407522}
+INFO:model_data_nn.py:Epoch 27/100, metrics: {'avg_train_loss': 0.026443068452476626, 'avg_test_loss': 0.028872485377562013}
+INFO:model_data_nn.py:Epoch 28/100, metrics: {'avg_train_loss': 0.02644257173927048, 'avg_test_loss': 0.028851233810358652}
+INFO:model_data_nn.py:Epoch 29/100, metrics: {'avg_train_loss': 0.02644515106115829, 'avg_test_loss': 0.028914078988443507}
+INFO:model_data_nn.py:Epoch 30/100, metrics: {'avg_train_loss': 0.02644338651399555, 'avg_test_loss': 0.028861272500501318}
+INFO:model_data_nn.py:Epoch 31/100, metrics: {'avg_train_loss': 0.02644570625347391, 'avg_test_loss': 0.028851262398731675}
+INFO:model_data_nn.py:Epoch 32/100, metrics: {'avg_train_loss': 0.02644353253155228, 'avg_test_loss': 0.028841071696646927}
+INFO:model_data_nn.py:Epoch 33/100, metrics: {'avg_train_loss': 0.026443135467269813, 'avg_test_loss': 0.028838223510337473}
+INFO:model_data_nn.py:Epoch 34/100, metrics: {'avg_train_loss': 0.026443763048403613, 'avg_test_loss': 0.02883972619303102}
+INFO:model_data_nn.py:Epoch 35/100, metrics: {'avg_train_loss': 0.026444736363431906, 'avg_test_loss': 0.028841439468574374}
+INFO:model_data_nn.py:Epoch 36/100, metrics: {'avg_train_loss': 0.026443269842430422, 'avg_test_loss': 0.028835780200815845}
+INFO:model_data_nn.py:Epoch 37/100, metrics: {'avg_train_loss': 0.026445213896058264, 'avg_test_loss': 0.028900430787189617}
+INFO:model_data_nn.py:Epoch 38/100, metrics: {'avg_train_loss': 0.026443858731862897, 'avg_test_loss': 0.0289565633250282}
+INFO:model_data_nn.py:Epoch 39/100, metrics: {'avg_train_loss': 0.026443264294236015, 'avg_test_loss': 0.028840636111336523}
+INFO:model_data_nn.py:Epoch 40/100, metrics: {'avg_train_loss': 0.026445690918271474, 'avg_test_loss': 0.028889310702337006}
+INFO:model_data_nn.py:Epoch 41/100, metrics: {'avg_train_loss': 0.02644300800670415, 'avg_test_loss': 0.028836049079385393}
+INFO:model_data_nn.py:Epoch 42/100, metrics: {'avg_train_loss': 0.026444309081965177, 'avg_test_loss': 0.028849174831105624}
+INFO:model_data_nn.py:Epoch 43/100, metrics: {'avg_train_loss': 0.026443007171451215, 'avg_test_loss': 0.028926276009680563}
+INFO:model_data_nn.py:Epoch 44/100, metrics: {'avg_train_loss': 0.026444409417544865, 'avg_test_loss': 0.02883773493474647}
+INFO:model_data_nn.py:Epoch 45/100, metrics: {'avg_train_loss': 0.026443675009392077, 'avg_test_loss': 0.02883581898528688}
+INFO:model_data_nn.py:Epoch 46/100, metrics: {'avg_train_loss': 0.02644207607989298, 'avg_test_loss': 0.028836793052696538}
+INFO:model_data_nn.py:Epoch 47/100, metrics: {'avg_train_loss': 0.026445316159596634, 'avg_test_loss': 0.028841323464182934}
+INFO:model_data_nn.py:Epoch 48/100, metrics: {'avg_train_loss': 0.026443373446278482, 'avg_test_loss': 0.02885260176082251}
+INFO:model_data_nn.py:Epoch 49/100, metrics: {'avg_train_loss': 0.02644325239231364, 'avg_test_loss': 0.028869768968910726}
+INFO:model_data_nn.py:Epoch 50/100, metrics: {'avg_train_loss': 0.02644449691089468, 'avg_test_loss': 0.02883586737817164}
+INFO:model_data_nn.py:Epoch 51/100, metrics: {'avg_train_loss': 0.026442369389311448, 'avg_test_loss': 0.028863382057389083}
+INFO:model_data_nn.py:Epoch 52/100, metrics: {'avg_train_loss': 0.02644294076331361, 'avg_test_loss': 0.02888620301528416}
+INFO:model_data_nn.py:Early stopping at epoch 52
+INFO:main_restricted.py:Making prediction for data in year: 1996
+INFO:main_restricted.py:Prediction data shape: (66364,)
+/zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/src/main_restricted.py:332: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+
+See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
+  prediction_data['pred'] = predictions
+INFO:main_restricted.py:Root Mean Squared Error for Prediction in 1996: 0.169955372986389
+INFO:main_restricted.py:Prediction Stats:                 ret          pred
+count  66364.000000  66364.000000
+mean       0.016258      0.009106
+std        0.169806      0.000000
+min       -0.909091      0.009106
+25%       -0.058824      0.009106
+50%        0.003930      0.009106
+75%        0.074962      0.009106
+max        7.000000      0.009106
+INFO:main_restricted.py:
+
+Transform data
+
+INFO:transform_data_nn.py:Train data years: [1980, 1981, 1982, 1983, 1984, 1985, 1986, 1987, 1988, 1989, 1990, 1991, 1992, 1993, 1994, 1995, 1996, 1997, 1998, 1999, 2000]
+INFO:transform_data_nn.py:Train_data: (1028390, 161)
+
+INFO:transform_data_nn.py:Test data years: [2001]
+INFO:transform_data_nn.py:Test_data: (62104, 161)
+
+INFO:transform_data_nn.py:Retrain data years: [1980, 1981, 1982, 1983, 1984, 1985, 1986, 1987, 1988, 1989, 1990, 1991, 1992, 1993, 1994, 1995, 1996, 1997, 1998, 1999, 2000, 2001]
+INFO:transform_data_nn.py:Retrain_data: (1090494, 161)
+
+INFO:transform_data_nn.py:Prediction data years: [2002]
+INFO:transform_data_nn.py:Prediction_data: (59934, 161)
+
+INFO:main_restricted.py:
+
+Generate X and y with train_data and test_data
+
+/zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/venv/lib/python3.10/site-packages/sklearn/utils/extmath.py:1140: RuntimeWarning: invalid value encountered in divide
+  updated_mean = (last_sum + new_sum) / updated_sample_count
+/zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/venv/lib/python3.10/site-packages/sklearn/utils/extmath.py:1145: RuntimeWarning: invalid value encountered in divide
+  T = new_sum / new_sample_count
+/zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/venv/lib/python3.10/site-packages/sklearn/utils/extmath.py:1165: RuntimeWarning: invalid value encountered in divide
+  new_unnormalized_variance -= correction**2 / new_sample_count
+INFO:main_restricted.py:
+            x_train_tf: torch.Size([1028390, 138])
+            y_train_tf: torch.Size([1028390])
+
+            x_test_tf: torch.Size([62104, 138])
+            y_test_tf: torch.Size([62104])
+
+        
+INFO:main_restricted.py:
+
+Generate X and y with retrain_data and prediction_data
+
+/zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/venv/lib/python3.10/site-packages/sklearn/utils/extmath.py:1140: RuntimeWarning: invalid value encountered in divide
+  updated_mean = (last_sum + new_sum) / updated_sample_count
+/zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/venv/lib/python3.10/site-packages/sklearn/utils/extmath.py:1145: RuntimeWarning: invalid value encountered in divide
+  T = new_sum / new_sample_count
+/zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/venv/lib/python3.10/site-packages/sklearn/utils/extmath.py:1165: RuntimeWarning: invalid value encountered in divide
+  new_unnormalized_variance -= correction**2 / new_sample_count
+INFO:main_restricted.py:
+            x_retrain_tf: torch.Size([1090494, 138])
+            y_retrain_tf: torch.Size([1090494])
+
+            x_prediction_tf: torch.Size([59934, 138])
+            y_prediction_tf: torch.Size([59934])
+
+        
+INFO:main_restricted.py:
+
+Create dataset
+
+INFO:main_restricted.py:Create train_dataset
+INFO:main_restricted.py:Create test_dataset
+INFO:main_restricted.py:Create retrain_dataset
+INFO:main_restricted.py:Create prediction_dataset
+INFO:main_restricted.py:
+
+Hyperparameters tuning with Ray Tune
+
+INFO:main_restricted.py:Training data years: [1980, 1981, 1982, 1983, 1984, 1985, 1986, 1987, 1988, 1989, 1990, 1991, 1992, 1993, 1994, 1995, 1996, 1997, 1998, 1999, 2000]
+INFO:main_restricted.py:Testing data year: 2001
+INFO:main_restricted.py:
+
+            ray_results_path: /zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/ray_results
+            num_samples: 150
+            max_num_epochs: 100
+            num_cpus: 26
+            cpus_per_trial: 1
+            num_gpus: 0
+            gpus_per_trial: 0
+            continuous_dim: 137
+            num_embeddings: 13269
+            device: cpu
+            
+2024-08-14 05:40:08,612	INFO worker.py:1753 -- Started a local Ray instance.
+2024-08-14 05:40:08,681	INFO packaging.py:530 -- Creating a file package for local directory '/zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/src'.
+2024-08-14 05:40:08,750	INFO packaging.py:358 -- Pushing file package 'gcs://_ray_pkg_35fa27def23cedb5.zip' (5.11MiB) to Ray cluster...
+2024-08-14 05:40:08,773	INFO packaging.py:371 -- Successfully pushed file package 'gcs://_ray_pkg_35fa27def23cedb5.zip'.
+2024-08-14 05:40:12,076	WARNING tune.py:902 -- AIR_VERBOSITY is set, ignoring passed-in ProgressReporter for now.
+2024-08-14 06:02:22,442	WARNING experiment_state.py:233 -- Saving the experiment state (which holds a global view of trial statuses and is used to restore the experiment) has already taken 30.19 seconds, which may cause consistency issues upon restoration if your driver script ungracefully exits.
+This could be due to a large number of trials, large logfiles from lots of reported metrics, or throttling from the remote storage if uploading too frequently.
+You may want to consider switching the `RunConfig(storage_filesystem)` to a more performant storage backend such as s3fs for a S3 storage path.
+You can suppress this error by setting the environment variable TUNE_WARN_SLOW_EXPERIMENT_CHECKPOINT_SYNC_THRESHOLD_S to a higher value than the current threshold (30.0).
+2024-08-14 06:02:35,827	WARNING experiment_state.py:233 -- Saving the experiment state (which holds a global view of trial statuses and is used to restore the experiment) has already taken 43.57 seconds, which may cause consistency issues upon restoration if your driver script ungracefully exits.
+This could be due to a large number of trials, large logfiles from lots of reported metrics, or throttling from the remote storage if uploading too frequently.
+You may want to consider switching the `RunConfig(storage_filesystem)` to a more performant storage backend such as s3fs for a S3 storage path.
+You can suppress this error by setting the environment variable TUNE_WARN_SLOW_EXPERIMENT_CHECKPOINT_SYNC_THRESHOLD_S to a higher value than the current threshold (30.0).
+2024-08-14 06:02:45,935	WARNING experiment_state.py:233 -- Saving the experiment state (which holds a global view of trial statuses and is used to restore the experiment) has already taken 53.68 seconds, which may cause consistency issues upon restoration if your driver script ungracefully exits.
+This could be due to a large number of trials, large logfiles from lots of reported metrics, or throttling from the remote storage if uploading too frequently.
+You may want to consider switching the `RunConfig(storage_filesystem)` to a more performant storage backend such as s3fs for a S3 storage path.
+You can suppress this error by setting the environment variable TUNE_WARN_SLOW_EXPERIMENT_CHECKPOINT_SYNC_THRESHOLD_S to a higher value than the current threshold (30.0).
+2024-08-14 06:02:56,463	WARNING experiment_state.py:233 -- Saving the experiment state (which holds a global view of trial statuses and is used to restore the experiment) has already taken 64.21 seconds, which may cause consistency issues upon restoration if your driver script ungracefully exits.
+This could be due to a large number of trials, large logfiles from lots of reported metrics, or throttling from the remote storage if uploading too frequently.
+You may want to consider switching the `RunConfig(storage_filesystem)` to a more performant storage backend such as s3fs for a S3 storage path.
+You can suppress this error by setting the environment variable TUNE_WARN_SLOW_EXPERIMENT_CHECKPOINT_SYNC_THRESHOLD_S to a higher value than the current threshold (30.0).
+[33m(raylet)[0m [2024-08-14 06:03:06,747 E 640102 640102] (raylet) worker_pool.cc:565: Some workers of the worker process(903667) have not registered within the timeout. The process is still alive, probably it's hanging during start.
+2024-08-14 06:03:38,142	WARNING experiment_state.py:233 -- Saving the experiment state (which holds a global view of trial statuses and is used to restore the experiment) has already taken 105.88 seconds, which may cause consistency issues upon restoration if your driver script ungracefully exits.
+This could be due to a large number of trials, large logfiles from lots of reported metrics, or throttling from the remote storage if uploading too frequently.
+You may want to consider switching the `RunConfig(storage_filesystem)` to a more performant storage backend such as s3fs for a S3 storage path.
+You can suppress this error by setting the environment variable TUNE_WARN_SLOW_EXPERIMENT_CHECKPOINT_SYNC_THRESHOLD_S to a higher value than the current threshold (30.0).
+2024-08-14 06:03:48,256	WARNING experiment_state.py:233 -- Saving the experiment state (which holds a global view of trial statuses and is used to restore the experiment) has already taken 116.00 seconds, which may cause consistency issues upon restoration if your driver script ungracefully exits.
+This could be due to a large number of trials, large logfiles from lots of reported metrics, or throttling from the remote storage if uploading too frequently.
+You may want to consider switching the `RunConfig(storage_filesystem)` to a more performant storage backend such as s3fs for a S3 storage path.
+You can suppress this error by setting the environment variable TUNE_WARN_SLOW_EXPERIMENT_CHECKPOINT_SYNC_THRESHOLD_S to a higher value than the current threshold (30.0).
+2024-08-14 06:11:08,600	WARNING experiment_state.py:233 -- Saving the experiment state (which holds a global view of trial statuses and is used to restore the experiment) has already taken 30.12 seconds, which may cause consistency issues upon restoration if your driver script ungracefully exits.
+This could be due to a large number of trials, large logfiles from lots of reported metrics, or throttling from the remote storage if uploading too frequently.
+You may want to consider switching the `RunConfig(storage_filesystem)` to a more performant storage backend such as s3fs for a S3 storage path.
+You can suppress this error by setting the environment variable TUNE_WARN_SLOW_EXPERIMENT_CHECKPOINT_SYNC_THRESHOLD_S to a higher value than the current threshold (30.0).
+2024-08-14 06:12:17,851	WARNING experiment_state.py:233 -- Saving the experiment state (which holds a global view of trial statuses and is used to restore the experiment) has already taken 99.37 seconds, which may cause consistency issues upon restoration if your driver script ungracefully exits.
+This could be due to a large number of trials, large logfiles from lots of reported metrics, or throttling from the remote storage if uploading too frequently.
+You may want to consider switching the `RunConfig(storage_filesystem)` to a more performant storage backend such as s3fs for a S3 storage path.
+You can suppress this error by setting the environment variable TUNE_WARN_SLOW_EXPERIMENT_CHECKPOINT_SYNC_THRESHOLD_S to a higher value than the current threshold (30.0).
+2024-08-14 15:48:19,285	INFO tune.py:1009 -- Wrote the latest version of all result files and experiment state to '/zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/ray_results/train_fnn_2024-08-14_05-40-12' in 0.4112s.
+INFO:model_data_nn.py:Best trial config: {'continuous_dim': 137, 'hidden_dim': 15, 'num_layers': 5, 'num_embeddings': 13269, 'embedding_dim': 2, 'dropout_rate': 0.32, 'lr': 0.0005372053262871149, 'weight_decay': 0.0002955255683742521, 'num_epochs': 100, 'num_gpus': 0, 'batch_size': 256}
+INFO:model_data_nn.py:Best trial training loss: 0.032864355626832514
+INFO:model_data_nn.py:Best trial testing loss: 0.07241675458511207
+INFO:main_restricted.py:Ray Tune results have been saved to: /zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/ray_results
+INFO:main_restricted.py:Best trial directory: /tmp/ray/session_2024-08-14_05-40-05_311261_3646806/artifacts/2024-08-14_05-40-12/train_fnn_2024-08-14_05-40-12/driver_artifacts/train_fnn_59124_00001_1_batch_size=256,dropout_rate=0.3200,embedding_dim=2,hidden_dim=15,lr=0.0005,num_layers=5,weight_decay=0.000_2024-08-14_05-40-12
+INFO:main_restricted.py:
+
+Retrain a new model with data in years: [1980, 1981, 1982, 1983, 1984, 1985, 1986, 1987, 1988, 1989, 1990, 1991, 1992, 1993, 1994, 1995, 1996, 1997, 1998, 1999, 2000, 2001]
+
+            Using the optimized hyperparameters: {'continuous_dim': 137, 'hidden_dim': 15, 'num_layers': 5, 'num_embeddings': 13927, 'embedding_dim': 2, 'dropout_rate': 0.32, 'lr': 0.0005372053262871149, 'weight_decay': 0.0002955255683742521, 'num_epochs': 100, 'num_gpus': 0, 'batch_size': 256}
+
+INFO:model_data_nn.py:Epoch 1/100, metrics: {'avg_train_loss': 0.035517899338116624, 'avg_test_loss': 0.046634902020401145}
+INFO:model_data_nn.py:Epoch 2/100, metrics: {'avg_train_loss': 0.03512016755781751, 'avg_test_loss': 0.047455587103328804}
+INFO:model_data_nn.py:Epoch 3/100, metrics: {'avg_train_loss': 0.035024049576834616, 'avg_test_loss': 0.04744980332065136}
+INFO:model_data_nn.py:Epoch 4/100, metrics: {'avg_train_loss': 0.035002157179563086, 'avg_test_loss': 0.048264925039195}
+INFO:model_data_nn.py:Epoch 5/100, metrics: {'avg_train_loss': 0.034981375626421965, 'avg_test_loss': 0.04829571960454292}
+INFO:model_data_nn.py:Epoch 6/100, metrics: {'avg_train_loss': 0.034981410696763166, 'avg_test_loss': 0.046462880487137655}
+INFO:model_data_nn.py:Epoch 7/100, metrics: {'avg_train_loss': 0.034985134526334984, 'avg_test_loss': 0.048138445568211535}
+INFO:model_data_nn.py:Epoch 8/100, metrics: {'avg_train_loss': 0.034987069138074936, 'avg_test_loss': 0.04891075701551868}
+INFO:model_data_nn.py:Epoch 9/100, metrics: {'avg_train_loss': 0.034968933293713554, 'avg_test_loss': 0.04774154104450916}
+INFO:model_data_nn.py:Epoch 10/100, metrics: {'avg_train_loss': 0.03498467170734183, 'avg_test_loss': 0.04776210441709833}
+INFO:model_data_nn.py:Epoch 11/100, metrics: {'avg_train_loss': 0.03497883235000513, 'avg_test_loss': 0.04846652598377872}
+INFO:model_data_nn.py:Epoch 12/100, metrics: {'avg_train_loss': 0.034986482351497046, 'avg_test_loss': 0.04767964594858758}
+INFO:model_data_nn.py:Epoch 13/100, metrics: {'avg_train_loss': 0.0349770685022399, 'avg_test_loss': 0.04795423742938549}
+INFO:model_data_nn.py:Epoch 14/100, metrics: {'avg_train_loss': 0.03498796333238941, 'avg_test_loss': 0.046942465253015785}
+INFO:model_data_nn.py:Epoch 15/100, metrics: {'avg_train_loss': 0.0350036519155585, 'avg_test_loss': 0.04788189498271714}
+INFO:model_data_nn.py:Epoch 16/100, metrics: {'avg_train_loss': 0.034990235611649434, 'avg_test_loss': 0.04834230758566806}
+INFO:model_data_nn.py:Epoch 17/100, metrics: {'avg_train_loss': 0.034982226239475785, 'avg_test_loss': 0.050018291611303674}
+INFO:model_data_nn.py:Epoch 18/100, metrics: {'avg_train_loss': 0.0349688784031923, 'avg_test_loss': 0.047931271569525945}
+INFO:model_data_nn.py:Epoch 19/100, metrics: {'avg_train_loss': 0.03497306802678511, 'avg_test_loss': 0.04792222686587496}
+INFO:model_data_nn.py:Epoch 20/100, metrics: {'avg_train_loss': 0.03497630565217975, 'avg_test_loss': 0.047821466351284626}
+INFO:model_data_nn.py:Epoch 21/100, metrics: {'avg_train_loss': 0.03498915162214751, 'avg_test_loss': 0.0473389932885766}
+INFO:model_data_nn.py:Epoch 22/100, metrics: {'avg_train_loss': 0.034972180222931054, 'avg_test_loss': 0.051936537419703416}
+INFO:model_data_nn.py:Epoch 23/100, metrics: {'avg_train_loss': 0.03497350047600293, 'avg_test_loss': 0.05075827620606473}
+INFO:model_data_nn.py:Epoch 24/100, metrics: {'avg_train_loss': 0.03498592060304221, 'avg_test_loss': 0.049044889370177654}
+INFO:model_data_nn.py:Epoch 25/100, metrics: {'avg_train_loss': 0.034966094119779995, 'avg_test_loss': 0.050099162416572265}
+INFO:model_data_nn.py:Epoch 26/100, metrics: {'avg_train_loss': 0.03498995116749793, 'avg_test_loss': 0.04749745633056823}
+INFO:model_data_nn.py:Epoch 27/100, metrics: {'avg_train_loss': 0.03497620109760844, 'avg_test_loss': 0.04769155479809071}
+INFO:model_data_nn.py:Epoch 28/100, metrics: {'avg_train_loss': 0.03498876930843583, 'avg_test_loss': 0.05123484955030553}
+INFO:model_data_nn.py:Epoch 29/100, metrics: {'avg_train_loss': 0.03494748418783779, 'avg_test_loss': 0.04896277688998491}
+INFO:model_data_nn.py:Epoch 30/100, metrics: {'avg_train_loss': 0.03497337187323514, 'avg_test_loss': 0.05077072291218854}
+INFO:model_data_nn.py:Epoch 31/100, metrics: {'avg_train_loss': 0.03501712212705975, 'avg_test_loss': 0.04809252955019474}
+INFO:model_data_nn.py:Epoch 32/100, metrics: {'avg_train_loss': 0.03498088041209795, 'avg_test_loss': 0.049286487127872224}
+INFO:model_data_nn.py:Epoch 33/100, metrics: {'avg_train_loss': 0.034995196517062704, 'avg_test_loss': 0.04952350149050038}
+INFO:model_data_nn.py:Epoch 34/100, metrics: {'avg_train_loss': 0.03495816468587222, 'avg_test_loss': 0.04792960632513178}
+INFO:model_data_nn.py:Epoch 35/100, metrics: {'avg_train_loss': 0.03496739930222014, 'avg_test_loss': 0.04903673739667903}
+INFO:model_data_nn.py:Epoch 36/100, metrics: {'avg_train_loss': 0.03497159901291769, 'avg_test_loss': 0.05058375856581521}
+INFO:model_data_nn.py:Epoch 37/100, metrics: {'avg_train_loss': 0.034987548565836225, 'avg_test_loss': 0.04924840141642601}
+INFO:model_data_nn.py:Epoch 38/100, metrics: {'avg_train_loss': 0.03496744148223284, 'avg_test_loss': 0.04893890779782483}
+INFO:model_data_nn.py:Epoch 39/100, metrics: {'avg_train_loss': 0.03499077112322319, 'avg_test_loss': 0.04766668789881341}
+INFO:model_data_nn.py:Epoch 40/100, metrics: {'avg_train_loss': 0.03501929237718739, 'avg_test_loss': 0.047533075749240025}
+INFO:model_data_nn.py:Epoch 41/100, metrics: {'avg_train_loss': 0.035001270022539784, 'avg_test_loss': 0.04759730399447553}
+INFO:model_data_nn.py:Epoch 42/100, metrics: {'avg_train_loss': 0.0349917842701067, 'avg_test_loss': 0.04759793953692659}
+INFO:model_data_nn.py:Epoch 43/100, metrics: {'avg_train_loss': 0.034951108833195445, 'avg_test_loss': 0.0496298579578387}
+INFO:model_data_nn.py:Epoch 44/100, metrics: {'avg_train_loss': 0.034989865775561006, 'avg_test_loss': 0.049366219666727044}
+INFO:model_data_nn.py:Epoch 45/100, metrics: {'avg_train_loss': 0.03499418651030416, 'avg_test_loss': 0.047596789361473095}
+INFO:model_data_nn.py:Epoch 46/100, metrics: {'avg_train_loss': 0.03500041543031787, 'avg_test_loss': 0.05063539766409296}
+INFO:model_data_nn.py:Epoch 47/100, metrics: {'avg_train_loss': 0.03499317968937293, 'avg_test_loss': 0.052072154599776925}
+INFO:model_data_nn.py:Epoch 48/100, metrics: {'avg_train_loss': 0.03499523412530713, 'avg_test_loss': 0.047686971684402606}
+INFO:model_data_nn.py:Epoch 49/100, metrics: {'avg_train_loss': 0.03499953342016929, 'avg_test_loss': 0.04995581464485285}
+INFO:model_data_nn.py:Epoch 50/100, metrics: {'avg_train_loss': 0.034988350656306025, 'avg_test_loss': 0.05103898988442218}
+INFO:model_data_nn.py:Epoch 51/100, metrics: {'avg_train_loss': 0.03497541739348865, 'avg_test_loss': 0.047957194893759617}
+INFO:model_data_nn.py:Epoch 52/100, metrics: {'avg_train_loss': 0.035019837575259415, 'avg_test_loss': 0.050557106412313084}
+INFO:model_data_nn.py:Epoch 53/100, metrics: {'avg_train_loss': 0.034994935966725496, 'avg_test_loss': 0.04972844559382251}
+INFO:model_data_nn.py:Epoch 54/100, metrics: {'avg_train_loss': 0.03500136308351028, 'avg_test_loss': 0.05002618227154017}
+INFO:model_data_nn.py:Epoch 55/100, metrics: {'avg_train_loss': 0.034989854259437014, 'avg_test_loss': 0.05031834124250615}
+INFO:model_data_nn.py:Epoch 56/100, metrics: {'avg_train_loss': 0.03497388791275412, 'avg_test_loss': 0.04875873951835835}
+INFO:model_data_nn.py:Early stopping at epoch 56
+INFO:main_restricted.py:Making prediction for data in year: 2002
+INFO:main_restricted.py:Prediction data shape: (59934,)
+/zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/src/main_restricted.py:332: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+
+See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
+  prediction_data['pred'] = predictions
+INFO:main_restricted.py:Root Mean Squared Error for Prediction in 2002: 0.2208875071264429
+INFO:main_restricted.py:Prediction Stats:                 ret          pred
+count  59934.000000  59934.000000
+mean      -0.008055      0.049397
+std        0.215604      0.050783
+min       -0.943662     -0.140039
+25%       -0.103582      0.019542
+50%       -0.010669      0.041755
+75%        0.066667      0.071464
+max        5.640000      0.603431
+INFO:main_restricted.py:
+
+Transform data
+
+INFO:transform_data_nn.py:Train data years: [1980, 1981, 1982, 1983, 1984, 1985, 1986, 1987, 1988, 1989, 1990, 1991, 1992, 1993, 1994, 1995, 1996, 1997, 1998, 1999, 2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009]
+INFO:transform_data_nn.py:Train_data: (1502283, 161)
+
+INFO:transform_data_nn.py:Test data years: [2010]
+INFO:transform_data_nn.py:Test_data: (44043, 161)
+
+INFO:transform_data_nn.py:Retrain data years: [1980, 1981, 1982, 1983, 1984, 1985, 1986, 1987, 1988, 1989, 1990, 1991, 1992, 1993, 1994, 1995, 1996, 1997, 1998, 1999, 2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010]
+INFO:transform_data_nn.py:Retrain_data: (1546326, 161)
+
+INFO:transform_data_nn.py:Prediction data years: [2011]
+INFO:transform_data_nn.py:Prediction_data: (42205, 161)
+
+INFO:main_restricted.py:
+
+Generate X and y with train_data and test_data
+
+INFO:main_restricted.py:
+            x_train_tf: torch.Size([1502283, 138])
+            y_train_tf: torch.Size([1502283])
+
+            x_test_tf: torch.Size([44043, 138])
+            y_test_tf: torch.Size([44043])
+
+        
+INFO:main_restricted.py:
+
+Generate X and y with retrain_data and prediction_data
+
+INFO:main_restricted.py:
+            x_retrain_tf: torch.Size([1546326, 138])
+            y_retrain_tf: torch.Size([1546326])
+
+            x_prediction_tf: torch.Size([42205, 138])
+            y_prediction_tf: torch.Size([42205])
+
+        
+INFO:main_restricted.py:
+
+Create dataset
+
+INFO:main_restricted.py:Create train_dataset
+INFO:main_restricted.py:Create test_dataset
+INFO:main_restricted.py:Create retrain_dataset
+INFO:main_restricted.py:Create prediction_dataset
+INFO:main_restricted.py:
+
+Hyperparameters tuning with Ray Tune
+
+INFO:main_restricted.py:Training data years: [1980, 1981, 1982, 1983, 1984, 1985, 1986, 1987, 1988, 1989, 1990, 1991, 1992, 1993, 1994, 1995, 1996, 1997, 1998, 1999, 2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009]
+INFO:main_restricted.py:Testing data year: 2010
+INFO:main_restricted.py:
+
+            ray_results_path: /zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/ray_results
+            num_samples: 150
+            max_num_epochs: 100
+            num_cpus: 26
+            cpus_per_trial: 1
+            num_gpus: 0
+            gpus_per_trial: 0
+            continuous_dim: 137
+            num_embeddings: 15618
+            device: cpu
+            
+2024-08-14 20:59:56,438	INFO worker.py:1753 -- Started a local Ray instance.
+2024-08-14 20:59:56,525	INFO packaging.py:530 -- Creating a file package for local directory '/zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/src'.
+2024-08-14 20:59:56,581	INFO packaging.py:358 -- Pushing file package 'gcs://_ray_pkg_569f67067dbd9f2a.zip' (5.11MiB) to Ray cluster...
+2024-08-14 20:59:56,601	INFO packaging.py:371 -- Successfully pushed file package 'gcs://_ray_pkg_569f67067dbd9f2a.zip'.
+2024-08-14 21:00:02,453	WARNING tune.py:902 -- AIR_VERBOSITY is set, ignoring passed-in ProgressReporter for now.
+2024-08-15 03:00:51,683	WARNING experiment_state.py:233 -- Saving the experiment state (which holds a global view of trial statuses and is used to restore the experiment) has already taken 30.26 seconds, which may cause consistency issues upon restoration if your driver script ungracefully exits.
+This could be due to a large number of trials, large logfiles from lots of reported metrics, or throttling from the remote storage if uploading too frequently.
+You may want to consider switching the `RunConfig(storage_filesystem)` to a more performant storage backend such as s3fs for a S3 storage path.
+You can suppress this error by setting the environment variable TUNE_WARN_SLOW_EXPERIMENT_CHECKPOINT_SYNC_THRESHOLD_S to a higher value than the current threshold (30.0).
+2024-08-15 03:11:17,039	INFO tune.py:1009 -- Wrote the latest version of all result files and experiment state to '/zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/ray_results/train_fnn_2024-08-14_21-00-02' in 0.4652s.
+INFO:model_data_nn.py:Best trial config: {'continuous_dim': 137, 'hidden_dim': 15, 'num_layers': 4, 'num_embeddings': 15618, 'embedding_dim': 3, 'dropout_rate': 0.51, 'lr': 7.475068142667133e-06, 'weight_decay': 0.00041159133733428534, 'num_epochs': 100, 'num_gpus': 0, 'batch_size': 64}
+INFO:model_data_nn.py:Best trial training loss: 0.03446632414086222
+INFO:model_data_nn.py:Best trial testing loss: 0.025263976731847198
+INFO:main_restricted.py:Ray Tune results have been saved to: /zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/ray_results
+INFO:main_restricted.py:Best trial directory: /tmp/ray/session_2024-08-14_20-59-52_847017_3646806/artifacts/2024-08-14_21-00-02/train_fnn_2024-08-14_21-00-02/driver_artifacts/train_fnn_d9198_00118_118_batch_size=64,dropout_rate=0.5100,embedding_dim=3,hidden_dim=15,lr=0.0000,num_layers=4,weight_decay=0.00_2024-08-14_21-00-04
+INFO:main_restricted.py:
+
+Retrain a new model with data in years: [1980, 1981, 1982, 1983, 1984, 1985, 1986, 1987, 1988, 1989, 1990, 1991, 1992, 1993, 1994, 1995, 1996, 1997, 1998, 1999, 2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010]
+
+            Using the optimized hyperparameters: {'continuous_dim': 137, 'hidden_dim': 15, 'num_layers': 4, 'num_embeddings': 15706, 'embedding_dim': 3, 'dropout_rate': 0.51, 'lr': 7.475068142667133e-06, 'weight_decay': 0.00041159133733428534, 'num_epochs': 100, 'num_gpus': 0, 'batch_size': 64}
+
+INFO:model_data_nn.py:Epoch 1/100, metrics: {'avg_train_loss': 0.0353080497781984, 'avg_test_loss': 0.021701317723261927}
+INFO:model_data_nn.py:Epoch 2/100, metrics: {'avg_train_loss': 0.035114102673538254, 'avg_test_loss': 0.02173243172089287}
+INFO:model_data_nn.py:Epoch 3/100, metrics: {'avg_train_loss': 0.03511038015406033, 'avg_test_loss': 0.021750479684895695}
+INFO:model_data_nn.py:Epoch 4/100, metrics: {'avg_train_loss': 0.03509062661476244, 'avg_test_loss': 0.021759545315360423}
+INFO:model_data_nn.py:Epoch 5/100, metrics: {'avg_train_loss': 0.03502568616508083, 'avg_test_loss': 0.021762412602512278}
+INFO:model_data_nn.py:Epoch 6/100, metrics: {'avg_train_loss': 0.03490802770009321, 'avg_test_loss': 0.02179947674352055}
+INFO:model_data_nn.py:Epoch 7/100, metrics: {'avg_train_loss': 0.03483124571540506, 'avg_test_loss': 0.021726366759023882}
+INFO:model_data_nn.py:Epoch 8/100, metrics: {'avg_train_loss': 0.034768647953347845, 'avg_test_loss': 0.02174161191232446}
+INFO:model_data_nn.py:Epoch 9/100, metrics: {'avg_train_loss': 0.03473500067633042, 'avg_test_loss': 0.021750425131617564}
+INFO:model_data_nn.py:Epoch 10/100, metrics: {'avg_train_loss': 0.03470987723747497, 'avg_test_loss': 0.021778694783323303}
+INFO:model_data_nn.py:Epoch 11/100, metrics: {'avg_train_loss': 0.03466506588959765, 'avg_test_loss': 0.021765447426657897}
+INFO:model_data_nn.py:Epoch 12/100, metrics: {'avg_train_loss': 0.034644263444925466, 'avg_test_loss': 0.021827210741696145}
+INFO:model_data_nn.py:Epoch 13/100, metrics: {'avg_train_loss': 0.03462239262740015, 'avg_test_loss': 0.021857963037451335}
+INFO:model_data_nn.py:Epoch 14/100, metrics: {'avg_train_loss': 0.03460982217522843, 'avg_test_loss': 0.021771400180560622}
+INFO:model_data_nn.py:Epoch 15/100, metrics: {'avg_train_loss': 0.03458298854586907, 'avg_test_loss': 0.021848310751727586}
+INFO:model_data_nn.py:Epoch 16/100, metrics: {'avg_train_loss': 0.03456225999168468, 'avg_test_loss': 0.021846893074513048}
+INFO:model_data_nn.py:Epoch 17/100, metrics: {'avg_train_loss': 0.03454520991903893, 'avg_test_loss': 0.021882177249768354}
+INFO:model_data_nn.py:Epoch 18/100, metrics: {'avg_train_loss': 0.034533494686132975, 'avg_test_loss': 0.02181029002231574}
+INFO:model_data_nn.py:Epoch 19/100, metrics: {'avg_train_loss': 0.03451285856015378, 'avg_test_loss': 0.021860314880596532}
+INFO:model_data_nn.py:Epoch 20/100, metrics: {'avg_train_loss': 0.03449984278530576, 'avg_test_loss': 0.02189793456204687}
+INFO:model_data_nn.py:Epoch 21/100, metrics: {'avg_train_loss': 0.03449164824441561, 'avg_test_loss': 0.02188751257631476}
+INFO:model_data_nn.py:Epoch 22/100, metrics: {'avg_train_loss': 0.03446533675933661, 'avg_test_loss': 0.02184625783173198}
+INFO:model_data_nn.py:Epoch 23/100, metrics: {'avg_train_loss': 0.034448668902539364, 'avg_test_loss': 0.021864240414773424}
+INFO:model_data_nn.py:Epoch 24/100, metrics: {'avg_train_loss': 0.03446282135949996, 'avg_test_loss': 0.02185683521392727}
+INFO:model_data_nn.py:Epoch 25/100, metrics: {'avg_train_loss': 0.034440912717908535, 'avg_test_loss': 0.021896706893687334}
+INFO:model_data_nn.py:Epoch 26/100, metrics: {'avg_train_loss': 0.03444616664816609, 'avg_test_loss': 0.021864286384361824}
+INFO:model_data_nn.py:Epoch 27/100, metrics: {'avg_train_loss': 0.034424338780430955, 'avg_test_loss': 0.021837060629023297}
+INFO:model_data_nn.py:Epoch 28/100, metrics: {'avg_train_loss': 0.03443370069774192, 'avg_test_loss': 0.021879970933536462}
+INFO:model_data_nn.py:Epoch 29/100, metrics: {'avg_train_loss': 0.03442411080104085, 'avg_test_loss': 0.021918911847398814}
+INFO:model_data_nn.py:Epoch 30/100, metrics: {'avg_train_loss': 0.034409445047190894, 'avg_test_loss': 0.02191582067876659}
+INFO:model_data_nn.py:Epoch 31/100, metrics: {'avg_train_loss': 0.03441247814149713, 'avg_test_loss': 0.02197795866134887}
+INFO:model_data_nn.py:Epoch 32/100, metrics: {'avg_train_loss': 0.034389874063056616, 'avg_test_loss': 0.02202101774358501}
+INFO:model_data_nn.py:Epoch 33/100, metrics: {'avg_train_loss': 0.034392755629607266, 'avg_test_loss': 0.021832557189433523}
+INFO:model_data_nn.py:Epoch 34/100, metrics: {'avg_train_loss': 0.03439333419505204, 'avg_test_loss': 0.021929484394124964}
+INFO:model_data_nn.py:Epoch 35/100, metrics: {'avg_train_loss': 0.03439401620533722, 'avg_test_loss': 0.021921505487989636}
+INFO:model_data_nn.py:Epoch 36/100, metrics: {'avg_train_loss': 0.03439735247337682, 'avg_test_loss': 0.02193291010828971}
+INFO:model_data_nn.py:Epoch 37/100, metrics: {'avg_train_loss': 0.034390299306540015, 'avg_test_loss': 0.021975742794827304}
+INFO:model_data_nn.py:Epoch 38/100, metrics: {'avg_train_loss': 0.03436303821844778, 'avg_test_loss': 0.021964242206321972}
+INFO:model_data_nn.py:Epoch 39/100, metrics: {'avg_train_loss': 0.03438964540831213, 'avg_test_loss': 0.022054615833401455}
+INFO:model_data_nn.py:Epoch 40/100, metrics: {'avg_train_loss': 0.03437820125381934, 'avg_test_loss': 0.0218150002500889}
+INFO:model_data_nn.py:Epoch 41/100, metrics: {'avg_train_loss': 0.03435685238597225, 'avg_test_loss': 0.02196221054835019}
+INFO:model_data_nn.py:Epoch 42/100, metrics: {'avg_train_loss': 0.03437303896503241, 'avg_test_loss': 0.02200984704011882}
+INFO:model_data_nn.py:Epoch 43/100, metrics: {'avg_train_loss': 0.03438739459285932, 'avg_test_loss': 0.02189844665999496}
+INFO:model_data_nn.py:Epoch 44/100, metrics: {'avg_train_loss': 0.03436180121422583, 'avg_test_loss': 0.02206494577094969}
+INFO:model_data_nn.py:Epoch 45/100, metrics: {'avg_train_loss': 0.03438702277135093, 'avg_test_loss': 0.02201181461004484}
+INFO:model_data_nn.py:Epoch 46/100, metrics: {'avg_train_loss': 0.0343711418807801, 'avg_test_loss': 0.021988327478086857}
+INFO:model_data_nn.py:Epoch 47/100, metrics: {'avg_train_loss': 0.03435477743932584, 'avg_test_loss': 0.021930389015258036}
+INFO:model_data_nn.py:Epoch 48/100, metrics: {'avg_train_loss': 0.03435491286107152, 'avg_test_loss': 0.021989088939770942}
+INFO:model_data_nn.py:Epoch 49/100, metrics: {'avg_train_loss': 0.03435326999324804, 'avg_test_loss': 0.021914684997561076}
+INFO:model_data_nn.py:Epoch 50/100, metrics: {'avg_train_loss': 0.03432991462462287, 'avg_test_loss': 0.02193713884899449}
+INFO:model_data_nn.py:Epoch 51/100, metrics: {'avg_train_loss': 0.03434066270621039, 'avg_test_loss': 0.021973114599346776}
+INFO:model_data_nn.py:Early stopping at epoch 51
+INFO:main_restricted.py:Making prediction for data in year: 2011
+INFO:main_restricted.py:Prediction data shape: (42205,)
+/zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/src/main_restricted.py:332: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+
+See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
+  prediction_data['pred'] = predictions
+INFO:main_restricted.py:Root Mean Squared Error for Prediction in 2011: 0.14821770506352516
+INFO:main_restricted.py:Prediction Stats:                 ret          pred
+count  42205.000000  42205.000000
+mean      -0.005365      0.018944
+std        0.146266      0.013819
+min       -0.935356     -0.058617
+25%       -0.073850      0.012446
+50%       -0.008264      0.020135
+75%        0.050858      0.025149
+max        3.993939      0.259732
+INFO:main_restricted.py:
+
+Transform data
+
+INFO:transform_data_nn.py:Train data years: [1980, 1981, 1982, 1983, 1984, 1985, 1986, 1987, 1988, 1989, 1990, 1991, 1992, 1993, 1994, 1995, 1996, 1997, 1998, 1999, 2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012]
+INFO:transform_data_nn.py:Train_data: (1629525, 161)
+
+INFO:transform_data_nn.py:Test data years: [2013]
+INFO:transform_data_nn.py:Test_data: (39683, 161)
+
+INFO:transform_data_nn.py:Retrain data years: [1980, 1981, 1982, 1983, 1984, 1985, 1986, 1987, 1988, 1989, 1990, 1991, 1992, 1993, 1994, 1995, 1996, 1997, 1998, 1999, 2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013]
+INFO:transform_data_nn.py:Retrain_data: (1669208, 161)
+
+INFO:transform_data_nn.py:Prediction data years: [2014]
+INFO:transform_data_nn.py:Prediction_data: (39216, 161)
+
+INFO:main_restricted.py:
+
+Generate X and y with train_data and test_data
+
+INFO:main_restricted.py:
+            x_train_tf: torch.Size([1629525, 138])
+            y_train_tf: torch.Size([1629525])
+
+            x_test_tf: torch.Size([39683, 138])
+            y_test_tf: torch.Size([39683])
+
+        
+INFO:main_restricted.py:
+
+Generate X and y with retrain_data and prediction_data
+
+INFO:main_restricted.py:
+            x_retrain_tf: torch.Size([1669208, 138])
+            y_retrain_tf: torch.Size([1669208])
+
+            x_prediction_tf: torch.Size([39216, 138])
+            y_prediction_tf: torch.Size([39216])
+
+        
+INFO:main_restricted.py:
+
+Create dataset
+
+INFO:main_restricted.py:Create train_dataset
+INFO:main_restricted.py:Create test_dataset
+INFO:main_restricted.py:Create retrain_dataset
+INFO:main_restricted.py:Create prediction_dataset
+INFO:main_restricted.py:
+
+Hyperparameters tuning with Ray Tune
+
+INFO:main_restricted.py:Training data years: [1980, 1981, 1982, 1983, 1984, 1985, 1986, 1987, 1988, 1989, 1990, 1991, 1992, 1993, 1994, 1995, 1996, 1997, 1998, 1999, 2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012]
+INFO:main_restricted.py:Testing data year: 2013
+INFO:main_restricted.py:
+
+            ray_results_path: /zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/ray_results
+            num_samples: 150
+            max_num_epochs: 100
+            num_cpus: 26
+            cpus_per_trial: 1
+            num_gpus: 0
+            gpus_per_trial: 0
+            continuous_dim: 137
+            num_embeddings: 15992
+            device: cpu
+            
+2024-08-15 10:17:04,264	INFO worker.py:1753 -- Started a local Ray instance.
+2024-08-15 10:17:04,323	INFO packaging.py:530 -- Creating a file package for local directory '/zfs/projects/darc/wolee_edehaan_suzienoh-exploratory-ml/kevin/src'.
+2024-08-15 10:17:04,391	INFO packaging.py:358 -- Pushing file package 'gcs://_ray_pkg_012e2d87b808123e.zip' (5.11MiB) to Ray cluster...
+2024-08-15 10:17:04,415	INFO packaging.py:371 -- Successfully pushed file package 'gcs://_ray_pkg_012e2d87b808123e.zip'.
+2024-08-15 10:17:08,987	WARNING tune.py:902 -- AIR_VERBOSITY is set, ignoring passed-in ProgressReporter for now.
